@@ -49,10 +49,12 @@ def test_negated_and_integration_claims_are_not_capabilities():
     assert evidence_from(['Not a password manager','Integrates with project management tools'])==[]
 
 def test_verification_requires_name_and_capability_evidence():
-    c={'name':'ActualApp','canonical_url':'https://actual.dev','source_name':'Test','source_url':'https://actual.dev','external_id':'x'}
+    c={'name':'ActualApp','canonical_url':'https://actual.dev','source_name':'Test','source_url':'https://actual.dev','external_id':'x','discovered_at':'2020-01-01T00:00:00Z'}
     web=Mock();web.fetch.return_value={'status':200,'content_type':'text/html','url':'https://actual.dev','text':'<title>ActualApp</title><h1>Project management software</h1><p>ActualApp gives your team project management tools for organizing work and software delivery.</p>'}
     result=verify(c,web);assert result['capabilities'][0]['slug']=='projects';assert result['source']['external_id']=='x';assert result['announced_at'] is None
     assert result['short_description'].startswith('ActualApp provides')
+    assert result['first_seen_at']==result['last_verified_at']
+    assert result['source']['discovered_at']=='2020-01-01T00:00:00Z'
     c['name']='InventedName'
     with pytest.raises(FetchError,match='name'):verify(c,web)
 
@@ -108,3 +110,7 @@ def test_failed_run_is_persisted_without_advancing_checkpoints():
 def test_public_ipv4_is_preferred_on_ipv4_only_cloud_runners():
     answers=[(socket.AF_INET6,socket.SOCK_STREAM,0,'',('2606:4700:4700::1111',443)),(socket.AF_INET,socket.SOCK_STREAM,0,'',('1.1.1.1',443))]
     with patch('socket.getaddrinfo',return_value=answers):assert resolve_public('public.dev')==['1.1.1.1','2606:4700:4700::1111']
+
+def test_app_connections_do_not_assert_workflow_automation():
+    claims=evidence_from(['Connect apps through MCP'])
+    assert [c['slug'] for c in claims]==['app-connections']

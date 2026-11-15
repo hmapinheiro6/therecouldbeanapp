@@ -22,4 +22,4 @@ Submission writes require a single-use Turnstile challenge verified server-side 
 
 ## Limits
 
-Search counts describe the retrieved candidate set, not an exhaustive internet count. Unknown audience/qualifiers prevent strong labels. Negation handling is intentionally conservative and does not implement a full linguistic parser. Automated extraction misses products without explicit supported phrases and cannot establish all features. Domain-level deduplication is deliberately avoided; canonical URLs and source IDs preserve distinct products from a parent company.
+Search counts describe the retrieved candidate set, not an exhaustive internet count. Unknown meaningful query terms, audience, and qualifiers prevent strong labels. Negation handling is intentionally conservative and does not implement a full linguistic parser. Automated extraction misses products without explicit supported phrases and cannot establish all features. Domain-level deduplication is deliberately avoided; canonical URLs and source IDs preserve distinct products from a parent company.

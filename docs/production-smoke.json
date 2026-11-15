@@ -1,38 +1,388 @@
 {
   "environment": "production",
-  "checked_at": "2026-11-15T20:38:38Z",
+  "checked_at": "2026-11-15T20:45:18Z",
   "checks": [
     {
       "path": "/api/health",
-      "status": 403
+      "status": 200,
+      "wall_ms": 204.0,
+      "data": {
+        "status": "ok",
+        "search": "classical",
+        "timestamp": "2026-11-15T20:45:18.556Z",
+        "ingestion": {
+          "enabled": true,
+          "last_successful_run": "2026-11-15T20:43:39Z",
+          "records_added": 1,
+          "records_rejected": 0,
+          "pending_review": 14,
+          "consecutive_failures_in_last_10": 0
+        }
+      }
     },
     {
       "path": "/api/stats",
-      "status": 403
+      "status": 200,
+      "wall_ms": 169.88,
+      "data": {
+        "products": 46,
+        "catalog_updated_at": "2026-11-15T20:43:26Z",
+        "ingestion": {
+          "completed_at": "2026-11-15T20:43:39Z",
+          "records_accepted": 1,
+          "records_rejected": 0,
+          "records_pending": 14
+        }
+      }
     },
     {
       "path": "/api/config",
-      "status": 403
+      "status": 200,
+      "wall_ms": 100.18,
+      "data": {
+        "turnstile_site_key": "0x4AAAAAAGCZ4047ac7iauOi",
+        "submissions_enabled": true
+      }
     },
     {
       "path": "/api/search?q=meeting%20transcription%20and%20action%20items",
-      "status": 403
+      "status": 200,
+      "wall_ms": 174.97,
+      "data": {
+        "query": "meeting transcription and action items",
+        "requested": [
+          "meetings",
+          "action-items"
+        ],
+        "qualifiers": [],
+        "summary": {
+          "strong": 2,
+          "partial": 2,
+          "related": 0
+        },
+        "verdict": "Someone got there first.",
+        "results": [
+          {
+            "id": 37,
+            "slug": "tl-dv",
+            "name": "tl;dv",
+            "canonical_url": "https://tldv.io",
+            "normalized_domain": "tldv.io",
+            "short_description": "A meeting recording tool for revisiting discussions and sharing useful moments with a team.",
+            "audience": "",
+            "first_seen_at": "2026-11-15T20:19:38Z",
+            "announced_at": null,
+            "last_verified_at": "2026-11-15T20:19:38Z",
+            "category": "Meetings",
+            "category_slug": "meetings",
+            "bm25": -23.18613793441746,
+            "capabilities": [
+              {
+                "product_id": 37,
+                "slug": "meetings",
+                "name": "Meeting transcription",
+                "evidence_url": "https://tldv.io/",
+                "evidence_text": "Video Conferencing Record and transcribe meetings from Google Meet, Zoom and MS Teams",
+                "verified_at": "2026-11-15T20:19:38Z"
+              },
+              {
+                "product_id": 37,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://tldv.io/",
+                "evidence_text": "It records your meetings, writes the notes, transcript and action items, and sends them to the tools your team already uses , from your CRM to any LLM over MCP",
+                "verified_at": "2026-11-15T20:19:38Z"
+              }
+            ],
+            "score": 112,
+            "match_class": "Strong match",
+            "matched": [
+              {
+                "product_id": 37,
+                "slug": "meetings",
+                "name": "Meeting transcription",
+                "evidence_url": "https://tldv.io/",
+                "evidence_text": "Video Conferencing Record and transcribe meetings from Google Meet, Zoom and MS Teams",
+                "verified_at": "2026-11-15T20:19:38Z"
+              },
+              {
+                "product_id": 37,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://tldv.io/",
+                "evidence_text": "It records your meetings, writes the notes, transcript and action items, and sends them to the tools your team already uses , from your CRM to any LLM over MCP",
+                "verified_at": "2026-11-15T20:19:38Z"
+              }
+            ],
+            "missing": [],
+            "explanation": "Matches meeting transcription, action item extraction."
+          },
+          {
+            "id": 30,
+            "slug": "otter",
+            "name": "Otter",
+            "canonical_url": "https://otter.ai",
+            "normalized_domain": "otter.ai",
+            "short_description": "Transcribes meetings and organizes the conversation into notes and follow-up work.",
+            "audience": "",
+            "first_seen_at": "2026-11-15T20:19:39Z",
+            "announced_at": null,
+            "last_verified_at": "2026-11-15T20:19:39Z",
+            "category": "Meetings",
+            "category_slug": "meetings",
+            "bm25": -23.7472535726639,
+            "capabilities": [
+              {
+                "product_id": 30,
+                "slug": "meetings",
+                "name": "Meeting transcription",
+                "evidence_url": "https://otter.ai/",
+                "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+                "verified_at": "2026-11-15T20:19:39Z"
+              },
+              {
+                "product_id": 30,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://otter.ai/",
+                "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+                "verified_at": "2026-11-15T20:19:39Z"
+              }
+            ],
+            "score": 111,
+            "match_class": "Strong match",
+            "matched": [
+              {
+                "product_id": 30,
+                "slug": "meetings",
+                "name": "Meeting transcription",
+                "evidence_url": "https://otter.ai/",
+                "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+                "verified_at": "2026-11-15T20:19:39Z"
+              },
+              {
+                "product_id": 30,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://otter.ai/",
+                "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+                "verified_at": "2026-11-15T20:19:39Z"
+              }
+            ],
+            "missing": [],
+            "explanation": "Matches meeting transcription, action item extraction."
+          },
+          {
+            "id": 12,
+            "slug": "fathom",
+            "name": "Fathom",
+            "canonical_url": "https://fathom.ai",
+            "normalized_domain": "fathom.ai",
+            "short_description": "Records meeting conversations and helps participants review notes and summaries.",
+            "audience": "",
+            "first_seen_at": "2026-11-15T20:19:38Z",
+            "announced_at": null,
+            "last_verified_at": "2026-11-15T20:19:38Z",
+            "category": "Meetings",
+            "category_slug": "meetings",
+            "bm25": -19.765849333637885,
+            "capabilities": [
+              {
+                "product_id": 12,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://www.fathom.ai/",
+                "evidence_text": "Shockingly accurate transcripts, instant summaries, and action items with consistent quality across every call \u2013 delivered straight to your inbox, like magic",
+                "verified_at": "2026-11-15T20:19:38Z"
+              }
+            ],
+            "score": 42,
+            "match_class": "Partial match",
+            "matched": [
+              {
+                "product_id": 12,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://www.fathom.ai/",
+                "evidence_text": "Shockingly accurate transcripts, instant summaries, and action items with consistent quality across every call \u2013 delivered straight to your inbox, like magic",
+                "verified_at": "2026-11-15T20:19:38Z"
+              }
+            ],
+            "missing": [
+              "Meeting transcription"
+            ],
+            "explanation": "Matches action item extraction. Meeting transcription could not be verified."
+          },
+          {
+            "id": 14,
+            "slug": "fireflies",
+            "name": "Fireflies",
+            "canonical_url": "https://fireflies.ai",
+            "normalized_domain": "fireflies.ai",
+            "short_description": "A meeting assistant for recording conversations, reviewing transcripts, and finding follow-up work.",
+            "audience": "",
+            "first_seen_at": "2026-11-15T20:19:37Z",
+            "announced_at": null,
+            "last_verified_at": "2026-11-15T20:19:37Z",
+            "category": "Meetings",
+            "category_slug": "meetings",
+            "bm25": -21.38117147747446,
+            "capabilities": [
+              {
+                "product_id": 14,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://fireflies.ai/",
+                "evidence_text": "Fred records, transcribes, & summarizes meetings with notes, decisions, & action items",
+                "verified_at": "2026-11-15T20:19:37Z"
+              }
+            ],
+            "score": 42,
+            "match_class": "Partial match",
+            "matched": [
+              {
+                "product_id": 14,
+                "slug": "action-items",
+                "name": "Action item extraction",
+                "evidence_url": "https://fireflies.ai/",
+                "evidence_text": "Fred records, transcribes, & summarizes meetings with notes, decisions, & action items",
+                "verified_at": "2026-11-15T20:19:37Z"
+              }
+            ],
+            "missing": [
+              "Meeting transcription"
+            ],
+            "explanation": "Matches action item extraction. Meeting transcription could not be verified."
+          }
+        ],
+        "total": 4,
+        "limit": 20,
+        "offset": 0,
+        "candidate_limit": 80,
+        "catalog_updated_at": "2026-11-15T20:19:39Z",
+        "elapsed_ms": 62
+      }
     },
     {
       "path": "/api/products/otter",
-      "status": 403
+      "status": 200,
+      "wall_ms": 201.84,
+      "data": {
+        "id": 30,
+        "slug": "otter",
+        "name": "Otter",
+        "canonical_url": "https://otter.ai",
+        "normalized_domain": "otter.ai",
+        "short_description": "Transcribes meetings and organizes the conversation into notes and follow-up work.",
+        "audience": "",
+        "first_seen_at": "2026-11-15T20:19:39Z",
+        "announced_at": null,
+        "last_verified_at": "2026-11-15T20:19:39Z",
+        "category": "Meetings",
+        "category_slug": "meetings",
+        "bm25": 0,
+        "capabilities": [
+          {
+            "product_id": 30,
+            "slug": "meetings",
+            "name": "Meeting transcription",
+            "evidence_url": "https://otter.ai/",
+            "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+            "verified_at": "2026-11-15T20:19:39Z"
+          },
+          {
+            "product_id": 30,
+            "slug": "action-items",
+            "name": "Action item extraction",
+            "evidence_url": "https://otter.ai/",
+            "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+            "verified_at": "2026-11-15T20:19:39Z"
+          }
+        ],
+        "sources": [
+          {
+            "source_name": "Official website",
+            "source_url": "https://otter.ai",
+            "discovered_at": "2026-11-15T20:19:39Z"
+          }
+        ]
+      }
     },
     {
       "path": "/apps/otter",
-      "status": 403
+      "status": 200,
+      "wall_ms": 322.19,
+      "bytes": 2770,
+      "server_content_verified": true
     },
     {
       "path": "/sitemap.xml",
-      "status": 403
+      "status": 200,
+      "wall_ms": 131.91,
+      "bytes": 4443
     },
     {
       "path": "/missing-actually-404",
-      "status": 403
+      "status": 404
+    },
+    {
+      "path": "POST /api/submit invalid real Turnstile token",
+      "status": 400,
+      "data": {
+        "error": {
+          "code": "invalid_challenge",
+          "message": "Verification expired or failed. Please try the challenge again."
+        }
+      }
     }
-  ]
+  ],
+  "final_recheck": {
+    "checked_at": "2026-11-15T21:03:23.383255+00:00",
+    "checks": [
+      {
+        "path": "/api/health",
+        "status": 200,
+        "verified": true
+      },
+      {
+        "path": "/api/stats",
+        "status": 200,
+        "verified": true
+      },
+      {
+        "path": "/api/config",
+        "status": 200,
+        "verified": true
+      },
+      {
+        "path": "/api/products/pizza-b0f5fd4d",
+        "status": 200,
+        "verified": true
+      },
+      {
+        "path": "/apps/otter",
+        "status": 200
+      },
+      {
+        "path": "/search/",
+        "status": 200
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200
+      },
+      {
+        "path": "/",
+        "status": 200
+      }
+    ]
+  },
+  "browser_submission": {
+    "real_turnstile": true,
+    "product": "Otter",
+    "result": "Beat you to it. See Otter",
+    "duplicate": true,
+    "new_listing_created": false,
+    "screenshot": "docs/submission-production.png"
+  }
 }

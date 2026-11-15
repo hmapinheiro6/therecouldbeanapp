@@ -226,5 +226,11 @@
     "name": "Collaborative whiteboard",
     "category": "whiteboards",
     "description": "Collaborative whiteboard functionality."
+  },
+  {
+    "slug": "app-connections",
+    "name": "App connections",
+    "category": "automation",
+    "description": "Connects to external applications through a documented integration interface."
   }
 ]

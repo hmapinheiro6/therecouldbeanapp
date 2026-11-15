@@ -24,3 +24,11 @@ Structured application logs omit query strings and submission contents. Invocati
 Sources: [Workers limits](https://developers.cloudflare.com/workers/platform/limits/), [Static Assets billing](https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/), [D1 pricing](https://developers.cloudflare.com/d1/platform/pricing/), [D1 limits](https://developers.cloudflare.com/d1/platform/limits/), [Turnstile plans](https://developers.cloudflare.com/turnstile/plans/), [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions), [GitHub schedules](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule).
 
 Deployment confirmed that custom `limits.cpu_ms` is rejected on Free (100328). The override is omitted and Cloudflare’s Free 10ms limit applies. No plan change was made.
+
+## Measured production usage
+
+The account dashboard showed **Free / $0 / Current plan** before provisioning. No upgrade, payment method, paid model, paid runner, or paid integration was added. Resources are isolated to this application.
+
+During the 60-query production benchmark, Cloudflare reported 67 observed requests, zero errors, CPU p50 **3.136ms**, and p99 **12.502ms**. The p99 is above the Free 10ms allowance. An earlier mixed/cold sample reported 25.607ms p99. The site worked in these samples, but sustained CPU compliance is not established; provider enforcement can terminate requests. Keep checking real traffic and simplify normalization/ranking or reduce candidate hydration if CPU errors appear. No automatic upgrade is configured.
+
+One representative production search read **46 D1 rows**, wrote **zero**, and used **1.5934ms** SQL execution time across retrieval and hydration. This is a measurement for that query, not a worst-case quota estimate. At the same read cost, 100,000 searches would consume 4.6 million reads, close to the account-wide five-million daily allowance before other traffic. Storage at measurement was 266,240 bytes. Ingestion and FTS triggers add writes separately.

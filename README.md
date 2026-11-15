@@ -2,6 +2,10 @@
 
 An evidence-backed software discovery engine with a raised eyebrow. React + TypeScript + Vite + Tailwind, a Hono Worker, Cloudflare D1 FTS5, and deterministic Python discovery. No AI inference, paid search, separate server, or paid datasets.
 
+Live: [There Could Be An App](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public repository](https://github.com/hmapinheiro6/therecouldbeanapp)
+
+46 published products, 37 categories, 39 capability definitions, and 62 verified product-capability claims as of 15 November 2026. [Final engineering report](docs/REPORT.md).
+
 ## Run it
 
 Use Node 24 and Python 3.11+ (ingestion also tested on local Python 3.9).
@@ -45,4 +49,4 @@ The API suite uses actual local D1 in workerd. The search benchmark uses SQLite 
 - [Free-tier audit](docs/COSTS.md)
 - [Deployment and external setup](docs/DEPLOYMENT.md)
 
-Daily discovery is scheduled at 04:17 UTC on standard public GitHub runners. It is disabled until a **public repository**, deployed API, and signing secret are configured. Source code in that repository is public. Submission emails, private queues, and secrets stay in D1/provider secret storage and are never committed or uploaded as workflow artifacts.
+Daily discovery is scheduled at 04:17 UTC on standard public GitHub runners. It is enabled in the public repository, with the deployed API and signing secret configured. A manual cloud run successfully processed 15 candidates and published one verified product. Source code in that repository is public. Submission emails, private queues, and secrets stay in D1/provider secret storage and are never committed or uploaded as workflow artifacts.

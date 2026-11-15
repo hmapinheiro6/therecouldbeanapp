@@ -31,6 +31,16 @@ export function normalize(input: string) {
     .trim()
     .replace(/\s+/g, " ");
 }
+// Immutable vocabulary preprocessing avoids hundreds of repeated normalizations per request.
+const normalizedSynonyms = Object.entries(synonyms).map(
+  ([slug, aliases]) => [slug, aliases.map(normalize)] as const,
+);
+const capabilityMap = new Map(
+  capabilities.map((c) => [
+    c.slug,
+    { ...c, words: normalize(c.name).split(" ") },
+  ]),
+);
 export interface Intent {
   normalized: string;
   tokens: string[];
@@ -53,9 +63,9 @@ export function parseQuery(query: string): Intent {
     if (parts.length > 1) negative.push(parts.slice(1).join(" "));
   }
   const has = (text: string, phrase: string) =>
-    (" " + text + " ").includes(" " + normalize(phrase) + " ");
+    (" " + text + " ").includes(" " + phrase + " ");
   const extract = (text: string) =>
-    Object.entries(synonyms)
+    normalizedSynonyms
       .filter(([, aliases]) => aliases.some((a) => has(text, a)))
       .map(([s]) => s);
   const excluded = extract(negative.join(" "));
@@ -93,9 +103,39 @@ export function parseQuery(query: string): Intent {
     "dentists",
     "restaurants",
   ].filter((q) => has(normalized, q));
+  // Unknown nouns may describe essential requirements outside our taxonomy.
+  // Keep them visible and prevent a category-only match from becoming "strong".
+  const generic = new Set(
+    "please find way something manage business work solution platform across online more create generate sends send extracts extract track tracks tracking handle handles from into turns turn lets let get teams team just simple useful using use remember who again".split(
+      " ",
+    ),
+  );
+  const singular = (word: string) =>
+    word.length > 3 && word.endsWith("s") ? word.slice(0, -1) : word;
+  const knownWords = new Set(
+    normalizedSynonyms
+      .filter(([slug]) => requested.includes(slug))
+      .flatMap(([, aliases]) =>
+        aliases.flatMap((a) => a.split(" ").map(singular)),
+      ),
+  );
+  const qualifiedWords = new Set(
+    [...qualifiers, ...audience].flatMap((q) => q.split(" ")),
+  );
+  const unknown = requested.length
+    ? words.filter(
+        (w) =>
+          !knownWords.has(singular(w)) &&
+          !generic.has(w) &&
+          !qualifiedWords.has(w),
+      )
+    : [];
+  if (unknown.length)
+    qualifiers.push(
+      ...[...new Set(unknown)].slice(0, 6).map((w) => "“" + w + "”"),
+    );
   const expanded = requested.flatMap((s) => {
-    const c = capabilities.find((c) => c.slug === s);
-    return c ? normalize(c.name).split(" ") : [];
+    return capabilityMap.get(s)?.words ?? [];
   });
   const tokens = [...new Set([...words, ...expanded])].slice(0, 40);
   const fts = tokens.map((t) => '"' + t.replace(/"/g, "") + '"').join(" OR ");
@@ -110,4 +150,4 @@ export function parseQuery(query: string): Intent {
   };
 }
 export const capabilityName = (slug: string) =>
-  capabilities.find((c) => c.slug === slug)?.name ?? slug;
+  capabilityMap.get(slug)?.name ?? slug;

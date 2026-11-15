@@ -1,0 +1,32 @@
+{
+  "measured_at": "2026-11-15T20:54:04.068384+00:00",
+  "window_start": "2026-11-15T20:51:15Z",
+  "window_end": "2026-11-15T20:51:28Z",
+  "source": "Cloudflare GraphQL workersInvocationsAdaptive",
+  "cpu_units": "microseconds",
+  "scope": "Observed traffic during the 60-query production benchmark window; not an isolated per-route profiler.",
+  "result": {
+    "data": {
+      "viewer": {
+        "accounts": [
+          {
+            "workersInvocationsAdaptive": [
+              {
+                "quantiles": {
+                  "cpuTimeP50": 3136,
+                  "cpuTimeP99": 12502
+                },
+                "sum": {
+                  "errors": 0,
+                  "requests": 67,
+                  "subrequests": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "errors": null
+  }
+}

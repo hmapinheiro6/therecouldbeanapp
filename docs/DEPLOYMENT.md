@@ -1,8 +1,36 @@
 # Deployment
 
-No production deployment is claimed. The checked-in database ID is deliberately a placeholder. Current prerequisites are an authorized Cloudflare account on **Workers Free**, its workers.dev subdomain, a public GitHub repository, a real Turnstile widget, and a completed operator/privacy contact.
+Production is deployed on Cloudflare Workers Free at [therecouldbeanapp.henriquepinheiro.workers.dev](https://therecouldbeanapp.henriquepinheiro.workers.dev). Public source: [hmapinheiro6/therecouldbeanapp](https://github.com/hmapinheiro6/therecouldbeanapp). Verified 15 November 2026.
 
-## 1. Account and isolated database
+## Current resources
+
+- Worker: `therecouldbeanapp`; account `272cf24b9368ff4a4c6833562cae0f0d`.
+- Isolated D1: `therecouldbeanapp-catalog`, ID `2a24c33c-ee1f-4dba-b601-39f00232e3ea`, binding `DB`; migrations 0001–0004 applied.
+- Free managed Turnstile widget for the deployed hostname; public sitekey in `wrangler.jsonc`.
+- Worker secrets: `INTERNAL_SECRET`, `RATE_LIMIT_SALT`, `TURNSTILE_SECRET_KEY`, supplied through provider secret storage.
+- Repository secret `INTERNAL_SECRET`; variables `INGESTION_API_URL` and `DISCOVERY_ENABLED=true`.
+- Public submissions and daily discovery enabled. The manual discovery run and actual browser Turnstile duplicate check passed.
+- Privacy/support contact: `support@therecouldbeanapp.com`, supplied by the operator. Mail delivery was not tested.
+
+The dashboard showed **Free / $0 / Current plan**. No plan upgrade, paid dependency, domain purchase, or unrelated database binding was performed. Wrangler's custom CPU override is omitted because Free rejects it; the native 10ms allowance applies. Real measured CPU tails exceed that allowance; see `COSTS.md` before growing traffic.
+
+## Deploy updates
+
+Use Node 24, the intended authorized Cloudflare account, and the checked-in configuration. Run tests before deployment. Migrations are tracked and safe to rerun.
+
+```sh
+npm ci
+npm run lint
+npm test
+.venv/bin/python -m pytest tests/ingestion -q
+npm run build
+npx wrangler d1 migrations apply DB --remote
+npx wrangler deploy
+```
+
+Do not rerun the seed import as an everyday deployment step: it is initial/recovery data and may replace revised facts. The API does not depend on a local server. The source workflow runs CI and discovery; Worker deployment is currently an explicit Wrangler action, not automatic on every push.
+
+## Reproduce in a different account
 
 ```sh
 npx wrangler login
@@ -10,20 +38,9 @@ npx wrangler whoami
 npx wrangler d1 create therecouldbeanapp-catalog
 ```
 
-Select the intended account; inspect the dashboard to confirm Workers Free. Do not upgrade a plan. Record the new database ID in `wrangler.jsonc` under the `DB` binding. Create only this project's database; never bind an existing unrelated application's storage. Opening Workers & Pages for a new account initializes a workers.dev subdomain. No custom domain is needed for the initial deployment.
+Confirm **Workers Free**, create a new isolated database, then replace the account/database IDs in `wrangler.jsonc`. Apply migrations and import `data/seeds/catalog.sql` once for initial seeds. Set `SITE_URL` and `TURNSTILE_HOSTNAME` to the actual deployed origin/hostname. Create one Free managed Turnstile widget for that hostname; set its public sitekey. Never use test keys or a bypass in production.
 
-```sh
-npx wrangler d1 migrations apply DB --remote
-npx wrangler d1 execute DB --remote --file=data/seeds/catalog.sql
-npm run build
-npx wrangler deploy
-```
-
-Record the returned HTTPS workers.dev URL. Set `SITE_URL` to that exact origin and `TURNSTILE_HOSTNAME` to its hostname, then redeploy. Do not configure `therecouldbeanapp.com` until ownership and DNS authorization are confirmed. No code registers or purchases a domain.
-
-## 2. Secrets and submissions
-
-Generate **separate** random values (at least 32 random bytes) for `INTERNAL_SECRET` and `RATE_LIMIT_SALT` using your password manager or cryptographic generator. Put them in provider-managed secrets, never in Git or workflow variables.
+Generate separate random values of at least 32 bytes for the signing secret and rate salt. Enter these through provider prompts; never put them into Git, workflow variables, URLs, or public logs.
 
 ```sh
 npx wrangler secret put INTERNAL_SECRET
@@ -31,34 +48,20 @@ npx wrangler secret put RATE_LIMIT_SALT
 npx wrangler secret put TURNSTILE_SECRET_KEY
 ```
 
-Create one Free Turnstile managed widget for the deployed hostname. Set its public sitekey in `TURNSTILE_SITE_KEY`. The backend verifies hostname and `submit` action and stores no raw IP address. Official Turnstile test keys are for local/testing only; never set them in production. There is no production bypass.
+Set the matching signing secret in GitHub Actions secret storage. Configure `INGESTION_API_URL` to the deployed origin and `DISCOVERY_ENABLED=true` after a manual successful run. Use a public repository and standard runners to preserve free eligibility. Keep private queues, emails, `.dev.vars`, `.env`, and credentials out of source and workflow artifacts.
 
-Before enabling public submissions, replace the preview-only operator text in `/privacy` and `/terms` with the real operator identity, privacy contact, retention responsibility, and jurisdiction. Turn on `SUBMISSIONS_ENABLED` only after those changes, the widget, and secret setup. `INGESTION_ENABLED` can be set to `true` once the signing secret exists. Rebuild/redeploy after changes.
+Only enable `SUBMISSIONS_ENABLED` after the correct hostname/widget/secrets and actual privacy contact are configured. Local submission and ingestion endpoints fail closed without secrets. There is no production test bypass.
 
-## 3. Public GitHub Actions
-
-Use a new, separate public repository. Publishing this repository makes the ingestion code, taxonomy, and sanitized published catalog public. It must never include `.dev.vars`, `.env`, submission emails, moderation dumps, or credentials. The workflows are guarded to public standard runners and do not create artifacts.
-
-Repository configuration:
-
-- Secret `INTERNAL_SECRET`: exactly the Worker signing secret.
-- Variable `INGESTION_API_URL`: deployed origin, e.g. the actual returned workers.dev URL (no trailing `/api`).
-- Variable `DISCOVERY_ENABLED`: `true` after a successful manual run.
-
-Run **Daily public product discovery** manually once. Check the signed API result, D1 `ingestion_runs`, candidates, checkpoints, and the actual catalog count. The schedule is 04:17 UTC daily; timing is best effort. CI runs on pushes and pull requests. Never put Cloudflare account tokens into the public source; scheduled discovery needs only the app-specific signing secret.
-
-## 4. Smoke checks
+## Smoke checks and monitoring
 
 ```sh
-curl --fail https://YOUR_ACTUAL_HOST/api/health
-curl --fail https://YOUR_ACTUAL_HOST/api/stats
-curl --fail --get --data-urlencode 'q=meeting transcription and action items' https://YOUR_ACTUAL_HOST/api/search
+curl --fail https://therecouldbeanapp.henriquepinheiro.workers.dev/api/health
+curl --fail https://therecouldbeanapp.henriquepinheiro.workers.dev/api/stats
+curl --fail --get --data-urlencode 'q=meeting transcription and action items' https://therecouldbeanapp.henriquepinheiro.workers.dev/api/search
 ```
 
-Check a product detail URL directly without a logged-in session; the HTML must contain its escaped description and evidence. Verify missing pages return 404, arbitrary search pages send noindex, sitemap uses the deployed origin, and Turnstile accepts the correct hostname/action while invalid/replayed tokens fail. Submit one real app and inspect it through the protected CLI. Check logs for raw ideas/emails (none should be emitted).
+Check a product URL directly for escaped useful HTML, correct canonical/social URLs, sitemap, missing-page 404, search noindex, and real Turnstile validation. Inspect the latest discovery job and persisted D1 run/checkpoints. Watch account-wide Worker requests/CPU, D1 reads/writes/storage, and scheduler health. Free exhaustion can return platform errors. Reduce batches or disable `DISCOVERY_ENABLED` if needed; do not upgrade automatically.
 
-Measure representative deployed Worker CPU and D1 rows read/written before opening traffic. Local benchmarks cannot certify the 10ms CPU limit. Watch account-wide quotas. If quotas are tight, reduce discovery batch size or disable it; no plan upgrade is necessary or automatic.
+## Custom domain
 
-## External setup still required
-
-Authorization is the only way to bind production resources. The initial Cloudflare connector read the account but later became unavailable; Wrangler reported not authenticated. No billing setting was changed. Domain ownership remains unconfirmed. Until credentials, a deployed hostname, the Turnstile widget, public repository settings, and operator policy details exist, production submissions/discovery must remain disabled.
+`therecouldbeanapp.com` ownership and DNS access were not confirmed, so it is not connected. The supplied support email does not establish domain-control authorization. Once the owner confirms DNS control, attach the authorized custom domain to this Worker, update `SITE_URL`/`TURNSTILE_HOSTNAME`, add the exact hostname to the widget, redeploy, and repeat smoke checks. Domain registration and email hosting are separate and were not purchased/configured.

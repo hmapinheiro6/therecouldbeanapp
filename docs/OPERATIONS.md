@@ -17,7 +17,7 @@ python3 -m ingestion.admin retry candidate ID --reason 'Official website is now 
 python3 -m ingestion.admin remove product SLUG --reason 'Evidence no longer current'
 ```
 
-The pending view contains private contact emails. Run it in a private terminal, not a public Actions log. Approval queues verification and never invents capability evidence. Product removal unpublishes immediately and triggers FTS deletion. The public manual moderation workflow supports record ID/action/reason; do not include private emails in workflow inputs because dispatch inputs can be visible to repository collaborators.
+The pending view contains private contact emails. Run it in a private terminal, not a public Actions log. Approval queues verification and never invents capability evidence. Product removal unpublishes immediately and triggers FTS deletion. A persistent `publication_blocks` row prevents rediscovery from republishing a removed canonical URL. To reinstate a product, inspect that block and its reason privately, remove the exact block through an authorized parameterized database operation, and reverify the candidate; a retry alone does not clear the block. The public manual moderation workflow supports record ID/action/reason; do not include private emails in workflow inputs because dispatch inputs can be visible to repository collaborators.
 
 ## Discovery failures and retry
 

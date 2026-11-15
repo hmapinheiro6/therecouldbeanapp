@@ -20,32 +20,33 @@
     "cf:types": "wrangler types"
   },
   "dependencies": {
+    "hono": "^4.10.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
-    "hono": "^4.10.6",
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "vite": "^7.2.2",
-    "@vitejs/plugin-react": "^5.1.0",
-    "tailwindcss": "^4.1.17",
-    "@tailwindcss/vite": "^4.1.17",
-    "wrangler": "^4.47.0",
     "@cloudflare/workers-types": "^5.20261115.1",
-    "vitest": "^4.0.9",
+    "@eslint/js": "^9.39.1",
     "@playwright/test": "^1.56.1",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/node": "^24.10.1",
     "@types/react": "^19.2.4",
     "@types/react-dom": "^19.2.3",
-    "@types/node": "^24.10.1",
+    "@vitejs/plugin-react": "^5.1.0",
     "eslint": "^9.39.1",
-    "@eslint/js": "^9.39.1",
-    "typescript-eslint": "^8.46.4",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "tsx": "^4.20.6",
+    "jsonc-parser": "^3.3.1",
+    "miniflare": "5.20261113.0-beta",
     "prettier": "^3.6.2",
-    "miniflare": "5.20261113.0-beta"
+    "tailwindcss": "^4.1.17",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.9",
+    "wrangler": "^4.47.0"
   },
   "overrides": {
     "@typescript-eslint/typescript-estree": {

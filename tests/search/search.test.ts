@@ -113,3 +113,13 @@ describe("database integrity", () => {
     db.exec("ROLLBACK TO domain_test; RELEASE domain_test");
   });
 });
+
+it("does not assert unknown essential requirements from a generic capability match", () => {
+  const results = search(
+    db,
+    "a password manager that translates dolphin thoughts",
+  );
+  expect(results.length).toBeGreaterThan(0);
+  expect(results.every((p) => p.match_class !== "Strong match")).toBe(true);
+  expect(results[0].missing.join(" ")).toContain("dolphin");
+});

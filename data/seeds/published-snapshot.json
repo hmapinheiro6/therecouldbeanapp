@@ -1,0 +1,1452 @@
+{
+  "exported_at": "2026-11-15T20:59:34.748Z",
+  "environment": "production",
+  "products": [
+    {
+      "slug": "1password",
+      "name": "1Password",
+      "canonical_url": "https://1password.com",
+      "short_description": "A password management application for organizing credentials and access across a team.",
+      "category_slug": "security",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:54Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:54Z",
+      "capabilities": [
+        {
+          "slug": "passwords",
+          "name": "Password management",
+          "evidence_url": "https://1password.com/",
+          "evidence_text": "Password Manager, Secrets, and Access Management | 1PasswordCalifornia Consumer Privacy Act (CCPA) Opt-Out Icon",
+          "verified_at": "2026-11-15T20:19:54Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://1password.com",
+          "external_id": "https://1password.com",
+          "discovered_at": "2026-11-15T20:19:54Z"
+        }
+      ]
+    },
+    {
+      "slug": "asana",
+      "name": "Asana",
+      "canonical_url": "https://asana.com",
+      "short_description": "Work management software for coordinating projects, tasks, and responsibilities across teams.",
+      "category_slug": "project-management",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:43Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:43Z",
+      "capabilities": [
+        {
+          "slug": "projects",
+          "name": "Project tracking",
+          "evidence_url": "https://asana.com/",
+          "evidence_text": "Work & Project Management for Human-Agent Teams • AsanaAsana Home",
+          "verified_at": "2026-11-15T20:19:43Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://asana.com",
+          "external_id": "https://asana.com",
+          "discovered_at": "2026-11-15T20:19:43Z"
+        }
+      ]
+    },
+    {
+      "slug": "bitwarden",
+      "name": "Bitwarden",
+      "canonical_url": "https://bitwarden.com",
+      "short_description": "A password manager for storing credentials and sharing access information.",
+      "category_slug": "security",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:54Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:54Z",
+      "capabilities": [
+        {
+          "slug": "passwords",
+          "name": "Password management",
+          "evidence_url": "https://bitwarden.com/",
+          "evidence_text": "Our switch to Bitwarden as our password manager, covering nearly 3,000 employees, was remarkably smooth",
+          "verified_at": "2026-11-15T20:19:54Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://bitwarden.com",
+          "external_id": "https://bitwarden.com",
+          "discovered_at": "2026-11-15T20:19:54Z"
+        }
+      ]
+    },
+    {
+      "slug": "buffer",
+      "name": "Buffer",
+      "canonical_url": "https://buffer.com",
+      "short_description": "Social media publishing software for preparing posts and coordinating a content schedule.",
+      "category_slug": "social-media",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:47Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:47Z",
+      "capabilities": [
+        {
+          "slug": "social",
+          "name": "Social post scheduling",
+          "evidence_url": "https://buffer.com/",
+          "evidence_text": "Higher Education Social media management built for schools and universities",
+          "verified_at": "2026-11-15T20:19:47Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://buffer.com",
+          "external_id": "https://buffer.com",
+          "discovered_at": "2026-11-15T20:19:47Z"
+        }
+      ]
+    },
+    {
+      "slug": "calendly",
+      "name": "Calendly",
+      "canonical_url": "https://calendly.com",
+      "short_description": "Scheduling software that lets people choose appointment times from shared availability.",
+      "category_slug": "scheduling",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:49Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:49Z",
+      "capabilities": [
+        {
+          "slug": "scheduling",
+          "name": "Appointment scheduling",
+          "evidence_url": "https://calendly.com/",
+          "evidence_text": "Calendly connects and simplifies all of the work around meetings, from scheduling, payments, and meeting prep to notetaking, contact management, and follow-up",
+          "verified_at": "2026-11-15T20:19:49Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://calendly.com",
+          "external_id": "https://calendly.com",
+          "discovered_at": "2026-11-15T20:19:49Z"
+        }
+      ]
+    },
+    {
+      "slug": "capcut",
+      "name": "CapCut",
+      "canonical_url": "https://capcut.com",
+      "short_description": "Video creation software for editing footage and preparing clips for publishing.",
+      "category_slug": "video",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:51Z",
+      "capabilities": [
+        {
+          "slug": "video",
+          "name": "Video editing",
+          "evidence_url": "https://www.capcut.com/",
+          "evidence_text": "CapCut is loved worldwide for its easy and powerful video editing that helps creators produce amazing content quickly",
+          "verified_at": "2026-11-15T20:19:51Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://capcut.com",
+          "external_id": "https://capcut.com",
+          "discovered_at": "2026-11-15T20:19:51Z"
+        }
+      ]
+    },
+    {
+      "slug": "clickup",
+      "name": "ClickUp",
+      "canonical_url": "https://clickup.com",
+      "short_description": "A work management workspace for organizing tasks, project information, and team documentation.",
+      "category_slug": "project-management",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:44Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:44Z",
+      "capabilities": [
+        {
+          "slug": "projects",
+          "name": "Project tracking",
+          "evidence_url": "https://clickup.com/",
+          "evidence_text": "Get your team, department, and company running smoothly with the industry's best project management solution",
+          "verified_at": "2026-11-15T20:19:44Z"
+        },
+        {
+          "slug": "time",
+          "name": "Time tracking",
+          "evidence_url": "https://clickup.com/",
+          "evidence_text": "Time Tracking",
+          "verified_at": "2026-11-15T20:19:44Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://clickup.com",
+          "external_id": "https://clickup.com",
+          "discovered_at": "2026-11-15T20:19:44Z"
+        }
+      ]
+    },
+    {
+      "slug": "descript",
+      "name": "Descript",
+      "canonical_url": "https://descript.com",
+      "short_description": "Audio and video editing software that connects media editing with a transcript-based workflow.",
+      "category_slug": "video",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:52Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:52Z",
+      "capabilities": [
+        {
+          "slug": "video",
+          "name": "Video editing",
+          "evidence_url": "https://www.descript.com/",
+          "evidence_text": "Direct your AI co-editor to do your video editing for you, or do it yourself with intuitive editing tools",
+          "verified_at": "2026-11-15T20:19:52Z"
+        },
+        {
+          "slug": "audio",
+          "name": "Audio editing",
+          "evidence_url": "https://www.descript.com/",
+          "evidence_text": "Descript is the AI video and audio editor that makes editing as easy as editing text",
+          "verified_at": "2026-11-15T20:19:52Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://descript.com",
+          "external_id": "https://descript.com",
+          "discovered_at": "2026-11-15T20:19:52Z"
+        }
+      ]
+    },
+    {
+      "slug": "docusign",
+      "name": "DocuSign",
+      "canonical_url": "https://docusign.com",
+      "short_description": "An electronic signature service for sending documents through a signing process.",
+      "category_slug": "e-signatures",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:56Z",
+      "capabilities": [
+        {
+          "slug": "signatures",
+          "name": "Electronic signatures",
+          "evidence_url": "https://www.docusign.com/",
+          "evidence_text": "Analyze agreements with AI, sign documents electronically, and automate workflows with the Intelligent Agreement Management (IAM) platform",
+          "verified_at": "2026-11-15T20:19:56Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://docusign.com",
+          "external_id": "https://docusign.com",
+          "discovered_at": "2026-11-15T20:19:56Z"
+        }
+      ]
+    },
+    {
+      "slug": "dropbox",
+      "name": "Dropbox",
+      "canonical_url": "https://dropbox.com",
+      "short_description": "File storage and sharing software for keeping documents available across devices and collaborators.",
+      "category_slug": "storage",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:58Z",
+      "capabilities": [
+        {
+          "slug": "storage",
+          "name": "File storage",
+          "evidence_url": "https://www.dropbox.com/",
+          "evidence_text": "Discover Dropbox – secure, easy cloud storage for file sharing and collaboration",
+          "verified_at": "2026-11-15T20:19:58Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://dropbox.com",
+          "external_id": "https://dropbox.com",
+          "discovered_at": "2026-11-15T20:19:58Z"
+        }
+      ]
+    },
+    {
+      "slug": "dubsado",
+      "name": "Dubsado",
+      "canonical_url": "https://dubsado.com",
+      "short_description": "Business management software for organizing client relationships and administrative workflows.",
+      "category_slug": "crm",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:42Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:42Z",
+      "capabilities": [
+        {
+          "slug": "invoicing",
+          "name": "Invoicing",
+          "evidence_url": "https://www.dubsado.com/",
+          "evidence_text": "Proposals, contracts, invoices, scheduling and workflows that keep every client moving while you do the work you love",
+          "verified_at": "2026-11-15T20:19:42Z"
+        },
+        {
+          "slug": "scheduling",
+          "name": "Appointment scheduling",
+          "evidence_url": "https://www.dubsado.com/",
+          "evidence_text": "Proposals, contracts, invoices, scheduling and workflows that keep every client moving while you do the work you love",
+          "verified_at": "2026-11-15T20:19:42Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://dubsado.com",
+          "external_id": "https://dubsado.com",
+          "discovered_at": "2026-11-15T20:19:42Z"
+        }
+      ]
+    },
+    {
+      "slug": "fathom",
+      "name": "Fathom",
+      "canonical_url": "https://fathom.ai",
+      "short_description": "Records meeting conversations and helps participants review notes and summaries.",
+      "category_slug": "meetings",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:38Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:38Z",
+      "capabilities": [
+        {
+          "slug": "action-items",
+          "name": "Action item extraction",
+          "evidence_url": "https://www.fathom.ai/",
+          "evidence_text": "Shockingly accurate transcripts, instant summaries, and action items with consistent quality across every call – delivered straight to your inbox, like magic",
+          "verified_at": "2026-11-15T20:19:38Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://fathom.ai",
+          "external_id": "https://fathom.ai",
+          "discovered_at": "2026-11-15T20:19:38Z"
+        }
+      ]
+    },
+    {
+      "slug": "figma",
+      "name": "Figma",
+      "canonical_url": "https://figma.com",
+      "short_description": "A collaborative workspace for designing interfaces and reviewing visual product work.",
+      "category_slug": "design",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:48Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:48Z",
+      "capabilities": [
+        {
+          "slug": "design",
+          "name": "Interface design",
+          "evidence_url": "https://www.figma.com/",
+          "evidence_text": "Prototyping",
+          "verified_at": "2026-11-15T20:19:48Z"
+        },
+        {
+          "slug": "whiteboard",
+          "name": "Collaborative whiteboard",
+          "evidence_url": "https://www.figma.com/",
+          "evidence_text": "Collaborate with a digital whiteboard",
+          "verified_at": "2026-11-15T20:19:48Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://figma.com",
+          "external_id": "https://figma.com",
+          "discovered_at": "2026-11-15T20:19:48Z"
+        }
+      ]
+    },
+    {
+      "slug": "fireflies",
+      "name": "Fireflies",
+      "canonical_url": "https://fireflies.ai",
+      "short_description": "A meeting assistant for recording conversations, reviewing transcripts, and finding follow-up work.",
+      "category_slug": "meetings",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:37Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:37Z",
+      "capabilities": [
+        {
+          "slug": "action-items",
+          "name": "Action item extraction",
+          "evidence_url": "https://fireflies.ai/",
+          "evidence_text": "Fred records, transcribes, & summarizes meetings with notes, decisions, & action items",
+          "verified_at": "2026-11-15T20:19:37Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://fireflies.ai",
+          "external_id": "https://fireflies.ai",
+          "discovered_at": "2026-11-15T20:19:37Z"
+        }
+      ]
+    },
+    {
+      "slug": "freshbooks",
+      "name": "FreshBooks",
+      "canonical_url": "https://freshbooks.com",
+      "short_description": "Accounting software for businesses that need to organize invoices, expenses, and billable work.",
+      "category_slug": "accounting",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:43Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:43Z",
+      "capabilities": [
+        {
+          "slug": "invoicing",
+          "name": "Invoicing",
+          "evidence_url": "https://www.freshbooks.com/",
+          "evidence_text": "It should allow you to create professional invoices, manage expense tracking, run double-entry accounting reports, accept online payments, and monitor all parts of your business’s money – both in and out",
+          "verified_at": "2026-11-15T20:19:43Z"
+        },
+        {
+          "slug": "accounting",
+          "name": "Bookkeeping",
+          "evidence_url": "https://www.freshbooks.com/",
+          "evidence_text": "It should allow you to create professional invoices, manage expense tracking, run double-entry accounting reports, accept online payments, and monitor all parts of your business’s money – both in and out",
+          "verified_at": "2026-11-15T20:19:43Z"
+        },
+        {
+          "slug": "time",
+          "name": "Time tracking",
+          "evidence_url": "https://www.freshbooks.com/",
+          "evidence_text": "It includes invoicing features, expense tracking, time tracking, online payments, industry-standard double-entry accounting, balance sheets, mileage tracking, project profitability, bank reconciliation, client retainers, and the list goes on",
+          "verified_at": "2026-11-15T20:19:43Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://freshbooks.com",
+          "external_id": "https://freshbooks.com",
+          "discovered_at": "2026-11-15T20:19:43Z"
+        }
+      ]
+    },
+    {
+      "slug": "github",
+      "name": "GitHub",
+      "canonical_url": "https://github.com",
+      "short_description": "A collaboration platform for hosting software repositories and coordinating development work.",
+      "category_slug": "development",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:53Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:53Z",
+      "capabilities": [
+        {
+          "slug": "ci",
+          "name": "Continuous integration",
+          "evidence_url": "https://github.com/",
+          "evidence_text": "Actions CI/CD and automation",
+          "verified_at": "2026-11-15T20:19:53Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://github.com",
+          "external_id": "https://github.com",
+          "discovered_at": "2026-11-15T20:19:53Z"
+        }
+      ]
+    },
+    {
+      "slug": "grammarly",
+      "name": "Grammarly",
+      "canonical_url": "https://grammarly.com",
+      "short_description": "Writing assistance software for reviewing grammar and improving written communication.",
+      "category_slug": "writing",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:56Z",
+      "capabilities": [
+        {
+          "slug": "writing",
+          "name": "Writing assistance",
+          "evidence_url": "https://www.grammarly.com/",
+          "evidence_text": "Grammarly: Free AI Writing Assistance",
+          "verified_at": "2026-11-15T20:19:56Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://grammarly.com",
+          "external_id": "https://grammarly.com",
+          "discovered_at": "2026-11-15T20:19:56Z"
+        }
+      ]
+    },
+    {
+      "slug": "greenhouse",
+      "name": "Greenhouse",
+      "canonical_url": "https://greenhouse.com",
+      "short_description": "Recruiting software for managing applicants and coordinating a hiring process.",
+      "category_slug": "recruiting",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:59Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:59Z",
+      "capabilities": [
+        {
+          "slug": "recruiting",
+          "name": "Applicant tracking",
+          "evidence_url": "https://www.greenhouse.com/",
+          "evidence_text": "I have found it very easy to manage and use from a very holistic perspective, whether it’s from the admin side or the recruiting or sourcing side, it really is an excellent product",
+          "verified_at": "2026-11-15T20:19:59Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://greenhouse.com",
+          "external_id": "https://greenhouse.com",
+          "discovered_at": "2026-11-15T20:19:59Z"
+        }
+      ]
+    },
+    {
+      "slug": "harvest",
+      "name": "Harvest",
+      "canonical_url": "https://getharvest.com",
+      "short_description": "A time tracking tool that helps businesses turn records of billable work into invoices.",
+      "category_slug": "time-tracking",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:42Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:42Z",
+      "capabilities": [
+        {
+          "slug": "invoicing",
+          "name": "Invoicing",
+          "evidence_url": "https://www.getharvest.com/",
+          "evidence_text": "Create polished invoices, track receivables, run payroll from logged hours, or simply export billable data to your accounting tools",
+          "verified_at": "2026-11-15T20:19:42Z"
+        },
+        {
+          "slug": "time",
+          "name": "Time tracking",
+          "evidence_url": "https://www.getharvest.com/",
+          "evidence_text": "One-click timers, weekly and daily timesheets, or track directly from your connected calendar — on desktop, mobile, or browser",
+          "verified_at": "2026-11-15T20:19:42Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://getharvest.com",
+          "external_id": "https://getharvest.com",
+          "discovered_at": "2026-11-15T20:19:42Z"
+        }
+      ]
+    },
+    {
+      "slug": "honeybook",
+      "name": "HoneyBook",
+      "canonical_url": "https://honeybook.com",
+      "short_description": "Client management software for independent businesses, combining sales and client administration.",
+      "category_slug": "crm",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:41Z",
+      "capabilities": [
+        {
+          "slug": "crm",
+          "name": "Client management",
+          "evidence_url": "https://www.honeybook.com/",
+          "evidence_text": "Manage proposals, contracts, invoices, payments, and projects with HoneyBook—the AI-powered CRM for small businesses",
+          "verified_at": "2026-11-15T20:19:41Z"
+        },
+        {
+          "slug": "projects",
+          "name": "Project tracking",
+          "evidence_url": "https://www.honeybook.com/",
+          "evidence_text": "Manage proposals, contracts, invoices, payments, and projects with HoneyBook—the AI-powered CRM for small businesses",
+          "verified_at": "2026-11-15T20:19:41Z"
+        },
+        {
+          "slug": "invoicing",
+          "name": "Invoicing",
+          "evidence_url": "https://www.honeybook.com/",
+          "evidence_text": "Manage proposals, contracts, invoices, payments, and projects with HoneyBook—the AI-powered CRM for small businesses",
+          "verified_at": "2026-11-15T20:19:41Z"
+        },
+        {
+          "slug": "scheduling",
+          "name": "Appointment scheduling",
+          "evidence_url": "https://www.honeybook.com/",
+          "evidence_text": "Connect your account and ask about any client, invoice, or booking",
+          "verified_at": "2026-11-15T20:19:41Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://honeybook.com",
+          "external_id": "https://honeybook.com",
+          "discovered_at": "2026-11-15T20:19:41Z"
+        }
+      ]
+    },
+    {
+      "slug": "hootsuite",
+      "name": "Hootsuite",
+      "canonical_url": "https://hootsuite.com",
+      "short_description": "A social media management workspace for planning and publishing content across accounts.",
+      "category_slug": "social-media",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:49Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:49Z",
+      "capabilities": [
+        {
+          "slug": "social",
+          "name": "Social post scheduling",
+          "evidence_url": "https://www.hootsuite.com/",
+          "evidence_text": "Hootsuite combines powerful social media management and intelligence, award-winning customer support, enterprise-grade security, and industry-leading service to help you move faster with confidence",
+          "verified_at": "2026-11-15T20:19:49Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://hootsuite.com",
+          "external_id": "https://hootsuite.com",
+          "discovered_at": "2026-11-15T20:19:49Z"
+        }
+      ]
+    },
+    {
+      "slug": "hubspot",
+      "name": "HubSpot",
+      "canonical_url": "https://hubspot.com/products/crm",
+      "short_description": "A CRM for organizing customer records and managing the work around a sales pipeline.",
+      "category_slug": "crm",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:39Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:39Z",
+      "capabilities": [
+        {
+          "slug": "crm",
+          "name": "Client management",
+          "evidence_url": "https://www.hubspot.com/products/crm",
+          "evidence_text": "CRM (customer relationship management) software is a customer database that stores every interaction, including contacts, deals, emails, calls, and tickets, in one shared system so sales, marketing, and service teams can track relationships and close more deals",
+          "verified_at": "2026-11-15T20:19:39Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://hubspot.com/products/crm",
+          "external_id": "https://hubspot.com/products/crm",
+          "discovered_at": "2026-11-15T20:19:39Z"
+        }
+      ]
+    },
+    {
+      "slug": "intercom",
+      "name": "Intercom",
+      "canonical_url": "https://intercom.com",
+      "short_description": "Customer service software for handling conversations and support workflows.",
+      "category_slug": "customer-support",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:58Z",
+      "capabilities": [
+        {
+          "slug": "support",
+          "name": "Customer support",
+          "evidence_url": "https://www.intercom.com/",
+          "evidence_text": "Intercom is a fully-featured AI-powered helpdesk",
+          "verified_at": "2026-11-15T20:19:58Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://intercom.com",
+          "external_id": "https://intercom.com",
+          "discovered_at": "2026-11-15T20:19:58Z"
+        }
+      ]
+    },
+    {
+      "slug": "linear",
+      "name": "Linear",
+      "canonical_url": "https://linear.app",
+      "short_description": "An issue and project workspace for teams planning and delivering software.",
+      "category_slug": "project-management",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:44Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:44Z",
+      "capabilities": [
+        {
+          "slug": "projects",
+          "name": "Project tracking",
+          "evidence_url": "https://linear.app/",
+          "evidence_text": "Initiatives Projects More",
+          "verified_at": "2026-11-15T20:19:44Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://linear.app",
+          "external_id": "https://linear.app",
+          "discovered_at": "2026-11-15T20:19:44Z"
+        }
+      ]
+    },
+    {
+      "slug": "make",
+      "name": "Make",
+      "canonical_url": "https://make.com",
+      "short_description": "A visual automation platform for connecting applications into repeatable workflows.",
+      "category_slug": "automation",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:52Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:52Z",
+      "capabilities": [
+        {
+          "slug": "automation",
+          "name": "Workflow automation",
+          "evidence_url": "https://www.make.com/",
+          "evidence_text": "AI Workflow Automation Software & Tools | Make",
+          "verified_at": "2026-11-15T20:19:52Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://make.com",
+          "external_id": "https://make.com",
+          "discovered_at": "2026-11-15T20:19:52Z"
+        }
+      ]
+    },
+    {
+      "slug": "miro",
+      "name": "Miro",
+      "canonical_url": "https://miro.com",
+      "short_description": "A visual collaboration workspace for mapping ideas and working together on shared boards.",
+      "category_slug": "whiteboards",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:47Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:47Z",
+      "capabilities": [
+        {
+          "slug": "whiteboard",
+          "name": "Collaborative whiteboard",
+          "evidence_url": "https://miro.com/",
+          "evidence_text": "Online Whiteboard",
+          "verified_at": "2026-11-15T20:19:47Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://miro.com",
+          "external_id": "https://miro.com",
+          "discovered_at": "2026-11-15T20:19:47Z"
+        }
+      ]
+    },
+    {
+      "slug": "notion",
+      "name": "Notion",
+      "canonical_url": "https://notion.com",
+      "short_description": "A workspace that combines documents, shared knowledge, and structured project information.",
+      "category_slug": "knowledge-management",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:44Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:44Z",
+      "capabilities": [
+        {
+          "slug": "docs",
+          "name": "Knowledge base",
+          "evidence_url": "https://www.notion.com/",
+          "evidence_text": "G2’s #1 knowledge base for 3 consecutive years",
+          "verified_at": "2026-11-15T20:19:44Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://notion.com",
+          "external_id": "https://notion.com",
+          "discovered_at": "2026-11-15T20:19:44Z"
+        }
+      ]
+    },
+    {
+      "slug": "obsidian",
+      "name": "Obsidian",
+      "canonical_url": "https://obsidian.md",
+      "short_description": "A writing and note organization application built around connected local Markdown documents.",
+      "category_slug": "notes",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:45Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:45Z",
+      "capabilities": [
+        {
+          "slug": "docs",
+          "name": "Knowledge base",
+          "evidence_url": "https://obsidian.md/",
+          "evidence_text": "Post feature requests, report bugs, and explore in-depth discussions about knowledge management",
+          "verified_at": "2026-11-15T20:19:45Z"
+        },
+        {
+          "slug": "notes",
+          "name": "Personal notes",
+          "evidence_url": "https://obsidian.md/",
+          "evidence_text": "From personal notes to journaling, knowledge bases, and project management, Obsidian gives you the tools to come up with ideas and organize them",
+          "verified_at": "2026-11-15T20:19:45Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://obsidian.md",
+          "external_id": "https://obsidian.md",
+          "discovered_at": "2026-11-15T20:19:45Z"
+        }
+      ]
+    },
+    {
+      "slug": "otter",
+      "name": "Otter",
+      "canonical_url": "https://otter.ai",
+      "short_description": "Transcribes meetings and organizes the conversation into notes and follow-up work.",
+      "category_slug": "meetings",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:39Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:39Z",
+      "capabilities": [
+        {
+          "slug": "meetings",
+          "name": "Meeting transcription",
+          "evidence_url": "https://otter.ai/",
+          "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+          "verified_at": "2026-11-15T20:19:39Z"
+        },
+        {
+          "slug": "action-items",
+          "name": "Action item extraction",
+          "evidence_url": "https://otter.ai/",
+          "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
+          "verified_at": "2026-11-15T20:19:39Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://otter.ai",
+          "external_id": "https://otter.ai",
+          "discovered_at": "2026-11-15T20:19:39Z"
+        }
+      ]
+    },
+    {
+      "slug": "pipedrive",
+      "name": "Pipedrive",
+      "canonical_url": "https://pipedrive.com",
+      "short_description": "Sales CRM software for keeping track of leads, contacts, and work in progress.",
+      "category_slug": "crm",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:40Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:40Z",
+      "capabilities": [
+        {
+          "slug": "crm",
+          "name": "Client management",
+          "evidence_url": "https://www.pipedrive.com/pt",
+          "evidence_text": "Normalmente, um software de CRM para equipes de vendas possibilita que usuários acompanhem suas atividades, gerenciem a comunicação com terceiros, meçam o progresso individual e das equipes e façam previsões de receita",
+          "verified_at": "2026-11-15T20:19:40Z"
+        },
+        {
+          "slug": "reminders",
+          "name": "Follow-up reminders",
+          "evidence_url": "https://www.pipedrive.com/pt",
+          "evidence_text": "Receba notificações quando for hora de fazer follow-up, melhore a experiência dos seus clientes e feche mais negócios do que nunca",
+          "verified_at": "2026-11-15T20:19:40Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://pipedrive.com",
+          "external_id": "https://pipedrive.com",
+          "discovered_at": "2026-11-15T20:19:40Z"
+        }
+      ]
+    },
+    {
+      "slug": "pizza-b0f5fd4d",
+      "name": "Pizza",
+      "canonical_url": "https://pizza.hertzbeat.com",
+      "short_description": "An open-source desktop and command-line assistant that connects to applications through MCP.",
+      "category_slug": "automation",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:43:26Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:43:26Z",
+      "capabilities": [
+        {
+          "slug": "app-connections",
+          "name": "App connections",
+          "evidence_url": "https://pizza.hertzbeat.com",
+          "evidence_text": "Connect apps through MCP",
+          "verified_at": "2026-11-15T20:43:26Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "hackernews",
+          "source_name": "Hacker News",
+          "source_url": "https://news.ycombinator.com/item?id=50507971",
+          "external_id": "50507971",
+          "discovered_at": "2026-11-15T16:04:32Z"
+        }
+      ]
+    },
+    {
+      "slug": "plausible",
+      "name": "Plausible",
+      "canonical_url": "https://plausible.io",
+      "short_description": "A website analytics tool for understanding traffic and visitor activity.",
+      "category_slug": "analytics",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:53Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:53Z",
+      "capabilities": [
+        {
+          "slug": "analytics",
+          "name": "Product analytics",
+          "evidence_url": "https://plausible.io/",
+          "evidence_text": "Plausible is privacy-friendly web analytics that doesn't collect personal data or track individual users",
+          "verified_at": "2026-11-15T20:19:53Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://plausible.io",
+          "external_id": "https://plausible.io",
+          "discovered_at": "2026-11-15T20:19:53Z"
+        }
+      ]
+    },
+    {
+      "slug": "posthog",
+      "name": "PostHog",
+      "canonical_url": "https://posthog.com",
+      "short_description": "A product analytics platform for understanding how people use an application.",
+      "category_slug": "analytics",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:54Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:54Z",
+      "capabilities": [
+        {
+          "slug": "analytics",
+          "name": "Product analytics",
+          "evidence_url": "https://posthog.com/",
+          "evidence_text": "Product Analytics, Session Replay, Error Tracking, Feature Flags, Experiments, Warehouse flow into your agents",
+          "verified_at": "2026-11-15T20:19:54Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://posthog.com",
+          "external_id": "https://posthog.com",
+          "discovered_at": "2026-11-15T20:19:54Z"
+        }
+      ]
+    },
+    {
+      "slug": "sentry",
+      "name": "Sentry",
+      "canonical_url": "https://sentry.io",
+      "short_description": "Application monitoring software for investigating errors and understanding problems in running software.",
+      "category_slug": "monitoring",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:53Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:53Z",
+      "capabilities": [
+        {
+          "slug": "monitoring",
+          "name": "Error monitoring",
+          "evidence_url": "https://sentry.io/welcome/",
+          "evidence_text": "Application Performance Monitoring & Error Tracking Software | SentrylyftFactory",
+          "verified_at": "2026-11-15T20:19:53Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://sentry.io",
+          "external_id": "https://sentry.io",
+          "discovered_at": "2026-11-15T20:19:53Z"
+        }
+      ]
+    },
+    {
+      "slug": "shopify",
+      "name": "Shopify",
+      "canonical_url": "https://shopify.com",
+      "short_description": "Commerce software for setting up a storefront and managing online selling.",
+      "category_slug": "ecommerce",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:56Z",
+      "capabilities": [
+        {
+          "slug": "ecommerce",
+          "name": "Online storefront",
+          "evidence_url": "https://www.shopify.com/",
+          "evidence_text": "Get more than ecommerce software with tools to manage every part of your business",
+          "verified_at": "2026-11-15T20:19:56Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://shopify.com",
+          "external_id": "https://shopify.com",
+          "discovered_at": "2026-11-15T20:19:56Z"
+        }
+      ]
+    },
+    {
+      "slug": "tally",
+      "name": "Tally",
+      "canonical_url": "https://tally.so",
+      "short_description": "An online form builder for creating questionnaires and collecting structured responses.",
+      "category_slug": "forms",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:55Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:55Z",
+      "capabilities": [
+        {
+          "slug": "forms",
+          "name": "Online forms",
+          "evidence_url": "https://tally.so/",
+          "evidence_text": "“Non stop new features and amazing UX makes Tally my go-to form builder",
+          "verified_at": "2026-11-15T20:19:55Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://tally.so",
+          "external_id": "https://tally.so",
+          "discovered_at": "2026-11-15T20:19:55Z"
+        }
+      ]
+    },
+    {
+      "slug": "todoist",
+      "name": "Todoist",
+      "canonical_url": "https://todoist.com",
+      "short_description": "A task organizer for planning personal work and coordinating shared to-do lists.",
+      "category_slug": "project-management",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:45Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:45Z",
+      "capabilities": [
+        {
+          "slug": "projects",
+          "name": "Project tracking",
+          "evidence_url": "https://www.todoist.com/",
+          "evidence_text": "Best for Shared Task Management",
+          "verified_at": "2026-11-15T20:19:45Z"
+        },
+        {
+          "slug": "reminders",
+          "name": "Follow-up reminders",
+          "evidence_url": "https://www.todoist.com/",
+          "evidence_text": "with reminders, priority levels, and labels",
+          "verified_at": "2026-11-15T20:19:45Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://todoist.com",
+          "external_id": "https://todoist.com",
+          "discovered_at": "2026-11-15T20:19:45Z"
+        }
+      ]
+    },
+    {
+      "slug": "trello",
+      "name": "Trello",
+      "canonical_url": "https://trello.com",
+      "short_description": "Organizes tasks and projects with boards that a team can update as work progresses.",
+      "category_slug": "project-management",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:42Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:42Z",
+      "capabilities": [
+        {
+          "slug": "projects",
+          "name": "Project tracking",
+          "evidence_url": "https://trello.com/",
+          "evidence_text": "Best for teams up to 100 that need to track multiple projects and visualize work in a variety of ways",
+          "verified_at": "2026-11-15T20:19:42Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://trello.com",
+          "external_id": "https://trello.com",
+          "discovered_at": "2026-11-15T20:19:42Z"
+        }
+      ]
+    },
+    {
+      "slug": "typeform",
+      "name": "Typeform",
+      "canonical_url": "https://typeform.com",
+      "short_description": "A form building platform for collecting responses through online questionnaires.",
+      "category_slug": "forms",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:55Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:55Z",
+      "capabilities": [
+        {
+          "slug": "forms",
+          "name": "Online forms",
+          "evidence_url": "https://www.typeform.com/",
+          "evidence_text": "Form Builder with AI Automation | TypeformTypeform IconFacebookTwitter/XInstagramYouTubeLinkedIn",
+          "verified_at": "2026-11-15T20:19:55Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://typeform.com",
+          "external_id": "https://typeform.com",
+          "discovered_at": "2026-11-15T20:19:55Z"
+        }
+      ]
+    },
+    {
+      "slug": "veed",
+      "name": "VEED",
+      "canonical_url": "https://veed.io",
+      "short_description": "A browser-based video workspace for editing footage and preparing finished videos.",
+      "category_slug": "video",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:50Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:50Z",
+      "capabilities": [
+        {
+          "slug": "video",
+          "name": "Video editing",
+          "evidence_url": "https://www.veed.io/",
+          "evidence_text": "1 Kling AI AI Reel Generator AI Voice Generator AI Video Editor Video Editor Automatic Subtitle Generator Remove Background Noise From Audio Remove Background Noise From Video Teleprompter Eye Contact AI Video Caption Generator Add Subtitles to Video Video Translator Video Compressor MP4 Compressor Dynamic Subtitles Screen Recorder Video Background Remover Add Text to Video",
+          "verified_at": "2026-11-15T20:19:50Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://veed.io",
+          "external_id": "https://veed.io",
+          "discovered_at": "2026-11-15T20:19:50Z"
+        }
+      ]
+    },
+    {
+      "slug": "wave",
+      "name": "Wave",
+      "canonical_url": "https://waveapps.com",
+      "short_description": "Financial tools for small businesses managing bookkeeping and customer invoices.",
+      "category_slug": "accounting",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:43Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:43Z",
+      "capabilities": [
+        {
+          "slug": "invoicing",
+          "name": "Invoicing",
+          "evidence_url": "https://www.waveapps.com/",
+          "evidence_text": "Create beautiful invoices, accept online payments, and make accounting easy—all in one place—with Wave’s suite of money management tools",
+          "verified_at": "2026-11-15T20:19:43Z"
+        },
+        {
+          "slug": "accounting",
+          "name": "Bookkeeping",
+          "evidence_url": "https://www.waveapps.com/",
+          "evidence_text": "Create beautiful invoices, accept online payments, and make accounting easy—all in one place—with Wave’s suite of money management tools",
+          "verified_at": "2026-11-15T20:19:43Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://waveapps.com",
+          "external_id": "https://waveapps.com",
+          "discovered_at": "2026-11-15T20:19:43Z"
+        }
+      ]
+    },
+    {
+      "slug": "zapier",
+      "name": "Zapier",
+      "canonical_url": "https://zapier.com",
+      "short_description": "Workflow automation software for connecting services and moving work between applications.",
+      "category_slug": "automation",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:51Z",
+      "capabilities": [
+        {
+          "slug": "automation",
+          "name": "Workflow automation",
+          "evidence_url": "https://zapier.com/",
+          "evidence_text": "No-code automation across 9,000+ apps",
+          "verified_at": "2026-11-15T20:19:51Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://zapier.com",
+          "external_id": "https://zapier.com",
+          "discovered_at": "2026-11-15T20:19:51Z"
+        }
+      ]
+    },
+    {
+      "slug": "zendesk",
+      "name": "Zendesk",
+      "canonical_url": "https://zendesk.com",
+      "short_description": "Customer service software for managing support requests and service conversations.",
+      "category_slug": "customer-support",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:57Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:57Z",
+      "capabilities": [
+        {
+          "slug": "support",
+          "name": "Customer support",
+          "evidence_url": "https://www.zendesk.com/",
+          "evidence_text": "It connects AI agents and your team members with core service tools like ticketing , helpdesk, knowledge , analytics , and quality assurance , so you can resolve issues end-to-end across all channels",
+          "verified_at": "2026-11-15T20:19:57Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://zendesk.com",
+          "external_id": "https://zendesk.com",
+          "discovered_at": "2026-11-15T20:19:57Z"
+        }
+      ]
+    },
+    {
+      "slug": "zoho-crm",
+      "name": "Zoho CRM",
+      "canonical_url": "https://zoho.com/crm",
+      "short_description": "A customer relationship management system for organizing sales activity and customer information.",
+      "category_slug": "crm",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:41Z",
+      "capabilities": [
+        {
+          "slug": "crm",
+          "name": "Client management",
+          "evidence_url": "https://www.zoho.com/crm/",
+          "evidence_text": "Zoho CRM's freemium edition supports up to 3 users and comes with the essentials like leads, documents, and mobile apps, it’s a perfect fit for your home business",
+          "verified_at": "2026-11-15T20:19:41Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://zoho.com/crm",
+          "external_id": "https://zoho.com/crm",
+          "discovered_at": "2026-11-15T20:19:41Z"
+        }
+      ]
+    },
+    {
+      "slug": "n8n",
+      "name": "n8n",
+      "canonical_url": "https://n8n.io",
+      "short_description": "A workflow automation platform for connecting applications and defining multi-step processes.",
+      "category_slug": "automation",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:51Z",
+      "capabilities": [
+        {
+          "slug": "automation",
+          "name": "Workflow automation",
+          "evidence_url": "https://n8n.io/",
+          "evidence_text": "n8n is a workflow automation platform that uniquely combines AI capabilities with business process automation, giving technical teams the flexibility of code with the speed of no-code",
+          "verified_at": "2026-11-15T20:19:51Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://n8n.io",
+          "external_id": "https://n8n.io",
+          "discovered_at": "2026-11-15T20:19:51Z"
+        }
+      ]
+    },
+    {
+      "slug": "tl-dv",
+      "name": "tl;dv",
+      "canonical_url": "https://tldv.io",
+      "short_description": "A meeting recording tool for revisiting discussions and sharing useful moments with a team.",
+      "category_slug": "meetings",
+      "audience": "",
+      "first_seen_at": "2026-11-15T20:19:38Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-15T20:19:38Z",
+      "capabilities": [
+        {
+          "slug": "meetings",
+          "name": "Meeting transcription",
+          "evidence_url": "https://tldv.io/",
+          "evidence_text": "Video Conferencing Record and transcribe meetings from Google Meet, Zoom and MS Teams",
+          "verified_at": "2026-11-15T20:19:38Z"
+        },
+        {
+          "slug": "action-items",
+          "name": "Action item extraction",
+          "evidence_url": "https://tldv.io/",
+          "evidence_text": "It records your meetings, writes the notes, transcript and action items, and sends them to the tools your team already uses , from your CRM to any LLM over MCP",
+          "verified_at": "2026-11-15T20:19:38Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "official",
+          "source_name": "Official website",
+          "source_url": "https://tldv.io",
+          "external_id": "https://tldv.io",
+          "discovered_at": "2026-11-15T20:19:38Z"
+        }
+      ]
+    }
+  ]
+}

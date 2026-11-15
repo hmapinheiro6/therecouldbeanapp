@@ -201,7 +201,6 @@
   "automation": [
     "workflow automation",
     "automate workflows",
-    "connect apps",
     "no code automation",
     "automates workflows"
   ],
@@ -283,5 +282,11 @@
     "whiteboarding",
     "visual collaboration",
     "brainstorming board"
+  ],
+  "app-connections": [
+    "app connections",
+    "connect apps",
+    "connected apps",
+    "mcp integrations"
   ]
 }

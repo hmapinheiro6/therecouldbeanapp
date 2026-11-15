@@ -30,7 +30,8 @@ const records = suite.cases.map((c) => {
     kind: c.kind,
     known_relevant: expected.size,
     in_catalog: inCatalog.length,
-    precision_at_5: result.length
+    precision_at_5: relevant.slice(0, 5).filter(Boolean).length / 5,
+    precision_of_returned_top5: result.length
       ? relevant.slice(0, 5).filter(Boolean).length / Math.min(5, result.length)
       : 0,
     recall_at_10: inCatalog.length ? found.length / inCatalog.length : null,
@@ -112,6 +113,9 @@ const report = {
   supported_cases: supported.length,
   metrics: {
     precision_at_5: mean(supported.map((r) => r.precision_at_5)),
+    precision_of_returned_top5: mean(
+      supported.map((r) => r.precision_of_returned_top5),
+    ),
     recall_at_10: mean(supported.map((r) => r.recall_at_10 ?? 0)),
     mrr: mean(supported.map((r) => r.reciprocal_rank)),
     mean_top_result_capability_coverage: mean(
@@ -132,10 +136,10 @@ const report = {
   targets: { precision_at_5: 0.8, recall_at_10: 0.85 },
   limitations: [
     "Single-author engineering judgments; external blind evaluation still needed.",
-    "Precision uses returned slots (min(5, returned)), not five padded slots.",
+    "Strict Precision@5 uses five slots; the additional returned-result precision uses min(5, returned). Many supported categories have fewer than five known catalog products.",
     "Recall is within manually known relevant products present in catalog; not the entire market.",
     "Capacity copies have no new capability evidence and are explicitly synthetic.",
-    "Production Worker CPU and D1 row usage need live instrumentation; local timing is not proof of the 10ms allowance.",
+    "Local timing does not establish Worker CPU or D1 billing; separate production measurements are recorded in docs/production-search-cpu.json and docs/production-d1-measurement.json.",
   ],
   capacity,
   cases: records,

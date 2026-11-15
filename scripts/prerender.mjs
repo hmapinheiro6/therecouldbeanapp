@@ -1,6 +1,20 @@
 // Static metadata for non-product pages. Product metadata is rendered against live D1.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-const html = readFileSync("dist/index.html", "utf8");
+import { parse } from "jsonc-parser";
+const base = new URL(
+  parse(readFileSync("wrangler.jsonc", "utf8")).vars.SITE_URL,
+).origin;
+const html = readFileSync("dist/index.html", "utf8").replace(
+  'content="/social.png"',
+  'content="' + base + '/social.png"',
+);
+writeFileSync(
+  "dist/index.html",
+  html.replace(
+    "</head>",
+    '<link rel="canonical" href="' + base + '/"/></head>',
+  ),
+);
 const pages = {
   about: [
     "About — There Could Be An App",
@@ -31,6 +45,16 @@ for (const [path, [title, description]] of Object.entries(pages)) {
   let page = html
     .replace(/<title>.*?<\/title>/, `<title>${title}</title>`)
     .replace(/(<meta name="description" content=")[^"]*/, `$1${description}`);
+  page = page
+    .replace(/(<meta property="og:title" content=")[^"]*/, `$1${title}`)
+    .replace(
+      /(<meta property="og:description" content=")[^"]*/,
+      `$1${description}`,
+    );
+  page = page.replace(
+    "</head>",
+    '<link rel="canonical" href="' + base + "/" + path + '"/></head>',
+  );
   if (path === "search")
     page = page.replace(
       "</head>",

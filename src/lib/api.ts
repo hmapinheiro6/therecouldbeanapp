@@ -8,7 +8,15 @@ export class ApiError extends Error {
 }
 export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch("/api" + path, options);
-  const data = (await response.json()) as { error?: { message?: string } };
+  let data: { error?: { message?: string } };
+  try {
+    data = (await response.json()) as typeof data;
+  } catch {
+    throw new ApiError(
+      "The catalog is temporarily unavailable. Please try again later.",
+      response.status,
+    );
+  }
   if (!response.ok)
     throw new ApiError(
       data.error?.message ?? "Something went wrong. Please try again.",
