@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom";
 import { SearchForm } from "../components/SearchForm";
 import { ProductCard } from "../components/ProductCard";
+import { BlueprintStamp, PixelArt } from "../components/PixelArt";
 import { useApi } from "../useApi";
 import type { Product } from "../lib/types";
 const examples = [
-  ["01", "The solo empire", "A CRM for freelancers that handles invoicing"],
-  ["02", "The content machine", "An app that automatically edits short videos"],
+  ["01", "THE SOLO EMPIRE", "A CRM for freelancers that handles invoicing"],
+  ["02", "THE CONTENT MACHINE", "An app that automatically edits short videos"],
   [
     "03",
-    "The unpaid intern",
+    "THE UNPAID INTERN",
     "A tool that schedules social posts across platforms",
   ],
   [
     "04",
-    "The meeting survivor",
+    "THE MEETING SURVIVOR",
     "An AI assistant that takes notes during meetings",
   ],
 ];
@@ -24,32 +25,71 @@ export function Home() {
   const catalog = useApi<{ products: Product[] }>("/products");
   return (
     <>
-      <section className="hero">
-        <div className="hero-kicker">
-          <span className="status-dot" /> A REALITY CHECK FOR YOUR NEXT BIG IDEA
+      <section className="hero blueprint-sheet">
+        <div className="sheet-heading">
+          <span>TCBA / DEPARTMENT OF QUESTIONABLE ORIGINALITY</span>
+          <span>DRAWING NO. 001</span>
         </div>
-        <h1>
-          There could be
-          <br />
-          an app for that.
-          <br />
-          <em>There are probably 40.</em>
-        </h1>
-        <p className="hero-copy">
-          Describe your groundbreaking app idea.
-          <br />
-          We’ll find the people who already built it.
-        </p>
-        <SearchForm />
-        <p className="under-search">
-          <span>No account. No AI prophecy. Just actual software.</span>
-          <span className="handwritten">Sorry in advance. ↖</span>
-        </p>
+        <div className="hero-layout">
+          <div className="hero-title">
+            <div className="hero-kicker">
+              <span className="status-dot" /> YOUR NEXT BIG IDEA. FILE UNDER:
+              PROBABLY EXISTS.
+            </div>
+            <h1>
+              THERE COULD BE
+              <br />
+              AN APP
+              <br />
+              FOR THAT.
+            </h1>
+            <p className="hero-subtitle">
+              There are probably 40.<span aria-hidden="true">*</span>
+            </p>
+            <p className="hero-copy">
+              Describe your brilliant invention.
+              <br />
+              We’ll find the people who already built it.
+            </p>
+          </div>
+          <figure className="hero-schematic">
+            <span className="schematic-label">FIG. A / THE IDEA MACHINE</span>
+            <div className="schematic-drawing">
+              <PixelArt />
+              <span className="schematic-callout">
+                ORIGINALITY
+                <br />
+                NOT INCLUDED ↙
+              </span>
+            </div>
+            <figcaption>
+              INPUT: ONE BRILLIANT IDEA
+              <br />
+              OUTPUT: A SMALL REALITY CHECK
+            </figcaption>
+          </figure>
+        </div>
+        <div className="invention-input">
+          <SearchForm />
+          <p className="under-search">
+            <span>NO ACCOUNT. NO AI PROPHECY. JUST ACTUAL SOFTWARE.</span>
+            <span>* A joke. The counts below are real.</span>
+          </p>
+        </div>
+        <div className="sheet-footer">
+          <span>METHOD: SEARCH → COMPARE → RECONSIDER</span>
+          <span>NOT A PATENT SEARCH.</span>
+        </div>
       </section>
       <section className="examples-section">
         <div className="section-heading">
-          <h2>Need an idea to ruin?</h2>
-          <p>Here are a few suspiciously original ones.</p>
+          <div>
+            <span className="eyebrow">
+              01 / START WITH A FAMILIAR INVENTION
+            </span>
+            <h2>Need an idea to ruin?</h2>
+          </div>
+          <PixelArt kind="bulb" />
         </div>
         <div className="examples-grid">
           {examples.map(([n, title, q]) => (
@@ -59,7 +99,7 @@ export function Home() {
               to={"/search?q=" + encodeURIComponent(q)}
             >
               <span className="eyebrow">
-                {n} / {title}
+                CONCEPT {n} / {title}
               </span>
               <p>{q}</p>
               <span className="example-arrow" aria-hidden="true">
@@ -72,40 +112,55 @@ export function Home() {
       <section className="catalog-preview">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">THE EVIDENCE LOCKER</span>
+            <span className="eyebrow">02 / RETRIEVED FROM THE ARCHIVE</span>
             <h2>Already a thing.</h2>
           </div>
           <Link className="text-link" to="/explore">
-            Explore the catalog ↗
+            OPEN THE ARCHIVE →
           </Link>
         </div>
         <div className="product-grid">
           {catalog.data?.products.slice(0, 3).map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}
-          {catalog.loading && <p role="status">Opening the evidence locker…</p>}
+          {catalog.loading && (
+            <p className="loading-state" role="status">
+              <span className="loading-bar" />
+              RETRIEVING DOSSIERS…
+            </p>
+          )}
           {catalog.error && (
-            <p className="notice">
-              The catalog is taking a moment. Search will be available when the
-              service returns.
+            <p className="notice" role="alert">
+              The archive is temporarily unavailable. Please try again shortly.
             </p>
           )}
         </div>
       </section>
-      <section className="manifesto">
-        <span className="eyebrow">A SMALL REALITY CHECK</span>
-        <p>
-          Someone having built it
-          <br />
-          doesn’t mean you shouldn’t.
-        </p>
-        <span>It just means you should know.</span>
+      <section className="manifesto blueprint-sheet">
+        <PixelArt kind="crane" />
+        <div>
+          <span className="eyebrow">
+            ENGINEER’S NOTE / PLEASE KEEP BUILDING
+          </span>
+          <h2>
+            ALREADY BUILT.
+            <br />
+            NOT THE END.
+          </h2>
+          <p>
+            Someone having built it doesn’t mean you shouldn’t.
+            <br />
+            It just means you should know.
+          </p>
+        </div>
+        <BlueprintStamp />
       </section>
       <div className="catalog-note">
         <span className="status-dot" />
         {data
-          ? `${data.products} published products. Source-backed capabilities. Zero invented scores.`
-          : "Source-backed capabilities. Zero invented scores."}
+          ? `${data.products} PUBLISHED PRODUCTS`
+          : "SOURCE-CHECKED SOFTWARE"}
+        <span>DOCUMENTED CAPABILITIES. ZERO INVENTED SCORES.</span>
       </div>
     </>
   );

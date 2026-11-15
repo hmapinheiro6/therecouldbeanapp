@@ -1,0 +1,41 @@
+{
+  "method": "WCAG relative luminance; primary text pairs. No full independent accessibility audit claimed.",
+  "pairs": [
+    {
+      "use": "Main text",
+      "foreground": "#F0F3ED",
+      "background": "#123B8A",
+      "ratio": 9.29
+    },
+    {
+      "use": "Muted blueprint text",
+      "foreground": "#b7d5f1",
+      "background": "#123B8A",
+      "ratio": 6.84
+    },
+    {
+      "use": "Cyan labels",
+      "foreground": "#8DCEF0",
+      "background": "#123B8A",
+      "ratio": 6.05
+    },
+    {
+      "use": "Dossier text",
+      "foreground": "#071D49",
+      "background": "#F0F3ED",
+      "ratio": 14.64
+    },
+    {
+      "use": "Dossier metadata",
+      "foreground": "#34517e",
+      "background": "#F0F3ED",
+      "ratio": 7.14
+    },
+    {
+      "use": "Input placeholders",
+      "foreground": "#9fb8db",
+      "background": "#071D49",
+      "ratio": 8.08
+    }
+  ]
+}

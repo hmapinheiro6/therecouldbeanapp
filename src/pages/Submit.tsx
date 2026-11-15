@@ -22,14 +22,14 @@ export function Submit() {
     } | null>(null);
   return (
     <div className="page submission-page">
-      <span className="eyebrow">ADD TO THE PILE</span>
+      <span className="eyebrow">INTAKE DESK / NEW INVENTION</span>
       <h1 className="page-title">
         Built another app?
         <br />
         <em>Of course you did.</em>
       </h1>
       <p className="page-intro">
-        Give it a place in the evidence locker. No account, payment,
+        File it in the invention archive. No account, payment,
         <br className="desktop-break" /> or founder origin story required.
       </p>
       {result ? (

@@ -6,7 +6,7 @@ A React 19 / TypeScript / Vite / Tailwind application calls Hono JSON routes on 
 
 D1 holds normalized canonical product records, categories, capabilities, evidence, sources, submissions, ingestion checkpoints/runs, review candidates, temporary rate-limit identifiers, and request nonces. FTS5 is a derived index. Triggers synchronize product, category, capability, publication, and deletion changes. Canonical public JSON/SQL snapshots rebuild the database and index without importing virtual-table exports.
 
-Search performs two bounded queries: FTS retrieval of at most 80 IDs and one indexed capability hydration query. No external website or inference call happens during search. Product detail uses indexed lookups and source hydration. Browser requests have explicit lengths and pagination bounds. Public stats and product APIs return short cache lifetimes; raw search requests are not persisted or cached by application code.
+Search performs two bounded queries: FTS retrieval of at most 80 IDs and one indexed capability hydration query. No external website or inference call happens during search. Each isolate may cache normalized text for at most 256 public product records; field comparisons invalidate edited text immediately. Queries and private input are never cached. Product detail uses indexed lookups and source hydration. Browser requests have explicit lengths and pagination bounds. Public stats and product APIs return short cache lifetimes; raw search requests are not persisted or cached by application code.
 
 ## Discovery path
 

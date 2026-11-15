@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { PixelArt } from "./components/PixelArt";
 import { Home } from "./pages/Home";
 import { Search } from "./pages/Search";
 import { Explore } from "./pages/Explore";
@@ -39,7 +40,7 @@ function PageMetadata() {
     }
     canonical.href = window.location.origin + pathname;
     window.scrollTo(0, 0);
-    document.querySelector<HTMLElement>("main")?.focus();
+    document.querySelector<HTMLElement>("main")?.focus({ preventScroll: true });
   }, [pathname]);
   return null;
 }
@@ -57,12 +58,12 @@ export function App() {
           aria-label="There Could Be An App home"
         >
           <span className="brand-symbol" aria-hidden="true">
-            ↗
+            <PixelArt kind="window" />
           </span>
           <span>
-            there could be
+            THERE COULD BE
             <br />
-            <b>an app.</b>
+            <b>AN APP.</b>
           </span>
         </Link>
         <nav aria-label="Main navigation">
@@ -91,13 +92,13 @@ export function App() {
           <Link to="/" className="footer-brand">
             there could be an app. ↗
           </Link>
-          <p>Original ideas. Previously implemented.</p>
+          <p>Original ideas. Previously implemented. / Keep the drawings.</p>
         </div>
         <nav aria-label="Footer">
           <Link to="/about">About</Link>
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
-          <span>Independently curious.</span>
+          <span>THE INVENTION ARCHIVE / EST. 2026</span>
         </nav>
       </footer>
     </>

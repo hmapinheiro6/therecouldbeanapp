@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useApi } from "../useApi";
 import type { SearchResponse } from "../lib/types";
 import { SearchForm } from "../components/SearchForm";
+import { PixelArt } from "../components/PixelArt";
 import { ProductCard } from "../components/ProductCard";
 export function Search() {
   const [params] = useSearchParams();
@@ -18,7 +19,21 @@ export function Search() {
         ← A different brilliant idea
       </Link>
       <div className="results-header">
-        <span className="eyebrow">THE RESULTS ARE IN</span>
+        <div className="search-reference">
+          <span className="eyebrow">BLUEPRINT SEARCH / ARCHIVE RESULTS</span>
+          <span className="archive-status">
+            STATUS:{" "}
+            {loading
+              ? "SCANNING"
+              : error
+                ? "CONNECTION ERROR"
+                : data?.summary.strong
+                  ? "ALREADY INVENTED"
+                  : data?.total
+                    ? "RELATED FILES FOUND"
+                    : "NO CLOSE MATCH"}
+          </span>
+        </div>
         <h1>
           {loading
             ? "Consulting the evidence…"
@@ -40,6 +55,10 @@ export function Search() {
       {data && (
         <>
           <div className="results-toolbar">
+            <p className="found-count">
+              Found: <b>{data.total}</b> relevant{" "}
+              {data.total === 1 ? "product" : "products"}.
+            </p>
             <div className="match-counts">
               <span>
                 <b>{data.summary.strong}</b> strong
@@ -77,7 +96,7 @@ export function Search() {
           </div>
           {!data.total && (
             <div className="empty-state">
-              <span className="empty-mark">?</span>
+              <PixelArt kind="bulb" />
               <h2>
                 Either you’re onto something,
                 <br />

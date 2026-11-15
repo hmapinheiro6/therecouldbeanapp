@@ -113,6 +113,9 @@ const report = {
   supported_cases: supported.length,
   metrics: {
     precision_at_5: mean(supported.map((r) => r.precision_at_5)),
+    judgment_ceiling_precision_at_5: mean(
+      supported.map((r) => Math.min(5, r.in_catalog) / 5),
+    ),
     precision_of_returned_top5: mean(
       supported.map((r) => r.precision_of_returned_top5),
     ),
@@ -136,6 +139,7 @@ const report = {
   targets: { precision_at_5: 0.8, recall_at_10: 0.85 },
   limitations: [
     "Single-author engineering judgments; external blind evaluation still needed.",
+    "The fixed relevant-product judgments impose a calculable P@5 ceiling; expand independently verified judgments and catalog coverage before interpreting the 80% target as a ranking-only requirement.",
     "Strict Precision@5 uses five slots; the additional returned-result precision uses min(5, returned). Many supported categories have fewer than five known catalog products.",
     "Recall is within manually known relevant products present in catalog; not the entire market.",
     "Capacity copies have no new capability evidence and are explicitly synthetic.",

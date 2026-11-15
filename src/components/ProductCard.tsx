@@ -9,13 +9,35 @@ export function ProductCard({
 }) {
   const result = "match_class" in product ? product : null;
   return (
-    <article className="product-card">
+    <article
+      className={
+        "product-card " +
+        (result
+          ? result.match_class === "Strong match"
+            ? "match-strong"
+            : result.match_class === "Partial match"
+              ? "match-partial"
+              : "match-related"
+          : "catalog-dossier")
+      }
+    >
+      <div className="dossier-heading">
+        <span>FILE / {String(product.id).padStart(4, "0")}</span>
+        <span>SOFTWARE DOSSIER</span>
+      </div>
       <div className="card-top">
         <div className="product-monogram" aria-hidden="true">
           {product.name.slice(0, 1)}
         </div>
         <span className="eyebrow">
-          {result ? result.match_class : product.category}
+          {result && (
+            <span className="match-signal" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+          )}
+          {result ? result.match_class : "VERIFIED LISTING"}
         </span>
         {index !== undefined && (
           <span className="result-number">

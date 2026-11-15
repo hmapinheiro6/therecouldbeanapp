@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-11-15T20:59:34.748Z",
+  "exported_at": "2026-11-15T21:28:18.578Z",
   "environment": "production",
   "products": [
     {
@@ -900,21 +900,21 @@
       "audience": "",
       "first_seen_at": "2026-11-15T20:19:39Z",
       "announced_at": null,
-      "last_verified_at": "2026-11-15T20:19:39Z",
+      "last_verified_at": "2026-11-15T21:27:16Z",
       "capabilities": [
         {
           "slug": "meetings",
           "name": "Meeting transcription",
-          "evidence_url": "https://otter.ai/",
-          "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
-          "verified_at": "2026-11-15T20:19:39Z"
+          "evidence_url": "https://otter.ai/meeting-notes",
+          "evidence_text": "Record and transcribe your meetings in real time.",
+          "verified_at": "2026-11-15T21:27:16Z"
         },
         {
           "slug": "action-items",
           "name": "Action item extraction",
-          "evidence_url": "https://otter.ai/",
-          "evidence_text": "A Guide to Types, Benefits, and Examples Meeting Notes Template With Action Items: Your Guide to Productive Meetings Enhancing Productivity With the Best AI Meeting Assistant Tool How To Use an AI Personal Assistant for Work: Top 8 Tools How To Generate a YouTube Transcript: A Complete Guide How To Run a Meeting Like a Pro: Strategies and Tips Otter AI Chat: In Your Meetings Speech to text Youtube transcript generator",
-          "verified_at": "2026-11-15T20:19:39Z"
+          "evidence_url": "https://otter.ai/meeting-notes",
+          "evidence_text": "It can even assigns action items.",
+          "verified_at": "2026-11-15T21:27:16Z"
         }
       ],
       "sources": [

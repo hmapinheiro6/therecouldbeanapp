@@ -433,6 +433,11 @@ app.get("/apps/:slug", async (c) => {
       }).replace(/</g, "\\u003c")
     : "";
   const html = new HTMLRewriter()
+    .on('link[rel="canonical"]', {
+      element(e) {
+        e.remove();
+      },
+    })
     .on("head", {
       element(e) {
         e.append(

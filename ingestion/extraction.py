@@ -18,7 +18,7 @@ class Metadata(HTMLParser):
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if tag=='script' and a.get('type')=='application/ld+json':self.ld=True;self.ld_parts=[]
-        if tag in ('script','style','noscript','svg'):self.skip+=1
+        if tag in ('script','style','noscript','svg','nav','footer'):self.skip+=1
         if tag=='title':self.in_title=True
         if tag=='meta':self.meta[a.get('name',a.get('property',''))]=a.get('content','')
         if tag in ('h1','h2','h3','p','li','div','section'):self.parts.append('\n')
@@ -27,7 +27,7 @@ class Metadata(HTMLParser):
             try:self.json_ld.append(json.loads(''.join(self.ld_parts)))
             except ValueError:pass
             self.ld=False
-        if tag in ('script','style','noscript','svg'):self.skip=max(0,self.skip-1)
+        if tag in ('script','style','noscript','svg','nav','footer'):self.skip=max(0,self.skip-1)
         if tag=='title':self.in_title=False
         if tag in ('h1','h2','h3','p','li','div','section'):self.parts.append('\n')
     def handle_data(self,data):
@@ -40,6 +40,7 @@ class Metadata(HTMLParser):
 
 def evidence_from(sentences,allowed=None):
     # Prefer explanatory feature prose over navigation labels and footer fragments.
+    sentences=[s for s in sentences if len(s)<=500]
     sentences=sorted(sentences,key=lambda s: (bool(re.search(r"\b(manage|create|track|provides|enables|supports|organize|record|transcri|schedule|helps|platform|software|tool|build)\w*",s,re.I)), min(len(s),180)),reverse=True)
     found=[]
     for slug,aliases in SYNONYMS.items():

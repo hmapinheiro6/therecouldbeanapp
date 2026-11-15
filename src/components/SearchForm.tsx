@@ -8,8 +8,7 @@ export function SearchForm({
   compact?: boolean;
 }) {
   const [query, setQuery] = useState(initial),
-    [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
+    [error, setError] = useState("");
   const navigate = useNavigate();
   function submit() {
     if (query.trim().length < 2) {
@@ -21,9 +20,7 @@ export function SearchForm({
       return;
     }
     setError("");
-    setBusy(true);
     navigate("/search?q=" + encodeURIComponent(query.trim()));
-    setBusy(false);
   }
   return (
     <form
@@ -33,6 +30,10 @@ export function SearchForm({
         submit();
       }}
     >
+      <div className="drawing-field-heading">
+        <span aria-hidden="true">FIG. 01 / CONCEPT INPUT</span>
+        <span aria-hidden="true">SCALE 1:1</span>
+      </div>
       <label htmlFor="idea" className="eyebrow">
         THE NEXT BIG THING, APPARENTLY
       </label>
@@ -50,7 +51,7 @@ export function SearchForm({
         aria-invalid={!!error}
         aria-describedby="search-help search-error"
         onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
+          if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
             e.preventDefault();
             submit();
           }
@@ -63,8 +64,9 @@ export function SearchForm({
             : "Plain English. Unreasonable ambition welcome."}
           <small>Enter to search · Shift + Enter for a new line</small>
         </span>
-        <button className="button primary" disabled={busy} type="submit">
-          {busy ? "Looking…" : "Ruin my idea"} <span aria-hidden="true">↗</span>
+        <button className="button primary" type="submit">
+          <span aria-hidden="true">[</span> Ruin my idea{" "}
+          <span aria-hidden="true">→ ]</span>
         </button>
       </div>
       <p role="alert" id="search-error" className="field-error">

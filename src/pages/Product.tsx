@@ -39,11 +39,13 @@ export function Product() {
   return (
     <div className="page product-detail">
       <Link className="back-link" to="/explore">
-        ← The evidence locker
+        ← The invention archive
       </Link>
       <div className="detail-header">
         <div>
-          <span className="eyebrow">{p.category} / VERIFIED CATALOG ENTRY</span>
+          <span className="eyebrow">
+            FILE {String(p.id).padStart(4, "0")} / {p.category} / VERIFIED ENTRY
+          </span>
           <h1 className="page-title">{p.name}</h1>
           <p className="page-intro">{p.short_description}</p>
         </div>

@@ -33,12 +33,26 @@ export function normalize(input: string) {
 }
 // Immutable vocabulary preprocessing avoids hundreds of repeated normalizations per request.
 const normalizedSynonyms = Object.entries(synonyms).map(
-  ([slug, aliases]) => [slug, aliases.map(normalize)] as const,
+  ([slug, aliases]) =>
+    [slug, aliases.map((a) => " " + normalize(a) + " ")] as const,
 );
 const capabilityMap = new Map(
   capabilities.map((c) => [
     c.slug,
     { ...c, words: normalize(c.name).split(" ") },
+  ]),
+);
+const generic = new Set(
+  "please find way something manage business work solution platform across online more create generate sends send extracts extract track tracks tracking handle handles from into turns turn lets let get teams team just simple useful using use remember who again".split(
+    " ",
+  ),
+);
+const singular = (word: string) =>
+  word.length > 3 && word.endsWith("s") ? word.slice(0, -1) : word;
+const capabilityWords = new Map(
+  normalizedSynonyms.map(([slug, aliases]) => [
+    slug,
+    [...new Set(aliases.flatMap((a) => a.trim().split(" ").map(singular)))],
   ]),
 );
 export interface Intent {
@@ -64,10 +78,12 @@ export function parseQuery(query: string): Intent {
   }
   const has = (text: string, phrase: string) =>
     (" " + text + " ").includes(" " + phrase + " ");
-  const extract = (text: string) =>
-    normalizedSynonyms
-      .filter(([, aliases]) => aliases.some((a) => has(text, a)))
+  const extract = (text: string) => {
+    const padded = " " + text + " ";
+    return normalizedSynonyms
+      .filter(([, aliases]) => aliases.some((a) => padded.includes(a)))
       .map(([s]) => s);
+  };
   const excluded = extract(negative.join(" "));
   const requested = extract(positive.join(" ")).filter(
     (s) => !excluded.includes(s),
@@ -105,19 +121,8 @@ export function parseQuery(query: string): Intent {
   ].filter((q) => has(normalized, q));
   // Unknown nouns may describe essential requirements outside our taxonomy.
   // Keep them visible and prevent a category-only match from becoming "strong".
-  const generic = new Set(
-    "please find way something manage business work solution platform across online more create generate sends send extracts extract track tracks tracking handle handles from into turns turn lets let get teams team just simple useful using use remember who again".split(
-      " ",
-    ),
-  );
-  const singular = (word: string) =>
-    word.length > 3 && word.endsWith("s") ? word.slice(0, -1) : word;
   const knownWords = new Set(
-    normalizedSynonyms
-      .filter(([slug]) => requested.includes(slug))
-      .flatMap(([, aliases]) =>
-        aliases.flatMap((a) => a.split(" ").map(singular)),
-      ),
+    requested.flatMap((slug) => capabilityWords.get(slug) ?? []),
   );
   const qualifiedWords = new Set(
     [...qualifiers, ...audience].flatMap((q) => q.split(" ")),

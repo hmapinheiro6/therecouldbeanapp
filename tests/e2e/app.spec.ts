@@ -4,7 +4,7 @@ test("homepage sends a real search and exposes source-backed results", async ({
 }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "There could be",
+    "THERE COULD BE",
   );
   await page
     .getByLabel("THE NEXT BIG THING, APPARENTLY")
@@ -103,6 +103,10 @@ test("shareable URLs work directly and queries are not indexable", async ({
     "content",
     "noindex,nofollow",
   );
+  const detail = await request.get("/apps/otter");
+  const html = await detail.text();
+  expect(html.match(/rel="canonical"/g)).toHaveLength(1);
+  expect(html).toMatch(/rel="canonical" href="[^"]+\/apps\/otter"/);
   const result = await request.get("/api/search?q=crm%20%22%20OR%20%2A%20--");
   expect(result.status()).toBe(200);
 });

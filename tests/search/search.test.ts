@@ -123,3 +123,19 @@ it("does not assert unknown essential requirements from a generic capability mat
   expect(results.every((p) => p.match_class !== "Strong match")).toBe(true);
   expect(results[0].missing.join(" ")).toContain("dolphin");
 });
+
+it("uses edited public listing text immediately after a previous search", () => {
+  search(db, "Otter");
+  db.exec("SAVEPOINT edited_listing");
+  try {
+    db.prepare(
+      "UPDATE products SET name='Otter Revised',short_description='A revised meeting transcription application.' WHERE slug='otter'",
+    ).run();
+    const result = search(db, "Otter Revised").find((p) => p.slug === "otter");
+    expect(result?.match_class).toBe("Strong match");
+    expect(result?.name).toBe("Otter Revised");
+  } finally {
+    db.exec("ROLLBACK TO edited_listing; RELEASE edited_listing");
+  }
+  expect(search(db, "Otter")[0].match_class).toBe("Strong match");
+});

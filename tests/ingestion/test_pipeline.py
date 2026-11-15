@@ -114,3 +114,9 @@ def test_public_ipv4_is_preferred_on_ipv4_only_cloud_runners():
 def test_app_connections_do_not_assert_workflow_automation():
     claims=evidence_from(['Connect apps through MCP'])
     assert [c['slug'] for c in claims]==['app-connections']
+
+
+def test_navigation_and_oversized_fragments_are_not_capability_evidence():
+    p=Metadata();p.feed('<title>ActualApp</title><main><p>ActualApp is a public software tool for simple everyday work.</p></main><nav>Project management software</nav><footer>Password manager platform</footer>')
+    assert evidence_from(p.sentences())==[]
+    assert evidence_from(['Project management '+('unrelated words '*50)])==[]

@@ -1,3 +1,4 @@
+import { PixelArt } from "../components/PixelArt";
 import { Link } from "react-router-dom";
 export function About() {
   return (
@@ -169,7 +170,8 @@ export function Terms() {
 export function NotFound() {
   return (
     <div className="page empty-state not-found">
-      <span className="eyebrow">404 / AN ACTUALLY ORIGINAL IDEA</span>
+      <PixelArt kind="disk" />
+      <span className="eyebrow">ERROR 404 / FILE NOT IN ARCHIVE</span>
       <h1 className="page-title">
         There isn’t a page
         <br />

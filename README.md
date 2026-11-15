@@ -1,6 +1,6 @@
 # There Could Be An App
 
-An evidence-backed software discovery engine with a raised eyebrow. React + TypeScript + Vite + Tailwind, a Hono Worker, Cloudflare D1 FTS5, and deterministic Python discovery. No AI inference, paid search, separate server, or paid datasets.
+An evidence-backed software discovery engine, disguised as an 8-bit blueprint archive. React + TypeScript + Vite + Tailwind, a Hono Worker, Cloudflare D1 FTS5, and deterministic Python discovery. No AI inference, paid search, separate server, or paid datasets.
 
 Live: [There Could Be An App](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public repository](https://github.com/hmapinheiro6/therecouldbeanapp)
 
@@ -42,6 +42,7 @@ The API suite uses actual local D1 in workerd. The search benchmark uses SQLite 
 ## Documentation
 
 - [Engineering report and current deployment status](docs/REPORT.md)
+- [Blueprint visual system and artwork](docs/DESIGN.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Search design, measurements, and limitations](docs/SEARCH.md)
 - [Discovery and source permissions](docs/INGESTION.md)

@@ -5,7 +5,7 @@ Production is deployed on Cloudflare Workers Free at [therecouldbeanapp.henrique
 ## Current resources
 
 - Worker: `therecouldbeanapp`; account `272cf24b9368ff4a4c6833562cae0f0d`.
-- Isolated D1: `therecouldbeanapp-catalog`, ID `2a24c33c-ee1f-4dba-b601-39f00232e3ea`, binding `DB`; migrations 0001–0004 applied.
+- Isolated D1: `therecouldbeanapp-catalog`, ID `2a24c33c-ee1f-4dba-b601-39f00232e3ea`, binding `DB`; migrations 0001–0005 applied.
 - Free managed Turnstile widget for the deployed hostname; public sitekey in `wrangler.jsonc`.
 - Worker secrets: `INTERNAL_SECRET`, `RATE_LIMIT_SALT`, `TURNSTILE_SECRET_KEY`, supplied through provider secret storage.
 - Repository secret `INTERNAL_SECRET`; variables `INGESTION_API_URL` and `DISCOVERY_ENABLED=true`.
@@ -64,4 +64,4 @@ Check a product URL directly for escaped useful HTML, correct canonical/social U
 
 ## Custom domain
 
-`therecouldbeanapp.com` ownership and DNS access were not confirmed, so it is not connected. The supplied support email does not establish domain-control authorization. Once the owner confirms DNS control, attach the authorized custom domain to this Worker, update `SITE_URL`/`TURNSTILE_HOSTNAME`, add the exact hostname to the widget, redeploy, and repeat smoke checks. Domain registration and email hosting are separate and were not purchased/configured.
+The operator confirmed that `therecouldbeanapp.com` is **not registered**. It is not connected; the working workers.dev deployment remains the public address. The supplied support email does not establish domain-control authorization. Once the owner confirms DNS control, attach the authorized custom domain to this Worker, update `SITE_URL`/`TURNSTILE_HOSTNAME`, add the exact hostname to the widget, redeploy, and repeat smoke checks. Domain registration and email hosting are separate and were not purchased/configured.

@@ -384,5 +384,59 @@
     "duplicate": true,
     "new_listing_created": false,
     "screenshot": "docs/submission-production.png"
+  },
+  "blueprint_release": {
+    "checked_at": "2026-11-15T21:44:20.026771+00:00",
+    "deployment_version": "a7b91b52-01cb-4ab5-a924-1f33c6d19501",
+    "checks": [
+      {
+        "path": "/api/health",
+        "status": 200
+      },
+      {
+        "path": "/api/stats",
+        "status": 200
+      },
+      {
+        "path": "/api/config",
+        "status": 200
+      },
+      {
+        "path": "/api/products/otter",
+        "status": 200,
+        "precise_evidence": true
+      },
+      {
+        "path": "/apps/otter",
+        "status": 200,
+        "unique_product_canonical": true
+      },
+      {
+        "path": "/search/",
+        "status": 200
+      },
+      {
+        "path": "/fonts/press-start-2p-latin-400-normal.woff2",
+        "status": 200,
+        "self_hosted_font": true
+      },
+      {
+        "path": "/fonts/ibm-plex-mono-latin-400-normal.woff2",
+        "status": 200,
+        "self_hosted_font": true
+      },
+      {
+        "path": "/social.png",
+        "status": 200,
+        "blueprint_social_asset": true
+      }
+    ],
+    "manual_browser_checks": [
+      "Live blue/pixel homepage and 46-product count",
+      "Readable search dossiers with actual match labels",
+      "Corrected Otter feature evidence",
+      "320px form has no horizontal overflow and displays real 150px compact Turnstile",
+      "No CAPTCHA interaction or new submission performed during redesign checks"
+    ]
   }
 }

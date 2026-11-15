@@ -1,0 +1,466 @@
+{
+  "benchmark": {
+    "environment": "deployed Cloudflare Worker and production D1",
+    "started_at": "2026-11-15T20:51:15Z",
+    "completed_at": "2026-11-15T20:51:28Z",
+    "query_count": 60,
+    "http_errors": 0,
+    "network_wall_p50_ms": 177.93937499999936,
+    "network_wall_p95_ms": 331.20154200000053,
+    "scope": "60 public benchmark queries, sequential low-volume requests. Network wall time is not Worker CPU. CPU metrics are collected separately from Cloudflare.",
+    "cases": [
+      {
+        "case_id": 1,
+        "status": 200,
+        "wall_ms": 349.9795,
+        "api_elapsed_ms": 113,
+        "results": 4
+      },
+      {
+        "case_id": 2,
+        "status": 200,
+        "wall_ms": 276.3026250000001,
+        "api_elapsed_ms": 74,
+        "results": 6
+      },
+      {
+        "case_id": 3,
+        "status": 200,
+        "wall_ms": 185.79879200000005,
+        "api_elapsed_ms": 64,
+        "results": 5
+      },
+      {
+        "case_id": 4,
+        "status": 200,
+        "wall_ms": 279.10912499999995,
+        "api_elapsed_ms": 71,
+        "results": 2
+      },
+      {
+        "case_id": 5,
+        "status": 200,
+        "wall_ms": 275.554375,
+        "api_elapsed_ms": 74,
+        "results": 4
+      },
+      {
+        "case_id": 6,
+        "status": 200,
+        "wall_ms": 171.19741700000014,
+        "api_elapsed_ms": 62,
+        "results": 3
+      },
+      {
+        "case_id": 7,
+        "status": 200,
+        "wall_ms": 194.06104099999988,
+        "api_elapsed_ms": 62,
+        "results": 2
+      },
+      {
+        "case_id": 8,
+        "status": 200,
+        "wall_ms": 181.7204160000001,
+        "api_elapsed_ms": 65,
+        "results": 3
+      },
+      {
+        "case_id": 9,
+        "status": 200,
+        "wall_ms": 188.9380829999998,
+        "api_elapsed_ms": 63,
+        "results": 1
+      },
+      {
+        "case_id": 10,
+        "status": 200,
+        "wall_ms": 247.19099999999995,
+        "api_elapsed_ms": 58,
+        "results": 1
+      },
+      {
+        "case_id": 11,
+        "status": 200,
+        "wall_ms": 182.00454099999996,
+        "api_elapsed_ms": 71,
+        "results": 2
+      },
+      {
+        "case_id": 12,
+        "status": 200,
+        "wall_ms": 187.61866699999973,
+        "api_elapsed_ms": 68,
+        "results": 1
+      },
+      {
+        "case_id": 13,
+        "status": 200,
+        "wall_ms": 208.9632090000002,
+        "api_elapsed_ms": 70,
+        "results": 1
+      },
+      {
+        "case_id": 14,
+        "status": 200,
+        "wall_ms": 174.3695409999999,
+        "api_elapsed_ms": 60,
+        "results": 2
+      },
+      {
+        "case_id": 15,
+        "status": 200,
+        "wall_ms": 175.77454200000008,
+        "api_elapsed_ms": 65,
+        "results": 2
+      },
+      {
+        "case_id": 16,
+        "status": 200,
+        "wall_ms": 191.6163329999998,
+        "api_elapsed_ms": 68,
+        "results": 1
+      },
+      {
+        "case_id": 17,
+        "status": 200,
+        "wall_ms": 167.9757500000001,
+        "api_elapsed_ms": 62,
+        "results": 1
+      },
+      {
+        "case_id": 18,
+        "status": 200,
+        "wall_ms": 190.31366699999984,
+        "api_elapsed_ms": 58,
+        "results": 2
+      },
+      {
+        "case_id": 19,
+        "status": 200,
+        "wall_ms": 170.34620799999976,
+        "api_elapsed_ms": 63,
+        "results": 1
+      },
+      {
+        "case_id": 20,
+        "status": 200,
+        "wall_ms": 180.7134589999997,
+        "api_elapsed_ms": 64,
+        "results": 4
+      },
+      {
+        "case_id": 21,
+        "status": 200,
+        "wall_ms": 176.7419170000002,
+        "api_elapsed_ms": 70,
+        "results": 2
+      },
+      {
+        "case_id": 22,
+        "status": 200,
+        "wall_ms": 156.28970800000008,
+        "api_elapsed_ms": 53,
+        "results": 1
+      },
+      {
+        "case_id": 23,
+        "status": 200,
+        "wall_ms": 159.9594160000004,
+        "api_elapsed_ms": 57,
+        "results": 2
+      },
+      {
+        "case_id": 24,
+        "status": 200,
+        "wall_ms": 167.39158299999968,
+        "api_elapsed_ms": 54,
+        "results": 1
+      },
+      {
+        "case_id": 25,
+        "status": 200,
+        "wall_ms": 207.09579199999962,
+        "api_elapsed_ms": 64,
+        "results": 2
+      },
+      {
+        "case_id": 26,
+        "status": 200,
+        "wall_ms": 194.2957079999994,
+        "api_elapsed_ms": 65,
+        "results": 3
+      },
+      {
+        "case_id": 27,
+        "status": 200,
+        "wall_ms": 161.56620900000007,
+        "api_elapsed_ms": 59,
+        "results": 1
+      },
+      {
+        "case_id": 28,
+        "status": 200,
+        "wall_ms": 207.09,
+        "api_elapsed_ms": 66,
+        "results": 5
+      },
+      {
+        "case_id": 29,
+        "status": 200,
+        "wall_ms": 170.2734580000005,
+        "api_elapsed_ms": 62,
+        "results": 4
+      },
+      {
+        "case_id": 30,
+        "status": 200,
+        "wall_ms": 176.251959,
+        "api_elapsed_ms": 66,
+        "results": 6
+      },
+      {
+        "case_id": 31,
+        "status": 200,
+        "wall_ms": 170.61949999999993,
+        "api_elapsed_ms": 60,
+        "results": 13
+      },
+      {
+        "case_id": 32,
+        "status": 200,
+        "wall_ms": 1184.7407500000004,
+        "api_elapsed_ms": 60,
+        "results": 6
+      },
+      {
+        "case_id": 33,
+        "status": 200,
+        "wall_ms": 177.93937499999936,
+        "api_elapsed_ms": 69,
+        "results": 3
+      },
+      {
+        "case_id": 34,
+        "status": 200,
+        "wall_ms": 158.3505830000007,
+        "api_elapsed_ms": 66,
+        "results": 1
+      },
+      {
+        "case_id": 35,
+        "status": 200,
+        "wall_ms": 163.2779170000003,
+        "api_elapsed_ms": 63,
+        "results": 2
+      },
+      {
+        "case_id": 36,
+        "status": 200,
+        "wall_ms": 178.13949999999946,
+        "api_elapsed_ms": 58,
+        "results": 5
+      },
+      {
+        "case_id": 37,
+        "status": 200,
+        "wall_ms": 174.9122500000002,
+        "api_elapsed_ms": 65,
+        "results": 3
+      },
+      {
+        "case_id": 38,
+        "status": 200,
+        "wall_ms": 215.58520800000025,
+        "api_elapsed_ms": 72,
+        "results": 6
+      },
+      {
+        "case_id": 39,
+        "status": 200,
+        "wall_ms": 151.18679200000074,
+        "api_elapsed_ms": 58,
+        "results": 3
+      },
+      {
+        "case_id": 40,
+        "status": 200,
+        "wall_ms": 173.79683299999903,
+        "api_elapsed_ms": 65,
+        "results": 4
+      },
+      {
+        "case_id": 41,
+        "status": 200,
+        "wall_ms": 169.91725000000102,
+        "api_elapsed_ms": 60,
+        "results": 4
+      },
+      {
+        "case_id": 42,
+        "status": 200,
+        "wall_ms": 167.29179100000025,
+        "api_elapsed_ms": 57,
+        "results": 1
+      },
+      {
+        "case_id": 43,
+        "status": 200,
+        "wall_ms": 194.77058300000039,
+        "api_elapsed_ms": 61,
+        "results": 1
+      },
+      {
+        "case_id": 44,
+        "status": 200,
+        "wall_ms": 154.48325000000017,
+        "api_elapsed_ms": 59,
+        "results": 1
+      },
+      {
+        "case_id": 45,
+        "status": 200,
+        "wall_ms": 175.52258300000113,
+        "api_elapsed_ms": 67,
+        "results": 1
+      },
+      {
+        "case_id": 46,
+        "status": 200,
+        "wall_ms": 156.12058299999987,
+        "api_elapsed_ms": 61,
+        "results": 1
+      },
+      {
+        "case_id": 47,
+        "status": 200,
+        "wall_ms": 167.36362500000013,
+        "api_elapsed_ms": 59,
+        "results": 5
+      },
+      {
+        "case_id": 48,
+        "status": 200,
+        "wall_ms": 182.32316699999984,
+        "api_elapsed_ms": 57,
+        "results": 2
+      },
+      {
+        "case_id": 49,
+        "status": 200,
+        "wall_ms": 331.20154200000053,
+        "api_elapsed_ms": 64,
+        "results": 4
+      },
+      {
+        "case_id": 50,
+        "status": 200,
+        "wall_ms": 187.43737500000003,
+        "api_elapsed_ms": 63,
+        "results": 2
+      },
+      {
+        "case_id": 51,
+        "status": 200,
+        "wall_ms": 175.7280000000012,
+        "api_elapsed_ms": 57,
+        "results": 2
+      },
+      {
+        "case_id": 52,
+        "status": 200,
+        "wall_ms": 169.579624999999,
+        "api_elapsed_ms": 57,
+        "results": 13
+      },
+      {
+        "case_id": 53,
+        "status": 200,
+        "wall_ms": 186.7029589999998,
+        "api_elapsed_ms": 60,
+        "results": 4
+      },
+      {
+        "case_id": 54,
+        "status": 200,
+        "wall_ms": 179.65062500000073,
+        "api_elapsed_ms": 57,
+        "results": 1
+      },
+      {
+        "case_id": 55,
+        "status": 200,
+        "wall_ms": 177.60045800000057,
+        "api_elapsed_ms": 62,
+        "results": 1
+      },
+      {
+        "case_id": 56,
+        "status": 200,
+        "wall_ms": 146.72937500000137,
+        "api_elapsed_ms": 30,
+        "results": 0
+      },
+      {
+        "case_id": 57,
+        "status": 200,
+        "wall_ms": 178.90775000000048,
+        "api_elapsed_ms": 31,
+        "results": 0
+      },
+      {
+        "case_id": 58,
+        "status": 200,
+        "wall_ms": 178.09020800000042,
+        "api_elapsed_ms": 65,
+        "results": 1
+      },
+      {
+        "case_id": 59,
+        "status": 200,
+        "wall_ms": 158.2226250000005,
+        "api_elapsed_ms": 55,
+        "results": 2
+      },
+      {
+        "case_id": 60,
+        "status": 200,
+        "wall_ms": 175.27541699999995,
+        "api_elapsed_ms": 54,
+        "results": 1
+      }
+    ]
+  },
+  "cpu": {
+    "measured_at": "2026-11-15T20:54:04.068384+00:00",
+    "window_start": "2026-11-15T20:51:15Z",
+    "window_end": "2026-11-15T20:51:28Z",
+    "source": "Cloudflare GraphQL workersInvocationsAdaptive",
+    "cpu_units": "microseconds",
+    "scope": "Observed traffic during the 60-query production benchmark window; not an isolated per-route profiler.",
+    "result": {
+      "data": {
+        "viewer": {
+          "accounts": [
+            {
+              "workersInvocationsAdaptive": [
+                {
+                  "quantiles": {
+                    "cpuTimeP50": 3136,
+                    "cpuTimeP99": 12502
+                  },
+                  "sum": {
+                    "errors": 0,
+                    "requests": 67,
+                    "subrequests": 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "errors": null
+    }
+  }
+}

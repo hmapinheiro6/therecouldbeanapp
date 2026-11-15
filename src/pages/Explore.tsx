@@ -14,8 +14,8 @@ export function Explore() {
   }>("/categories");
   return (
     <div className="page">
-      <span className="eyebrow">INDEPENDENTLY EXISTING SOFTWARE</span>
-      <h1 className="page-title">The usual suspects.</h1>
+      <span className="eyebrow">ARCHIVE INDEX / SOURCE-CHECKED SOFTWARE</span>
+      <h1 className="page-title">The invention archive.</h1>
       <p className="page-intro">
         Real products. Documented capabilities. A head start on your research.
       </p>
