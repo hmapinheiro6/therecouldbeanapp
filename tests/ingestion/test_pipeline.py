@@ -104,3 +104,7 @@ def test_failed_run_is_persisted_without_advancing_checkpoints():
     calls=[c for c in client.request.call_args_list if c.args[0]=='/api/internal/ingest']
     assert any(c.args[1].get('run',{}).get('status')=='failed' for c in calls)
     assert all(not c.args[1].get('checkpoints') for c in calls)
+
+def test_public_ipv4_is_preferred_on_ipv4_only_cloud_runners():
+    answers=[(socket.AF_INET6,socket.SOCK_STREAM,0,'',('2606:4700:4700::1111',443)),(socket.AF_INET,socket.SOCK_STREAM,0,'',('1.1.1.1',443))]
+    with patch('socket.getaddrinfo',return_value=answers):assert resolve_public('public.dev')==['1.1.1.1','2606:4700:4700::1111']

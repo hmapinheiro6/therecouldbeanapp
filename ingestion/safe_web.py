@@ -38,7 +38,7 @@ def canonicalize(value, keep_www=False):
 
 def resolve_public(host):
     try:
-        addresses = sorted(set(info[4][0] for info in socket.getaddrinfo(host,443,type=socket.SOCK_STREAM)))
+        addresses = sorted(set(info[4][0] for info in socket.getaddrinfo(host,443,type=socket.SOCK_STREAM)), key=lambda address: (ipaddress.ip_address(address).version, address))
     except OSError as e:
         raise FetchError('DNS resolution failed') from e
     if not addresses or any(not ipaddress.ip_address(ip).is_global for ip in addresses):
@@ -94,6 +94,9 @@ class SafeWeb:
             if len(payload)>MAX_BYTES: raise FetchError('Response exceeds size limit',False)
             return {'url':url,'status':r.status,'text':payload.decode('utf-8',errors='replace'),'content_type':r.getheader('Content-Type','')}
         except (OSError,ssl.SSLError,http.client.HTTPException) as e:
+            if attempt<1:
+                time.sleep(2)
+                return self._raw(url,redirects,attempt+1)
             raise FetchError('Network or TLS failure') from e
         finally:
             connection.close()
