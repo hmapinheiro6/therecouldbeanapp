@@ -24,50 +24,57 @@ def run(dry_run=False,max_candidates=100,output=None):
     run_id=str(uuid.uuid4());started=now()
     summary={'id':run_id,'source_name':'daily-discovery','started_at':started,'completed_at':None,'status':'running','candidates_found':0,'records_accepted':0,'records_rejected':0,'records_pending':0,'error_summary':None}
     if client:client.request('/api/internal/ingest',{'run':summary})
-    candidates=[];errors=[];new_checkpoints=[]
-    for s in [x for x in state['submissions'] if x['status'] in ('pending','approved')][:10]:
-        candidates.append({'name':s['product_name'],'canonical_url':s['submitted_url'],'source_name':'Submissions','source_type':'submission','source_url':s['submitted_url'],'external_id':s['id'],'submission_id':s['id'],'discovered_at':s['created_at']})
-    for c in [x for x in state['candidates'] if x['status']=='pending_verification'][:20]:
-        c=dict(c);c['source_type']={'Hacker News':'hackernews','GitHub':'github','Submissions':'submission'}.get(c['source_name'],'feed');c['discovered_at']=c['created_at'];candidates.append(c)
-    sources=Sources(SafeWeb(delay=.25))
-    for name,fetch in [('hackernews',sources.hackernews),('github',sources.github)]:
-        try:
-            if len(candidates)>=max_candidates:break
-            items,cursor=fetch(checkpoints.get(name),limit=min(30,max_candidates-len(candidates)))
-            candidates.extend(items)
-            if cursor:new_checkpoints.append({'source_name':name,'cursor_value':cursor})
-        except (ValueError,FetchError) as e:errors.append(name+': '+str(e)[:160])
-    for feed in json.loads((ROOT/'data/feeds.json').read_text()):
-        if not feed['enabled']:continue
-        if not feed.get('permission_cleared_at'):raise RuntimeError('Enabled feed lacks a permission review')
-        try:
-            page=SafeWeb().fetch(feed['url'])
-            items=parse_feed(page['text'],feed['kind'])
-            for c in items[:max(0,max_candidates-len(candidates))]:c.update(source_name=feed['name'],source_type='feed',source_url=feed['url'],discovered_at=now());candidates.append(c)
-        except (ValueError,FetchError) as e:errors.append(feed['name']+': '+str(e)[:160])
-    seen=set();deduped=[]
-    for c in candidates:
-        key=identity(c)
-        if key not in seen:deduped.append(c);seen.add(key)
-    candidates=deduped[:max_candidates];summary['candidates_found']=len(candidates)
-    products=[];records=[];web=SafeWeb(delay=.5)
-    for c in candidates:
-        try:
-            p=verify(c,web);products.append(p);record=queue_record(c,'published');summary['records_accepted']+=1
-            if client:client.request('/api/internal/ingest',{'products':[p],'candidates':[record]})
-        except (ValueError,FetchError) as e:
-            temporary=isinstance(e,FetchError) and e.temporary
-            status='pending_verification' if temporary else 'needs_review'
-            if isinstance(e,ValueError) and not isinstance(e,FetchError):status='rejected'
-            record=queue_record(c,status,str(e));summary['records_rejected' if status=='rejected' else 'records_pending']+=1
-            if client:client.request('/api/internal/ingest',{'candidates':[record]})
-        records.append(record)
-    summary.update(completed_at=now(),status='partial' if errors else 'success',error_summary='; '.join(errors)[:500] or None)
-    if client:client.request('/api/internal/ingest',{'run':summary,'checkpoints':new_checkpoints if not errors else []})
-    # Dry-run output contains public product data and public discovery candidates only; no submission PII.
-    if output:Path(output).write_text(json.dumps({'run':summary,'products':products,'candidates':[{k:v for k,v in r.items() if k!='submission_id'} for r in records if r['source_name']!='Submissions']},indent=2))
-    print(json.dumps({'dry_run':dry_run,'run':summary},indent=2))
-    return 1 if errors else 0
+    try:
+        candidates=[];errors=[];new_checkpoints=[]
+        for s in [x for x in state['submissions'] if x['status'] in ('pending','approved')][:10]:
+            candidates.append({'name':s['product_name'],'canonical_url':s['submitted_url'],'source_name':'Submissions','source_type':'submission','source_url':s['submitted_url'],'external_id':s['id'],'submission_id':s['id'],'discovered_at':s['created_at']})
+        for c in [x for x in state['candidates'] if x['status']=='pending_verification'][:20]:
+            c=dict(c);c['source_type']={'Hacker News':'hackernews','GitHub':'github','Submissions':'submission'}.get(c['source_name'],'feed');c['discovered_at']=c['created_at'];candidates.append(c)
+        sources=Sources(SafeWeb(delay=.25))
+        for name,fetch in [('hackernews',sources.hackernews),('github',sources.github)]:
+            try:
+                if len(candidates)>=max_candidates:break
+                items,cursor=fetch(checkpoints.get(name),limit=min(30,max_candidates-len(candidates)))
+                candidates.extend(items)
+                if cursor:new_checkpoints.append({'source_name':name,'cursor_value':cursor})
+            except (ValueError,FetchError) as e:errors.append(name+': '+str(e)[:160])
+        for feed in json.loads((ROOT/'data/feeds.json').read_text()):
+            if not feed['enabled']:continue
+            if not feed.get('permission_cleared_at'):raise RuntimeError('Enabled feed lacks a permission review')
+            try:
+                page=SafeWeb().fetch(feed['url'])
+                items=parse_feed(page['text'],feed['kind'])
+                for c in items[:max(0,max_candidates-len(candidates))]:c.update(source_name=feed['name'],source_type='feed',source_url=feed['url'],discovered_at=now());candidates.append(c)
+            except (ValueError,FetchError) as e:errors.append(feed['name']+': '+str(e)[:160])
+        seen=set();deduped=[]
+        for c in candidates:
+            key=identity(c)
+            if key not in seen:deduped.append(c);seen.add(key)
+        candidates=deduped[:max_candidates];summary['candidates_found']=len(candidates)
+        products=[];records=[];web=SafeWeb(delay=.5)
+        for c in candidates:
+            try:
+                p=verify(c,web);products.append(p);record=queue_record(c,'published');summary['records_accepted']+=1
+                if client:client.request('/api/internal/ingest',{'products':[p],'candidates':[record]})
+            except (ValueError,FetchError) as e:
+                temporary=isinstance(e,FetchError) and e.temporary
+                status='pending_verification' if temporary else 'needs_review'
+                if isinstance(e,ValueError) and not isinstance(e,FetchError):status='rejected'
+                record=queue_record(c,status,str(e));summary['records_rejected' if status=='rejected' else 'records_pending']+=1
+                if client:client.request('/api/internal/ingest',{'candidates':[record]})
+            records.append(record)
+        summary.update(completed_at=now(),status='partial' if errors else 'success',error_summary='; '.join(errors)[:500] or None)
+        if client:client.request('/api/internal/ingest',{'run':summary,'checkpoints':new_checkpoints if not errors else []})
+        # Dry-run output contains public product data and public discovery candidates only; no submission PII.
+        if output:Path(output).write_text(json.dumps({'run':summary,'products':products,'candidates':[{k:v for k,v in r.items() if k!='submission_id'} for r in records if r['source_name']!='Submissions']},indent=2))
+        print(json.dumps({'dry_run':dry_run,'run':summary},indent=2))
+        return 1 if errors else 0
+    except Exception as error:
+        summary.update(completed_at=now(),status='failed',error_summary=type(error).__name__+': '+str(error)[:180])
+        if client:
+            try:client.request('/api/internal/ingest',{'run':summary})
+            except Exception:print('Could not persist final failure status; inspect the interrupted run.',file=sys.stderr)
+        raise
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--dry-run',action='store_true');parser.add_argument('--max-candidates',type=int,default=100);parser.add_argument('--output');args=parser.parse_args()

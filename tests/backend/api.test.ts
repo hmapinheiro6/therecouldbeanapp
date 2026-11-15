@@ -342,3 +342,91 @@ describe("internal security", () => {
     ).toBe(400);
   });
 });
+
+describe("publication lifecycle", () => {
+  it("upserts verified products idempotently and synchronizes FTS after removal", async () => {
+    const seeds = JSON.parse(readFileSync("data/seeds/catalog.json", "utf8"));
+    const product = seeds.find((p: { slug: string }) => p.slug === "otter");
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", { products: [product] }),
+          env,
+        )
+      ).status,
+    ).toBe(200);
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", { products: [product] }),
+          env,
+        )
+      ).status,
+    ).toBe(200);
+    const count = await env.DB.prepare(
+      "SELECT count(*) n FROM products WHERE canonical_url=?",
+    )
+      .bind(product.canonical_url)
+      .first();
+    expect(count?.n).toBe(1);
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/moderate", {
+            kind: "product",
+            id: "otter",
+            action: "remove",
+            reason: "Test explicit removal",
+          }),
+          env,
+        )
+      ).status,
+    ).toBe(200);
+    expect((await app.request("/api/products/otter", {}, env)).status).toBe(
+      404,
+    );
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", { products: [product] }),
+          env,
+        )
+      ).status,
+    ).toBe(422);
+    await env.DB.prepare("DELETE FROM publication_blocks WHERE canonical_url=?")
+      .bind(product.canonical_url)
+      .run();
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", { products: [product] }),
+          env,
+        )
+      ).status,
+    ).toBe(200);
+  });
+  it("rejects unknown taxonomy and foreign-site evidence before writes", async () => {
+    const product = JSON.parse(
+      readFileSync("data/seeds/catalog.json", "utf8"),
+    )[0];
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", {
+            products: [{ ...product, category_slug: "imaginary-category" }],
+          }),
+          env,
+        )
+      ).status,
+    ).toBe(400);
+    product.capabilities[0].evidence_url = "https://foreign-site.dev/evidence";
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", { products: [product] }),
+          env,
+        )
+      ).status,
+    ).toBe(400);
+  });
+});

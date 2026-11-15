@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useApi } from "../useApi";
 import type { Product as ProductType } from "../lib/types";
@@ -14,6 +15,13 @@ export function Product() {
     error,
     loading,
   } = useApi<ProductType>("/products/" + encodeURIComponent(slug ?? ""));
+  useEffect(() => {
+    if (p) {
+      document.title = p.name + " — There Could Be An App";
+      const description = document.querySelector('meta[name="description"]');
+      description?.setAttribute("content", p.short_description);
+    }
+  }, [p]);
   if (loading)
     return (
       <div className="page" role="status">

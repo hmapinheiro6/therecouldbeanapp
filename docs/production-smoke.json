@@ -1,0 +1,38 @@
+{
+  "environment": "production",
+  "checked_at": "2026-11-15T20:38:38Z",
+  "checks": [
+    {
+      "path": "/api/health",
+      "status": 403
+    },
+    {
+      "path": "/api/stats",
+      "status": 403
+    },
+    {
+      "path": "/api/config",
+      "status": 403
+    },
+    {
+      "path": "/api/search?q=meeting%20transcription%20and%20action%20items",
+      "status": 403
+    },
+    {
+      "path": "/api/products/otter",
+      "status": 403
+    },
+    {
+      "path": "/apps/otter",
+      "status": 403
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 403
+    },
+    {
+      "path": "/missing-actually-404",
+      "status": 403
+    }
+  ]
+}

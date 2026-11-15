@@ -29,6 +29,7 @@ export function Turnstile({
       widget = window.turnstile.render(ref.current, {
         sitekey: siteKey,
         action: "submit",
+        "response-field": false,
         theme: "light",
         callback: (token: string) => callback.current(token),
         "expired-callback": () => callback.current(""),

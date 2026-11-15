@@ -99,10 +99,13 @@ export function Privacy() {
       </p>
       <h2>Contact and rights</h2>
       <p>
-        This preview has no configured operator contact and submissions are
-        disabled by default. Before enabling public submissions, the operator
-        must publish a working privacy contact here. You may request access,
-        correction, or deletion of submission information through that contact.
+        Contact{" "}
+        <a href="mailto:support@therecouldbeanapp.com">
+          support@therecouldbeanapp.com
+        </a>{" "}
+        for privacy requests, including access, correction, or deletion of
+        submission information. Include enough information for us to identify
+        the submission; never send passwords or sensitive customer data.
       </p>
     </div>
   );
@@ -153,9 +156,12 @@ export function Terms() {
       <p>
         The service is provided as available, to the extent permitted by
         applicable law. Nothing in these terms excludes rights that cannot
-        legally be excluded. Operator identity, governing jurisdiction, and a
-        working contact must be completed before public launch; this preview
-        does not yet accept submissions.
+        legally be excluded. Questions about this service can be sent to{" "}
+        <a href="mailto:support@therecouldbeanapp.com">
+          support@therecouldbeanapp.com
+        </a>
+        . Applicable mandatory consumer and privacy protections continue to
+        apply.
       </p>
     </div>
   );

@@ -422,6 +422,16 @@ app.get("/apps/:slug", async (c) => {
     "/apps/" + c.req.param("slug"),
     c.env.SITE_URL,
   ).toString();
+  const structured = p
+    ? JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: p.name,
+        url: p.canonical_url,
+        description: p.short_description,
+        applicationCategory: p.category,
+      }).replace(/</g, "\\u003c")
+    : "";
   const html = new HTMLRewriter()
     .on("head", {
       element(e) {
@@ -429,6 +439,15 @@ app.get("/apps/:slug", async (c) => {
           `<link rel="canonical" href="${escapeHtml(canonical)}"/><meta property="og:url" content="${escapeHtml(canonical)}"/>`,
           { html: true },
         );
+      },
+    })
+    .on("head", {
+      element(e) {
+        if (structured)
+          e.append(
+            '<script type="application/ld+json">' + structured + "</script>",
+            { html: true },
+          );
       },
     })
     .on("#root", {

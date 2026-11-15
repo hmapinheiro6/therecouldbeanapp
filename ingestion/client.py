@@ -8,6 +8,10 @@ import uuid
 import urllib.request
 import urllib.error
 from urllib.parse import urlsplit
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
 class InternalClient:
     def __init__(self,base=None,secret=None):
         self.base=(base or os.environ['INGESTION_API_URL']).rstrip('/')
@@ -23,9 +27,9 @@ class InternalClient:
             timestamp=str(int(time.time()));nonce=str(uuid.uuid4())
             message='\n'.join([method,path,timestamp,nonce,hashlib.sha256(raw).hexdigest()])
             signature=hmac.new(self.secret.encode(),message.encode(),hashlib.sha256).hexdigest()
-            req=urllib.request.Request(self.base+path,data=raw if body is not None else None,method=method,headers={'Content-Type':'application/json','X-Timestamp':timestamp,'X-Nonce':nonce,'X-Signature':signature})
+            req=urllib.request.Request(self.base+path,data=raw if body is not None else None,method=method,headers={'User-Agent':'ThereCouldBeAnAppIngestion/1.0 (+https://therecouldbeanapp.com/about)','Content-Type':'application/json','X-Timestamp':timestamp,'X-Nonce':nonce,'X-Signature':signature})
             try:
-                with urllib.request.urlopen(req,timeout=30) as r:
+                with urllib.request.build_opener(NoRedirect()).open(req,timeout=30) as r:
                     data=r.read(1048577)
                     if len(data)>1048576:raise RuntimeError('Internal response too large')
                     return json.loads(data)

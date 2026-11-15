@@ -90,3 +90,17 @@ def test_seed_snapshot_is_public_only(tmp_path):
 
 def test_sources_remain_disabled_without_permissions():
     assert all(not f['enabled'] or f.get('permission_cleared_at') for f in json.load(open('data/feeds.json')))
+
+def test_internal_client_refuses_redirects():
+    from ingestion.client import NoRedirect
+    assert NoRedirect().redirect_request(None,None,302,'Found',{},'https://different.dev') is None
+
+def test_failed_run_is_persisted_without_advancing_checkpoints():
+    from ingestion.run import run
+    client=Mock();client.request.side_effect=[{'submissions':[],'candidates':[],'checkpoints':[]},None,RuntimeError('write failure'),None]
+    with patch('ingestion.run.InternalClient',return_value=client),patch('ingestion.run.Sources') as source:
+        source.return_value.hackernews.side_effect=RuntimeError('source crashed')
+        with pytest.raises(RuntimeError):run(False,1)
+    calls=[c for c in client.request.call_args_list if c.args[0]=='/api/internal/ingest']
+    assert any(c.args[1].get('run',{}).get('status')=='failed' for c in calls)
+    assert all(not c.args[1].get('checkpoints') for c in calls)
