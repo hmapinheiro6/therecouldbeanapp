@@ -1,0 +1,9 @@
+{
+ "method":"Secondary official feature pages checked separately from seed homepages on 2026-11-15. Supports a small source-verified ground truth subset. No independent human assessor was available.",
+ "references":[
+  {"product":"calendly","capabilities":["scheduling"],"url":"https://calendly.com/scheduling","finding":"Official scheduling feature page documents appointment bookings and availability controls."},
+  {"product":"otter","capabilities":["meetings","action-items"],"url":"https://otter.ai/meeting-notes","finding":"Official feature page describes recording, transcription, and action item assignment."},
+  {"product":"bitwarden","capabilities":["passwords"],"url":"https://bitwarden.com/products/personal/","finding":"Official personal product page documents password storage and credential access."},
+  {"product":"typeform","capabilities":["forms"],"url":"https://www.typeform.com/surveys","finding":"Official survey feature page documents questionnaire creation and response collection."}
+ ]
+}

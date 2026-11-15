@@ -1,0 +1,1205 @@
+{
+  "provenance": "Manually authored judgments against official product facts, separate from ranking outputs. Single-author engineering benchmark, not an independent blind user study. Unknown capabilities remain unverified.",
+  "known_relevant_catalog": {
+    "meetings": [
+      "otter",
+      "tl-dv"
+    ],
+    "action-items": [
+      "otter",
+      "tl-dv",
+      "fireflies",
+      "fathom"
+    ],
+    "crm": [
+      "hubspot",
+      "pipedrive",
+      "zoho-crm",
+      "honeybook"
+    ],
+    "projects": [
+      "asana",
+      "trello",
+      "linear",
+      "clickup",
+      "honeybook",
+      "todoist"
+    ],
+    "invoicing": [
+      "harvest",
+      "wave",
+      "freshbooks",
+      "honeybook",
+      "dubsado"
+    ],
+    "scheduling": [
+      "calendly",
+      "honeybook",
+      "dubsado"
+    ],
+    "time": [
+      "harvest",
+      "freshbooks",
+      "clickup"
+    ],
+    "accounting": [
+      "wave",
+      "freshbooks"
+    ],
+    "docs": [
+      "notion",
+      "obsidian"
+    ],
+    "notes": [
+      "obsidian"
+    ],
+    "social": [
+      "buffer",
+      "hootsuite"
+    ],
+    "video": [
+      "capcut",
+      "descript",
+      "veed"
+    ],
+    "audio": [
+      "descript"
+    ],
+    "design": [
+      "figma"
+    ],
+    "whiteboard": [
+      "figma",
+      "miro"
+    ],
+    "automation": [
+      "zapier",
+      "n8n",
+      "make"
+    ],
+    "analytics": [
+      "posthog",
+      "plausible"
+    ],
+    "passwords": [
+      "bitwarden",
+      "1password"
+    ],
+    "forms": [
+      "tally",
+      "typeform"
+    ],
+    "signatures": [
+      "docusign"
+    ],
+    "writing": [
+      "grammarly"
+    ],
+    "ecommerce": [
+      "shopify"
+    ],
+    "support": [
+      "zendesk",
+      "intercom"
+    ],
+    "monitoring": [
+      "sentry"
+    ],
+    "ci": [
+      "github"
+    ],
+    "storage": [
+      "dropbox"
+    ],
+    "recruiting": [
+      "greenhouse"
+    ],
+    "reminders": [
+      "pipedrive",
+      "todoist"
+    ]
+  },
+  "cases": [
+    {
+      "id": 1,
+      "query": "A CRM for tracking sales contacts",
+      "kind": "category",
+      "expected_products": [
+        "honeybook",
+        "hubspot",
+        "pipedrive",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "honeybook": "Strong match",
+        "hubspot": "Strong match",
+        "pipedrive": "Strong match",
+        "zoho-crm": "Strong match"
+      }
+    },
+    {
+      "id": 2,
+      "query": "Project management with kanban boards",
+      "kind": "category",
+      "expected_products": [
+        "asana",
+        "clickup",
+        "honeybook",
+        "linear",
+        "todoist",
+        "trello"
+      ],
+      "capabilities": [
+        "projects"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "asana": "Strong match",
+        "clickup": "Strong match",
+        "honeybook": "Strong match",
+        "linear": "Strong match",
+        "todoist": "Strong match",
+        "trello": "Strong match"
+      }
+    },
+    {
+      "id": 3,
+      "query": "An app that sends invoices",
+      "kind": "category",
+      "expected_products": [
+        "dubsado",
+        "freshbooks",
+        "harvest",
+        "honeybook",
+        "wave"
+      ],
+      "capabilities": [
+        "invoicing"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "dubsado": "Strong match",
+        "freshbooks": "Strong match",
+        "harvest": "Strong match",
+        "honeybook": "Strong match",
+        "wave": "Strong match"
+      }
+    },
+    {
+      "id": 4,
+      "query": "Meeting transcription",
+      "kind": "category",
+      "expected_products": [
+        "otter",
+        "tl-dv"
+      ],
+      "capabilities": [
+        "meetings"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "otter": "Strong match",
+        "tl-dv": "Strong match"
+      }
+    },
+    {
+      "id": 5,
+      "query": "Extract action items from meetings",
+      "kind": "category",
+      "expected_products": [
+        "fathom",
+        "fireflies",
+        "otter",
+        "tl-dv"
+      ],
+      "capabilities": [
+        "action-items"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "fathom": "Strong match",
+        "fireflies": "Strong match",
+        "otter": "Strong match",
+        "tl-dv": "Strong match"
+      }
+    },
+    {
+      "id": 6,
+      "query": "Appointment scheduling software",
+      "kind": "category",
+      "expected_products": [
+        "calendly",
+        "dubsado",
+        "honeybook"
+      ],
+      "capabilities": [
+        "scheduling"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "calendly": "Strong match",
+        "dubsado": "Strong match",
+        "honeybook": "Strong match"
+      }
+    },
+    {
+      "id": 7,
+      "query": "Schedules social posts across platforms",
+      "kind": "category",
+      "expected_products": [
+        "buffer",
+        "hootsuite"
+      ],
+      "capabilities": [
+        "social"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "buffer": "Strong match",
+        "hootsuite": "Strong match"
+      }
+    },
+    {
+      "id": 8,
+      "query": "A video editor for short videos",
+      "kind": "category",
+      "expected_products": [
+        "capcut",
+        "descript",
+        "veed"
+      ],
+      "capabilities": [
+        "video"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "capcut": "Strong match",
+        "descript": "Strong match",
+        "veed": "Strong match"
+      }
+    },
+    {
+      "id": 9,
+      "query": "Audio editing software",
+      "kind": "category",
+      "expected_products": [
+        "descript"
+      ],
+      "capabilities": [
+        "audio"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "descript": "Strong match"
+      }
+    },
+    {
+      "id": 10,
+      "query": "A design tool for wireframes",
+      "kind": "category",
+      "expected_products": [
+        "figma"
+      ],
+      "capabilities": [
+        "design"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "figma": "Strong match"
+      }
+    },
+    {
+      "id": 11,
+      "query": "A collaborative whiteboard",
+      "kind": "category",
+      "expected_products": [
+        "figma",
+        "miro"
+      ],
+      "capabilities": [
+        "whiteboard"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "figma": "Strong match",
+        "miro": "Strong match"
+      }
+    },
+    {
+      "id": 12,
+      "query": "Continuous integration for automated builds",
+      "kind": "category",
+      "expected_products": [
+        "github"
+      ],
+      "capabilities": [
+        "ci"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "github": "Strong match"
+      }
+    },
+    {
+      "id": 13,
+      "query": "Application error monitoring",
+      "kind": "category",
+      "expected_products": [
+        "sentry"
+      ],
+      "capabilities": [
+        "monitoring"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "sentry": "Strong match"
+      }
+    },
+    {
+      "id": 14,
+      "query": "Website analytics",
+      "kind": "category",
+      "expected_products": [
+        "plausible",
+        "posthog"
+      ],
+      "capabilities": [
+        "analytics"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "plausible": "Strong match",
+        "posthog": "Strong match"
+      }
+    },
+    {
+      "id": 15,
+      "query": "Customer support helpdesk",
+      "kind": "category",
+      "expected_products": [
+        "intercom",
+        "zendesk"
+      ],
+      "capabilities": [
+        "support"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "intercom": "Strong match",
+        "zendesk": "Strong match"
+      }
+    },
+    {
+      "id": 16,
+      "query": "An online store for selling products",
+      "kind": "category",
+      "expected_products": [
+        "shopify"
+      ],
+      "capabilities": [
+        "ecommerce"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "shopify": "Strong match"
+      }
+    },
+    {
+      "id": 17,
+      "query": "Applicant tracking for recruiting",
+      "kind": "category",
+      "expected_products": [
+        "greenhouse"
+      ],
+      "capabilities": [
+        "recruiting"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "greenhouse": "Strong match"
+      }
+    },
+    {
+      "id": 18,
+      "query": "A team wiki and knowledge base",
+      "kind": "category",
+      "expected_products": [
+        "notion",
+        "obsidian"
+      ],
+      "capabilities": [
+        "docs"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "notion": "Strong match",
+        "obsidian": "Strong match"
+      }
+    },
+    {
+      "id": 19,
+      "query": "A grammar checker for writing assistance",
+      "kind": "category",
+      "expected_products": [
+        "grammarly"
+      ],
+      "capabilities": [
+        "writing"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "grammarly": "Strong match"
+      }
+    },
+    {
+      "id": 20,
+      "query": "Workflow automation to connect apps",
+      "kind": "category",
+      "expected_products": [
+        "make",
+        "n8n",
+        "zapier"
+      ],
+      "capabilities": [
+        "automation"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "make": "Strong match",
+        "n8n": "Strong match",
+        "zapier": "Strong match"
+      }
+    },
+    {
+      "id": 21,
+      "query": "A password manager",
+      "kind": "category",
+      "expected_products": [
+        "1password",
+        "bitwarden"
+      ],
+      "capabilities": [
+        "passwords"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "1password": "Strong match",
+        "bitwarden": "Strong match"
+      }
+    },
+    {
+      "id": 22,
+      "query": "Cloud storage and file sharing",
+      "kind": "category",
+      "expected_products": [
+        "dropbox"
+      ],
+      "capabilities": [
+        "storage"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "dropbox": "Strong match"
+      }
+    },
+    {
+      "id": 23,
+      "query": "A form builder for surveys",
+      "kind": "category",
+      "expected_products": [
+        "tally",
+        "typeform"
+      ],
+      "capabilities": [
+        "forms"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "tally": "Strong match",
+        "typeform": "Strong match"
+      }
+    },
+    {
+      "id": 24,
+      "query": "Electronic signatures for documents",
+      "kind": "category",
+      "expected_products": [
+        "docusign"
+      ],
+      "capabilities": [
+        "signatures"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "docusign": "Strong match"
+      }
+    },
+    {
+      "id": 25,
+      "query": "Bookkeeping and accounting",
+      "kind": "category",
+      "expected_products": [
+        "freshbooks",
+        "wave"
+      ],
+      "capabilities": [
+        "accounting"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "freshbooks": "Strong match",
+        "wave": "Strong match"
+      }
+    },
+    {
+      "id": 26,
+      "query": "Time tracking and timesheets",
+      "kind": "category",
+      "expected_products": [
+        "clickup",
+        "freshbooks",
+        "harvest"
+      ],
+      "capabilities": [
+        "time"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "clickup": "Strong match",
+        "freshbooks": "Strong match",
+        "harvest": "Strong match"
+      }
+    },
+    {
+      "id": 27,
+      "query": "Personal notes in Markdown",
+      "kind": "category",
+      "expected_products": [
+        "obsidian"
+      ],
+      "capabilities": [
+        "notes"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "obsidian": "Strong match"
+      }
+    },
+    {
+      "id": 28,
+      "query": "I was thinking of making an application that helps my salespeople remember who they need to contact again",
+      "kind": "conversational",
+      "expected_products": [
+        "honeybook",
+        "hubspot",
+        "pipedrive",
+        "todoist",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm",
+        "reminders"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 29,
+      "query": "I want to build an app that records meetings and automatically creates action items",
+      "kind": "multi",
+      "expected_products": [
+        "fathom",
+        "fireflies",
+        "otter",
+        "tl-dv"
+      ],
+      "capabilities": [
+        "meetings",
+        "action-items"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 30,
+      "query": "Something to track time and generate invoices",
+      "kind": "multi",
+      "expected_products": [
+        "clickup",
+        "dubsado",
+        "freshbooks",
+        "harvest",
+        "honeybook",
+        "wave"
+      ],
+      "capabilities": [
+        "time",
+        "invoicing"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 31,
+      "query": "A CRM with project management and invoicing",
+      "kind": "multi",
+      "expected_products": [
+        "asana",
+        "clickup",
+        "dubsado",
+        "freshbooks",
+        "harvest",
+        "honeybook",
+        "hubspot",
+        "linear",
+        "pipedrive",
+        "todoist",
+        "trello",
+        "wave",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm",
+        "projects",
+        "invoicing"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 32,
+      "query": "A tool for client management and appointment scheduling",
+      "kind": "multi",
+      "expected_products": [
+        "calendly",
+        "dubsado",
+        "honeybook",
+        "hubspot",
+        "pipedrive",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm",
+        "scheduling"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 33,
+      "query": "An app combining video editing and audio editing",
+      "kind": "multi",
+      "expected_products": [
+        "capcut",
+        "descript",
+        "veed"
+      ],
+      "capabilities": [
+        "video",
+        "audio"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 34,
+      "query": "Please help me find a way to accept electronic signatures",
+      "kind": "conversational",
+      "expected_products": [
+        "docusign"
+      ],
+      "capabilities": [
+        "signatures"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "docusign": "Strong match"
+      }
+    },
+    {
+      "id": 35,
+      "query": "I need something for password management",
+      "kind": "conversational",
+      "expected_products": [
+        "1password",
+        "bitwarden"
+      ],
+      "capabilities": [
+        "passwords"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "1password": "Strong match",
+        "bitwarden": "Strong match"
+      }
+    },
+    {
+      "id": 36,
+      "query": "invocing software",
+      "kind": "misspelling",
+      "expected_products": [
+        "dubsado",
+        "freshbooks",
+        "harvest",
+        "honeybook",
+        "wave"
+      ],
+      "capabilities": [
+        "invoicing"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "dubsado": "Strong match",
+        "freshbooks": "Strong match",
+        "harvest": "Strong match",
+        "honeybook": "Strong match",
+        "wave": "Strong match"
+      }
+    },
+    {
+      "id": 37,
+      "query": "A calender scheduling application",
+      "kind": "misspelling",
+      "expected_products": [
+        "calendly",
+        "dubsado",
+        "honeybook"
+      ],
+      "capabilities": [
+        "scheduling"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "calendly": "Strong match",
+        "dubsado": "Strong match",
+        "honeybook": "Strong match"
+      }
+    },
+    {
+      "id": 38,
+      "query": "project managment",
+      "kind": "misspelling",
+      "expected_products": [
+        "asana",
+        "clickup",
+        "honeybook",
+        "linear",
+        "todoist",
+        "trello"
+      ],
+      "capabilities": [
+        "projects"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "asana": "Strong match",
+        "clickup": "Strong match",
+        "honeybook": "Strong match",
+        "linear": "Strong match",
+        "todoist": "Strong match",
+        "trello": "Strong match"
+      }
+    },
+    {
+      "id": 39,
+      "query": "automate workflows",
+      "kind": "synonym",
+      "expected_products": [
+        "make",
+        "n8n",
+        "zapier"
+      ],
+      "capabilities": [
+        "automation"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "make": "Strong match",
+        "n8n": "Strong match",
+        "zapier": "Strong match"
+      }
+    },
+    {
+      "id": 40,
+      "query": "contact management",
+      "kind": "synonym",
+      "expected_products": [
+        "honeybook",
+        "hubspot",
+        "pipedrive",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "honeybook": "Strong match",
+        "hubspot": "Strong match",
+        "pipedrive": "Strong match",
+        "zoho-crm": "Strong match"
+      }
+    },
+    {
+      "id": 41,
+      "query": "meeting summaries",
+      "kind": "synonym",
+      "expected_products": [
+        "fathom",
+        "fireflies",
+        "otter",
+        "tl-dv"
+      ],
+      "capabilities": [
+        "action-items"
+      ],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {
+        "fathom": "Strong match",
+        "fireflies": "Strong match",
+        "otter": "Strong match",
+        "tl-dv": "Strong match"
+      }
+    },
+    {
+      "id": 42,
+      "query": "Otter",
+      "kind": "product-name",
+      "expected_products": [
+        "otter"
+      ],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 43,
+      "query": "Bitwarden",
+      "kind": "product-name",
+      "expected_products": [
+        "bitwarden"
+      ],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 44,
+      "query": "Calendly",
+      "kind": "product-name",
+      "expected_products": [
+        "calendly"
+      ],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 45,
+      "query": "Tally",
+      "kind": "product-name",
+      "expected_products": [
+        "tally"
+      ],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 46,
+      "query": "Pipedrive",
+      "kind": "product-name",
+      "expected_products": [
+        "pipedrive"
+      ],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": null,
+      "expected_classifications": {}
+    },
+    {
+      "id": 47,
+      "query": "project management without invoicing",
+      "kind": "negation",
+      "expected_products": [
+        "asana",
+        "trello",
+        "linear",
+        "clickup",
+        "todoist"
+      ],
+      "capabilities": [
+        "projects"
+      ],
+      "important_irrelevant": [
+        "honeybook",
+        "freshbooks"
+      ],
+      "max_strong": null,
+      "expected_classifications": {
+        "asana": "Strong match",
+        "trello": "Strong match",
+        "linear": "Strong match",
+        "clickup": "Strong match",
+        "todoist": "Strong match"
+      }
+    },
+    {
+      "id": 48,
+      "query": "video editing without audio editing",
+      "kind": "negation",
+      "expected_products": [
+        "capcut",
+        "veed"
+      ],
+      "capabilities": [
+        "video"
+      ],
+      "important_irrelevant": [
+        "descript"
+      ],
+      "max_strong": null,
+      "expected_classifications": {
+        "capcut": "Strong match",
+        "veed": "Strong match"
+      }
+    },
+    {
+      "id": 49,
+      "query": "offline CRM for dentists",
+      "kind": "industry",
+      "expected_products": [
+        "honeybook",
+        "hubspot",
+        "pipedrive",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm"
+      ],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {
+        "honeybook": "Strong match",
+        "hubspot": "Strong match",
+        "pipedrive": "Strong match",
+        "zoho-crm": "Strong match"
+      }
+    },
+    {
+      "id": 50,
+      "query": "HIPAA meeting transcription for healthcare",
+      "kind": "industry",
+      "expected_products": [
+        "otter",
+        "tl-dv"
+      ],
+      "capabilities": [
+        "meetings"
+      ],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {
+        "otter": "Strong match",
+        "tl-dv": "Strong match"
+      }
+    },
+    {
+      "id": 51,
+      "query": "a free open source password manager",
+      "kind": "qualifier",
+      "expected_products": [
+        "1password",
+        "bitwarden"
+      ],
+      "capabilities": [
+        "passwords"
+      ],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {
+        "1password": "Strong match",
+        "bitwarden": "Strong match"
+      }
+    },
+    {
+      "id": 52,
+      "query": "a CRM for freelance designers that tracks projects and sends invoices",
+      "kind": "industry",
+      "expected_products": [
+        "asana",
+        "clickup",
+        "dubsado",
+        "freshbooks",
+        "harvest",
+        "honeybook",
+        "hubspot",
+        "linear",
+        "pipedrive",
+        "todoist",
+        "trello",
+        "wave",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm",
+        "projects",
+        "invoicing"
+      ],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {}
+    },
+    {
+      "id": 53,
+      "query": "a sales pipeline",
+      "kind": "ambiguous",
+      "expected_products": [
+        "honeybook",
+        "hubspot",
+        "pipedrive",
+        "zoho-crm"
+      ],
+      "capabilities": [
+        "crm"
+      ],
+      "important_irrelevant": [
+        "github"
+      ],
+      "max_strong": null,
+      "expected_classifications": {
+        "honeybook": "Strong match",
+        "hubspot": "Strong match",
+        "pipedrive": "Strong match",
+        "zoho-crm": "Strong match"
+      }
+    },
+    {
+      "id": 54,
+      "query": "a build pipeline for continuous integration",
+      "kind": "ambiguous",
+      "expected_products": [
+        "github"
+      ],
+      "capabilities": [
+        "ci"
+      ],
+      "important_irrelevant": [
+        "pipedrive"
+      ],
+      "max_strong": null,
+      "expected_classifications": {
+        "github": "Strong match"
+      }
+    },
+    {
+      "id": 55,
+      "query": "pipeline",
+      "kind": "ambiguous",
+      "expected_products": [],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {}
+    },
+    {
+      "id": 56,
+      "query": "Quantum telepathy dolphin translator",
+      "kind": "coverage-gap",
+      "expected_products": [],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {}
+    },
+    {
+      "id": 57,
+      "query": "A lunar dust futures marketplace",
+      "kind": "coverage-gap",
+      "expected_products": [],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {}
+    },
+    {
+      "id": 58,
+      "query": "Predict volcano eruptions from dreams",
+      "kind": "coverage-gap",
+      "expected_products": [],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {}
+    },
+    {
+      "id": 59,
+      "query": "A social network for sentient refrigerators",
+      "kind": "coverage-gap",
+      "expected_products": [],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {}
+    },
+    {
+      "id": 60,
+      "query": "Browser extension to smell colors",
+      "kind": "coverage-gap",
+      "expected_products": [],
+      "capabilities": [],
+      "important_irrelevant": [],
+      "max_strong": 0,
+      "expected_classifications": {}
+    }
+  ]
+}

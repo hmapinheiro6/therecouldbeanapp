@@ -1,0 +1,614 @@
+[
+  {
+    "slug": "otter",
+    "name": "Otter",
+    "canonical_url": "https://otter.ai",
+    "category_slug": "meetings",
+    "capability_hints": [
+      "meetings",
+      "action-items"
+    ],
+    "editorial_description": "Transcribes meetings and organizes the conversation into notes and follow-up work.",
+    "audience": ""
+  },
+  {
+    "slug": "fireflies",
+    "name": "Fireflies",
+    "canonical_url": "https://fireflies.ai",
+    "category_slug": "meetings",
+    "capability_hints": [
+      "meetings",
+      "action-items"
+    ],
+    "editorial_description": "A meeting assistant for recording conversations, reviewing transcripts, and finding follow-up work.",
+    "audience": ""
+  },
+  {
+    "slug": "fathom",
+    "name": "Fathom",
+    "canonical_url": "https://fathom.ai",
+    "category_slug": "meetings",
+    "capability_hints": [
+      "meetings",
+      "action-items"
+    ],
+    "editorial_description": "Records meeting conversations and helps participants review notes and summaries.",
+    "audience": ""
+  },
+  {
+    "slug": "tl-dv",
+    "name": "tl;dv",
+    "canonical_url": "https://tldv.io",
+    "category_slug": "meetings",
+    "capability_hints": [
+      "meetings",
+      "action-items"
+    ],
+    "editorial_description": "A meeting recording tool for revisiting discussions and sharing useful moments with a team.",
+    "audience": ""
+  },
+  {
+    "slug": "hubspot",
+    "name": "HubSpot",
+    "canonical_url": "https://www.hubspot.com/products/crm",
+    "category_slug": "crm",
+    "capability_hints": [
+      "crm",
+      "reminders"
+    ],
+    "editorial_description": "A CRM for organizing customer records and managing the work around a sales pipeline.",
+    "audience": ""
+  },
+  {
+    "slug": "pipedrive",
+    "name": "Pipedrive",
+    "canonical_url": "https://www.pipedrive.com",
+    "category_slug": "crm",
+    "capability_hints": [
+      "crm",
+      "reminders"
+    ],
+    "editorial_description": "Sales CRM software for keeping track of leads, contacts, and work in progress.",
+    "audience": ""
+  },
+  {
+    "slug": "zoho-crm",
+    "name": "Zoho CRM",
+    "canonical_url": "https://www.zoho.com/crm/",
+    "category_slug": "crm",
+    "capability_hints": [
+      "crm",
+      "reminders"
+    ],
+    "editorial_description": "A customer relationship management system for organizing sales activity and customer information.",
+    "audience": ""
+  },
+  {
+    "slug": "bonsai",
+    "name": "Bonsai",
+    "canonical_url": "https://www.hellobonsai.com",
+    "category_slug": "crm",
+    "capability_hints": [
+      "crm",
+      "projects",
+      "invoicing",
+      "time"
+    ],
+    "editorial_description": "Business management software that brings client work and administrative processes into one workspace.",
+    "audience": ""
+  },
+  {
+    "slug": "honeybook",
+    "name": "HoneyBook",
+    "canonical_url": "https://www.honeybook.com",
+    "category_slug": "crm",
+    "capability_hints": [
+      "crm",
+      "invoicing",
+      "scheduling",
+      "projects"
+    ],
+    "editorial_description": "Client management software for independent businesses, combining sales and client administration.",
+    "audience": ""
+  },
+  {
+    "slug": "dubsado",
+    "name": "Dubsado",
+    "canonical_url": "https://www.dubsado.com",
+    "category_slug": "crm",
+    "capability_hints": [
+      "crm",
+      "invoicing",
+      "scheduling"
+    ],
+    "editorial_description": "Business management software for organizing client relationships and administrative workflows.",
+    "audience": ""
+  },
+  {
+    "slug": "harvest",
+    "name": "Harvest",
+    "canonical_url": "https://www.getharvest.com",
+    "category_slug": "time-tracking",
+    "capability_hints": [
+      "time",
+      "invoicing"
+    ],
+    "editorial_description": "A time tracking tool that helps businesses turn records of billable work into invoices.",
+    "audience": ""
+  },
+  {
+    "slug": "freshbooks",
+    "name": "FreshBooks",
+    "canonical_url": "https://www.freshbooks.com",
+    "category_slug": "accounting",
+    "capability_hints": [
+      "invoicing",
+      "accounting",
+      "time"
+    ],
+    "editorial_description": "Accounting software for businesses that need to organize invoices, expenses, and billable work.",
+    "audience": ""
+  },
+  {
+    "slug": "wave",
+    "name": "Wave",
+    "canonical_url": "https://www.waveapps.com",
+    "category_slug": "accounting",
+    "capability_hints": [
+      "invoicing",
+      "accounting"
+    ],
+    "editorial_description": "Financial tools for small businesses managing bookkeeping and customer invoices.",
+    "audience": ""
+  },
+  {
+    "slug": "trello",
+    "name": "Trello",
+    "canonical_url": "https://trello.com",
+    "category_slug": "project-management",
+    "capability_hints": [
+      "projects"
+    ],
+    "editorial_description": "Organizes tasks and projects with boards that a team can update as work progresses.",
+    "audience": ""
+  },
+  {
+    "slug": "asana",
+    "name": "Asana",
+    "canonical_url": "https://asana.com",
+    "category_slug": "project-management",
+    "capability_hints": [
+      "projects"
+    ],
+    "editorial_description": "Work management software for coordinating projects, tasks, and responsibilities across teams.",
+    "audience": ""
+  },
+  {
+    "slug": "linear",
+    "name": "Linear",
+    "canonical_url": "https://linear.app",
+    "category_slug": "project-management",
+    "capability_hints": [
+      "projects"
+    ],
+    "editorial_description": "An issue and project workspace for teams planning and delivering software.",
+    "audience": ""
+  },
+  {
+    "slug": "clickup",
+    "name": "ClickUp",
+    "canonical_url": "https://clickup.com",
+    "category_slug": "project-management",
+    "capability_hints": [
+      "projects",
+      "docs",
+      "time"
+    ],
+    "editorial_description": "A work management workspace for organizing tasks, project information, and team documentation.",
+    "audience": ""
+  },
+  {
+    "slug": "notion",
+    "name": "Notion",
+    "canonical_url": "https://www.notion.com",
+    "category_slug": "knowledge-management",
+    "capability_hints": [
+      "docs",
+      "projects",
+      "notes"
+    ],
+    "editorial_description": "A workspace that combines documents, shared knowledge, and structured project information.",
+    "audience": ""
+  },
+  {
+    "slug": "todoist",
+    "name": "Todoist",
+    "canonical_url": "https://www.todoist.com",
+    "category_slug": "project-management",
+    "capability_hints": [
+      "projects",
+      "reminders"
+    ],
+    "editorial_description": "A task organizer for planning personal work and coordinating shared to-do lists.",
+    "audience": ""
+  },
+  {
+    "slug": "obsidian",
+    "name": "Obsidian",
+    "canonical_url": "https://obsidian.md",
+    "category_slug": "notes",
+    "capability_hints": [
+      "notes",
+      "docs"
+    ],
+    "editorial_description": "A writing and note organization application built around connected local Markdown documents.",
+    "audience": ""
+  },
+  {
+    "slug": "slack",
+    "name": "Slack",
+    "canonical_url": "https://slack.com",
+    "category_slug": "collaboration",
+    "capability_hints": [
+      "collaboration"
+    ],
+    "editorial_description": "Workplace messaging software for organizing team conversations around channels.",
+    "audience": ""
+  },
+  {
+    "slug": "figma",
+    "name": "Figma",
+    "canonical_url": "https://www.figma.com",
+    "category_slug": "design",
+    "capability_hints": [
+      "design",
+      "whiteboard"
+    ],
+    "editorial_description": "A collaborative workspace for designing interfaces and reviewing visual product work.",
+    "audience": ""
+  },
+  {
+    "slug": "canva",
+    "name": "Canva",
+    "canonical_url": "https://www.canva.com",
+    "category_slug": "graphics",
+    "capability_hints": [
+      "graphics",
+      "video"
+    ],
+    "editorial_description": "A visual creation application for producing graphics and other communication materials.",
+    "audience": ""
+  },
+  {
+    "slug": "miro",
+    "name": "Miro",
+    "canonical_url": "https://miro.com",
+    "category_slug": "whiteboards",
+    "capability_hints": [
+      "whiteboard"
+    ],
+    "editorial_description": "A visual collaboration workspace for mapping ideas and working together on shared boards.",
+    "audience": ""
+  },
+  {
+    "slug": "buffer",
+    "name": "Buffer",
+    "canonical_url": "https://buffer.com",
+    "category_slug": "social-media",
+    "capability_hints": [
+      "social"
+    ],
+    "editorial_description": "Social media publishing software for preparing posts and coordinating a content schedule.",
+    "audience": ""
+  },
+  {
+    "slug": "hootsuite",
+    "name": "Hootsuite",
+    "canonical_url": "https://www.hootsuite.com",
+    "category_slug": "social-media",
+    "capability_hints": [
+      "social"
+    ],
+    "editorial_description": "A social media management workspace for planning and publishing content across accounts.",
+    "audience": ""
+  },
+  {
+    "slug": "mailchimp",
+    "name": "Mailchimp",
+    "canonical_url": "https://mailchimp.com",
+    "category_slug": "email-marketing",
+    "capability_hints": [
+      "email-marketing"
+    ],
+    "editorial_description": "Email marketing software for creating campaigns and managing subscriber communication.",
+    "audience": ""
+  },
+  {
+    "slug": "kit",
+    "name": "Kit",
+    "canonical_url": "https://kit.com",
+    "category_slug": "email-marketing",
+    "capability_hints": [
+      "email-marketing"
+    ],
+    "editorial_description": "Email marketing tools for creators communicating with subscribers and building an audience.",
+    "audience": ""
+  },
+  {
+    "slug": "calendly",
+    "name": "Calendly",
+    "canonical_url": "https://calendly.com",
+    "category_slug": "scheduling",
+    "capability_hints": [
+      "scheduling"
+    ],
+    "editorial_description": "Scheduling software that lets people choose appointment times from shared availability.",
+    "audience": ""
+  },
+  {
+    "slug": "cal-com",
+    "name": "Cal.com",
+    "canonical_url": "https://cal.com",
+    "category_slug": "scheduling",
+    "capability_hints": [
+      "scheduling"
+    ],
+    "editorial_description": "A scheduling platform for coordinating appointment bookings and availability.",
+    "audience": ""
+  },
+  {
+    "slug": "descript",
+    "name": "Descript",
+    "canonical_url": "https://www.descript.com",
+    "category_slug": "video",
+    "capability_hints": [
+      "video",
+      "audio"
+    ],
+    "editorial_description": "Audio and video editing software that connects media editing with a transcript-based workflow.",
+    "audience": ""
+  },
+  {
+    "slug": "capcut",
+    "name": "CapCut",
+    "canonical_url": "https://www.capcut.com",
+    "category_slug": "video",
+    "capability_hints": [
+      "video"
+    ],
+    "editorial_description": "Video creation software for editing footage and preparing clips for publishing.",
+    "audience": ""
+  },
+  {
+    "slug": "veed",
+    "name": "VEED",
+    "canonical_url": "https://www.veed.io",
+    "category_slug": "video",
+    "capability_hints": [
+      "video"
+    ],
+    "editorial_description": "A browser-based video workspace for editing footage and preparing finished videos.",
+    "audience": ""
+  },
+  {
+    "slug": "zapier",
+    "name": "Zapier",
+    "canonical_url": "https://zapier.com",
+    "category_slug": "automation",
+    "capability_hints": [
+      "automation"
+    ],
+    "editorial_description": "Workflow automation software for connecting services and moving work between applications.",
+    "audience": ""
+  },
+  {
+    "slug": "n8n",
+    "name": "n8n",
+    "canonical_url": "https://n8n.io",
+    "category_slug": "automation",
+    "capability_hints": [
+      "automation"
+    ],
+    "editorial_description": "A workflow automation platform for connecting applications and defining multi-step processes.",
+    "audience": ""
+  },
+  {
+    "slug": "make",
+    "name": "Make",
+    "canonical_url": "https://www.make.com",
+    "category_slug": "automation",
+    "capability_hints": [
+      "automation"
+    ],
+    "editorial_description": "A visual automation platform for connecting applications into repeatable workflows.",
+    "audience": ""
+  },
+  {
+    "slug": "github",
+    "name": "GitHub",
+    "canonical_url": "https://github.com",
+    "category_slug": "development",
+    "capability_hints": [
+      "code-hosting",
+      "ci"
+    ],
+    "editorial_description": "A collaboration platform for hosting software repositories and coordinating development work.",
+    "audience": ""
+  },
+  {
+    "slug": "sentry",
+    "name": "Sentry",
+    "canonical_url": "https://sentry.io",
+    "category_slug": "monitoring",
+    "capability_hints": [
+      "monitoring"
+    ],
+    "editorial_description": "Application monitoring software for investigating errors and understanding problems in running software.",
+    "audience": ""
+  },
+  {
+    "slug": "posthog",
+    "name": "PostHog",
+    "canonical_url": "https://posthog.com",
+    "category_slug": "analytics",
+    "capability_hints": [
+      "analytics"
+    ],
+    "editorial_description": "A product analytics platform for understanding how people use an application.",
+    "audience": ""
+  },
+  {
+    "slug": "plausible",
+    "name": "Plausible",
+    "canonical_url": "https://plausible.io",
+    "category_slug": "analytics",
+    "capability_hints": [
+      "analytics"
+    ],
+    "editorial_description": "A website analytics tool for understanding traffic and visitor activity.",
+    "audience": ""
+  },
+  {
+    "slug": "bitwarden",
+    "name": "Bitwarden",
+    "canonical_url": "https://bitwarden.com",
+    "category_slug": "security",
+    "capability_hints": [
+      "passwords"
+    ],
+    "editorial_description": "A password manager for storing credentials and sharing access information.",
+    "audience": ""
+  },
+  {
+    "slug": "1password",
+    "name": "1Password",
+    "canonical_url": "https://1password.com",
+    "category_slug": "security",
+    "capability_hints": [
+      "passwords"
+    ],
+    "editorial_description": "A password management application for organizing credentials and access across a team.",
+    "audience": ""
+  },
+  {
+    "slug": "typeform",
+    "name": "Typeform",
+    "canonical_url": "https://www.typeform.com",
+    "category_slug": "forms",
+    "capability_hints": [
+      "forms"
+    ],
+    "editorial_description": "A form building platform for collecting responses through online questionnaires.",
+    "audience": ""
+  },
+  {
+    "slug": "tally",
+    "name": "Tally",
+    "canonical_url": "https://tally.so",
+    "category_slug": "forms",
+    "capability_hints": [
+      "forms"
+    ],
+    "editorial_description": "An online form builder for creating questionnaires and collecting structured responses.",
+    "audience": ""
+  },
+  {
+    "slug": "docusign",
+    "name": "DocuSign",
+    "canonical_url": "https://www.docusign.com",
+    "category_slug": "e-signatures",
+    "capability_hints": [
+      "signatures"
+    ],
+    "editorial_description": "An electronic signature service for sending documents through a signing process.",
+    "audience": ""
+  },
+  {
+    "slug": "grammarly",
+    "name": "Grammarly",
+    "canonical_url": "https://www.grammarly.com",
+    "category_slug": "writing",
+    "capability_hints": [
+      "writing"
+    ],
+    "editorial_description": "Writing assistance software for reviewing grammar and improving written communication.",
+    "audience": ""
+  },
+  {
+    "slug": "shopify",
+    "name": "Shopify",
+    "canonical_url": "https://www.shopify.com",
+    "category_slug": "ecommerce",
+    "capability_hints": [
+      "ecommerce"
+    ],
+    "editorial_description": "Commerce software for setting up a storefront and managing online selling.",
+    "audience": ""
+  },
+  {
+    "slug": "zendesk",
+    "name": "Zendesk",
+    "canonical_url": "https://www.zendesk.com",
+    "category_slug": "customer-support",
+    "capability_hints": [
+      "support"
+    ],
+    "editorial_description": "Customer service software for managing support requests and service conversations.",
+    "audience": ""
+  },
+  {
+    "slug": "intercom",
+    "name": "Intercom",
+    "canonical_url": "https://www.intercom.com",
+    "category_slug": "customer-support",
+    "capability_hints": [
+      "support"
+    ],
+    "editorial_description": "Customer service software for handling conversations and support workflows.",
+    "audience": ""
+  },
+  {
+    "slug": "dropbox",
+    "name": "Dropbox",
+    "canonical_url": "https://www.dropbox.com",
+    "category_slug": "storage",
+    "capability_hints": [
+      "storage"
+    ],
+    "editorial_description": "File storage and sharing software for keeping documents available across devices and collaborators.",
+    "audience": ""
+  },
+  {
+    "slug": "moodle",
+    "name": "Moodle",
+    "canonical_url": "https://moodle.org",
+    "category_slug": "education",
+    "capability_hints": [
+      "education"
+    ],
+    "editorial_description": "An open-source learning management platform for organizing teaching and course activity.",
+    "audience": ""
+  },
+  {
+    "slug": "greenhouse",
+    "name": "Greenhouse",
+    "canonical_url": "https://www.greenhouse.com",
+    "category_slug": "recruiting",
+    "capability_hints": [
+      "recruiting"
+    ],
+    "editorial_description": "Recruiting software for managing applicants and coordinating a hiring process.",
+    "audience": ""
+  },
+  {
+    "slug": "bamboohr",
+    "name": "BambooHR",
+    "canonical_url": "https://www.bamboohr.com",
+    "category_slug": "hr",
+    "capability_hints": [
+      "hr"
+    ],
+    "editorial_description": "Human resources software for maintaining employee information and administrative HR processes.",
+    "audience": ""
+  }
+]

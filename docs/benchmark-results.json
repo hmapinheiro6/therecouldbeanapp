@@ -1,0 +1,1651 @@
+{
+  "measured_at": "2026-11-15T20:27:42.105Z",
+  "environment": "Node 24 SQLite FTS5, local process. NOT deployed Worker CPU or D1 billing measurements.",
+  "catalog_products": 45,
+  "case_count": 60,
+  "supported_cases": 54,
+  "metrics": {
+    "precision_at_5": 1,
+    "recall_at_10": 0.9914529914529915,
+    "mrr": 1,
+    "mean_top_result_capability_coverage": 1,
+    "unsupported_strong": 0,
+    "latency_p50_ms": 0.4376670000000047,
+    "latency_p95_ms": 0.9534170000000017
+  },
+  "targets": {
+    "precision_at_5": 0.8,
+    "recall_at_10": 0.85
+  },
+  "limitations": [
+    "Single-author engineering judgments; external blind evaluation still needed.",
+    "Precision uses returned slots (min(5, returned)), not five padded slots.",
+    "Recall is within manually known relevant products present in catalog; not the entire market.",
+    "Capacity copies have no new capability evidence and are explicitly synthetic.",
+    "Production Worker CPU and D1 row usage need live instrumentation; local timing is not proof of the 10ms allowance."
+  ],
+  "capacity": [
+    {
+      "synthetic_products": 1000,
+      "description": "Synthetic lexical load only. Not published catalog records. Capability join work remains bounded to 80 candidates.",
+      "latency_p50_ms": 1.4433329999999955,
+      "latency_p95_ms": 1.877999999999986,
+      "node_cpu_p95_ms": 2.329
+    },
+    {
+      "synthetic_products": 10000,
+      "description": "Synthetic lexical load only. Not published catalog records. Capability join work remains bounded to 80 candidates.",
+      "latency_p50_ms": 2.0277079999999614,
+      "latency_p95_ms": 4.779291999999998,
+      "node_cpu_p95_ms": 5.133
+    }
+  ],
+  "cases": [
+    {
+      "id": 1,
+      "query": "A CRM for tracking sales contacts",
+      "kind": "category",
+      "known_relevant": 4,
+      "in_catalog": 4,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 7.612959000000004,
+      "cpu_ms": 8.172,
+      "top_5": [
+        {
+          "slug": "pipedrive",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "hubspot",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "query": "Project management with kanban boards",
+      "kind": "category",
+      "known_relevant": 6,
+      "in_catalog": 6,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.9534170000000017,
+      "cpu_ms": 1.128,
+      "top_5": [
+        {
+          "slug": "clickup",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "asana",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "linear",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "trello",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "todoist",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "query": "An app that sends invoices",
+      "kind": "category",
+      "known_relevant": 5,
+      "in_catalog": 5,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.7172920000000005,
+      "cpu_ms": 0.828,
+      "top_5": [
+        {
+          "slug": "freshbooks",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "harvest",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "wave",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "dubsado",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "query": "Meeting transcription",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.4135830000000027,
+      "cpu_ms": 0.44,
+      "top_5": [
+        {
+          "slug": "tl-dv",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "otter",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "query": "Extract action items from meetings",
+      "kind": "category",
+      "known_relevant": 4,
+      "in_catalog": 4,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.4864589999999964,
+      "cpu_ms": 0.548,
+      "top_5": [
+        {
+          "slug": "otter",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "fathom",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "fireflies",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "tl-dv",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "query": "Appointment scheduling software",
+      "kind": "category",
+      "known_relevant": 3,
+      "in_catalog": 3,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.38049999999999784,
+      "cpu_ms": 0.38,
+      "top_5": [
+        {
+          "slug": "calendly",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "dubsado",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "query": "Schedules social posts across platforms",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.6844169999999963,
+      "cpu_ms": 0.9,
+      "top_5": [
+        {
+          "slug": "buffer",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "hootsuite",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "query": "A video editor for short videos",
+      "kind": "category",
+      "known_relevant": 3,
+      "in_catalog": 3,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.4405000000000001,
+      "cpu_ms": 0.441,
+      "top_5": [
+        {
+          "slug": "veed",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "capcut",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "descript",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "query": "Audio editing software",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.35762499999999875,
+      "cpu_ms": 0.359,
+      "top_5": [
+        {
+          "slug": "descript",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "query": "A design tool for wireframes",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.35054199999999014,
+      "cpu_ms": 0.409,
+      "top_5": [
+        {
+          "slug": "figma",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "query": "A collaborative whiteboard",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.45504099999999426,
+      "cpu_ms": 0.486,
+      "top_5": [
+        {
+          "slug": "miro",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "figma",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "query": "Continuous integration for automated builds",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.42566600000000676,
+      "cpu_ms": 0.701,
+      "top_5": [
+        {
+          "slug": "github",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "query": "Application error monitoring",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.30154199999999776,
+      "cpu_ms": 0.32,
+      "top_5": [
+        {
+          "slug": "sentry",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "query": "Website analytics",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.33612499999999557,
+      "cpu_ms": 0.336,
+      "top_5": [
+        {
+          "slug": "plausible",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "posthog",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "query": "Customer support helpdesk",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.3983750000000015,
+      "cpu_ms": 0.398,
+      "top_5": [
+        {
+          "slug": "intercom",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "zendesk",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "query": "An online store for selling products",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.488790999999992,
+      "cpu_ms": 0.489,
+      "top_5": [
+        {
+          "slug": "shopify",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "query": "Applicant tracking for recruiting",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.6581670000000059,
+      "cpu_ms": 0.688,
+      "top_5": [
+        {
+          "slug": "greenhouse",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "query": "A team wiki and knowledge base",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.5317919999999958,
+      "cpu_ms": 0.533,
+      "top_5": [
+        {
+          "slug": "notion",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "obsidian",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "query": "A grammar checker for writing assistance",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.4523749999999893,
+      "cpu_ms": 0.478,
+      "top_5": [
+        {
+          "slug": "grammarly",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "query": "Workflow automation to connect apps",
+      "kind": "category",
+      "known_relevant": 3,
+      "in_catalog": 3,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.44087499999999125,
+      "cpu_ms": 0.443,
+      "top_5": [
+        {
+          "slug": "n8n",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "zapier",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "make",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "query": "A password manager",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.5967080000000067,
+      "cpu_ms": 0.64,
+      "top_5": [
+        {
+          "slug": "bitwarden",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "1password",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "query": "Cloud storage and file sharing",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.45600000000000307,
+      "cpu_ms": 0.456,
+      "top_5": [
+        {
+          "slug": "dropbox",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "query": "A form builder for surveys",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.37383299999999053,
+      "cpu_ms": 0.373,
+      "top_5": [
+        {
+          "slug": "tally",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "typeform",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "query": "Electronic signatures for documents",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.3937090000000012,
+      "cpu_ms": 0.583,
+      "top_5": [
+        {
+          "slug": "docusign",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "query": "Bookkeeping and accounting",
+      "kind": "category",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.3382080000000087,
+      "cpu_ms": 0.864,
+      "top_5": [
+        {
+          "slug": "freshbooks",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "wave",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "query": "Time tracking and timesheets",
+      "kind": "category",
+      "known_relevant": 3,
+      "in_catalog": 3,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.6070840000000004,
+      "cpu_ms": 0.862,
+      "top_5": [
+        {
+          "slug": "harvest",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "clickup",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "freshbooks",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "query": "Personal notes in Markdown",
+      "kind": "category",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.43029199999999435,
+      "cpu_ms": 1.657,
+      "top_5": [
+        {
+          "slug": "obsidian",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "query": "I was thinking of making an application that helps my salespeople remember who they need to contact again",
+      "kind": "conversational",
+      "known_relevant": 5,
+      "in_catalog": 5,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.9969999999999999,
+      "cpu_ms": 1.971,
+      "top_5": [
+        {
+          "slug": "pipedrive",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "hubspot",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "todoist",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "query": "I want to build an app that records meetings and automatically creates action items",
+      "kind": "multi",
+      "known_relevant": 4,
+      "in_catalog": 4,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.6803330000000045,
+      "cpu_ms": 0.722,
+      "top_5": [
+        {
+          "slug": "otter",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "tl-dv",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "fathom",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "fireflies",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "query": "Something to track time and generate invoices",
+      "kind": "multi",
+      "known_relevant": 6,
+      "in_catalog": 6,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.6984589999999997,
+      "cpu_ms": 0.699,
+      "top_5": [
+        {
+          "slug": "harvest",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "freshbooks",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "wave",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "clickup",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "dubsado",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "query": "A CRM with project management and invoicing",
+      "kind": "multi",
+      "known_relevant": 13,
+      "in_catalog": 13,
+      "precision_at_5": 1,
+      "recall_at_10": 0.7692307692307693,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.7680000000000007,
+      "cpu_ms": 0.768,
+      "top_5": [
+        {
+          "slug": "honeybook",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "clickup",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "asana",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "dubsado",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "query": "A tool for client management and appointment scheduling",
+      "kind": "multi",
+      "known_relevant": 6,
+      "in_catalog": 6,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.8861249999999927,
+      "cpu_ms": 2.48,
+      "top_5": [
+        {
+          "slug": "honeybook",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "calendly",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "dubsado",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "hubspot",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "query": "An app combining video editing and audio editing",
+      "kind": "multi",
+      "known_relevant": 3,
+      "in_catalog": 3,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.40149999999999864,
+      "cpu_ms": 0.401,
+      "top_5": [
+        {
+          "slug": "descript",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "capcut",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "veed",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "query": "Please help me find a way to accept electronic signatures",
+      "kind": "conversational",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.37870900000000063,
+      "cpu_ms": 0.38,
+      "top_5": [
+        {
+          "slug": "docusign",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "query": "I need something for password management",
+      "kind": "conversational",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.5516250000000014,
+      "cpu_ms": 0.581,
+      "top_5": [
+        {
+          "slug": "1password",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "bitwarden",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "query": "invocing software",
+      "kind": "misspelling",
+      "known_relevant": 5,
+      "in_catalog": 5,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.323750000000004,
+      "cpu_ms": 0.324,
+      "top_5": [
+        {
+          "slug": "dubsado",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "freshbooks",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "harvest",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "wave",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "query": "A calender scheduling application",
+      "kind": "misspelling",
+      "known_relevant": 3,
+      "in_catalog": 3,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.36170799999999304,
+      "cpu_ms": 0.361,
+      "top_5": [
+        {
+          "slug": "calendly",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "dubsado",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "query": "project managment",
+      "kind": "misspelling",
+      "known_relevant": 6,
+      "in_catalog": 6,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.5992499999999978,
+      "cpu_ms": 0.599,
+      "top_5": [
+        {
+          "slug": "clickup",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "asana",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "linear",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "todoist",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "trello",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "query": "automate workflows",
+      "kind": "synonym",
+      "known_relevant": 3,
+      "in_catalog": 3,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.46895800000000065,
+      "cpu_ms": 0.516,
+      "top_5": [
+        {
+          "slug": "make",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "n8n",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "zapier",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "query": "contact management",
+      "kind": "synonym",
+      "known_relevant": 4,
+      "in_catalog": 4,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.5897500000000093,
+      "cpu_ms": 0.673,
+      "top_5": [
+        {
+          "slug": "honeybook",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "hubspot",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "pipedrive",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "query": "meeting summaries",
+      "kind": "synonym",
+      "known_relevant": 4,
+      "in_catalog": 4,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.384042000000008,
+      "cpu_ms": 0.385,
+      "top_5": [
+        {
+          "slug": "fathom",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "fireflies",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "tl-dv",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "otter",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "query": "Otter",
+      "kind": "product-name",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.25133299999998826,
+      "cpu_ms": 0.251,
+      "top_5": [
+        {
+          "slug": "otter",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "query": "Bitwarden",
+      "kind": "product-name",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.24620799999999576,
+      "cpu_ms": 0.246,
+      "top_5": [
+        {
+          "slug": "bitwarden",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "query": "Calendly",
+      "kind": "product-name",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.2390840000000054,
+      "cpu_ms": 0.239,
+      "top_5": [
+        {
+          "slug": "calendly",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "query": "Tally",
+      "kind": "product-name",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.24379199999999912,
+      "cpu_ms": 0.245,
+      "top_5": [
+        {
+          "slug": "tally",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "query": "Pipedrive",
+      "kind": "product-name",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.26645899999999756,
+      "cpu_ms": 0.292,
+      "top_5": [
+        {
+          "slug": "pipedrive",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "query": "project management without invoicing",
+      "kind": "negation",
+      "known_relevant": 5,
+      "in_catalog": 5,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.765749999999997,
+      "cpu_ms": 0.792,
+      "top_5": [
+        {
+          "slug": "clickup",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "asana",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "linear",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "todoist",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "trello",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "query": "video editing without audio editing",
+      "kind": "negation",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.39016699999999105,
+      "cpu_ms": 0.391,
+      "top_5": [
+        {
+          "slug": "capcut",
+          "classification": "Strong match"
+        },
+        {
+          "slug": "veed",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "query": "offline CRM for dentists",
+      "kind": "industry",
+      "known_relevant": 4,
+      "in_catalog": 4,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.7077500000000043,
+      "cpu_ms": 0.709,
+      "top_5": [
+        {
+          "slug": "hubspot",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "pipedrive",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "query": "HIPAA meeting transcription for healthcare",
+      "kind": "industry",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.4189579999999893,
+      "cpu_ms": 0.421,
+      "top_5": [
+        {
+          "slug": "tl-dv",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "otter",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "query": "a free open source password manager",
+      "kind": "qualifier",
+      "known_relevant": 2,
+      "in_catalog": 2,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.6797079999999909,
+      "cpu_ms": 0.729,
+      "top_5": [
+        {
+          "slug": "bitwarden",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "1password",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "query": "a CRM for freelance designers that tracks projects and sends invoices",
+      "kind": "industry",
+      "known_relevant": 13,
+      "in_catalog": 13,
+      "precision_at_5": 1,
+      "recall_at_10": 0.7692307692307693,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.8741669999999999,
+      "cpu_ms": 0.875,
+      "top_5": [
+        {
+          "slug": "honeybook",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "hubspot",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "pipedrive",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "dubsado",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "query": "a sales pipeline",
+      "kind": "ambiguous",
+      "known_relevant": 4,
+      "in_catalog": 4,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.5631249999999994,
+      "cpu_ms": 0.563,
+      "top_5": [
+        {
+          "slug": "hubspot",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "honeybook",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "pipedrive",
+          "classification": "Partial match"
+        },
+        {
+          "slug": "zoho-crm",
+          "classification": "Partial match"
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "query": "a build pipeline for continuous integration",
+      "kind": "ambiguous",
+      "known_relevant": 1,
+      "in_catalog": 1,
+      "precision_at_5": 1,
+      "recall_at_10": 1,
+      "reciprocal_rank": 1,
+      "capability_coverage": 1,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.4376670000000047,
+      "cpu_ms": 0.465,
+      "top_5": [
+        {
+          "slug": "github",
+          "classification": "Strong match"
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "query": "pipeline",
+      "kind": "ambiguous",
+      "known_relevant": 0,
+      "in_catalog": 0,
+      "precision_at_5": 0,
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.2511249999999876,
+      "cpu_ms": 0.251,
+      "top_5": [
+        {
+          "slug": "hubspot",
+          "classification": "Related product"
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "query": "Quantum telepathy dolphin translator",
+      "kind": "coverage-gap",
+      "known_relevant": 0,
+      "in_catalog": 0,
+      "precision_at_5": 0,
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.2487080000000077,
+      "cpu_ms": 0.249,
+      "top_5": []
+    },
+    {
+      "id": 57,
+      "query": "A lunar dust futures marketplace",
+      "kind": "coverage-gap",
+      "known_relevant": 0,
+      "in_catalog": 0,
+      "precision_at_5": 0,
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.2460839999999962,
+      "cpu_ms": 0.247,
+      "top_5": []
+    },
+    {
+      "id": 58,
+      "query": "Predict volcano eruptions from dreams",
+      "kind": "coverage-gap",
+      "known_relevant": 0,
+      "in_catalog": 0,
+      "precision_at_5": 0,
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.334541999999999,
+      "cpu_ms": 0.334,
+      "top_5": [
+        {
+          "slug": "calendly",
+          "classification": "Related product"
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "query": "A social network for sentient refrigerators",
+      "kind": "coverage-gap",
+      "known_relevant": 0,
+      "in_catalog": 0,
+      "precision_at_5": 0,
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.33874999999999034,
+      "cpu_ms": 0.34,
+      "top_5": [
+        {
+          "slug": "buffer",
+          "classification": "Related product"
+        },
+        {
+          "slug": "hootsuite",
+          "classification": "Related product"
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "query": "Browser extension to smell colors",
+      "kind": "coverage-gap",
+      "known_relevant": 0,
+      "in_catalog": 0,
+      "precision_at_5": 0,
+      "recall_at_10": null,
+      "reciprocal_rank": 0,
+      "capability_coverage": null,
+      "unsupported_strong": 0,
+      "irrelevant_hits": [],
+      "latency_ms": 0.31570899999999824,
+      "cpu_ms": 0.315,
+      "top_5": [
+        {
+          "slug": "veed",
+          "classification": "Related product"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "environment": "local workerd + persisted D1, not production",
+  "signed_import": {
+    "id": "6efeefb1-e0eb-4503-b537-369a88657501",
+    "source_name": "verified-seed-import-local",
+    "started_at": "2026-11-15T20:30:17Z",
+    "completed_at": "2026-11-15T20:30:17Z",
+    "status": "success",
+    "candidates_found": 45,
+    "records_accepted": 45,
+    "records_rejected": 0,
+    "records_pending": 0,
+    "error_summary": null
+  }
+}

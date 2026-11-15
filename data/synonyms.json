@@ -1,0 +1,287 @@
+{
+  "crm": [
+    "crm",
+    "customer relationship management",
+    "contact management",
+    "client management",
+    "lead management",
+    "sales pipeline",
+    "salespeople",
+    "sales contacts"
+  ],
+  "projects": [
+    "project management",
+    "project tracking",
+    "track projects",
+    "tracks projects",
+    "task management",
+    "kanban",
+    "projects"
+  ],
+  "invoicing": [
+    "invoicing",
+    "invoice",
+    "invoices",
+    "billing",
+    "payment requests",
+    "invoice generation"
+  ],
+  "meetings": [
+    "meeting notes",
+    "meeting transcription",
+    "transcribe meetings",
+    "meeting recorder",
+    "records meetings",
+    "meeting recording",
+    "takes notes during meetings",
+    "note taking",
+    "record meetings"
+  ],
+  "action-items": [
+    "action items",
+    "action item extraction",
+    "meeting tasks",
+    "meeting into tasks",
+    "meetings into tasks",
+    "meeting summaries",
+    "meeting summary"
+  ],
+  "scheduling": [
+    "appointment scheduling",
+    "scheduling",
+    "booking",
+    "book appointments",
+    "calendar management",
+    "book meetings"
+  ],
+  "email-marketing": [
+    "email marketing",
+    "email campaigns",
+    "newsletter",
+    "newsletters",
+    "email sequences",
+    "email automation",
+    "follow up emails",
+    "automated outreach"
+  ],
+  "social": [
+    "social media scheduling",
+    "social posts",
+    "schedules social",
+    "schedule social",
+    "social media management",
+    "social posting"
+  ],
+  "video": [
+    "video editing",
+    "edits videos",
+    "edit videos",
+    "edits short videos",
+    "video editor",
+    "short videos",
+    "short form video",
+    "video clips"
+  ],
+  "audio": [
+    "audio editing",
+    "audio editor",
+    "podcast editing",
+    "edit podcasts",
+    "sound editing"
+  ],
+  "design": [
+    "ui design",
+    "interface design",
+    "design prototypes",
+    "prototyping",
+    "wireframe",
+    "wireframes",
+    "design tool"
+  ],
+  "graphics": [
+    "graphic design",
+    "graphics",
+    "poster design",
+    "logo design",
+    "create graphics"
+  ],
+  "code-hosting": [
+    "code hosting",
+    "git repositories",
+    "source control",
+    "version control",
+    "host code"
+  ],
+  "ci": [
+    "continuous integration",
+    "ci cd",
+    "ci/cd",
+    "build pipeline",
+    "deployment pipeline",
+    "automated builds"
+  ],
+  "hosting": [
+    "web hosting",
+    "app hosting",
+    "application hosting",
+    "deploy website",
+    "deploy apps",
+    "serverless hosting"
+  ],
+  "monitoring": [
+    "error monitoring",
+    "error tracking",
+    "exception tracking",
+    "application monitoring",
+    "crash reporting"
+  ],
+  "analytics": [
+    "product analytics",
+    "web analytics",
+    "website analytics",
+    "event tracking",
+    "user analytics"
+  ],
+  "support": [
+    "customer support",
+    "help desk",
+    "helpdesk",
+    "support tickets",
+    "support inbox"
+  ],
+  "ecommerce": [
+    "ecommerce",
+    "e commerce",
+    "online store",
+    "online storefront",
+    "sell products",
+    "shopping cart"
+  ],
+  "education": [
+    "learning management",
+    "online courses",
+    "course management",
+    "lms",
+    "teach online"
+  ],
+  "hr": [
+    "hr management",
+    "human resources",
+    "employee management",
+    "employee onboarding"
+  ],
+  "recruiting": [
+    "applicant tracking",
+    "recruiting",
+    "recruitment",
+    "hiring pipeline",
+    "job applicants"
+  ],
+  "collaboration": [
+    "team messaging",
+    "team chat",
+    "workplace chat",
+    "team communication",
+    "group chat"
+  ],
+  "docs": [
+    "knowledge base",
+    "team wiki",
+    "documentation",
+    "knowledge management",
+    "internal wiki"
+  ],
+  "writing": [
+    "writing assistant",
+    "writing assistance",
+    "grammar checking",
+    "grammar checker",
+    "proofreading"
+  ],
+  "automation": [
+    "workflow automation",
+    "automate workflows",
+    "connect apps",
+    "no code automation",
+    "automates workflows"
+  ],
+  "passwords": [
+    "password manager",
+    "password management",
+    "store passwords",
+    "password vault"
+  ],
+  "storage": [
+    "cloud storage",
+    "file storage",
+    "file sharing",
+    "share files",
+    "store files"
+  ],
+  "forms": [
+    "online forms",
+    "form builder",
+    "surveys",
+    "survey builder",
+    "questionnaires"
+  ],
+  "signatures": [
+    "electronic signatures",
+    "e signatures",
+    "e signature",
+    "sign documents",
+    "document signing"
+  ],
+  "accounting": [
+    "accounting",
+    "bookkeeping",
+    "expense tracking",
+    "financial reporting"
+  ],
+  "time": [
+    "time tracking",
+    "timesheets",
+    "track time",
+    "billable hours"
+  ],
+  "databases": [
+    "database management",
+    "relational database",
+    "database platform",
+    "postgres hosting",
+    "sql database"
+  ],
+  "notes": [
+    "personal notes",
+    "note taking app",
+    "take notes",
+    "markdown notes",
+    "note taking"
+  ],
+  "payments": [
+    "payment processing",
+    "accept payments",
+    "online payments",
+    "checkout",
+    "payment gateway"
+  ],
+  "search": [
+    "site search",
+    "search engine",
+    "full text search",
+    "search api"
+  ],
+  "reminders": [
+    "follow up",
+    "reminders",
+    "contact again",
+    "remember contacts",
+    "sales followup"
+  ],
+  "whiteboard": [
+    "whiteboard",
+    "whiteboarding",
+    "visual collaboration",
+    "brainstorming board"
+  ]
+}

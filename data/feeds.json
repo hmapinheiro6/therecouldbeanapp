@@ -1,0 +1,4 @@
+[
+ {"name":"ScrollLaunch","url":"https://www.scrolllaunch.com/products/rss.xml","kind":"rss","enabled":false,"permission_review":"Endpoint and reuse terms not cleared. Do not enable until documented."},
+ {"name":"Product Hunt","url":"https://www.producthunt.com/feed","kind":"rss","enabled":false,"permission_review":"Reuse permissions not cleared; discovery-only adapter must not copy descriptions or images."}
+]

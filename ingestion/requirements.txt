@@ -1,0 +1,2 @@
+# Runtime uses only the Python 3.11+ standard library. No paid services.
+pytest==8.4.2

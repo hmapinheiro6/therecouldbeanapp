@@ -1,0 +1,384 @@
+import { Hono } from "hono";
+import type { AppEnv } from "./security";
+import { ingestSchema, moderationSchema } from "./validation";
+import { hydrate, PRODUCT_SELECT, type ProductRow } from "./catalog";
+const internal = new Hono<AppEnv>();
+internal.get("/pending", async (c) => {
+  const after = c.req.query("after") ?? "";
+  if (after.length > 100)
+    return c.json(
+      { error: { code: "invalid_cursor", message: "Invalid cursor." } },
+      400,
+    );
+  const results = await c.env.DB.batch([
+    c.env.DB.prepare(
+      "SELECT id,product_name,submitted_url,description,category_hint,contact_email,status,moderation_reason,created_at FROM submissions WHERE status IN ('pending','approved','needs_review') AND id>? ORDER BY id LIMIT 25",
+    ).bind(after),
+    c.env.DB.prepare(
+      "SELECT * FROM ingestion_candidates WHERE status IN ('pending_verification','needs_review') AND attempts<5 AND (next_retry_at IS NULL OR next_retry_at<=?) AND id>? ORDER BY id LIMIT 25",
+    ).bind(new Date().toISOString(), after),
+    c.env.DB.prepare("SELECT * FROM ingestion_checkpoints"),
+    c.env.DB.prepare(
+      "SELECT * FROM ingestion_runs ORDER BY started_at DESC LIMIT 10",
+    ),
+  ]);
+  return c.json({
+    submissions: results[0].results,
+    candidates: results[1].results,
+    checkpoints: results[2].results,
+    runs: results[3].results,
+  });
+});
+internal.get("/snapshot", async (c) => {
+  const offset = Number(c.req.query("offset") ?? 0);
+  if (!Number.isInteger(offset) || offset < 0 || offset > 10000)
+    return c.json(
+      { error: { code: "invalid_page", message: "Invalid snapshot page." } },
+      400,
+    );
+  const r = await c.env.DB.prepare(
+    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.status='published' ORDER BY p.id LIMIT 50 OFFSET ?`,
+  )
+    .bind(offset)
+    .all<ProductRow>();
+  const products = await hydrate(c.env.DB, r.results);
+  const ids = products.map((p) => p.id);
+  const sources = ids.length
+    ? await c.env.DB.prepare(
+        `SELECT product_id,source_type,source_name,source_url,external_id,discovered_at FROM product_sources WHERE product_id IN (${ids.map(() => "?").join(",")})`,
+      )
+        .bind(...ids)
+        .all<{ product_id: number }>()
+    : { results: [] };
+  return c.json({
+    products: products.map((p) => ({
+      ...p,
+      sources: sources.results.filter((s) => s.product_id === p.id),
+    })),
+    offset,
+    next_offset: products.length === 50 ? offset + 50 : null,
+  });
+});
+internal.post("/ingest", async (c) => {
+  if (c.env.INGESTION_ENABLED !== "true")
+    return c.json(
+      {
+        error: {
+          code: "ingestion_disabled",
+          message: "Ingestion is disabled.",
+        },
+      },
+      503,
+    );
+  let data;
+  try {
+    data = ingestSchema.safeParse(await c.req.json());
+  } catch {
+    return c.json(
+      { error: { code: "invalid_json", message: "Invalid JSON." } },
+      400,
+    );
+  }
+  if (!data.success)
+    return c.json(
+      {
+        error: { code: "invalid_batch", message: data.error.issues[0].message },
+      },
+      400,
+    );
+  const b = data.data;
+  const db = c.env.DB;
+  const statements: D1PreparedStatement[] = [];
+  // Validate all foreign vocabulary before the atomic write. Never silently omit claims.
+  const [categories, capabilities] = await db.batch<{ slug: string }>([
+    db.prepare("SELECT slug FROM categories"),
+    db.prepare("SELECT slug FROM capabilities"),
+  ]);
+  const categorySet = new Set(categories.results.map((r) => r.slug)),
+    capabilitySet = new Set(capabilities.results.map((r) => r.slug));
+  if (
+    b.products.some(
+      (p) =>
+        !categorySet.has(p.category_slug) ||
+        p.capabilities.some((k) => !capabilitySet.has(k.slug)),
+    )
+  )
+    return c.json(
+      {
+        error: {
+          code: "unknown_taxonomy",
+          message: "Unknown category or capability.",
+        },
+      },
+      400,
+    );
+  if (b.products.length) {
+    const blocked = await db
+      .prepare(
+        `SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${b.products.map(() => "?").join(",")})`,
+      )
+      .bind(...b.products.map((p) => p.canonical_url))
+      .all();
+    if (blocked.results.length)
+      return c.json(
+        {
+          error: {
+            code: "publication_blocked",
+            message:
+              "An operator removed this product; manual review is required.",
+          },
+        },
+        422,
+      );
+  }
+  for (const p of b.products) {
+    const domain = new URL(p.canonical_url).hostname;
+    statements.push(
+      db
+        .prepare(
+          `INSERT INTO products(slug,name,canonical_url,normalized_domain,short_description,category_id,audience,search_aliases,status,first_seen_at,announced_at,last_verified_at) VALUES(?,?,?,?,?,(SELECT id FROM categories WHERE slug=?),?,?,'published',?,?,?) ON CONFLICT(canonical_url) DO UPDATE SET name=excluded.name,short_description=excluded.short_description,category_id=excluded.category_id,audience=excluded.audience,search_aliases=excluded.search_aliases,last_verified_at=excluded.last_verified_at,status='published',updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')`,
+        )
+        .bind(
+          p.slug,
+          p.name,
+          p.canonical_url,
+          domain,
+          p.short_description,
+          p.category_slug,
+          p.audience,
+          p.search_aliases,
+          p.first_seen_at,
+          p.announced_at,
+          p.last_verified_at,
+        ),
+    );
+    statements.push(
+      db
+        .prepare(
+          "DELETE FROM product_capabilities WHERE product_id=(SELECT id FROM products WHERE canonical_url=?)",
+        )
+        .bind(p.canonical_url),
+    );
+    statements.push(
+      db
+        .prepare(
+          `INSERT INTO product_capabilities(product_id,capability_id,evidence_url,evidence_text,confidence_class,verified_at) SELECT (SELECT id FROM products WHERE canonical_url=?),k.id,json_extract(j.value,'$.evidence_url'),json_extract(j.value,'$.evidence_text'),'verified',json_extract(j.value,'$.verified_at') FROM json_each(?) j JOIN capabilities k ON k.slug=json_extract(j.value,'$.slug')`,
+        )
+        .bind(p.canonical_url, JSON.stringify(p.capabilities)),
+    );
+    statements.push(
+      db
+        .prepare(
+          "INSERT OR IGNORE INTO product_sources(product_id,source_type,source_name,source_url,external_id,discovered_at) VALUES((SELECT id FROM products WHERE canonical_url=?),?,?,?,?,?)",
+        )
+        .bind(
+          p.canonical_url,
+          p.source.source_type,
+          p.source.source_name,
+          p.source.source_url,
+          p.source.external_id,
+          p.source.discovered_at,
+        ),
+    );
+    if (p.submission_id)
+      statements.push(
+        db
+          .prepare(
+            "UPDATE submissions SET status='published',reviewed_at=? WHERE id=? AND submitted_url=? AND status!='rejected'",
+          )
+          .bind(new Date().toISOString(), p.submission_id, p.canonical_url),
+      );
+  }
+  for (const a of b.candidates) {
+    statements.push(
+      db
+        .prepare(
+          `INSERT INTO ingestion_candidates(id,source_name,source_url,external_id,name,canonical_url,status,reason,attempts,next_retry_at,submission_id,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(source_name,external_id) DO UPDATE SET status=excluded.status,reason=excluded.reason,attempts=excluded.attempts,next_retry_at=excluded.next_retry_at,updated_at=excluded.updated_at`,
+        )
+        .bind(
+          a.id,
+          a.source_name,
+          a.source_url,
+          a.external_id,
+          a.name,
+          a.canonical_url,
+          a.status,
+          a.reason,
+          a.attempts,
+          a.next_retry_at,
+          a.submission_id ?? null,
+          a.created_at,
+          a.updated_at,
+        ),
+    );
+  }
+  for (const a of b.candidates) {
+    if (
+      a.submission_id &&
+      ["pending_verification", "needs_review", "rejected"].includes(a.status)
+    )
+      statements.push(
+        db
+          .prepare(
+            "UPDATE submissions SET status=?,moderation_reason=?,reviewed_at=? WHERE id=? AND status!='rejected'",
+          )
+          .bind(
+            a.status === "rejected" ? "rejected" : "needs_review",
+            a.reason,
+            new Date().toISOString(),
+            a.submission_id,
+          ),
+      );
+  }
+  if (b.run) {
+    const r = b.run;
+    statements.push(
+      db
+        .prepare(
+          `INSERT INTO ingestion_runs(id,source_name,started_at,completed_at,status,candidates_found,records_accepted,records_rejected,records_pending,error_summary) VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET completed_at=excluded.completed_at,status=excluded.status,candidates_found=excluded.candidates_found,records_accepted=excluded.records_accepted,records_rejected=excluded.records_rejected,records_pending=excluded.records_pending,error_summary=excluded.error_summary`,
+        )
+        .bind(
+          r.id,
+          r.source_name,
+          r.started_at,
+          r.completed_at,
+          r.status,
+          r.candidates_found,
+          r.records_accepted,
+          r.records_rejected,
+          r.records_pending,
+          r.error_summary,
+        ),
+    );
+  }
+  for (const p of b.checkpoints)
+    statements.push(
+      db
+        .prepare(
+          "INSERT INTO ingestion_checkpoints(source_name,cursor_value,last_successful_run_at) VALUES(?,?,?) ON CONFLICT(source_name) DO UPDATE SET cursor_value=excluded.cursor_value,last_successful_run_at=excluded.last_successful_run_at",
+        )
+        .bind(p.source_name, p.cursor_value, new Date().toISOString()),
+    );
+  if (b.run?.completed_at) {
+    statements.push(
+      db
+        .prepare("DELETE FROM request_nonces WHERE expires_at<?")
+        .bind(Math.floor(Date.now() / 1000)),
+    );
+    statements.push(
+      db.prepare(
+        "DELETE FROM submission_rate_limits WHERE date_bucket<date('now','-2 days')",
+      ),
+    );
+    statements.push(
+      db.prepare(
+        "DELETE FROM submissions WHERE status IN ('rejected','published') AND created_at<datetime('now','-30 days') AND id NOT IN (SELECT submission_id FROM ingestion_candidates WHERE submission_id IS NOT NULL)",
+      ),
+    );
+    statements.push(
+      db.prepare(
+        "UPDATE submissions SET contact_email=NULL WHERE created_at<datetime('now','-30 days')",
+      ),
+    );
+  }
+  if (statements.length > 45)
+    return c.json(
+      {
+        error: {
+          code: "batch_too_large",
+          message: "Reduce the ingestion batch.",
+        },
+      },
+      400,
+    );
+  if (statements.length) await db.batch(statements);
+  return c.json({
+    status: "accepted",
+    products: b.products.length,
+    candidates: b.candidates.length,
+  });
+});
+internal.post("/moderate", async (c) => {
+  let parsed;
+  try {
+    parsed = moderationSchema.safeParse(await c.req.json());
+  } catch {
+    return c.json(
+      { error: { code: "invalid_json", message: "Invalid JSON." } },
+      400,
+    );
+  }
+  if (!parsed.success)
+    return c.json(
+      {
+        error: {
+          code: "invalid_moderation",
+          message: "Invalid moderation request.",
+        },
+      },
+      400,
+    );
+  const { kind, id, action, reason } = parsed.data;
+  let statement: D1PreparedStatement;
+  if (kind === "product" && action === "remove") {
+    const p = await c.env.DB.prepare(
+      "SELECT canonical_url FROM products WHERE slug=?",
+    )
+      .bind(id)
+      .first<{ canonical_url: string }>();
+    if (!p)
+      return c.json(
+        { error: { code: "not_found", message: "Record not found." } },
+        404,
+      );
+    await c.env.DB.batch([
+      c.env.DB.prepare(
+        "UPDATE products SET status='needs_review',updated_at=? WHERE slug=?",
+      ).bind(new Date().toISOString(), id),
+      c.env.DB.prepare(
+        "INSERT INTO publication_blocks(canonical_url,reason,created_at) VALUES(?,?,?) ON CONFLICT(canonical_url) DO UPDATE SET reason=excluded.reason",
+      ).bind(p.canonical_url, reason, new Date().toISOString()),
+    ]);
+    return c.json({ status: "removed" });
+  }
+  if (kind === "submission" && ["approve", "reject", "retry"].includes(action))
+    statement = c.env.DB.prepare(
+      "UPDATE submissions SET status=?,moderation_reason=?,reviewed_at=? WHERE id=?",
+    ).bind(
+      action === "reject" ? "rejected" : "approved",
+      reason,
+      new Date().toISOString(),
+      id,
+    );
+  else if (kind === "product" && action === "remove")
+    statement = c.env.DB.prepare(
+      "UPDATE products SET status='needs_review',updated_at=? WHERE slug=?",
+    ).bind(new Date().toISOString(), id);
+  else if (kind === "candidate" && ["retry", "reject"].includes(action))
+    statement = c.env.DB.prepare(
+      "UPDATE ingestion_candidates SET status=?,reason=?,attempts=0,next_retry_at=NULL,updated_at=? WHERE id=?",
+    ).bind(
+      action === "reject" ? "rejected" : "pending_verification",
+      reason,
+      new Date().toISOString(),
+      id,
+    );
+  else
+    return c.json(
+      {
+        error: {
+          code: "invalid_action",
+          message: "This action is not supported for that record.",
+        },
+      },
+      400,
+    );
+  const result = await statement.run();
+  return result.meta.changes
+    ? c.json({ status: "updated" })
+    : c.json(
+        { error: { code: "not_found", message: "Record not found." } },
+        404,
+      );
+});
+export { internal };

@@ -1,0 +1,47 @@
+name: Moderate a catalog record
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        type: choice
+        options: [submission, candidate, product]
+        required: true
+      action:
+        type: choice
+        options: [approve, reject, retry, remove]
+        required: true
+      id:
+        type: string
+        required: true
+      reason:
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  moderate:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
+      INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
+      RECORD_KIND: ${{ inputs.kind }}
+      RECORD_ACTION: ${{ inputs.action }}
+      RECORD_ID: ${{ inputs.id }}
+      RECORD_REASON: ${{ inputs.reason }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply authorized moderation
+        shell: python
+        run: |
+          import os
+          from ingestion.client import InternalClient
+          body = {k: os.environ[v] for k,v in [('kind','RECORD_KIND'),('action','RECORD_ACTION'),('id','RECORD_ID'),('reason','RECORD_REASON')]}
+          InternalClient().request('/api/internal/moderate', body)
+          print('Moderation action completed.')

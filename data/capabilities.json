@@ -1,0 +1,230 @@
+[
+  {
+    "slug": "crm",
+    "name": "Client management",
+    "category": "crm",
+    "description": "Client management functionality."
+  },
+  {
+    "slug": "projects",
+    "name": "Project tracking",
+    "category": "project-management",
+    "description": "Project tracking functionality."
+  },
+  {
+    "slug": "invoicing",
+    "name": "Invoicing",
+    "category": "finance",
+    "description": "Invoicing functionality."
+  },
+  {
+    "slug": "meetings",
+    "name": "Meeting transcription",
+    "category": "meetings",
+    "description": "Meeting transcription functionality."
+  },
+  {
+    "slug": "action-items",
+    "name": "Action item extraction",
+    "category": "meetings",
+    "description": "Action item extraction functionality."
+  },
+  {
+    "slug": "scheduling",
+    "name": "Appointment scheduling",
+    "category": "scheduling",
+    "description": "Appointment scheduling functionality."
+  },
+  {
+    "slug": "email-marketing",
+    "name": "Email campaigns",
+    "category": "email-marketing",
+    "description": "Email campaigns functionality."
+  },
+  {
+    "slug": "social",
+    "name": "Social post scheduling",
+    "category": "social-media",
+    "description": "Social post scheduling functionality."
+  },
+  {
+    "slug": "video",
+    "name": "Video editing",
+    "category": "video",
+    "description": "Video editing functionality."
+  },
+  {
+    "slug": "audio",
+    "name": "Audio editing",
+    "category": "audio",
+    "description": "Audio editing functionality."
+  },
+  {
+    "slug": "design",
+    "name": "Interface design",
+    "category": "design",
+    "description": "Interface design functionality."
+  },
+  {
+    "slug": "graphics",
+    "name": "Graphic design",
+    "category": "graphics",
+    "description": "Graphic design functionality."
+  },
+  {
+    "slug": "code-hosting",
+    "name": "Code hosting",
+    "category": "development",
+    "description": "Code hosting functionality."
+  },
+  {
+    "slug": "ci",
+    "name": "Continuous integration",
+    "category": "ci-cd",
+    "description": "Continuous integration functionality."
+  },
+  {
+    "slug": "hosting",
+    "name": "Application hosting",
+    "category": "hosting",
+    "description": "Application hosting functionality."
+  },
+  {
+    "slug": "monitoring",
+    "name": "Error monitoring",
+    "category": "monitoring",
+    "description": "Error monitoring functionality."
+  },
+  {
+    "slug": "analytics",
+    "name": "Product analytics",
+    "category": "analytics",
+    "description": "Product analytics functionality."
+  },
+  {
+    "slug": "support",
+    "name": "Customer support",
+    "category": "customer-support",
+    "description": "Customer support functionality."
+  },
+  {
+    "slug": "ecommerce",
+    "name": "Online storefront",
+    "category": "ecommerce",
+    "description": "Online storefront functionality."
+  },
+  {
+    "slug": "education",
+    "name": "Course management",
+    "category": "education",
+    "description": "Course management functionality."
+  },
+  {
+    "slug": "hr",
+    "name": "HR management",
+    "category": "hr",
+    "description": "HR management functionality."
+  },
+  {
+    "slug": "recruiting",
+    "name": "Applicant tracking",
+    "category": "recruiting",
+    "description": "Applicant tracking functionality."
+  },
+  {
+    "slug": "collaboration",
+    "name": "Team messaging",
+    "category": "collaboration",
+    "description": "Team messaging functionality."
+  },
+  {
+    "slug": "docs",
+    "name": "Knowledge base",
+    "category": "knowledge-management",
+    "description": "Knowledge base functionality."
+  },
+  {
+    "slug": "writing",
+    "name": "Writing assistance",
+    "category": "writing",
+    "description": "Writing assistance functionality."
+  },
+  {
+    "slug": "automation",
+    "name": "Workflow automation",
+    "category": "automation",
+    "description": "Workflow automation functionality."
+  },
+  {
+    "slug": "passwords",
+    "name": "Password management",
+    "category": "security",
+    "description": "Password management functionality."
+  },
+  {
+    "slug": "storage",
+    "name": "File storage",
+    "category": "storage",
+    "description": "File storage functionality."
+  },
+  {
+    "slug": "forms",
+    "name": "Online forms",
+    "category": "forms",
+    "description": "Online forms functionality."
+  },
+  {
+    "slug": "signatures",
+    "name": "Electronic signatures",
+    "category": "e-signatures",
+    "description": "Electronic signatures functionality."
+  },
+  {
+    "slug": "accounting",
+    "name": "Bookkeeping",
+    "category": "accounting",
+    "description": "Bookkeeping functionality."
+  },
+  {
+    "slug": "time",
+    "name": "Time tracking",
+    "category": "time-tracking",
+    "description": "Time tracking functionality."
+  },
+  {
+    "slug": "databases",
+    "name": "Database management",
+    "category": "databases",
+    "description": "Database management functionality."
+  },
+  {
+    "slug": "notes",
+    "name": "Personal notes",
+    "category": "notes",
+    "description": "Personal notes functionality."
+  },
+  {
+    "slug": "payments",
+    "name": "Payment processing",
+    "category": "payments",
+    "description": "Payment processing functionality."
+  },
+  {
+    "slug": "search",
+    "name": "Site search",
+    "category": "search",
+    "description": "Site search functionality."
+  },
+  {
+    "slug": "reminders",
+    "name": "Follow-up reminders",
+    "category": "productivity",
+    "description": "Follow-up reminders functionality."
+  },
+  {
+    "slug": "whiteboard",
+    "name": "Collaborative whiteboard",
+    "category": "whiteboards",
+    "description": "Collaborative whiteboard functionality."
+  }
+]

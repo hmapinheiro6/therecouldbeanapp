@@ -1,0 +1,344 @@
+import {
+  beforeAll,
+  afterAll,
+  beforeEach,
+  afterEach,
+  describe,
+  it,
+  expect,
+  vi,
+} from "vitest";
+import { splitSql } from "../../scripts/sql";
+import { Miniflare } from "miniflare";
+import { readFileSync, readdirSync } from "node:fs";
+import { app } from "../../worker/index";
+import { digest, hmac, type Bindings } from "../../worker/security";
+let mf: Miniflare, env: Bindings;
+const secret = "test-internal-secret-at-least-32-characters";
+async function signed(
+  path: string,
+  body?: unknown,
+  nonce = crypto.randomUUID(),
+  timestamp = String(Math.floor(Date.now() / 1000)),
+) {
+  const raw = body === undefined ? "" : JSON.stringify(body),
+    method = body === undefined ? "GET" : "POST";
+  const signature = await hmac(
+    secret,
+    [method, path, timestamp, nonce, await digest(raw)].join("\n"),
+  );
+  return new Request("http://localhost" + path, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      "X-Timestamp": timestamp,
+      "X-Nonce": nonce,
+      "X-Signature": signature,
+    },
+    body: raw || undefined,
+  });
+}
+async function submit(
+  name = "Test product",
+  url = "https://a-real-product.dev",
+  token = "valid-token-" + crypto.randomUUID(),
+) {
+  return app.request(
+    "/api/submit",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "CF-Connecting-IP": "203.0.113.42",
+      },
+      body: JSON.stringify({
+        product_name: name,
+        submitted_url: url,
+        description: "Useful software for testing the submission flow.",
+        turnstile_token: token,
+      }),
+    },
+    env,
+  );
+}
+beforeAll(async () => {
+  mf = new Miniflare({
+    workers: [
+      {
+        config: {
+          name: "test",
+          compatibilityDate: "2026-11-15",
+          manifest: {
+            mainModule: "test.js",
+            modulesRoot: process.cwd(),
+            modules: {
+              "test.js": {
+                type: "esm",
+                contents: "export default {fetch(){return new Response('ok')}}",
+              },
+            },
+          },
+          env: { DB: { type: "d1", id: "test" } },
+        },
+      },
+    ],
+  });
+  const db = await mf.getD1Database("DB");
+  // D1 exec expects one SQL statement per line. Migration contains trigger bodies; use SQLite's complete multi-statement parser via prepare.
+  for (const file of [
+    ...readdirSync("migrations")
+      .sort()
+      .map((f) => "migrations/" + f),
+    "data/seeds/catalog.sql",
+  ]) {
+    const sql = readFileSync(file, "utf8");
+    const statements = splitSql(sql);
+    for (const s of statements) await db.prepare(s).run();
+  }
+  env = {
+    DB: db as D1Database,
+    ASSETS: {
+      fetch: async () =>
+        new Response(
+          "<html><head><title>Test</title></head><body></body></html>",
+        ),
+      connect: () => {
+        throw new Error("Not supported in test");
+      },
+    } as Fetcher,
+    SITE_URL: "http://localhost",
+    TURNSTILE_SITE_KEY: "test",
+    TURNSTILE_HOSTNAME: "localhost",
+    INGESTION_ENABLED: "true",
+    SUBMISSIONS_ENABLED: "true",
+    INTERNAL_SECRET: secret,
+    RATE_LIMIT_SALT: "separate-test-rate-limit-salt-32-chars",
+    TURNSTILE_SECRET_KEY: "fake-test-secret",
+  };
+}, 60000);
+afterAll(async () => {
+  await mf?.dispose();
+});
+beforeEach(async () => {
+  await env.DB.prepare("DELETE FROM submission_rate_limits").run();
+  await env.DB.prepare("DELETE FROM submissions").run();
+});
+afterEach(() => vi.unstubAllGlobals());
+describe("public API", () => {
+  it("searches real D1 FTS and returns evidence", async () => {
+    const r = await app.request("/api/search?q=meeting%20notes", {}, env);
+    expect(r.status).toBe(200);
+    const b = (await r.json()) as { results: { matched: unknown[] }[] };
+    expect(b.results[0].matched.length).toBeGreaterThan(0);
+  });
+  it("rejects empty and oversized queries", async () => {
+    expect((await app.request("/api/search?q=", {}, env)).status).toBe(400);
+    expect(
+      (await app.request("/api/search?q=" + "a".repeat(501), {}, env)).status,
+    ).toBe(400);
+  });
+  it("provides a published product and no private fields", async () => {
+    const r = await app.request("/api/products/otter", {}, env);
+    expect(r.status).toBe(200);
+    expect(await r.text()).not.toContain("contact_email");
+    expect((await app.request("/api/products/unknown", {}, env)).status).toBe(
+      404,
+    );
+  });
+  it("rejects malicious URLs and XSS submissions before verification", async () => {
+    expect((await submit("Bad", "https://127.0.0.1")).status).toBe(400);
+    expect((await submit("<script>alert(1)</script>")).status).toBe(400);
+  });
+  it("rejects oversized bodies", async () => {
+    const r = await app.request(
+      "/api/submit",
+      { method: "POST", body: "x".repeat(140000) },
+      env,
+    );
+    expect(r.status).toBe(413);
+  });
+  it("fails closed without Turnstile and for invalid tokens", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => Response.json({ success: false })),
+    );
+    expect((await submit()).status).toBe(400);
+  });
+  it("checks hostname and action, rejecting cross-site challenges", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () =>
+        Response.json({
+          success: true,
+          hostname: "attacker.example",
+          action: "submit",
+        }),
+      ),
+    );
+    expect((await submit()).status).toBe(400);
+  });
+  it("stores a real pending submission and rejects a duplicate token", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () =>
+        Response.json({
+          success: true,
+          hostname: "localhost",
+          action: "submit",
+        }),
+      ),
+    );
+    const token = "one-use-token";
+    const r = await submit("Test one", "https://test-one.dev", token);
+    expect(r.status).toBe(202);
+    expect(
+      (
+        await env.DB.prepare(
+          "SELECT status FROM submissions WHERE submitted_url='https://test-one.dev'",
+        ).first()
+      )?.status,
+    ).toBe("pending");
+    expect(
+      (await submit("Test two", "https://test-two.dev", token)).status,
+    ).toBe(400);
+  });
+  it("limits successful challenges to five daily attempts", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () =>
+        Response.json({
+          success: true,
+          hostname: "localhost",
+          action: "submit",
+        }),
+      ),
+    );
+    for (let i = 0; i < 5; i++)
+      expect(
+        (await submit("Test " + i, "https://test-" + i + ".dev")).status,
+      ).toBe(202);
+    expect((await submit("Another", "https://another.dev")).status).toBe(429);
+  });
+  it("returns an existing product without inserting a duplicate", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () =>
+        Response.json({
+          success: true,
+          hostname: "localhost",
+          action: "submit",
+        }),
+      ),
+    );
+    const r = await submit("Otter", "https://otter.ai");
+    expect(((await r.json()) as { status: string }).status).toBe("exists");
+  });
+});
+describe("internal security", () => {
+  it("requires a signature", async () => {
+    expect((await app.request("/api/internal/pending", {}, env)).status).toBe(
+      401,
+    );
+  });
+  it("rejects expired signatures", async () => {
+    expect(
+      (
+        await app.fetch(
+          await signed(
+            "/api/internal/pending",
+            undefined,
+            crypto.randomUUID(),
+            "1000000000",
+          ),
+          env,
+        )
+      ).status,
+    ).toBe(401);
+  });
+  it("prevents signed request replay", async () => {
+    const request = await signed("/api/internal/pending");
+    expect(
+      (
+        await app.request(
+          new Request(request.url, {
+            method: request.method,
+            headers: request.headers,
+          }),
+          {},
+          env,
+        )
+      ).status,
+    ).toBe(200);
+    expect(
+      (
+        await app.request(
+          new Request(request.url, {
+            method: request.method,
+            headers: request.headers,
+          }),
+          {},
+          env,
+        )
+      ).status,
+    ).toBe(409);
+  });
+  it("does not accept unsigned body changes", async () => {
+    const r = await signed("/api/internal/ingest", { products: [] });
+    const changed = new Request(r.url, {
+      method: "POST",
+      headers: r.headers,
+      body: JSON.stringify({ products: [{ name: "forged" }] }),
+    });
+    expect((await app.fetch(changed, env)).status).toBe(401);
+  });
+  it("rejects malformed product batches and unknown vocabulary", async () => {
+    const r = await app.fetch(
+      await signed("/api/internal/ingest", {
+        products: [{ name: "incomplete" }],
+      }),
+      env,
+    );
+    expect(r.status).toBe(400);
+  });
+  it("records successful runs and checkpoints atomically", async () => {
+    const run = {
+      id: crypto.randomUUID(),
+      source_name: "test",
+      started_at: new Date().toISOString(),
+      completed_at: new Date().toISOString(),
+      status: "success",
+      candidates_found: 0,
+      records_accepted: 0,
+      records_rejected: 0,
+      records_pending: 0,
+      error_summary: null,
+    };
+    const r = await app.fetch(
+      await signed("/api/internal/ingest", {
+        run,
+        checkpoints: [{ source_name: "test", cursor_value: "42" }],
+      }),
+      env,
+    );
+    expect(r.status).toBe(200);
+    expect(
+      (
+        await env.DB.prepare(
+          "SELECT cursor_value FROM ingestion_checkpoints WHERE source_name='test'",
+        ).first()
+      )?.cursor_value,
+    ).toBe("42");
+  });
+  it("cannot advance a checkpoint without a success record", async () => {
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", {
+            checkpoints: [{ source_name: "test", cursor_value: "43" }],
+          }),
+          env,
+        )
+      ).status,
+    ).toBe(400);
+  });
+});

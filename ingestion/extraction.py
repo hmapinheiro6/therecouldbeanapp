@@ -1,0 +1,79 @@
+import json
+import re
+from html.parser import HTMLParser
+from pathlib import Path
+from datetime import datetime, timezone
+from urllib.parse import urlsplit
+from .safe_web import canonicalize, FetchError
+ROOT=Path(__file__).resolve().parents[1]
+SYNONYMS=json.loads((ROOT/'data/synonyms.json').read_text())
+CAPABILITIES={c['slug']:c for c in json.loads((ROOT/'data/capabilities.json').read_text())}
+
+def now():
+    return datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
+class Metadata(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.skip=0;self.title='';self.in_title=False;self.parts=[];self.meta={};self.json_ld=[];self.ld=False;self.ld_parts=[]
+    def handle_starttag(self,tag,attrs):
+        a=dict(attrs)
+        if tag=='script' and a.get('type')=='application/ld+json':self.ld=True;self.ld_parts=[]
+        if tag in ('script','style','noscript','svg'):self.skip+=1
+        if tag=='title':self.in_title=True
+        if tag=='meta':self.meta[a.get('name',a.get('property',''))]=a.get('content','')
+        if tag in ('h1','h2','h3','p','li','div','section'):self.parts.append('\n')
+    def handle_endtag(self,tag):
+        if tag=='script' and self.ld:
+            try:self.json_ld.append(json.loads(''.join(self.ld_parts)))
+            except ValueError:pass
+            self.ld=False
+        if tag in ('script','style','noscript','svg'):self.skip=max(0,self.skip-1)
+        if tag=='title':self.in_title=False
+        if tag in ('h1','h2','h3','p','li','div','section'):self.parts.append('\n')
+    def handle_data(self,data):
+        if self.ld:self.ld_parts.append(data)
+        if self.in_title:self.title+=data
+        if not self.skip:self.parts.append(data)
+    def sentences(self):
+        text='\n'.join([self.title,self.meta.get('description',''),self.meta.get('og:description',''),' '.join(self.parts)])
+        return [re.sub(r'\s+',' ',s).strip() for s in re.split(r'[\n.!?]+',text) if len(s.strip())>=8]
+
+def evidence_from(sentences,allowed=None):
+    # Prefer explanatory feature prose over navigation labels and footer fragments.
+    sentences=sorted(sentences,key=lambda s: (bool(re.search(r"\b(manage|create|track|provides|enables|supports|organize|record|transcri|schedule|helps|platform|software|tool|build)\w*",s,re.I)), min(len(s),180)),reverse=True)
+    found=[]
+    for slug,aliases in SYNONYMS.items():
+        if allowed is not None and slug not in allowed:continue
+        for sentence in sentences:
+            # Marketing negations and integration lists must not become positive product claims.
+            if re.search(r'\b(no |not |without |integrat|connect with|alternative to|compare|coming soon)',sentence,re.I):continue
+            normalized=re.sub(r'[^a-z0-9 ]',' ',sentence.lower())
+            normalized=re.sub(r'\s+',' ',normalized)
+            terms=aliases if allowed is not None else [a for a in aliases if len(a.split())>=2 or a in ('crm','invoicing','bookkeeping','whiteboard','timesheets')]
+            if any(re.search(r'\b'+re.escape(a)+r'\b',normalized) for a in terms):
+                found.append({'slug':slug,'evidence_text':sentence[:500]});break
+    return found[:12]
+
+def verify(candidate,web,curated=False):
+    url=canonicalize(candidate['canonical_url'])
+    page=web.fetch(url)
+    if page['status']!=200 or 'html' not in page['content_type']:raise FetchError('No usable public product page',False)
+    parser=Metadata();parser.feed(page['text']);sentences=parser.sentences()
+    if len(' '.join(sentences))<80:raise FetchError('Insufficient public product evidence',False)
+    # Candidate product names are checked against the actual official page.
+    name=candidate['name'][:100].strip()
+    content=' '.join(sentences).lower()
+    if len(name)<2 or name.lower() not in content:raise FetchError('Product name could not be confirmed on official website',False)
+    if not curated and not re.search(r'\b(software|application|platform|app|tool|open.source|dashboard)\b',content):raise FetchError('Usable software identity not established',False)
+    claims=evidence_from(sentences,candidate.get('capability_hints') if curated else None)
+    if not claims:raise FetchError('No explicit capability evidence found',False)
+    timestamp=now()
+    for c in claims:c.update(evidence_url=page['url'],verified_at=timestamp)
+    primary=CAPABILITIES[claims[0]['slug']]
+    # Automatic listings use original, controlled factual prose, not copied descriptions.
+    description=candidate.get('editorial_description') if curated else name+' provides '+', '.join(CAPABILITIES[c['slug']]['name'].lower() for c in claims[:3])+'. See the official website for current availability and requirements.'
+    slug=re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
+    if not curated:
+        import hashlib
+        slug+='-'+hashlib.sha256(url.encode()).hexdigest()[:8]
+    return {'slug':candidate.get('slug',slug),'name':name,'canonical_url':url,'short_description':description,'category_slug':candidate.get('category_slug',primary['category']) if curated else primary['category'],'audience':candidate.get('audience','') if curated else '', 'search_aliases':'','first_seen_at':candidate.get('discovered_at',timestamp),'announced_at':None,'last_verified_at':timestamp,'capabilities':claims,'source':{'source_type':candidate.get('source_type','official'),'source_name':candidate.get('source_name','Official website'),'source_url':candidate.get('source_url',url),'external_id':candidate.get('external_id',url),'discovered_at':candidate.get('discovered_at',timestamp)},**({'submission_id':candidate['submission_id']} if candidate.get('submission_id') else {})}

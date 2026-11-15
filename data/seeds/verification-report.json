@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-11-15T20:19:59Z",
+  "accepted": 45,
+  "pending": [
+    {
+      "name": "Bonsai",
+      "url": "https://www.hellobonsai.com",
+      "reason": "Access restricted (no bypass attempted)",
+      "checked_at": "2026-11-15T20:19:40Z"
+    },
+    {
+      "name": "Slack",
+      "url": "https://slack.com",
+      "reason": "No explicit capability evidence found",
+      "checked_at": "2026-11-15T20:19:45Z"
+    },
+    {
+      "name": "Canva",
+      "url": "https://www.canva.com",
+      "reason": "Access restricted (no bypass attempted)",
+      "checked_at": "2026-11-15T20:19:46Z"
+    },
+    {
+      "name": "Mailchimp",
+      "url": "https://mailchimp.com",
+      "reason": "No explicit capability evidence found",
+      "checked_at": "2026-11-15T20:19:48Z"
+    },
+    {
+      "name": "Kit",
+      "url": "https://kit.com",
+      "reason": "Access restricted (no bypass attempted)",
+      "checked_at": "2026-11-15T20:19:49Z"
+    },
+    {
+      "name": "Cal.com",
+      "url": "https://cal.com",
+      "reason": "Product name could not be confirmed on official website",
+      "checked_at": "2026-11-15T20:19:49Z"
+    },
+    {
+      "name": "Moodle",
+      "url": "https://moodle.org",
+      "reason": "Access restricted (no bypass attempted)",
+      "checked_at": "2026-11-15T20:19:58Z"
+    },
+    {
+      "name": "BambooHR",
+      "url": "https://www.bamboohr.com",
+      "reason": "No explicit capability evidence found",
+      "checked_at": "2026-11-15T20:19:59Z"
+    }
+  ]
+}

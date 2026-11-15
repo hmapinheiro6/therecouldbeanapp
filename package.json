@@ -1,0 +1,55 @@
+{
+  "name": "therecouldbeanapp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:api": "wrangler dev --port 8787",
+    "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:python": "python3 -m pytest tests/ingestion -q",
+    "db:migrate": "wrangler d1 migrations apply DB --local",
+    "db:seed": "wrangler d1 execute DB --local --file=data/seeds/catalog.sql",
+    "db:rebuild": "wrangler d1 execute DB --local --file=scripts/rebuild-fts.sql",
+    "benchmark": "tsx scripts/benchmark.ts",
+    "deploy": "npm run build && wrangler deploy",
+    "cf:types": "wrangler types"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6",
+    "hono": "^4.10.6",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "tailwindcss": "^4.1.17",
+    "@tailwindcss/vite": "^4.1.17",
+    "wrangler": "^4.47.0",
+    "@cloudflare/workers-types": "^5.20261115.1",
+    "vitest": "^4.0.9",
+    "@playwright/test": "^1.56.1",
+    "@types/react": "^19.2.4",
+    "@types/react-dom": "^19.2.3",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "@eslint/js": "^9.39.1",
+    "typescript-eslint": "^8.46.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "tsx": "^4.20.6",
+    "prettier": "^3.6.2",
+    "miniflare": "5.20261113.0-beta"
+  },
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    }
+  }
+}
