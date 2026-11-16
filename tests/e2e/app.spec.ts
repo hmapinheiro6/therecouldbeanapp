@@ -110,3 +110,105 @@ test("shareable URLs work directly and queries are not indexable", async ({
   const result = await request.get("/api/search?q=crm%20%22%20OR%20%2A%20--");
   expect(result.status()).toBe(200);
 });
+
+test("operator can sign in, review, and publish an app without the CLI", async ({
+  page,
+  request,
+}, testInfo) => {
+  const { createHash, createHmac, randomUUID } = await import("node:crypto");
+  const stamp = new Date().toISOString();
+  const suffix = testInfo.project.name + "-" + randomUUID().slice(0, 8);
+  const path = "/api/internal/ingest";
+  const body = JSON.stringify({
+    candidates: [
+      {
+        id: "e2e-review-" + suffix,
+        source_name: "Isolated E2E fixture",
+        source_url: "https://example.dev",
+        external_id: "e2e-review-" + suffix,
+        name: "Review Fixture " + suffix,
+        canonical_url: "https://example.dev/" + suffix,
+        status: "needs_review",
+        reason: "Isolated browser test fixture",
+        attempts: 1,
+        next_retry_at: null,
+        created_at: stamp,
+        updated_at: stamp,
+      },
+    ],
+  });
+  const timestamp = String(Math.floor(Date.now() / 1000)),
+    nonce = randomUUID();
+  const signature = createHmac(
+    "sha256",
+    "isolated-e2e-signing-key-for-local-tests-only",
+  )
+    .update(
+      [
+        "POST",
+        path,
+        timestamp,
+        nonce,
+        createHash("sha256").update(body).digest("hex"),
+      ].join("\n"),
+    )
+    .digest("hex");
+  expect(
+    (
+      await request.post(path, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Timestamp": timestamp,
+          "X-Nonce": nonce,
+          "X-Signature": signature,
+        },
+        data: body,
+      })
+    ).status(),
+  ).toBe(200);
+  await page.goto("/admin");
+  await expect(
+    page.getByRole("heading", { name: "Catalog review" }),
+  ).toBeVisible();
+  await page
+    .getByLabel("Admin access key")
+    .fill("isolated-e2e-admin-access-key-for-local-tests-only");
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await page
+    .getByRole("searchbox", { name: "Find an app" })
+    .fill("Review Fixture " + suffix);
+  await page
+    .getByRole("region", { name: "Review queue" })
+    .getByRole("button")
+    .filter({ hasText: "Review Fixture " + suffix })
+    .click();
+  await page.getByLabel("Public URL slug").fill("review-fixture-" + suffix);
+  await page
+    .getByLabel("Description", { exact: true })
+    .fill(
+      "An isolated local application fixture used to test the complete review flow.",
+    );
+  await page
+    .getByLabel("Official identity excerpt")
+    .fill("Review Fixture " + suffix + " official test application");
+  await page
+    .getByLabel("Review note")
+    .fill("Checked the isolated test fixture.");
+  await page
+    .getByRole("checkbox", {
+      name: "I checked the official website and the evidence entered above.",
+    })
+    .check();
+  await page.getByRole("button", { name: "Approve and publish" }).click();
+  await expect(page.getByRole("status")).toContainText("publish completed");
+  await page.goto("/apps/review-fixture-" + suffix);
+  await expect(
+    page.getByRole("heading", {
+      name: "Review Fixture " + suffix,
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Official identity checked" }),
+  ).toBeVisible();
+});

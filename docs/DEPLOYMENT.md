@@ -5,9 +5,9 @@ Production is deployed on Cloudflare Workers Free at [therecouldbeanapp.henrique
 ## Current resources
 
 - Worker: `therecouldbeanapp`; account `272cf24b9368ff4a4c6833562cae0f0d`.
-- Isolated D1: `therecouldbeanapp-catalog`, ID `2a24c33c-ee1f-4dba-b601-39f00232e3ea`, binding `DB`; migrations 0001–0005 applied.
+- Isolated D1: `therecouldbeanapp-catalog`, ID `2a24c33c-ee1f-4dba-b601-39f00232e3ea`, binding `DB`; migrations 0001–0009 applied.
 - Free managed Turnstile widget for the deployed hostname; public sitekey in `wrangler.jsonc`.
-- Worker secrets: `INTERNAL_SECRET`, `RATE_LIMIT_SALT`, `TURNSTILE_SECRET_KEY`, supplied through provider secret storage.
+- Worker secrets: `ADMIN_SECRET`, `INTERNAL_SECRET`, `RATE_LIMIT_SALT`, `TURNSTILE_SECRET_KEY`, supplied through provider secret storage.
 - Repository secret `INTERNAL_SECRET`; variables `INGESTION_API_URL` and `DISCOVERY_ENABLED=true`.
 - Public submissions and daily discovery enabled. The manual discovery run and actual browser Turnstile duplicate check passed.
 - Privacy/support contact: `support@therecouldbeanapp.com`, supplied by the operator. Mail delivery was not tested.
@@ -43,6 +43,7 @@ Confirm **Workers Free**, create a new isolated database, then replace the accou
 Generate separate random values of at least 32 bytes for the signing secret and rate salt. Enter these through provider prompts; never put them into Git, workflow variables, URLs, or public logs.
 
 ```sh
+npx wrangler secret put ADMIN_SECRET
 npx wrangler secret put INTERNAL_SECRET
 npx wrangler secret put RATE_LIMIT_SALT
 npx wrangler secret put TURNSTILE_SECRET_KEY

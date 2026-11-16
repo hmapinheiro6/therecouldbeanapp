@@ -162,7 +162,11 @@ admin.get("/overview", async (c) => {
 });
 admin.get("/queue", async (c) => {
   const kind =
-    c.req.query("kind") === "submission" ? "submission" : "candidate";
+    c.req.query("kind") === "product"
+      ? "product"
+      : c.req.query("kind") === "submission"
+        ? "submission"
+        : "candidate";
   const status = c.req.query("status") ?? "needs_review";
   const offset = Number(c.req.query("offset") ?? 0);
   const search = (c.req.query("q") ?? "").slice(0, 100);
@@ -182,9 +186,11 @@ admin.get("/queue", async (c) => {
   )
     return c.json({ error: { message: "Invalid queue filter." } }, 400);
   const query =
-    kind === "candidate"
-      ? "SELECT id,name,canonical_url,source_name,source_url,status,reason,created_at,review_draft_json FROM ingestion_candidates WHERE (?='all' OR status=?) AND (name LIKE ? OR canonical_url LIKE ?) ORDER BY created_at DESC,id LIMIT 31 OFFSET ?"
-      : "SELECT id,product_name name,submitted_url canonical_url,'Submissions' source_name,submitted_url source_url,status,moderation_reason reason,created_at,description FROM submissions WHERE (?='all' OR status=?) AND (product_name LIKE ? OR submitted_url LIKE ?) ORDER BY created_at DESC,id LIMIT 31 OFFSET ?";
+    kind === "product"
+      ? "SELECT p.slug id,p.name,p.canonical_url,COALESCE((SELECT source_name FROM product_sources WHERE product_id=p.id LIMIT 1),'Catalog') source_name,COALESCE((SELECT source_url FROM product_sources WHERE product_id=p.id LIMIT 1),p.canonical_url) source_url,p.status,NULL reason,p.first_seen_at created_at,NULL review_draft_json FROM products p WHERE (?='all' OR p.status=?) AND (p.name LIKE ? OR p.canonical_url LIKE ?) ORDER BY p.first_seen_at DESC,p.id LIMIT 31 OFFSET ?"
+      : kind === "candidate"
+        ? "SELECT id,name,canonical_url,source_name,source_url,status,reason,created_at,review_draft_json FROM ingestion_candidates WHERE (?='all' OR status=?) AND (name LIKE ? OR canonical_url LIKE ?) ORDER BY created_at DESC,id LIMIT 31 OFFSET ?"
+        : "SELECT id,product_name name,submitted_url canonical_url,'Submissions' source_name,submitted_url source_url,status,moderation_reason reason,created_at,description FROM submissions WHERE (?='all' OR status=?) AND (product_name LIKE ? OR submitted_url LIKE ?) ORDER BY created_at DESC,id LIMIT 31 OFFSET ?";
   const r = await c.env.DB.prepare(query)
     .bind(status, status, "%" + search + "%", "%" + search + "%", offset)
     .all();
@@ -198,22 +204,28 @@ admin.get("/queue", async (c) => {
 admin.get("/draft", async (c) => {
   const id = c.req.query("id") ?? "";
   const kind =
-    c.req.query("kind") === "submission" ? "submission" : "candidate";
+    c.req.query("kind") === "product"
+      ? "product"
+      : c.req.query("kind") === "submission"
+        ? "submission"
+        : "candidate";
   if (!id || id.length > 100)
     return c.json({ error: { message: "Invalid review record." } }, 400);
   const record = await c.env.DB.prepare(
-    kind === "candidate"
-      ? "SELECT canonical_url FROM ingestion_candidates WHERE id=?"
-      : "SELECT submitted_url canonical_url FROM submissions WHERE id=?",
+    kind === "product"
+      ? "SELECT canonical_url FROM products WHERE slug=?"
+      : kind === "candidate"
+        ? "SELECT canonical_url FROM ingestion_candidates WHERE id=?"
+        : "SELECT submitted_url canonical_url FROM submissions WHERE id=?",
   )
     .bind(id)
     .first<{ canonical_url: string }>();
   if (!record) return c.json({ error: { message: "Record not found." } }, 404);
   const row = await c.env.DB.prepare(
-    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.canonical_url=?`,
+    `${PRODUCT_SELECT},p.search_aliases,0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.canonical_url=?`,
   )
     .bind(record.canonical_url)
-    .first<ProductRow>();
+    .first<ProductRow & { search_aliases: string }>();
   if (!row) return c.json({ product: null });
   const [p] = await hydrate(c.env.DB, [row]);
   return c.json({
@@ -222,6 +234,8 @@ admin.get("/draft", async (c) => {
       name: p.name,
       canonical_url: p.canonical_url,
       short_description: p.short_description,
+      audience: p.audience,
+      search_aliases: row.search_aliases,
       category_slug: p.category_slug,
       verification_scope: p.verification_scope,
       identity_evidence_url: p.identity_evidence_url ?? p.canonical_url,
@@ -233,7 +247,7 @@ admin.get("/draft", async (c) => {
 admin.post("/review", async (c) => {
   const input = z
     .object({
-      kind: z.enum(["candidate", "submission"]),
+      kind: z.enum(["candidate", "submission", "product"]),
       id: z.string().min(1).max(100),
       action: z.enum(["publish", "reject", "retry", "save"]),
       reason: z.string().trim().min(3).max(500),
@@ -247,15 +261,28 @@ admin.post("/review", async (c) => {
       400,
     );
   const b = input.data;
-  const table = b.kind === "candidate" ? "ingestion_candidates" : "submissions";
-  const row = await c.env.DB.prepare(`SELECT * FROM ${table} WHERE id=?`)
+  const table =
+    b.kind === "product"
+      ? "products"
+      : b.kind === "candidate"
+        ? "ingestion_candidates"
+        : "submissions";
+  const recordKey = b.kind === "product" ? "slug" : "id";
+  const row = await c.env.DB.prepare(
+    `SELECT * FROM ${table} WHERE ${recordKey}=?`,
+  )
     .bind(b.id)
     .first<Record<string, unknown>>();
   if (!row) return c.json({ error: { message: "Record not found." } }, 404);
   if (b.action === "save") {
     if (b.kind !== "candidate")
       return c.json(
-        { error: { message: "Publish or reject this submission when ready." } },
+        {
+          error: {
+            message:
+              "Draft saving is available for discovered apps. Publish or reject this record when ready.",
+          },
+        },
         400,
       );
     const draft = JSON.stringify(b.product);
@@ -276,11 +303,56 @@ admin.post("/review", async (c) => {
       );
     const timestamp = new Date().toISOString();
     const raw = (b.product ?? {}) as Record<string, unknown>;
+    const originalSource =
+      b.kind === "product"
+        ? await c.env.DB.prepare(
+            "SELECT source_type,source_name,source_url,external_id,discovered_at FROM product_sources WHERE product_id=? LIMIT 1",
+          )
+            .bind(row.id)
+            .first()
+        : null;
+    const previousProduct =
+      b.kind === "product"
+        ? { slug: String(row.slug), canonical_url: String(row.canonical_url) }
+        : await c.env.DB.prepare(
+            "SELECT slug,canonical_url FROM products WHERE canonical_url=?",
+          )
+            .bind(row.canonical_url ?? row.submitted_url)
+            .first<{ slug: string; canonical_url: string }>();
+    if (previousProduct && raw.slug !== previousProduct.slug)
+      return c.json(
+        {
+          error: {
+            message:
+              "Keep the existing public URL slug so saved links continue to work.",
+          },
+        },
+        400,
+      );
+    if (
+      previousProduct &&
+      raw.canonical_url !== previousProduct.canonical_url
+    ) {
+      const duplicate = await c.env.DB.prepare(
+        "SELECT slug FROM products WHERE canonical_url=? AND slug!=?",
+      )
+        .bind(raw.canonical_url, previousProduct.slug)
+        .first();
+      if (duplicate)
+        return c.json(
+          { error: { message: "That website already has a catalog entry." } },
+          409,
+        );
+    }
     const p = productInput.safeParse({
       ...raw,
-      first_seen_at: row.created_at,
+      editorial_reviewed: true,
+      ...(previousProduct && raw.canonical_url !== previousProduct.canonical_url
+        ? { previous_canonical_url: previousProduct.canonical_url }
+        : {}),
+      first_seen_at: row.first_seen_at ?? row.created_at,
       last_verified_at: timestamp,
-      source: {
+      source: originalSource ?? {
         source_type:
           b.kind === "submission"
             ? "submission"
@@ -289,20 +361,17 @@ admin.post("/review", async (c) => {
               : row.source_name === "Hacker News"
                 ? "hackernews"
                 : "feed",
-        source_name: row.source_name ?? "Submissions",
-        source_url: row.source_url ?? row.submitted_url,
-        external_id: row.external_id ?? row.id,
-        discovered_at: row.created_at,
+        source_name:
+          row.source_name ??
+          (b.kind === "product" ? "Operator review" : "Submissions"),
+        source_url: row.source_url ?? row.submitted_url ?? row.canonical_url,
+        external_id: row.external_id ?? String(row.id),
+        discovered_at: row.first_seen_at ?? row.created_at,
       },
       ...(b.kind === "submission" ? { submission_id: b.id } : {}),
     });
     if (!p.success)
       return c.json({ error: { message: p.error.issues[0].message } }, 400);
-    await c.env.DB.prepare(
-      "DELETE FROM publication_blocks WHERE canonical_url=?",
-    )
-      .bind(p.data.canonical_url)
-      .run();
     const response = await internal.request(
       "/ingest",
       {
@@ -326,12 +395,21 @@ admin.post("/review", async (c) => {
         .bind(b.reason, timestamp, b.id)
         .run();
   } else {
+    if (b.kind === "product" && b.action !== "reject")
+      return c.json(
+        {
+          error: { message: "Edit and publish this product, or unpublish it." },
+        },
+        400,
+      );
     const action =
-      b.action === "reject"
-        ? "reject"
-        : b.kind === "submission"
-          ? "approve"
-          : "retry";
+      b.kind === "product"
+        ? "remove"
+        : b.action === "reject"
+          ? "reject"
+          : b.kind === "submission"
+            ? "approve"
+            : "retry";
     const response = await internal.request(
       "/moderate",
       {

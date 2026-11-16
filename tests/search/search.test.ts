@@ -1,5 +1,6 @@
 import { describe, it, expect, afterAll } from "vitest";
 import { database, search } from "../db";
+import { rank } from "../../src/lib/search/rank";
 import { parseQuery, normalize } from "../../src/lib/search/query";
 import { readFileSync } from "node:fs";
 const db = database();
@@ -138,4 +139,26 @@ it("uses edited public listing text immediately after a previous search", () => 
     db.exec("ROLLBACK TO edited_listing; RELEASE edited_listing");
   }
   expect(search(db, "Otter")[0].match_class).toBe("Strong match");
+});
+
+it("returns identity-only keyword matches without asserting verified capabilities", () => {
+  const base = search(db, "Otter")[0];
+  const result = rank(
+    [
+      {
+        ...base,
+        id: 99999,
+        name: "Paper Workshop",
+        canonical_url: "https://paper-workshop.dev",
+        short_description: "A PDF editor for desktop documents.",
+        capabilities: [],
+        verification_scope: "identity",
+        bm25: -1,
+      },
+    ],
+    parseQuery("PDF editor"),
+  );
+  expect(result).toHaveLength(1);
+  expect(result[0].match_class).toBe("Related product");
+  expect(result[0].matched).toEqual([]);
 });

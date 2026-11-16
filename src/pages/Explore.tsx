@@ -33,7 +33,8 @@ export function Explore() {
     <div className="page">
       <h1 className="page-title">The invention archive.</h1>
       <p className="page-intro">
-        Real products. Documented capabilities. A head start on your research.
+        Real products with sources and verification details. A head start on
+        your research.
       </p>
       <nav className="category-filter" aria-label="Filter products">
         <Link className={!category ? "selected" : ""} to={catalogLink("")}>

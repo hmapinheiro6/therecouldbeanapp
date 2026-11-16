@@ -4,7 +4,7 @@ An evidence-backed software discovery engine, disguised as an 8-bit blueprint ar
 
 Live: [There Could Be An App](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public repository](https://github.com/hmapinheiro6/therecouldbeanapp)
 
-52 published products, 37 categories, 39 capability definitions, and 72 verified product-capability claims as of 16 November 2026. [Final engineering report](docs/REPORT.md).
+2,785 real published products, 39 categories, and 69 capability definitions as of 16 November 2026. 2,732 listings have checked official identities; 53 also have verified feature evidence (73 claims). [Catalog expansion and approval instructions](docs/CATALOG-EXPANSION.md).
 
 ## Run it
 
@@ -51,4 +51,4 @@ The API suite uses actual local D1 in workerd. The search benchmark uses SQLite 
 - [Free-tier audit](docs/COSTS.md)
 - [Deployment and external setup](docs/DEPLOYMENT.md)
 
-Daily discovery is scheduled at 04:17 UTC on standard public GitHub runners. It is enabled in the public repository, with the deployed API and signing secret configured. The latest cloud run processed 100 candidates; six new listings remain published after an evidence audit. See the discovery update for the raw run totals, held candidates, and coverage limits. Source code in that repository is public. Submission emails, private queues, and secrets stay in D1/provider secret storage and are never committed or uploaded as workflow artifacts.
+Recent-launch discovery runs every six hours on free public GitHub runners. Licensed Homebrew backfill also runs every six hours; Awesome-Selfhosted refreshes daily. Official identities and capability verification are separate. The private `/admin/` dashboard supports review, direct approval, corrections, rejection, and unpublishing. Source code and sanitized published data are public; submission emails, review queues, access keys, and secrets remain private. See [catalog expansion](docs/CATALOG-EXPANSION.md) for observed runs, attribution, scheduling, and limits.

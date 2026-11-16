@@ -1,7 +1,8 @@
 name: Build the verified software catalog
 on:
   schedule:
-    - cron: '35 */6 * * *'
+    - cron: "35 */6 * * *"
+    - cron: "45 2 * * *"
   workflow_dispatch:
     inputs:
       source:
@@ -11,12 +12,12 @@ on:
         default: homebrew
       candidates:
         description: Maximum websites to check (up to 2000)
-        default: '500'
+        default: "500"
         required: true
 permissions:
   contents: read
 concurrency:
-  group: catalog-${{ inputs.source || 'homebrew' }}
+  group: catalog-${{ inputs.source || (github.event.schedule == '45 2 * * *' && 'selfhosted') || 'homebrew' }}
   cancel-in-progress: false
 jobs:
   backfill:
@@ -26,7 +27,7 @@ jobs:
     env:
       INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
       INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
-      DIRECTORY_SOURCE: ${{ inputs.source || 'homebrew' }}
+      DIRECTORY_SOURCE: ${{ inputs.source || (github.event.schedule == '45 2 * * *' && 'selfhosted') || 'homebrew' }}
       CANDIDATE_LIMIT: ${{ inputs.candidates || '500' }}
     steps:
       - uses: actions/checkout@v4
@@ -34,6 +35,6 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
       - name: Verify official websites and publish identity-checked listings
         run: python -m ingestion.backfill --max-candidates "$CANDIDATE_LIMIT" --workers 8 --source "$DIRECTORY_SOURCE"

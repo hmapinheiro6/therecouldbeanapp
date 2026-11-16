@@ -41,6 +41,8 @@ type Draft = {
   canonical_url: string;
   short_description: string;
   category_slug: string;
+  audience?: string;
+  search_aliases?: string;
   verification_scope: "identity" | "capabilities";
   identity_evidence_url: string;
   identity_evidence_text: string;
@@ -60,6 +62,7 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
 }
 export function Admin() {
   const selection = useRef<string | null>(null);
+  const [slugLocked, setSlugLocked] = useState(false);
   const [signed, setSigned] = useState<boolean | null>(null),
     [key, setKey] = useState(""),
     [error, setError] = useState(""),
@@ -112,6 +115,7 @@ export function Admin() {
   }, [signed, kind, status, offset, search, message]);
   function open(row: Row) {
     selection.current = row.id;
+    setSlugLocked(false);
     let saved: Partial<Draft> = {};
     try {
       saved = JSON.parse(row.review_draft_json ?? "{}");
@@ -128,7 +132,8 @@ export function Admin() {
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, "")
-          .slice(0, 75) +
+          .slice(0, 75)
+          .replace(/-$/, "") +
         "-" +
         row.id.slice(0, 8),
       name: row.name,
@@ -141,19 +146,24 @@ export function Admin() {
       capabilities: [],
       ...saved,
     });
-    if (!row.review_draft_json)
-      void request<{ product: Partial<Draft> | null }>(
-        "/draft?" + new URLSearchParams({ kind, id: row.id }),
-      )
-        .then(({ product }) => {
-          if (product && selection.current === row.id)
-            setDraft((current) =>
-              current ? { ...current, ...product } : current,
-            );
-        })
-        .catch((e) => {
-          if (selection.current === row.id) setError(e.message);
-        });
+    void request<{ product: Partial<Draft> | null }>(
+      "/draft?" + new URLSearchParams({ kind, id: row.id }),
+    )
+      .then(({ product }) => {
+        if (product && selection.current === row.id) {
+          setSlugLocked(true);
+          setDraft((current) =>
+            current
+              ? row.review_draft_json
+                ? { ...current, slug: product.slug ?? current.slug }
+                : { ...current, ...product }
+              : current,
+          );
+        }
+      })
+      .catch((e) => {
+        if (selection.current === row.id) setError(e.message);
+      });
   }
   async function act(action: string) {
     if (!selected || !draft) return;
@@ -290,7 +300,11 @@ export function Admin() {
             onChange={(e) => {
               setKind(e.target.value);
               setStatus(
-                e.target.value === "submission" ? "pending" : "needs_review",
+                e.target.value === "product"
+                  ? "published"
+                  : e.target.value === "submission"
+                    ? "pending"
+                    : "needs_review",
               );
               setOffset(0);
               setSelected(null);
@@ -299,6 +313,7 @@ export function Admin() {
           >
             <option value="candidate">Discovered apps</option>
             <option value="submission">Founder submissions</option>
+            <option value="product">Published catalog</option>
           </select>
         </label>
         <label>
@@ -310,15 +325,18 @@ export function Admin() {
               setOffset(0);
             }}
           >
-            {[
-              "needs_review",
-              "pending_verification",
-              "pending",
-              "approved",
-              "published",
-              "rejected",
-              "all",
-            ].map((s) => (
+            {(kind === "product"
+              ? ["published", "needs_review", "all"]
+              : [
+                  "needs_review",
+                  "pending_verification",
+                  "pending",
+                  "approved",
+                  "published",
+                  "rejected",
+                  "all",
+                ]
+            ).map((s) => (
               <option key={s} value={s}>
                 {s.replaceAll("_", " ")}
               </option>
@@ -415,6 +433,7 @@ export function Admin() {
                   <input
                     required
                     value={draft.slug}
+                    readOnly={slugLocked}
                     pattern="[a-z0-9]+(-[a-z0-9]+)*"
                     onChange={(e) =>
                       setDraft({ ...draft, slug: e.target.value })
@@ -639,7 +658,7 @@ export function Admin() {
                   <button
                     type="button"
                     className="button secondary"
-                    disabled={busy || reason.length < 3}
+                    disabled={busy || reason.length < 3 || kind !== "candidate"}
                     onClick={() => void act("save")}
                   >
                     Save draft
@@ -647,7 +666,7 @@ export function Admin() {
                   <button
                     type="button"
                     className="text-button"
-                    disabled={busy || reason.length < 3}
+                    disabled={busy || reason.length < 3 || kind === "product"}
                     onClick={() => void act("retry")}
                   >
                     Retry automatically
@@ -658,7 +677,7 @@ export function Admin() {
                     disabled={busy || reason.length < 3}
                     onClick={() => void act("reject")}
                   >
-                    Reject
+                    {kind === "product" ? "Unpublish" : "Reject"}
                   </button>
                 </div>
               </form>

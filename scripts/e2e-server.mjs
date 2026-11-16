@@ -13,7 +13,20 @@ for (const args of [
 }
 const worker = spawn(
   "npx",
-  ["wrangler", "dev", "--port", "8787", "--var", "SUBMISSIONS_ENABLED:false"],
+  [
+    "wrangler",
+    "dev",
+    "--port",
+    "8787",
+    "--var",
+    "SUBMISSIONS_ENABLED:false",
+    "--var",
+    "SITE_URL:http://127.0.0.1:8787",
+    "--var",
+    "ADMIN_SECRET:isolated-e2e-admin-access-key-for-local-tests-only",
+    "--var",
+    "INTERNAL_SECRET:isolated-e2e-signing-key-for-local-tests-only",
+  ],
   { stdio: "inherit", env },
 );
 for (const signal of ["SIGINT", "SIGTERM"])

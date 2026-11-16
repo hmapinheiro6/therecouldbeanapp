@@ -82,9 +82,9 @@ export function Home() {
           </Link>
         </div>
         <p className="discovery-note">
-          New to this catalog, not necessarily newly launched. We check Show HN,
-          GitHub, and founder submissions against official product pages.{" "}
-          <Link to="/about">How discovery works →</Link>
+          New to this catalog, not necessarily newly launched. We check licensed
+          directories, Show HN, GitHub, and founder submissions against official
+          product pages. <Link to="/about">How discovery works →</Link>
         </p>
         <div className="product-grid">
           {catalog.data?.products.slice(0, 3).map((p) => (

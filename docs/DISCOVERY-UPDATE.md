@@ -1,5 +1,7 @@
 # Discovery and interface update — 16 November 2026
 
+This is the earlier 52-product release record. The current catalog and approval workflow are documented in [CATALOG-EXPANSION.md](CATALOG-EXPANSION.md).
+
 [Live catalog](https://therecouldbeanapp.henriquepinheiro.workers.dev/explore) · [Cloud discovery run](https://github.com/hmapinheiro6/therecouldbeanapp/actions/runs/43835259508)
 
 The catalog now has **52 published products and 72 verified capability claims**: 45 curated seed products and seven discovered products, including Pizza from the initial run. This iteration added **six retained new listings**: Orty, Sauron, Scatter, Enzo, Lumora, and Savora. Actual exported names, official URLs, evidence, timestamps, and original discovery provenance are in `data/seeds/published-snapshot.json`.

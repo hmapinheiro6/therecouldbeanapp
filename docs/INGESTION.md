@@ -31,6 +31,10 @@ Initial cloud attempts failed on a generic client User-Agent and IPv6 connectivi
 
 No pending/private artifacts are uploaded from Actions. A public source repository exposes ingestion code, taxonomy, and sanitized published seeds only. The `pending` CLI deliberately prints private review records to the operator terminal; never paste it into public issues or upload its output as public workflow artifacts.
 
-## 16 November iteration
+## Earlier 16 November iteration
 
 The repository is public again with the operator's approval, so the existing free public-runner guards no longer skip discovery. Homepage cards and catalog exploration now default to recent additions ordered by actual catalog entry date and a stable ID tie-breaker; A–Z remains available. This does not claim those products launched on their addition date. The latest cloud run and production counts are recorded in [DISCOVERY-UPDATE.md](DISCOVERY-UPDATE.md). The evidence audit held three false classifications; additional automatic guards reject pricing, directory headings, prompt examples, and other incidental mentions. Six retained products were freshly checked, bringing the catalog to 52 published products and 72 verified capability claims. Product Hunt and ScrollLaunch remain disabled.
+
+## Catalog-scale release
+
+Licensed Homebrew Cask and Awesome-Selfhosted backfills now publish official-identity listings separately from feature-verified listings. At 16 November verification, production contains 2,785 products. Discovery is every six hours; Homebrew refreshes every six hours and Awesome-Selfhosted daily. Private dashboard approval publishes reviewed evidence immediately; the older CLI approval still queues automatic verification. See [CATALOG-EXPANSION.md](CATALOG-EXPANSION.md) for source licenses, actual run totals, safety budgets, and coverage limits. The directory fetch alone permits up to 32 MiB of documented metadata; individual official pages retain the two-MiB response budget.

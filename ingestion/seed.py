@@ -14,12 +14,13 @@ def emit(products,path):
         lines.append('INSERT OR IGNORE INTO capabilities(slug,name,description) VALUES('+','.join(sql(cap[k]) for k in ('slug','name','description'))+');')
     for p in products:
         domain=p['canonical_url'].split('/')[2]
-        lines.append('INSERT OR IGNORE INTO products(slug,name,canonical_url,normalized_domain,short_description,category_id,audience,status,first_seen_at,last_verified_at) VALUES('+','.join(sql(p[k]) for k in ('slug','name','canonical_url'))+','+sql(domain)+','+sql(p['short_description'])+', (SELECT id FROM categories WHERE slug='+sql(p['category_slug'])+'),'+sql(p['audience'])+",'published',"+sql(p['first_seen_at'])+','+sql(p['last_verified_at'])+');')
+        lines.append('INSERT OR IGNORE INTO products(slug,name,canonical_url,normalized_domain,short_description,category_id,audience,search_aliases,status,first_seen_at,announced_at,last_verified_at) VALUES('+','.join(sql(p[k]) for k in ('slug','name','canonical_url'))+','+sql(domain)+','+sql(p['short_description'])+', (SELECT id FROM categories WHERE slug='+sql(p['category_slug'])+'),'+sql(p['audience'])+','+sql(p.get('search_aliases',''))+",'published',"+sql(p['first_seen_at'])+','+sql(p.get('announced_at'))+','+sql(p['last_verified_at'])+');')
         lines.append('UPDATE products SET verification_scope='+sql(p.get('verification_scope','capabilities'))+',identity_evidence_url='+sql(p.get('identity_evidence_url'))+',identity_evidence_text='+sql(p.get('identity_evidence_text'))+' WHERE canonical_url='+sql(p['canonical_url'])+';')
+        for alias in p.get('url_aliases',[]):lines.append('INSERT OR REPLACE INTO product_url_aliases(alias,canonical_url) VALUES('+sql(alias)+','+sql(p['canonical_url'])+');')
         for c in p['capabilities']:
             lines.append('INSERT OR REPLACE INTO product_capabilities(product_id,capability_id,evidence_url,evidence_text,confidence_class,verified_at) VALUES((SELECT id FROM products WHERE canonical_url='+sql(p['canonical_url'])+'),(SELECT id FROM capabilities WHERE slug='+sql(c['slug'])+'),'+sql(c['evidence_url'])+','+sql(c['evidence_text'])+",'verified',"+sql(c['verified_at'])+');')
-        s=p['source']
-        lines.append('INSERT OR IGNORE INTO product_sources(product_id,source_type,source_name,source_url,external_id,discovered_at) VALUES((SELECT id FROM products WHERE canonical_url='+sql(p['canonical_url'])+'),'+','.join(sql(s[k]) for k in ('source_type','source_name','source_url','external_id','discovered_at'))+');')
+        for s in p.get('sources') or [p['source']]:
+            lines.append('INSERT OR IGNORE INTO product_sources(product_id,source_type,source_name,source_url,external_id,discovered_at) VALUES((SELECT id FROM products WHERE canonical_url='+sql(p['canonical_url'])+'),'+','.join(sql(s[k]) for k in ('source_type','source_name','source_url','external_id','discovered_at'))+');')
     Path(path).write_text('\n'.join(lines)+'\n')
 
 def main():

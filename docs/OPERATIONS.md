@@ -4,7 +4,11 @@
 
 Create a numbered SQL file in `migrations/`, commit it, and run `npm run db:migrate` locally. Test against both an empty database and populated state. Wrangler tracks applied migrations; rerunning is safe. Apply remotely with `npx wrangler d1 migrations apply DB --remote` after local verification. Never rerun raw CREATE statements against production as a substitute for migration tracking.
 
-## Review and moderation
+## Private review dashboard
+
+Use `/admin/` with the separate operator access key. Select a queued app, check its official source, edit identity or feature evidence, add a review note, confirm, and choose **Approve and publish**. **Published catalog** permits corrections and reversible unpublishing. Stable public slugs and canonical URL aliases protect existing links and deduplication. See [complete operator instructions](CATALOG-EXPANSION.md#approving-and-editing). The key and private screenshots are intentionally excluded from this repository.
+
+## CLI review and moderation
 
 Supply `INGESTION_API_URL` and `INTERNAL_SECRET` in your private environment. No secret argument is accepted by the CLI.
 

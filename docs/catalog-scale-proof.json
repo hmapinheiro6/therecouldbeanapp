@@ -1,0 +1,53 @@
+{
+  "verified_at": "2026-11-16T10:32:02.071370+00:00",
+  "worker_version": "d87c9b5a-1481-4c24-b789-dbb95a6eb609",
+  "published": 2785,
+  "verification_scope_counts": {
+    "identity": 2732,
+    "capabilities": 53
+  },
+  "verified_feature_claims": 73,
+  "categories": 39,
+  "capability_definitions": 69,
+  "automated_tests": {
+    "typescript": 43,
+    "python": 63,
+    "browser": 14
+  },
+  "restore": {
+    "products": 2785,
+    "fts_records": 2785,
+    "integrity": "ok",
+    "foreign_key_violations": 0
+  },
+  "checks": [
+    {
+      "check": "2,785 real published products",
+      "passed": true
+    },
+    {
+      "check": "admin rejects anonymous visitor",
+      "passed": true
+    },
+    {
+      "check": "identity-only product HTML uses accurate scope",
+      "passed": true
+    },
+    {
+      "check": "editorially approved YVD has video generation evidence",
+      "passed": true
+    },
+    {
+      "check": "existing precise search survives larger catalog",
+      "passed": true
+    },
+    {
+      "check": "new directory products appear as related without invented evidence",
+      "passed": true
+    },
+    {
+      "check": "sitemap serves complete catalog",
+      "passed": true
+    }
+  ]
+}

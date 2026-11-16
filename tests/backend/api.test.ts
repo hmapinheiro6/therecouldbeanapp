@@ -631,3 +631,142 @@ describe("private review dashboard", () => {
     expect(response.status).toBe(400);
   });
 });
+
+it("edits and unpublishes the existing catalog while preserving slugs and URL aliases", async () => {
+  env.ADMIN_SECRET =
+    "isolated-admin-test-key-64-bytes-for-private-review-only-123456789";
+  const login = await app.request(
+    "/api/admin/login",
+    {
+      method: "POST",
+      headers: {
+        Origin: "http://localhost",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ key: env.ADMIN_SECRET }),
+    },
+    env,
+  );
+  const headers = {
+    Cookie: login.headers.get("Set-Cookie")!.split(";")[0],
+    Origin: "http://localhost",
+    "Content-Type": "application/json",
+  };
+  const draft = await app.request(
+    "/api/admin/draft?kind=product&id=admin-example-reviewed",
+    { headers },
+    env,
+  );
+  expect(draft.status).toBe(200);
+  const { product } = (await draft.json()) as {
+    product: Record<string, unknown>;
+  };
+  const updated = {
+    ...product,
+    canonical_url: "https://corrected-admin-product.dev",
+    identity_evidence_url: "https://corrected-admin-product.dev",
+    identity_evidence_text: "Admin Example corrected official website",
+  };
+  const publish = await app.request(
+    "/api/admin/review",
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        kind: "product",
+        id: "admin-example-reviewed",
+        action: "publish",
+        reason: "Corrected the official website.",
+        attested: true,
+        product: updated,
+      }),
+    },
+    env,
+  );
+  expect(publish.status, await publish.clone().text()).toBe(200);
+  const publicResult = await app.request(
+    "/api/products/admin-example-reviewed",
+    {},
+    env,
+  );
+  expect(publicResult.status).toBe(200);
+  expect(
+    ((await publicResult.json()) as { canonical_url: string }).canonical_url,
+  ).toBe(updated.canonical_url);
+  const known = await app.request(
+    await signed("/api/internal/known", {
+      urls: ["https://admin-product.dev"],
+    }),
+    {},
+    env,
+  );
+  expect(((await known.json()) as { known: string[] }).known).toContain(
+    "https://admin-product.dev",
+  );
+  const remove = await app.request(
+    "/api/admin/review",
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        kind: "product",
+        id: "admin-example-reviewed",
+        action: "reject",
+        reason: "Remove the isolated test fixture.",
+      }),
+    },
+    env,
+  );
+  expect(remove.status).toBe(200);
+  expect(
+    (await app.request("/api/products/admin-example-reviewed", {}, env)).status,
+  ).toBe(404);
+  const invalid = await app.request(
+    "/api/admin/review",
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        kind: "product",
+        id: "admin-example-reviewed",
+        action: "publish",
+        reason: "Check invalid taxonomy keeps the publication block.",
+        attested: true,
+        product: { ...updated, category_slug: "not-a-category" },
+      }),
+    },
+    env,
+  );
+  expect(invalid.status).toBe(400);
+  expect(
+    await env.DB.prepare(
+      "SELECT canonical_url FROM publication_blocks WHERE canonical_url=?",
+    )
+      .bind(updated.canonical_url)
+      .first(),
+  ).not.toBeNull();
+  const restored = await app.request(
+    "/api/admin/review",
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        kind: "product",
+        id: "admin-example-reviewed",
+        action: "publish",
+        reason: "Restore after a complete editorial review.",
+        attested: true,
+        product: updated,
+      }),
+    },
+    env,
+  );
+  expect(restored.status, await restored.clone().text()).toBe(200);
+  expect(
+    await env.DB.prepare(
+      "SELECT canonical_url FROM publication_blocks WHERE canonical_url=?",
+    )
+      .bind(updated.canonical_url)
+      .first(),
+  ).toBeNull();
+});

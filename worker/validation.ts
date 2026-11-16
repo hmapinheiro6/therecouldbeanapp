@@ -77,6 +77,8 @@ export const productInput = z
     search_aliases: text(0, 300).default(""),
     first_seen_at: date,
     last_verified_at: date,
+    previous_canonical_url: httpsUrl.optional(),
+    editorial_reviewed: z.boolean().optional(),
     verification_scope: z
       .enum(["identity", "capabilities"])
       .default("capabilities"),

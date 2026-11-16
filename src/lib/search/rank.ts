@@ -9,6 +9,8 @@ export const WEIGHTS = {
   audience: 8,
   category: 5,
 };
+// Initialize ICU once when the module loads, rather than on the first result tie.
+const compareNames = new Intl.Collator("en").compare;
 // Cache only normalized, already-public catalog text. Never store queries or user input.
 // Check source fields on every use so an edited listing cannot keep stale ranking text.
 const documents = new Map<
@@ -51,7 +53,7 @@ function searchDocument(p: Product) {
     audience: p.audience ? normalize(p.audience) : "",
     category: normalize(p.category),
   };
-  if (documents.size >= 256) documents.delete(documents.keys().next().value!);
+  if (documents.size >= 1024) documents.delete(documents.keys().next().value!);
   documents.set(p.canonical_url, record);
   return record;
 }
@@ -134,7 +136,7 @@ export function rank(
       (p) => !p.capabilities.some((c) => intent.excluded.includes(c.slug)),
     )
     .filter((p) => p.matched.length > 0 || p.score > 0)
-    .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+    .sort((a, b) => b.score - a.score || compareNames(a.name, b.name));
 }
 export function verdict(strong: number, partial: number, related: number) {
   return strong >= 4

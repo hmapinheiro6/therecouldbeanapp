@@ -2,7 +2,7 @@
 
 Delivered 15 November 2026; updated 16 November with interface simplification and working discovery of smaller products. [Live application](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public source](https://github.com/hmapinheiro6/therecouldbeanapp).
 
-Latest changes and live evidence: [Discovery update](DISCOVERY-UPDATE.md).
+Current release: **2,785 published entries**, 39 categories, 69 capability definitions, and a working private approval/editor dashboard. **120 automated checks pass**. See [catalog expansion, current verification, and operator instructions](CATALOG-EXPANSION.md). Baseline search-quality and infrastructure measurements below describe the earlier curated catalog; they are historical, not a quality evaluation of all 2,785 entries.
 
 ## A. Implemented features
 
@@ -14,7 +14,7 @@ The addendum replaces the old visual identity throughout: dominant blueprint blu
 
 ## B. Architecture
 
-React 19 + strict TypeScript + Vite + Tailwind builds static assets hosted with a Hono Cloudflare Worker. D1 stores canonical relational records and a derived FTS5 index. Search retrieves at most 80 candidates using a materialized BM25 query, then hydrates verified capabilities in one indexed query. No website fetching or model inference happens during visitor searches. A bounded cache of normalized text for at most 256 already-public catalog entries reduces repeated CPU work, checks source fields to invalidate edits immediately, and stores no queries. Worker bundles are minified.
+React 19 + strict TypeScript + Vite + Tailwind builds static assets hosted with a Hono Cloudflare Worker. D1 stores canonical relational records and a derived FTS5 index. Search retrieves at most 80 candidates using a materialized BM25 query, then hydrates verified capabilities in one indexed query. No website fetching or model inference happens during visitor searches. A bounded cache of normalized text for at most 1,024 already-public catalog entries reduces repeated CPU work, checks source fields to invalidate edits immediately, and stores no queries. Worker bundles are minified.
 
 Public standard GitHub Actions runners execute bounded Python discovery and verification, then send HMAC-signed batches to the deployed API. D1 persists checkpoints, runs, review queues, submissions, evidence, replay nonces, and hashed rate identifiers. No personal computer is needed for scheduled operation. See `docs/ARCHITECTURE.md`, `worker/catalog.ts`, `worker/security.ts`, and `ingestion/`.
 
@@ -41,7 +41,7 @@ Measured local synthetic lexical loads of 1,000 and 10,000 records use rolled-ba
 
 Production D1 contains **52 published products, 37 category definitions, 39 capability definitions, and 72 verified product-capability claims**. Not every category/capability has product coverage. The initial official-site verification checked 53 candidates and retained 45 publishable products; eight inaccessible or insufficiently verified candidates are recorded separately. Cloud discovery has added seven retained products, six in this iteration. Three other newly accepted listings were held after the evidence audit.
 
-Every published record has a real official URL, useful description, category, verification date, and source provenance. No unsupported launch dates, customer counts, pricing, or reviews were invented. First-seen dates are distinct from source-story dates. Normalized tables, constraints, indexes, FTS lifecycle triggers, publication blocks, and five versioned migrations are in `migrations/`. A sanitized actual production export is in `data/seeds/published-snapshot.json`; Otter’s feature evidence was corrected to concise official feature-page claims, and future extraction excludes navigation/footer text and oversized mixed fragments. Canonical SQL restoration and FTS reconstruction are documented in `docs/OPERATIONS.md`.
+Every published record has a real official URL, useful description, category, verification date, and source provenance. No unsupported launch dates, customer counts, pricing, or reviews were invented. First-seen dates are distinct from source-story dates. Normalized tables, constraints, indexes, FTS lifecycle triggers, publication blocks, and nine versioned migrations are in `migrations/`. A sanitized actual production export is in `data/seeds/published-snapshot.json`; Otter’s feature evidence was corrected to concise official feature-page claims, and future extraction excludes navigation/footer text and oversized mixed fragments. Canonical SQL restoration and FTS reconstruction are documented in `docs/OPERATIONS.md`.
 
 ## E. Ingestion
 
@@ -83,13 +83,13 @@ Live: **https://therecouldbeanapp.henriquepinheiro.workers.dev**.
 
 Source: **https://github.com/hmapinheiro6/therecouldbeanapp**.
 
-Worker `therecouldbeanapp` uses isolated D1 `therecouldbeanapp-catalog` (`2a24c33c-ee1f-4dba-b601-39f00232e3ea`). All five migrations are applied. Real Turnstile and separate signing/rate secrets are in provider storage. GitHub holds the encrypted application signing secret and configured API/discovery variables. The corrective release is deployed with minification; its final deployment version is recorded in `docs/production-smoke.json`. Deployment does not depend on the local development server.
+Worker `therecouldbeanapp` uses isolated D1 `therecouldbeanapp-catalog` (`2a24c33c-ee1f-4dba-b601-39f00232e3ea`). All nine migrations are applied. Real Turnstile and separate signing/rate secrets are in provider storage. GitHub holds the encrypted application signing secret and configured API/discovery variables. The corrective release is deployed with minification; its final deployment version is recorded in `docs/production-smoke.json`. Deployment does not depend on the local development server.
 
 The operator confirmed the custom domain is **not registered**, so it is not connected. No purchase occurred. The workers.dev URL is fully usable. Reproduction and custom-domain steps are in `docs/DEPLOYMENT.md`.
 
 ## J. Remaining issues and limits
 
-- Grow the real catalog toward 1,000 verified products and broaden independently verified search judgments. The ranker reaches the present 52.59% strict Precision@5 ceiling; the nominal target requires a better-supported evaluation set. No synthetic records are presented as coverage.
+- The real catalog now exceeds 2,700 entries; broaden independently verified feature evidence and search judgments. The ranker reaches the present 52.59% strict Precision@5 ceiling; the nominal target requires a better-supported evaluation set. No synthetic records are presented as coverage.
 - Final sampled search CPU p99 is below the native Free allowance. Earlier cold/mixed windows exceeded it; continue monitoring before substantial traffic.
 - Independent blind search evaluation, broader vocabulary, and complex negation need further work.
 - Verification is based on public feature claims, not hands-on product certification; blocked/unclear candidates need review.

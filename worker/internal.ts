@@ -39,12 +39,17 @@ internal.post("/known", async (c) => {
     return c.json({ error: { message: "Invalid URL batch." } }, 400);
   if (!b.urls.length) return c.json({ known: [] });
   const q = b.urls.map(() => "?").join(",");
-  const r = await c.env.DB.prepare(
-    `SELECT canonical_url FROM products WHERE status='published' AND canonical_url IN (${q}) UNION SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${q}) UNION SELECT canonical_url FROM ingestion_candidates WHERE (status IN ('needs_review','rejected') OR (status='pending_verification' AND next_retry_at>strftime('%Y-%m-%dT%H:%M:%SZ','now'))) AND canonical_url IN (${q})`,
-  )
-    .bind(...b.urls, ...b.urls, ...b.urls)
-    .all();
-  return c.json({ known: r.results.map((row) => row.canonical_url) });
+  const results = await c.env.DB.batch<{ canonical_url: string }>([
+    c.env.DB.prepare(
+      `SELECT canonical_url FROM products WHERE status='published' AND canonical_url IN (${q}) UNION SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${q}) UNION SELECT canonical_url FROM ingestion_candidates WHERE (status IN ('published','needs_review','rejected') OR (status='pending_verification' AND next_retry_at>strftime('%Y-%m-%dT%H:%M:%SZ','now'))) AND canonical_url IN (${q})`,
+    ).bind(...b.urls, ...b.urls, ...b.urls),
+    c.env.DB.prepare(
+      `SELECT alias canonical_url FROM product_url_aliases WHERE alias IN (${q})`,
+    ).bind(...b.urls),
+  ]);
+  return c.json({
+    known: results.flatMap((r) => r.results.map((row) => row.canonical_url)),
+  });
 });
 internal.get("/snapshot", async (c) => {
   const offset = Number(c.req.query("offset") ?? 0);
@@ -129,12 +134,13 @@ internal.post("/ingest", async (c) => {
       },
       400,
     );
-  if (b.products.length) {
+  const automaticProducts = b.products.filter((p) => !p.editorial_reviewed);
+  if (automaticProducts.length) {
     const blocked = await db
       .prepare(
-        `SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${b.products.map(() => "?").join(",")})`,
+        `SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${automaticProducts.map(() => "?").join(",")})`,
       )
-      .bind(...b.products.map((p) => p.canonical_url))
+      .bind(...automaticProducts.map((p) => p.canonical_url))
       .all();
     if (blocked.results.length)
       return c.json(
@@ -163,10 +169,48 @@ internal.post("/ingest", async (c) => {
   for (const p of b.products) {
     if (
       p.verification_scope === "identity" &&
+      !p.editorial_reviewed &&
       protectedUrls.has(p.canonical_url)
     )
       continue;
     const domain = new URL(p.canonical_url).hostname;
+    if (p.editorial_reviewed)
+      statements.push(
+        db
+          .prepare("DELETE FROM publication_blocks WHERE canonical_url=?")
+          .bind(p.canonical_url),
+      );
+    if (
+      p.previous_canonical_url &&
+      p.previous_canonical_url !== p.canonical_url
+    ) {
+      statements.push(
+        db
+          .prepare("DELETE FROM product_url_aliases WHERE alias=?")
+          .bind(p.canonical_url),
+      );
+      statements.push(
+        db
+          .prepare(
+            "UPDATE product_url_aliases SET canonical_url=? WHERE canonical_url=?",
+          )
+          .bind(p.canonical_url, p.previous_canonical_url),
+      );
+      statements.push(
+        db
+          .prepare(
+            "INSERT OR REPLACE INTO product_url_aliases(alias,canonical_url) VALUES(?,?)",
+          )
+          .bind(p.previous_canonical_url, p.canonical_url),
+      );
+      statements.push(
+        db
+          .prepare(
+            "UPDATE products SET canonical_url=?,normalized_domain=? WHERE canonical_url=? AND slug=?",
+          )
+          .bind(p.canonical_url, domain, p.previous_canonical_url, p.slug),
+      );
+    }
     statements.push(
       db
         .prepare(
