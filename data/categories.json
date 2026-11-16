@@ -188,5 +188,10 @@
     "slug": "desktop-apps",
     "name": "Desktop apps",
     "description": "Installable desktop software with checked official identity."
+  },
+  {
+    "slug": "web-apps",
+    "name": "Self-hosted web apps",
+    "description": "Self-hosted network applications with checked official identity."
   }
 ]

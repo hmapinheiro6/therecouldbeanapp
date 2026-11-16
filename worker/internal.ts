@@ -40,7 +40,7 @@ internal.post("/known", async (c) => {
   if (!b.urls.length) return c.json({ known: [] });
   const q = b.urls.map(() => "?").join(",");
   const r = await c.env.DB.prepare(
-    `SELECT canonical_url FROM products WHERE status='published' AND canonical_url IN (${q}) UNION SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${q}) UNION SELECT canonical_url FROM ingestion_candidates WHERE status IN ('needs_review','rejected') AND canonical_url IN (${q})`,
+    `SELECT canonical_url FROM products WHERE status='published' AND canonical_url IN (${q}) UNION SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${q}) UNION SELECT canonical_url FROM ingestion_candidates WHERE (status IN ('needs_review','rejected') OR (status='pending_verification' AND next_retry_at>strftime('%Y-%m-%dT%H:%M:%SZ','now'))) AND canonical_url IN (${q})`,
   )
     .bind(...b.urls, ...b.urls, ...b.urls)
     .all();
@@ -148,7 +148,24 @@ internal.post("/ingest", async (c) => {
         422,
       );
   }
+  const protectedUrls = b.products.length
+    ? new Set(
+        (
+          await db
+            .prepare(
+              `SELECT canonical_url FROM products WHERE status='published' AND verification_scope='capabilities' AND canonical_url IN (${b.products.map(() => "?").join(",")})`,
+            )
+            .bind(...b.products.map((p) => p.canonical_url))
+            .all<{ canonical_url: string }>()
+        ).results.map((r) => r.canonical_url),
+      )
+    : new Set<string>();
   for (const p of b.products) {
+    if (
+      p.verification_scope === "identity" &&
+      protectedUrls.has(p.canonical_url)
+    )
+      continue;
     const domain = new URL(p.canonical_url).hostname;
     statements.push(
       db
@@ -299,6 +316,16 @@ internal.post("/ingest", async (c) => {
         .bind(p.source_name, p.cursor_value, new Date().toISOString()),
     );
   if (b.run?.completed_at) {
+    statements.push(
+      db
+        .prepare("DELETE FROM admin_sessions WHERE expires_at<?")
+        .bind(Math.floor(Date.now() / 1000)),
+    );
+    statements.push(
+      db
+        .prepare("DELETE FROM admin_login_limits WHERE window<?")
+        .bind(Math.floor(Date.now() / 900000) - 2),
+    );
     statements.push(
       db
         .prepare("DELETE FROM request_nonces WHERE expires_at<?")

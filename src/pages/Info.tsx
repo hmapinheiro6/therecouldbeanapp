@@ -63,6 +63,14 @@ export function About() {
         . Recent additions are catalog additions, not necessarily recent
         launches.
       </p>
+      <p>
+        Awesome-Selfhosted supplies a separate catalog of self-hosted web
+        applications. Adapted descriptions are attributed to the community
+        through each product’s Sources section and retain the{" "}
+        <a href="/licenses/awesome-selfhosted.txt">CC BY-SA 3.0 license</a>. We
+        remove directory formatting and prepend the product name; official-site
+        identity checks and feature evidence are separate.
+      </p>
       <h2>Someone else built it. Now what?</h2>
       <p>
         Use it. Study it. Build something better. Finding competition is useful

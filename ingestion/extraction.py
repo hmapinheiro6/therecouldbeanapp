@@ -38,7 +38,7 @@ class Metadata(HTMLParser):
         if tag=='script' and a.get('type')=='application/ld+json':self.ld=True;self.ld_parts=[]
         if tag in ('script','style','noscript','svg','nav','footer'):self.skip+=1
         if tag=='title':self.in_title=True
-        if tag=='meta':self.meta[a.get('name',a.get('property',''))]=a.get('content','')
+        if tag=='meta':self.meta[a.get('name',a.get('property',''))]=(a.get('content') or '')
         if tag in ('h1','h2','h3','p','li','div','section'):self.parts.append('\n')
     def handle_endtag(self,tag):
         if tag=='script' and self.ld:

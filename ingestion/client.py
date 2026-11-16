@@ -12,6 +12,10 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         return None
 
+class InternalAPIError(RuntimeError):
+    def __init__(self,status,message):
+        super().__init__('Internal API HTTP '+str(status)+': '+message[:240]);self.status=status
+
 class InternalClient:
     def __init__(self,base=None,secret=None):
         self.base=(base or os.environ['INGESTION_API_URL']).rstrip('/')
@@ -34,7 +38,10 @@ class InternalClient:
                     if len(data)>1048576:raise RuntimeError('Internal response too large')
                     return json.loads(data)
             except urllib.error.HTTPError as e:
-                if e.code not in (429,500,502,503,504) or attempt==2:raise RuntimeError('Internal API failed with HTTP '+str(e.code)) from None
+                if e.code not in (429,500,502,503,504) or attempt==2:
+                    try:message=json.loads(e.read(8192)).get('error',{}).get('message','Request failed')
+                    except (ValueError,AttributeError):message='Request failed'
+                    raise InternalAPIError(e.code,message) from None
             except urllib.error.URLError:
                 if attempt==2:raise RuntimeError('Internal API connection failed') from None
             time.sleep(2**attempt)

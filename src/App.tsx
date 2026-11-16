@@ -17,6 +17,7 @@ function PageMetadata() {
       "/explore": "Explore the catalog",
       "/submit": "Submit your app",
       "/about": "About",
+      "/admin": "Catalog review",
       "/privacy": "Privacy",
       "/terms": "Terms",
     };

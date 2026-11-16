@@ -59,7 +59,15 @@ def run(dry_run=False,max_candidates=100,output=None):
         products=[];records=[];web=SafeWeb(delay=.5)
         for c in candidates:
             try:
-                p=verify(c,web);products.append(p);record=queue_record(c,'published');summary['records_accepted']+=1
+                if c['source_name']=='Homebrew Cask (BSD-2-Clause)' or c['source_name']=='Awesome-Selfhosted (CC-BY-SA-3.0)':
+                    from .backfill import verify_identity
+                    draft=json.loads(c.get('review_draft_json') or '{}')
+                    c['name']=draft.get('name',c['name']);c['canonical_url']=draft.get('canonical_url',c['canonical_url']);c['aliases']=[c['name']]
+                    c['licensed_description']=draft.get('short_description',c['name']).removeprefix(c['name']+': ')
+                    c['category_slug']=draft.get('category_slug','desktop-apps')
+                    p=verify_identity(c)
+                else:p=verify(c,web)
+                products.append(p);record=queue_record(c,'published');summary['records_accepted']+=1
                 if client:client.request('/api/internal/ingest',{'products':[p],'candidates':[record]})
             except (ValueError,FetchError) as e:
                 temporary=isinstance(e,FetchError) and e.temporary

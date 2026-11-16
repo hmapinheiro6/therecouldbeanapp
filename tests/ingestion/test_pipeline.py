@@ -244,3 +244,14 @@ def test_identity_backfill_never_invents_feature_claims():
         web.return_value.fetch.return_value={'status':200,'content_type':'text/html','url':'https://actual.dev','text':'<title>ActualApp official website</title><p>ActualApp is an application for organizing everyday work on your desktop computer. Download the current version.</p>'}
         p=verify_identity(c)
     assert p['verification_scope']=='identity';assert p['capabilities']==[];assert p['identity_evidence_text']=='ActualApp official website';assert p['source']['source_name'].startswith('Homebrew')
+
+
+def test_missing_meta_content_does_not_crash_a_bulk_run():
+    p=Metadata();p.feed('<title>ActualApp official website</title><meta name="description" content><meta property="og:description"><p>ActualApp is a useful desktop application for everyday work.</p>')
+    assert p.meta['description']=='';assert p.sentences()
+
+
+def test_selfhosted_metadata_preserves_attribution_without_directory_markup():
+    from ingestion.backfill import selfhosted_candidates
+    rows=selfhosted_candidates('- [ActualApp](https://actual.dev) - A project collaboration application. ([Demo](https://demo.actual.dev)) `MIT` `Python`\n- [Again](https://actual.dev) - Duplicate.')
+    assert len(rows)==1;assert rows[0]['licensed_description']=='A project collaboration application.';assert rows[0]['source_name']=='Awesome-Selfhosted (CC-BY-SA-3.0)';assert rows[0]['category_slug']=='web-apps'

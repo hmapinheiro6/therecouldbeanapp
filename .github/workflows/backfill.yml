@@ -4,6 +4,11 @@ on:
     - cron: '35 */6 * * *'
   workflow_dispatch:
     inputs:
+      source:
+        type: choice
+        description: Licensed source directory
+        options: [homebrew, selfhosted]
+        default: homebrew
       candidates:
         description: Maximum websites to check (up to 2000)
         default: '500'
@@ -11,7 +16,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: discovery
+  group: catalog-${{ inputs.source || 'homebrew' }}
   cancel-in-progress: false
 jobs:
   backfill:
@@ -21,6 +26,7 @@ jobs:
     env:
       INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
       INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
+      DIRECTORY_SOURCE: ${{ inputs.source || 'homebrew' }}
       CANDIDATE_LIMIT: ${{ inputs.candidates || '500' }}
     steps:
       - uses: actions/checkout@v4
@@ -30,4 +36,4 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify official websites and publish identity-checked listings
-        run: python -m ingestion.backfill --max-candidates "$CANDIDATE_LIMIT" --workers 8
+        run: python -m ingestion.backfill --max-candidates "$CANDIDATE_LIMIT" --workers 8 --source "$DIRECTORY_SOURCE"

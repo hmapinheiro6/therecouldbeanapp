@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 type Choice = { slug: string; name: string };
 type Overview = {
@@ -59,6 +59,7 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
   return b as T;
 }
 export function Admin() {
+  const selection = useRef<string | null>(null);
   const [signed, setSigned] = useState<boolean | null>(null),
     [key, setKey] = useState(""),
     [error, setError] = useState(""),
@@ -110,6 +111,7 @@ export function Admin() {
     };
   }, [signed, kind, status, offset, search, message]);
   function open(row: Row) {
+    selection.current = row.id;
     let saved: Partial<Draft> = {};
     try {
       saved = JSON.parse(row.review_draft_json ?? "{}");
@@ -139,6 +141,19 @@ export function Admin() {
       capabilities: [],
       ...saved,
     });
+    if (!row.review_draft_json)
+      void request<{ product: Partial<Draft> | null }>(
+        "/draft?" + new URLSearchParams({ kind, id: row.id }),
+      )
+        .then(({ product }) => {
+          if (product && selection.current === row.id)
+            setDraft((current) =>
+              current ? { ...current, ...product } : current,
+            );
+        })
+        .catch((e) => {
+          if (selection.current === row.id) setError(e.message);
+        });
   }
   async function act(action: string) {
     if (!selected || !draft) return;

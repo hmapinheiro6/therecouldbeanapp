@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
 from .safe_web import SafeWeb,FetchError,canonicalize
 from .extraction import Metadata,now
-from .client import InternalClient
+from .client import InternalClient,InternalAPIError
 from .run import queue_record
 SOURCE='https://formulae.brew.sh/api/cask.json'
 
@@ -20,6 +20,21 @@ def candidates_from(rows):
         if url in seen:continue
         seen.add(url)
         out.append({'name':re.sub(r'[<>]','',names[0])[:100],'aliases':names,'canonical_url':url,'source_name':'Homebrew Cask (BSD-2-Clause)','source_type':'feed','source_url':'https://formulae.brew.sh/cask/'+row['token'],'external_id':row['token'],'discovered_at':now(),'licensed_description':description})
+    return sorted(out,key=lambda c:hashlib.sha256(c['external_id'].encode()).hexdigest())
+
+def selfhosted_candidates(text):
+    out=[];seen=set()
+    for line in text.splitlines():
+        match=re.match(r'- \[([^\]]+)\]\((https://[^)\s]+)\) - (.+)',line)
+        if not match:continue
+        name,url,description=match.groups()
+        try:url=canonicalize(url)
+        except ValueError:continue
+        if url in seen or len(name)<2:continue
+        seen.add(url)
+        description=re.split(r' \(\[| `',description)[0]
+        description=re.sub(r'\[([^\]]+)\]\([^)]+\)',r'\1',description).strip()
+        out.append({'name':name[:100],'aliases':[name],'canonical_url':url,'source_name':'Awesome-Selfhosted (CC-BY-SA-3.0)','source_type':'feed','source_url':'https://github.com/awesome-selfhosted/awesome-selfhosted','external_id':hashlib.sha256(url.encode()).hexdigest(),'discovered_at':now(),'licensed_description':description,'category_slug':'web-apps','audience':'Self-hosted software users'})
     return sorted(out,key=lambda c:hashlib.sha256(c['external_id'].encode()).hexdigest())
 
 def verify_identity(c):
@@ -38,18 +53,23 @@ def verify_identity(c):
     title=re.sub(r'[<>]','',title)[:600]
     if len(title)<2:raise FetchError('Official identity excerpt unavailable',False)
     description=c['name']+': '+c['licensed_description'].strip().rstrip('.')+'.'
-    if len(description)<20:description+=' Desktop application.'
+    if len(description)<20:description+=' Software application.'
     description=re.sub(r'[<>]','',description)[:600]
-    stamp=now();slug=re.sub(r'[^a-z0-9]+','-',c['name'].lower()).strip('-')[:75] or 'app'
-    return {'slug':slug+'-'+hashlib.sha256(c['canonical_url'].encode()).hexdigest()[:8],'name':re.sub(r'[<>]','',c['name']),'canonical_url':c['canonical_url'],'short_description':description,'category_slug':'desktop-apps','audience':'Desktop software users','search_aliases':re.sub(r'[<>]','',' '.join(c['aliases']))[:300],'first_seen_at':stamp,'announced_at':None,'last_verified_at':stamp,'verification_scope':'identity','identity_evidence_url':c['canonical_url'],'identity_evidence_text':title,'capabilities':[],'source':{k:c[k] for k in ['source_type','source_name','source_url','external_id','discovered_at']}}
+    stamp=now();slug=re.sub(r'[^a-z0-9]+','-',c['name'].lower()).strip('-')[:75].rstrip('-') or 'app'
+    return {'slug':slug+'-'+hashlib.sha256(c['canonical_url'].encode()).hexdigest()[:8],'name':re.sub(r'[<>]','',c['name']),'canonical_url':c['canonical_url'],'short_description':description,'category_slug':c.get('category_slug','desktop-apps'),'audience':c.get('audience','Desktop software users'),'search_aliases':re.sub(r'[<>]','',' '.join(c['aliases']))[:300],'first_seen_at':stamp,'announced_at':None,'last_verified_at':stamp,'verification_scope':'identity','identity_evidence_url':c['canonical_url'],'identity_evidence_text':title,'capabilities':[],'source':{k:c[k] for k in ['source_type','source_name','source_url','external_id','discovered_at']}}
 
-def run(max_candidates=500,workers=8,dry_run=False):
+def run(max_candidates=500,workers=8,dry_run=False,source='homebrew'):
     client=None if dry_run else InternalClient();started=now();run_id=str(uuid.uuid4())
-    summary={'id':run_id,'source_name':'homebrew-backfill','started_at':started,'completed_at':None,'status':'running','candidates_found':0,'records_accepted':0,'records_rejected':0,'records_pending':0,'error_summary':None}
+    summary={'id':run_id,'source_name':source+'-backfill','started_at':started,'completed_at':None,'status':'running','candidates_found':0,'records_accepted':0,'records_rejected':0,'records_pending':0,'error_summary':None}
     if client:client.request('/api/internal/ingest',{'run':summary})
     try:
-        raw=SafeWeb(delay=.5,max_bytes=32*1024*1024).fetch(SOURCE)
-        candidates=candidates_from(json.loads(raw['text']));available=len(candidates);known=set()
+        if source=='selfhosted':
+            raw=SafeWeb(delay=.5).fetch('https://raw.githubusercontent.com/awesome-selfhosted/awesome-selfhosted/master/README.md')
+            candidates=selfhosted_candidates(raw['text'])
+        else:
+            raw=SafeWeb(delay=.5,max_bytes=32*1024*1024).fetch(SOURCE)
+            candidates=candidates_from(json.loads(raw['text']))
+        available=len(candidates);known=set()
         if client:
             for i in range(0,len(candidates),30):known.update(client.request('/api/internal/known',{'urls':[c['canonical_url'] for c in candidates[i:i+30]]})['known'])
         candidates=[c for c in candidates if c['canonical_url'] not in known][:max_candidates];summary['candidates_found']=len(candidates)
@@ -59,19 +79,28 @@ def run(max_candidates=500,workers=8,dry_run=False):
         def check(c):
             with locks[urlsplit(c['canonical_url']).hostname]:
                 try:return c,verify_identity(c),None
-                except (ValueError,FetchError) as e:return c,None,e
+                except (ValueError,FetchError,TypeError,KeyError,UnicodeError,RecursionError) as e:return c,None,e
         with ThreadPoolExecutor(max_workers=workers) as pool:
             futures=[pool.submit(check,c) for c in candidates];done=0
             for future in as_completed(futures):
                 c,p,error=future.result();done+=1
                 if p:
-                    summary['records_accepted']+=1;record=queue_record(c,'published')
-                    if client:client.request('/api/internal/ingest',{'products':[p],'candidates':[record]})
-                else:
+                    record=queue_record(c,'published')
+                    try:
+                        if client:client.request('/api/internal/ingest',{'products':[p],'candidates':[record]})
+                        summary['records_accepted']+=1
+                    except InternalAPIError as e:
+                        if e.status not in (400,422):
+                            for pending in futures:pending.cancel()
+                            raise
+                        p=None;error=e
+                if not p:
                     summary['records_pending']+=1;record=queue_record(c,'pending_verification' if isinstance(error,FetchError) and error.temporary else 'needs_review',str(error))
-                    record['review_draft_json']=json.dumps({'name':c['name'],'canonical_url':c['canonical_url'],'short_description':c['name']+': '+c['licensed_description'],'category_slug':'desktop-apps','capabilities':[],'verification_scope':'identity'})
+                    record['review_draft_json']=json.dumps({'name':c['name'],'canonical_url':c['canonical_url'],'short_description':c['name']+': '+c['licensed_description'],'category_slug':c.get('category_slug','desktop-apps'),'capabilities':[],'verification_scope':'identity'})
                     if client:client.request('/api/internal/ingest',{'candidates':[record]})
-                if done%50==0:print(json.dumps({'processed':done,'published':summary['records_accepted'],'pending':summary['records_pending']}),flush=True)
+                if done%50==0:
+                    if client:client.request('/api/internal/ingest',{'run':summary})
+                    print(json.dumps({'processed':done,'published':summary['records_accepted'],'pending':summary['records_pending']}),flush=True)
         summary.update(completed_at=now(),status='success')
         if client:client.request('/api/internal/ingest',{'run':summary})
         print(json.dumps({'dry_run':dry_run,'directory_candidates':available,'already_seen':len(known),'run':summary},indent=2),flush=True)
@@ -80,6 +109,6 @@ def run(max_candidates=500,workers=8,dry_run=False):
         if client:client.request('/api/internal/ingest',{'run':summary})
         raise
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--max-candidates',type=int,default=500);parser.add_argument('--workers',type=int,default=8);parser.add_argument('--dry-run',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--max-candidates',type=int,default=500);parser.add_argument('--workers',type=int,default=8);parser.add_argument('--dry-run',action='store_true');parser.add_argument('--source',choices=['homebrew','selfhosted'],default='homebrew');args=parser.parse_args()
     if not 1<=args.max_candidates<=2000 or not 1<=args.workers<=12:parser.error('Use 1–2000 candidates and 1–12 workers')
-    run(args.max_candidates,args.workers,args.dry_run)
+    run(args.max_candidates,args.workers,args.dry_run,args.source)

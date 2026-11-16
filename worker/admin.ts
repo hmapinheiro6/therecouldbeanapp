@@ -4,6 +4,7 @@ import { z } from "zod";
 import { digest, type AppEnv } from "./security";
 import { productInput } from "./validation";
 import { internal } from "./internal";
+import { hydrate, PRODUCT_SELECT, type ProductRow } from "./catalog";
 const admin = new Hono<AppEnv>();
 const local = (url: string) => {
   const u = new URL(url);
@@ -194,6 +195,41 @@ admin.get("/queue", async (c) => {
     kind,
   });
 });
+admin.get("/draft", async (c) => {
+  const id = c.req.query("id") ?? "";
+  const kind =
+    c.req.query("kind") === "submission" ? "submission" : "candidate";
+  if (!id || id.length > 100)
+    return c.json({ error: { message: "Invalid review record." } }, 400);
+  const record = await c.env.DB.prepare(
+    kind === "candidate"
+      ? "SELECT canonical_url FROM ingestion_candidates WHERE id=?"
+      : "SELECT submitted_url canonical_url FROM submissions WHERE id=?",
+  )
+    .bind(id)
+    .first<{ canonical_url: string }>();
+  if (!record) return c.json({ error: { message: "Record not found." } }, 404);
+  const row = await c.env.DB.prepare(
+    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.canonical_url=?`,
+  )
+    .bind(record.canonical_url)
+    .first<ProductRow>();
+  if (!row) return c.json({ product: null });
+  const [p] = await hydrate(c.env.DB, [row]);
+  return c.json({
+    product: {
+      slug: p.slug,
+      name: p.name,
+      canonical_url: p.canonical_url,
+      short_description: p.short_description,
+      category_slug: p.category_slug,
+      verification_scope: p.verification_scope,
+      identity_evidence_url: p.identity_evidence_url ?? p.canonical_url,
+      identity_evidence_text: p.identity_evidence_text ?? "",
+      capabilities: p.capabilities,
+    },
+  });
+});
 admin.post("/review", async (c) => {
   const input = z
     .object({
@@ -277,6 +313,12 @@ admin.post("/review", async (c) => {
       c.env,
     );
     if (!response.ok) return response;
+    if (b.kind === "submission")
+      await c.env.DB.prepare(
+        "UPDATE submissions SET status='published',reviewed_at=? WHERE id=?",
+      )
+        .bind(timestamp, b.id)
+        .run();
     if (b.kind === "candidate")
       await c.env.DB.prepare(
         "UPDATE ingestion_candidates SET status='published',reason=?,updated_at=? WHERE id=?",
