@@ -81,7 +81,8 @@ describe("optional public previews", () => {
         async () => new Response(body),
         undefined,
       );
-      expect(response.status).toBe(204);
+      expect(response.status).toBe(200);
+      expect(await response.json()).toBeNull();
       expect(response.headers.get("Cache-Control")).toContain("max-age=3600");
     }
   });

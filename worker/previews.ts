@@ -91,8 +91,7 @@ export async function previewResponse(
           "X-Content-Type-Options": "nosniff",
         },
       })
-    : new Response(null, {
-        status: 204,
+    : Response.json(null, {
         headers: { "Cache-Control": "public, max-age=3600" },
       });
   try {
