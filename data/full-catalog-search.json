@@ -1,0 +1,252 @@
+{
+  "judgment_method": "Engineering regression sample, judged against exported product names, aliases, licensed descriptions and verified capability evidence. Lexical relevance is discovery relevance only and does not verify features. Expected sets are deliberately incomplete; do not report market-wide recall or precision from them.",
+  "cases": [
+    {
+      "query": "Otter",
+      "kind": "name",
+      "expected_names": ["Otter"],
+      "first": true
+    },
+    {
+      "query": "Make",
+      "kind": "name",
+      "expected_names": ["Make"],
+      "first": true
+    },
+    {
+      "query": "Buffer",
+      "kind": "name",
+      "expected_names": ["Buffer"],
+      "first": true
+    },
+    {
+      "query": "Wave",
+      "kind": "name",
+      "expected_names": ["Wave"],
+      "first": true
+    },
+    {
+      "query": "1Password",
+      "kind": "name",
+      "expected_names": ["1Password"],
+      "first": true
+    },
+    {
+      "query": "015",
+      "kind": "name",
+      "expected_names": ["015"],
+      "first": true
+    },
+    {
+      "query": "n8n",
+      "kind": "name",
+      "expected_names": ["n8n"],
+      "first": true
+    },
+    {
+      "query": "tl;dv",
+      "kind": "name",
+      "expected_names": ["tl;dv"],
+      "first": true
+    },
+    {
+      "query": "像素蛋糕",
+      "kind": "name",
+      "expected_names": ["像素蛋糕"],
+      "first": true
+    },
+    {
+      "query": "Cycling ‘74 Max",
+      "kind": "name",
+      "expected_names": ["Cycling ‘74 Max"],
+      "first": true
+    },
+    {
+      "query": "P4Merge",
+      "kind": "alias",
+      "expected_names": ["Perforce Helix Visual Client"],
+      "first": true
+    },
+    {
+      "query": "WaveTerm",
+      "kind": "alias",
+      "expected_names": ["Wave Terminal"],
+      "first": true
+    },
+    {
+      "query": "PixCake",
+      "kind": "alias",
+      "expected_names": ["像素蛋糕"],
+      "first": true
+    },
+    {
+      "query": "KekaDefaultApp",
+      "kind": "alias",
+      "expected_names": ["Keka External Helper"],
+      "first": true
+    },
+    {
+      "query": "EmulationStation Desktop Edition",
+      "kind": "alias",
+      "expected_names": ["ES-DE"],
+      "first": true
+    },
+    {
+      "query": "meeting transcription and action items",
+      "kind": "capability",
+      "expected_names": ["Otter", "tl;dv"],
+      "top_capabilities": ["meetings", "action-items"]
+    },
+    {
+      "query": "a CRM that tracks projects and sends invoices",
+      "kind": "capability",
+      "expected_names": ["HoneyBook"],
+      "top_capabilities": ["crm", "projects", "invoicing"]
+    },
+    {
+      "query": "invoicing and accounting",
+      "kind": "capability",
+      "expected_names": ["FreshBooks", "Wave"],
+      "top_capabilities": ["invoicing", "accounting"]
+    },
+    {
+      "query": "workflow automation",
+      "kind": "capability",
+      "expected_names": ["Make", "Zapier", "n8n"],
+      "top_capabilities": ["automation"]
+    },
+    {
+      "query": "password manager",
+      "kind": "capability",
+      "expected_names": ["1Password", "Bitwarden"],
+      "top_capabilities": ["passwords"]
+    },
+    {
+      "query": "customer support",
+      "kind": "capability",
+      "expected_names": ["Intercom", "Zendesk", "lumora"],
+      "top_capabilities": ["support"]
+    },
+    {
+      "query": "product analytics",
+      "kind": "capability",
+      "expected_names": ["Plausible", "PostHog", "Sauron"],
+      "top_capabilities": ["analytics"]
+    },
+    {
+      "query": "project management without invoicing",
+      "kind": "capability",
+      "expected_names": ["Asana", "ClickUp", "Linear", "Todoist", "Trello"],
+      "top_capabilities": ["projects"],
+      "excluded_capabilities": ["invoicing"]
+    },
+    {
+      "query": "invocing",
+      "kind": "misspelling",
+      "expected_names": [
+        "FreshBooks",
+        "Wave",
+        "Harvest",
+        "HoneyBook",
+        "Dubsado"
+      ],
+      "top_capabilities": ["invoicing"]
+    },
+    {
+      "query": "schedueling",
+      "kind": "misspelling",
+      "expected_names": ["Calendly", "Dubsado", "HoneyBook", "lumora"],
+      "top_capabilities": ["scheduling"]
+    },
+    {
+      "query": "clipboard history",
+      "kind": "lexical",
+      "expected_names": ["ClipBook"],
+      "no_strong": true
+    },
+    {
+      "query": "bookmark manager",
+      "kind": "lexical",
+      "expected_names": ["Buku", "Betula", "Faved"],
+      "no_strong": true
+    },
+    {
+      "query": "terminal emulator",
+      "kind": "lexical",
+      "expected_names": ["Archipelago", "Canario", "Contour", "Rio"],
+      "no_strong": true
+    },
+    {
+      "query": "RSS feed reader",
+      "kind": "lexical",
+      "expected_names": ["Bubo Reader", "NetNewsWire"],
+      "no_strong": true
+    },
+    {
+      "query": "recipe manager",
+      "kind": "lexical",
+      "expected_names": ["Mealie", "Recipya", "Tamari", "Vanilla Cookbook"],
+      "no_strong": true
+    },
+    {
+      "query": "focus timer kanban",
+      "kind": "lexical",
+      "expected_names": ["TriggerFlo"],
+      "no_strong": true
+    },
+    {
+      "query": "file synchronisation",
+      "kind": "lexical",
+      "expected_names": ["Syncthing"],
+      "no_strong": true
+    },
+    {
+      "query": "PDF converter OCR",
+      "kind": "lexical",
+      "expected_names": ["Cisdem PDF Converter OCR", "ABBYY FineReader PDF"],
+      "no_strong": true
+    },
+    {
+      "query": "offline CRM for dentists",
+      "kind": "unsupported",
+      "expected_names": [],
+      "no_strong": true
+    },
+    {
+      "query": "password manager that translates dolphin thoughts",
+      "kind": "unsupported",
+      "expected_names": [],
+      "no_strong": true
+    },
+    {
+      "query": "HIPAA meeting transcription",
+      "kind": "unsupported",
+      "expected_names": [],
+      "no_strong": true
+    },
+    {
+      "query": "free project management",
+      "kind": "unsupported",
+      "expected_names": [],
+      "no_strong": true
+    },
+    {
+      "query": "encrypted cloud storage",
+      "kind": "unsupported",
+      "expected_names": [],
+      "no_strong": true
+    },
+    {
+      "query": "quantum telepathy dolphin translator",
+      "kind": "empty",
+      "expected_names": [],
+      "empty": true
+    },
+    {
+      "query": "zzqvzxwqnonexistent",
+      "kind": "empty",
+      "expected_names": [],
+      "empty": true
+    }
+  ]
+}
