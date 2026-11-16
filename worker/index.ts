@@ -32,6 +32,7 @@ import {
   quotaResponse,
   cachePublicAggregate,
 } from "./availability";
+import { previewResponse } from "./previews";
 const app = new Hono<AppEnv>();
 app.use("*", async (c, next) => {
   await next();
@@ -197,6 +198,43 @@ app.get("/api/stats", async (c) => {
     "Cache-Control": "public, max-age=300",
   });
 });
+// Forward-only published identities for the hosted preview backfill. Primary-key bounded;
+// never reads private queues or scans the full product table on every run.
+app.get("/api/preview-products", async (c) => {
+  const after = Number(c.req.query("after") ?? 0);
+  if (!Number.isSafeInteger(after) || after < 0 || after > 1_000_000_000)
+    return c.json(
+      { error: { code: "invalid_cursor", message: "Invalid preview cursor." } },
+      400,
+    );
+  const latest = await c.env.DB.prepare(
+    "SELECT COALESCE(MAX(id),0) latest FROM products",
+  ).first<{ latest: number }>();
+  const ceiling = Math.min(after + 500, latest?.latest ?? 0);
+  const rows =
+    ceiling > after
+      ? await c.env.DB.prepare(
+          "SELECT id,slug,name,canonical_url,verification_scope,first_seen_at FROM products WHERE id>? AND id<=? AND status='published' ORDER BY id LIMIT 100",
+        )
+          .bind(after, ceiling)
+          .all()
+      : { results: [] };
+  const last = rows.results.at(-1) as { id: number } | undefined;
+  const next =
+    rows.results.length === 100 ? last!.id : Math.max(after, ceiling);
+  return c.json(
+    {
+      products: rows.results,
+      next_after: next,
+      has_more: next < (latest?.latest ?? 0),
+    },
+    200,
+    { "Cache-Control": "public, max-age=60" },
+  );
+});
+app.get("/api/previews/:slug", (c) =>
+  previewResponse(c.req.raw, c.req.param("slug"), c.env.ASSETS),
+);
 app.get("/api/search", async (c) => {
   const started = performance.now();
   const q = (c.req.query("q") ?? "").trim();

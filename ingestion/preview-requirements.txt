@@ -1,0 +1,2 @@
+# Only the optional metadata-preview collector decodes images; discovery stays stdlib-only.
+Pillow==13.0.0

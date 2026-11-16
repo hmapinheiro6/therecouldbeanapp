@@ -31,7 +31,7 @@ npm run lint
 npm run typecheck
 npm test
 python3 -m venv .venv
-.venv/bin/python -m pip install -r ingestion/requirements.txt
+.venv/bin/python -m pip install -r ingestion/requirements.txt -r ingestion/preview-requirements.txt
 .venv/bin/python -m pytest tests/ingestion -q
 npm run build
 npx playwright install chromium
@@ -45,6 +45,7 @@ The API suite uses actual local D1 in workerd. The search benchmark uses SQLite 
 
 - [Engineering report and current deployment status](docs/REPORT.md)
 - [Blueprint visual system and artwork](docs/DESIGN.md)
+- [Lean publisher images and autonomous metadata collection](docs/METADATA-PREVIEWS.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Search design, measurements, and limitations](docs/SEARCH.md)
 - [Full-catalog search checks and fixes](docs/FULL-CATALOG-SEARCH.md)

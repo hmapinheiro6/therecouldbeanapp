@@ -32,13 +32,16 @@ def now():
 class Metadata(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.skip=0;self.title='';self.in_title=False;self.parts=[];self.meta={};self.json_ld=[];self.ld=False;self.ld_parts=[]
+        self.skip=0;self.title='';self.in_title=False;self.parts=[];self.meta={};self.json_ld=[];self.ld=False;self.ld_parts=[];self.icons=[]
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if tag=='script' and a.get('type')=='application/ld+json':self.ld=True;self.ld_parts=[]
         if tag in ('script','style','noscript','svg','nav','footer'):self.skip+=1
         if tag=='title':self.in_title=True
-        if tag=='meta':self.meta[a.get('name',a.get('property',''))]=(a.get('content') or '')
+        if tag=='meta':
+            key=(a.get('property') or a.get('name') or '').lower().strip()
+            self.meta.setdefault(key, a.get('content') or '')
+        if tag=='link' and 'icon' in (a.get('rel') or '').lower().split():self.icons.append(a.get('href') or '')
         if tag in ('h1','h2','h3','p','li','div','section'):self.parts.append('\n')
     def handle_endtag(self,tag):
         if tag=='script' and self.ld:

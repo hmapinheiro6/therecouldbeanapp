@@ -43,3 +43,9 @@ Page entrances, dossier arrivals, example icons and button presses have brief fi
 The monitor input now has an 80px, two-line starting height and a visible 160-character budget. The same limit is enforced by the form, live search API, and saved-catalog search. Oversized shared queries receive a clear validation message.
 
 While empty and unfocused, the screen types and erases four faint example ideas. This is a decorative, pointer-transparent overlay, hidden from assistive technology, with a separate static accessible example. It never changes the textarea value. Focus freezes a complete suggestion; entering text removes it. Timers stop in background tabs and for reduced-motion preferences, which show a full static suggestion. The examples remain editable through “Try an example”.
+
+## Visual findings cards
+
+Cards now have a publisher-image panel, a clear product identity/domain and a compact summary. When a social image is unavailable, the same space shows a restrained name/initial fallback; publisher icons use a contained logo treatment. Search results use horizontal rows on desktop and stack on narrow screens. Explore/home grids retain the image above the content. Images reserve their space to avoid layout shifts and are loaded only near the viewport.
+
+Up to three verified capability tags remain visible. Match reasoning, missing evidence, source links and publisher metadata dates sit behind native keyboard-accessible details. Publisher descriptions are explicitly labelled and kept separate from verified findings. Identity-only products continue to explain that features await review. The image has no additional accessible label because the adjacent product identity already names the link. Hover movement respects reduced motion. See [collection, delivery and free-tier budgets](METADATA-PREVIEWS.md).

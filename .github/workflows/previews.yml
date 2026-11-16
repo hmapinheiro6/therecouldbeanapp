@@ -1,0 +1,46 @@
+name: Publisher metadata previews
+on:
+  schedule:
+    - cron: "53 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: Maximum public product pages (1–100)
+        default: "40"
+permissions:
+  contents: write
+concurrency:
+  group: publisher-previews
+  cancel-in-progress: false
+jobs:
+  enrich:
+    if: github.event.repository.private == false && github.repository == 'hmapinheiro6/therecouldbeanapp' && vars.DISCOVERY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PREVIEW_LIMIT: ${{ inputs.limit || '40' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r ingestion/preview-requirements.txt
+      - name: Collect bounded metadata and optional raster thumbnails
+        run: python -m ingestion.previews --limit "$PREVIEW_LIMIT"
+      - name: Publish only public preview files
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- public/catalog-previews
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Refresh publisher metadata previews'
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)
+          git -c http.extraheader="AUTHORIZATION: basic $AUTH" pull --rebase origin main
+          git -c http.extraheader="AUTHORIZATION: basic $AUTH" push origin HEAD:main

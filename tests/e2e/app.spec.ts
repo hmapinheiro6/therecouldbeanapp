@@ -1,4 +1,17 @@
 import { test, expect } from "@playwright/test";
+import { readFileSync } from "node:fs";
+const previewFixture = JSON.parse(
+  readFileSync(new URL("../preview-fixture.json", import.meta.url), "utf8"),
+);
+// Preview enrichment is tested with fixtures; the test suite never fans out to GitHub.
+test.beforeEach(async ({ page }) => {
+  await page.route("**/catalog-previews/*.json", (route) =>
+    route.fulfill({ status: 404 }),
+  );
+  await page.route("**/api/previews/*", (route) =>
+    route.fulfill({ status: 204 }),
+  );
+});
 test("homepage sends a real search and exposes source-backed results", async ({
   page,
 }) => {
@@ -384,4 +397,113 @@ test("search entry is smaller, enforces 160 characters, and offers a static redu
   expect((await request.get("/api/search?q=" + "a".repeat(161))).status()).toBe(
     400,
   );
+});
+
+test("cards show lazy cached previews and keep evidence behind a clear disclosure", async ({
+  page,
+}) => {
+  const preview = previewFixture;
+  await page.route("**/api/previews/otter", (route) =>
+    route.fulfill({ json: preview }),
+  );
+  await page.goto("/search?q=meeting%20notes");
+  const card = page
+    .getByRole("article")
+    .filter({ has: page.getByRole("heading", { name: "Otter", exact: true }) });
+  await expect(card.locator(".product-preview img")).toBeVisible();
+  expect(
+    await card
+      .locator("img")
+      .evaluate(
+        (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
+      ),
+  ).toBe(true);
+  await expect(
+    card.getByText("Website preview", { exact: true }),
+  ).toBeVisible();
+  await expect(card.locator(".card-evidence")).toBeHidden();
+  await card.getByText("Why it matches", { exact: true }).click();
+  await expect(card.locator(".card-evidence")).toContainText(
+    "official-source evidence",
+  );
+  await expect(
+    card.getByRole("link", { name: "Publisher metadata" }),
+  ).toHaveAttribute("href", "https://otter.ai/meeting-notes");
+  await card.getByRole("link", { name: "Open findings" }).click();
+  await expect(
+    page.getByRole("heading", { name: "What it actually does." }),
+  ).toBeVisible();
+});
+
+test("preview failure leaves cards usable and publisher text never becomes verified capability chips", async ({
+  page,
+}) => {
+  const preview = previewFixture;
+  await page.route("**/api/products?*", async (route) => {
+    const response = await route.fetch();
+    const data = await response.json();
+    data.products = [
+      {
+        ...data.products[0],
+        id: 99999,
+        slug: "identity-preview-fixture",
+        name: "Identity Preview Fixture",
+        canonical_url: "https://identity-preview.dev",
+        normalized_domain: "identity-preview.dev",
+        verification_scope: "identity",
+        short_description: "Original source description.",
+        capabilities: [],
+      },
+    ];
+    await route.fulfill({ json: data });
+  });
+  await page.route("**/api/previews/identity-preview-fixture", (route) =>
+    route.fulfill({
+      json: {
+        ...preview,
+        slug: "identity-preview-fixture",
+        canonical_url: "https://identity-preview.dev",
+        source_url: "https://identity-preview.dev",
+        description: "Publisher says it can do absolutely everything.",
+        image: {
+          ...preview.image,
+          data: "data:image/webp;base64,UklGRinvalid",
+        },
+      },
+    }),
+  );
+  await page.goto("/explore");
+  const card = page.getByRole("article").filter({
+    has: page.getByRole("heading", { name: "Identity Preview Fixture" }),
+  });
+  await expect(
+    card.getByText("Publisher description", { exact: true }),
+  ).toBeVisible();
+  await expect(card.locator(".preview-fallback")).toBeVisible();
+  await expect(card.locator(".verification-note")).toContainText(
+    "Features awaiting review",
+  );
+  await expect(card.locator(".tags")).toHaveCount(0);
+  await expect(card.getByRole("link", { name: "Open findings" })).toBeVisible();
+});
+
+test("fresh bundled previews use static assets and avoid a Worker request", async ({
+  page,
+}) => {
+  let dynamicRequests = 0;
+  await page.route("**/api/previews/otter", (route) => {
+    dynamicRequests++;
+    return route.fulfill({ status: 204 });
+  });
+  await page.route("**/catalog-previews/otter.json", (route) =>
+    route.fulfill({
+      json: { ...previewFixture, checked_at: new Date().toISOString() },
+    }),
+  );
+  await page.goto("/search?q=Otter");
+  const card = page
+    .getByRole("article")
+    .filter({ has: page.getByRole("heading", { name: "Otter", exact: true }) });
+  await expect(card.locator(".product-preview img")).toBeVisible();
+  expect(dynamicRequests).toBe(0);
 });

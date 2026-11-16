@@ -99,7 +99,7 @@ class SafeWeb:
             if declared and int(declared)>self.max_bytes: raise FetchError('Response exceeds size limit',False)
             payload=r.read(self.max_bytes+1)
             if len(payload)>self.max_bytes: raise FetchError('Response exceeds size limit',False)
-            return {'url':url,'status':r.status,'text':payload.decode('utf-8',errors='replace'),'content_type':r.getheader('Content-Type','')}
+            return {'url':url,'status':r.status,'text':payload.decode('utf-8',errors='replace'),'body':payload,'content_type':r.getheader('Content-Type','')}
         except (OSError,ssl.SSLError,http.client.HTTPException) as e:
             if attempt<1:
                 time.sleep(2)

@@ -1,2 +1,2 @@
-# Runtime uses only the Python 3.11+ standard library. No paid services.
+# Core discovery uses the Python 3.11+ standard library. Optional previews have a separate decoder dependency.
 pytest==8.4.2

@@ -19,6 +19,7 @@ from urllib.parse import urlsplit
 
 from .extraction import ROOT, CAPABILITIES, Metadata, confirmed_name, now, verify
 from .evidence_audit import reviewable_claim
+from .preview_metadata import preview_metadata
 from .safe_web import FetchError, SafeWeb, canonicalize
 from .sources import Sources
 
@@ -227,6 +228,7 @@ def assess(candidate, web):
             'identity_evidence_text': (parser.title.strip() or web_sentence)[:500], 'capabilities': [],
             'source': {key: candidate[key] for key in ('source_name', 'source_type', 'source_url', 'external_id', 'discovered_at')}}
     return identity_only({'product': product, 'web_evidence_url': page['url'], 'web_evidence_text': web_sentence,
+            'publisher_preview': preview_metadata(parser, page['url']),
             'identity_page_title': parser.title[:500], 'identity_site_name': parser.meta.get('og:site_name', '')[:100],
             'checked_at': now(), 'review_required': True, 'published': False})
 

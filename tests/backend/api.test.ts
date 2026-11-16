@@ -932,3 +932,20 @@ it("shares an atomic ingestion allowance across jobs and resumes in a new UTC da
     ).first<{ n: number }>(),
   ).toEqual({ n: 0 });
 });
+
+it("provides a bounded forward-only public identity cursor for preview collection", async () => {
+  const response = await app.request("/api/preview-products?after=0", {}, env);
+  expect(response.status).toBe(200);
+  const data = (await response.json()) as {
+    products: { id: number; slug: string }[];
+    next_after: number;
+    has_more: boolean;
+  };
+  expect(data.products.length).toBeGreaterThan(0);
+  expect(data.products.length).toBeLessThanOrEqual(100);
+  expect(data.next_after).toBeGreaterThanOrEqual(data.products.at(-1)!.id);
+  expect(JSON.stringify(data)).not.toContain("contact_email");
+  expect(
+    (await app.request("/api/preview-products?after=-1", {}, env)).status,
+  ).toBe(400);
+});

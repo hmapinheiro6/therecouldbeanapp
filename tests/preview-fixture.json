@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "slug": "otter",
+  "canonical_url": "https://otter.ai",
+  "source_url": "https://otter.ai/meeting-notes",
+  "checked_at": "2026-11-16T12:00:00Z",
+  "title": "Publisher title",
+  "description": "Publisher meeting software description",
+  "image": {
+    "data": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQBwCdASqgAGQAPm02mUmkIyKhIIgAgA2JaW7hdUlwAAGWby/PbEXiCo57Yi8QVHPbEXiCo57Yi8QVHPbEXiCbAAD+/u////V2J8KEE//9i3s9gdiAAAAAAAA=",
+    "width": 160,
+    "height": 100,
+    "kind": "og:image",
+    "source_url": "https://otter.ai/preview.webp",
+    "alt": "Publisher preview"
+  }
+}
