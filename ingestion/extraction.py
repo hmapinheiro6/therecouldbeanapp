@@ -12,12 +12,19 @@ CAPABILITIES={c['slug']:c for c in json.loads((ROOT/'data/capabilities.json').re
 def direct_capability(slug,sentence):
     """Conservative guards for ambiguous discovery phrases, separate from search synonyms."""
     if re.search(r'\b(built by|created by|founder|freelance|our customers|our clients)\b',sentence,re.I):return False
+    if re.search(r'\b(pays? for|total cost|sponsor\w*|profit|use prompt|api directory)\b',sentence,re.I):return False
+    if slug=='video' and not re.search(r'\b(edit\w*|video editor)\b',sentence,re.I):return False
+    if slug=='graphics' and not re.search(r'\b(create\w*|design (?:software|tool|platform)|graphic design (?:software|tool|platform))\b',sentence,re.I):return False
+    if slug=='meetings' and not re.search(r'\b(transcri\w*|meeting notes|meeting transcription)\b',sentence,re.I):return False
+    if slug=='support' and not re.search(r'\b((?:customer support|support tickets|help ?desk|support inbox) (?:software|platform|tool|system)|(?:manage\w*|handle\w*|runs?|automate\w*) (?:your |a |the )?(?:customer support|support tickets|support inbox))\b',sentence,re.I):return False
+    if slug=='payments' and not re.search(r'\b(accept payments|payment gateway|online payments|payment processing (?:platform|service)|process(?:es)? payments)\b',sentence,re.I):return False
+    if slug=='search' and not re.search(r'\b((?:site search|search engine|full text search|search api) (?:platform|service|software)|(?:provides?|builds?|adds?|offers?) (?:a |an |fast )?(?:site search|search engine|full text search|search api))\b',sentence,re.I):return False
     if slug=='ecommerce' and not re.search(r'\b(storefront|shopping cart|sell products|e.?commerce platform|online store)\b',sentence,re.I):return False
     if slug=='ci':
         if re.search(r'\b(audit|scanner|scanning|hardening|vulnerability|checks|security)\b',sentence,re.I):return False
         if not re.search(r'\b(continuous integration|automated builds|(?:ci.?cd|build|deployment) (?:platform|service))\b',sentence,re.I):return False
     if slug=='storage' and not re.search(r'\b(file storage (?:platform|service)|cloud storage (?:platform|service)|(?:store|share) (?:your )?files (?:securely|online)|secure file sharing)\b',sentence,re.I):return False
-    if slug=='reminders' and not re.search(r'\b(remind\w*|follow.up (?:emails?|clients?|leads?|contacts?)|(?:sales|client|contact|lead) follow.up)\b',sentence,re.I):return False
+    if slug=='reminders' and not re.search(r'\b(remind\w*|(?:scheduled|automatic|automated) follow.up)\b',sentence,re.I):return False
     return True
 
 def now():
@@ -97,7 +104,7 @@ def verify(candidate,web,curated=False):
     for c in claims:c.update(evidence_url=page['url'],verified_at=timestamp)
     primary=CAPABILITIES[claims[0]['slug']]
     # Automatic listings use original, controlled factual prose, not copied descriptions.
-    description=candidate.get('editorial_description') if curated else name+' provides '+', '.join(CAPABILITIES[c['slug']]['name'].lower() for c in claims[:3])+'. See the official website for current availability and requirements.'
+    description=candidate.get('editorial_description') if curated else name+' provides '+', '.join(CAPABILITIES[c['slug']]['name'].lower() for c in claims[:3])+'.'
     slug=re.sub(r'[^a-z0-9]+','-',name.lower()).strip('-')
     if not curated:
         import hashlib

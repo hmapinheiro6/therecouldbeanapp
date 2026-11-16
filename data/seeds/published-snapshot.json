@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-11-15T21:28:18.578Z",
+  "exported_at": "2026-11-16T09:05:48.248Z",
   "environment": "production",
   "products": [
     {
@@ -339,6 +339,35 @@
           "source_url": "https://dubsado.com",
           "external_id": "https://dubsado.com",
           "discovered_at": "2026-11-15T20:19:42Z"
+        }
+      ]
+    },
+    {
+      "slug": "enzo-af96c4a3",
+      "name": "Enzo",
+      "canonical_url": "https://tryenzo.ai",
+      "short_description": "Enzo provides meeting transcription.",
+      "category_slug": "meetings",
+      "audience": "",
+      "first_seen_at": "2026-11-16T08:57:07Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-16T09:03:51Z",
+      "capabilities": [
+        {
+          "slug": "meetings",
+          "name": "Meeting transcription",
+          "evidence_url": "https://tryenzo.ai/",
+          "evidence_text": "Plus and Pro give you more dictation, more meeting notes and more AI",
+          "verified_at": "2026-11-16T09:03:51Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "hackernews",
+          "source_name": "Hacker News",
+          "source_url": "https://news.ycombinator.com/item?id=50501316",
+          "external_id": "50501316",
+          "discovered_at": "2026-11-14T21:53:05Z"
         }
       ]
     },
@@ -892,6 +921,35 @@
       ]
     },
     {
+      "slug": "orty-1eaf7154",
+      "name": "Orty",
+      "canonical_url": "https://getorty.work",
+      "short_description": "Orty provides client management.",
+      "category_slug": "crm",
+      "audience": "",
+      "first_seen_at": "2026-11-16T08:56:08Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-16T09:03:46Z",
+      "capabilities": [
+        {
+          "slug": "crm",
+          "name": "Client management",
+          "evidence_url": "https://getorty.work/",
+          "evidence_text": "Full CRM",
+          "verified_at": "2026-11-16T09:03:46Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "hackernews",
+          "source_name": "Hacker News",
+          "source_url": "https://news.ycombinator.com/item?id=50495892",
+          "external_id": "50495892",
+          "discovered_at": "2026-11-14T10:40:41Z"
+        }
+      ]
+    },
+    {
       "slug": "otter",
       "name": "Otter",
       "canonical_url": "https://otter.ai",
@@ -1047,6 +1105,71 @@
           "source_url": "https://posthog.com",
           "external_id": "https://posthog.com",
           "discovered_at": "2026-11-15T20:19:54Z"
+        }
+      ]
+    },
+    {
+      "slug": "sauron-1810b13a",
+      "name": "Sauron",
+      "canonical_url": "https://sauron.splimter.com",
+      "short_description": "Sauron provides error monitoring, product analytics.",
+      "category_slug": "monitoring",
+      "audience": "",
+      "first_seen_at": "2026-11-16T08:56:20Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-16T09:03:47Z",
+      "capabilities": [
+        {
+          "slug": "monitoring",
+          "name": "Error monitoring",
+          "evidence_url": "https://sauron.splimter.com/",
+          "evidence_text": "Error tracking and product analytics in one self-hosted stack",
+          "verified_at": "2026-11-16T09:03:47Z"
+        },
+        {
+          "slug": "analytics",
+          "name": "Product analytics",
+          "evidence_url": "https://sauron.splimter.com/",
+          "evidence_text": "Error tracking and product analytics in one self-hosted stack",
+          "verified_at": "2026-11-16T09:03:47Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "hackernews",
+          "source_name": "Hacker News",
+          "source_url": "https://news.ycombinator.com/item?id=50496763",
+          "external_id": "50496763",
+          "discovered_at": "2026-11-14T13:13:13Z"
+        }
+      ]
+    },
+    {
+      "slug": "scatter-d3fc673b",
+      "name": "Scatter",
+      "canonical_url": "https://scatter.study",
+      "short_description": "Scatter provides personal notes.",
+      "category_slug": "notes",
+      "audience": "",
+      "first_seen_at": "2026-11-16T08:56:36Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-16T09:03:49Z",
+      "capabilities": [
+        {
+          "slug": "notes",
+          "name": "Personal notes",
+          "evidence_url": "https://www.scatter.study/",
+          "evidence_text": "Obsidian Canvas Export the project as a canvas with editable Markdown notes , media and connections",
+          "verified_at": "2026-11-16T09:03:49Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "hackernews",
+          "source_name": "Hacker News",
+          "source_url": "https://news.ycombinator.com/item?id=50497647",
+          "external_id": "50497647",
+          "discovered_at": "2026-11-14T15:11:47Z"
         }
       ]
     },
@@ -1384,6 +1507,56 @@
       ]
     },
     {
+      "slug": "lumora-c0afa7ea",
+      "name": "lumora",
+      "canonical_url": "https://lumora-ai-agent.vercel.app",
+      "short_description": "lumora provides client management, appointment scheduling, customer support.",
+      "category_slug": "crm",
+      "audience": "",
+      "first_seen_at": "2026-11-16T08:57:32Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-16T09:03:53Z",
+      "capabilities": [
+        {
+          "slug": "crm",
+          "name": "Client management",
+          "evidence_url": "https://lumora-ai-agent.vercel.app/",
+          "evidence_text": "Lumora answers from your documents with citations, runs your support inbox and sales pipeline, and lets AI agents act on your CRM through tools and an MCP server",
+          "verified_at": "2026-11-16T09:03:53Z"
+        },
+        {
+          "slug": "scheduling",
+          "name": "Appointment scheduling",
+          "evidence_url": "https://lumora-ai-agent.vercel.app/",
+          "evidence_text": "The agent answers with citations and can open tickets, draft emails or book meetings for you",
+          "verified_at": "2026-11-16T09:03:53Z"
+        },
+        {
+          "slug": "support",
+          "name": "Customer support",
+          "evidence_url": "https://lumora-ai-agent.vercel.app/",
+          "evidence_text": "Lumora answers from your documents with citations, runs your support inbox and sales pipeline, and lets AI agents act on your CRM through tools and an MCP server",
+          "verified_at": "2026-11-16T09:03:53Z"
+        },
+        {
+          "slug": "docs",
+          "name": "Knowledge base",
+          "evidence_url": "https://lumora-ai-agent.vercel.app/",
+          "evidence_text": "For individuals exploring an AI knowledge base",
+          "verified_at": "2026-11-16T09:03:53Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "github",
+          "source_name": "GitHub",
+          "source_url": "https://github.com/itx-Champion/lumora",
+          "external_id": "1458226141",
+          "discovered_at": "2026-11-16T08:55:55Z"
+        }
+      ]
+    },
+    {
       "slug": "n8n",
       "name": "n8n",
       "canonical_url": "https://n8n.io",
@@ -1409,6 +1582,35 @@
           "source_url": "https://n8n.io",
           "external_id": "https://n8n.io",
           "discovered_at": "2026-11-15T20:19:51Z"
+        }
+      ]
+    },
+    {
+      "slug": "savora-d6eb224f",
+      "name": "savora",
+      "canonical_url": "https://savora-six-beta.vercel.app",
+      "short_description": "savora provides time tracking.",
+      "category_slug": "time-tracking",
+      "audience": "",
+      "first_seen_at": "2026-11-16T08:57:34Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-16T09:03:50Z",
+      "capabilities": [
+        {
+          "slug": "time",
+          "name": "Time tracking",
+          "evidence_url": "https://savora-six-beta.vercel.app/",
+          "evidence_text": "Staff schedule & timesheets",
+          "verified_at": "2026-11-16T09:03:50Z"
+        }
+      ],
+      "sources": [
+        {
+          "source_type": "github",
+          "source_name": "GitHub",
+          "source_url": "https://github.com/itx-Champion/savora",
+          "external_id": "1458038376",
+          "discovered_at": "2026-11-16T08:55:55Z"
         }
       ]
     },

@@ -27,7 +27,7 @@ class InternalClient:
             timestamp=str(int(time.time()));nonce=str(uuid.uuid4())
             message='\n'.join([method,path,timestamp,nonce,hashlib.sha256(raw).hexdigest()])
             signature=hmac.new(self.secret.encode(),message.encode(),hashlib.sha256).hexdigest()
-            req=urllib.request.Request(self.base+path,data=raw if body is not None else None,method=method,headers={'User-Agent':'ThereCouldBeAnAppIngestion/1.0 (+https://therecouldbeanapp.com/about)','Content-Type':'application/json','X-Timestamp':timestamp,'X-Nonce':nonce,'X-Signature':signature})
+            req=urllib.request.Request(self.base+path,data=raw if body is not None else None,method=method,headers={'User-Agent':'ThereCouldBeAnAppIngestion/1.0 (+https://therecouldbeanapp.henriquepinheiro.workers.dev/about)','Content-Type':'application/json','X-Timestamp':timestamp,'X-Nonce':nonce,'X-Signature':signature})
             try:
                 with urllib.request.build_opener(NoRedirect()).open(req,timeout=30) as r:
                     data=r.read(1048577)

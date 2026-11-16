@@ -1,0 +1,80 @@
+{
+  "checked_at": "2026-11-16T09:06:38.276409+00:00",
+  "deployment_version": "3eb51fff-c337-4cac-b3aa-e26cc4bcf261",
+  "products": 52,
+  "new_products": [
+    {
+      "name": "savora",
+      "slug": "savora-d6eb224f",
+      "canonical_url": "https://savora-six-beta.vercel.app",
+      "capabilities": [
+        "time"
+      ]
+    },
+    {
+      "name": "lumora",
+      "slug": "lumora-c0afa7ea",
+      "canonical_url": "https://lumora-ai-agent.vercel.app",
+      "capabilities": [
+        "crm",
+        "scheduling",
+        "support",
+        "docs"
+      ]
+    },
+    {
+      "name": "Enzo",
+      "slug": "enzo-af96c4a3",
+      "canonical_url": "https://tryenzo.ai",
+      "capabilities": [
+        "meetings"
+      ]
+    },
+    {
+      "name": "Scatter",
+      "slug": "scatter-d3fc673b",
+      "canonical_url": "https://scatter.study",
+      "capabilities": [
+        "notes"
+      ]
+    },
+    {
+      "name": "Sauron",
+      "slug": "sauron-1810b13a",
+      "canonical_url": "https://sauron.splimter.com",
+      "capabilities": [
+        "monitoring",
+        "analytics"
+      ]
+    },
+    {
+      "name": "Orty",
+      "slug": "orty-1eaf7154",
+      "canonical_url": "https://getorty.work",
+      "capabilities": [
+        "crm"
+      ]
+    }
+  ],
+  "ingestion": {
+    "enabled": true,
+    "last_successful_run": "2026-11-16T08:58:48Z",
+    "records_added": 9,
+    "records_rejected": 0,
+    "pending_review": 105,
+    "consecutive_failures_in_last_10": 0
+  },
+  "held_slugs": [
+    "yvd-8e7a7792",
+    "downforreal-265c209a",
+    "indexfast-be88e61e"
+  ],
+  "checks": [
+    "Recent additions sort by actual catalog entry date",
+    "Six new products are published with official evidence and source provenance",
+    "Three misclassified products return 404 and are excluded from publication",
+    "New products can be searched",
+    "Deployed page has no header, eyebrow elements, or stamp",
+    "Desktop and 320px layouts have no horizontal overflow"
+  ]
+}

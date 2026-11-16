@@ -211,3 +211,20 @@ def test_agency_brand_cannot_replace_a_tool_name_on_a_nested_page():
     p=Metadata();p.feed('<title>Agency | Free Tool</title><h1>Agency provides this free tool</h1>')
     with pytest.raises(FetchError,match='name'):
         confirmed_name({'name':'A new tool','resolve_identity':True},p,'agency provides this free tool','https://agency.dev/free-tool')
+
+
+@pytest.mark.parametrize('sentence',[
+ 'Estimated total cost for each customer each month, including payment processing',
+ 'The remaining amount pays for development time, customer support, and profit',
+ 'Search engine API directory',
+ 'Portrait concepts Use prompt Graphic design Use prompt Wildlife Use prompt',
+ 'Past the minutes, meeting recording waits until the week resets',
+ 'Follow-up email',
+ 'Create short videos with a generation model',
+])
+def test_prices_navigation_and_examples_are_not_capabilities(sentence):
+    assert evidence_from([sentence])==[]
+
+
+def test_supported_services_keep_their_direct_claims():
+    assert {'payments','support','search'}<={c['slug'] for c in evidence_from(['Our payment processing service helps you accept payments','Lumora runs your support inbox and sales pipeline','A full text search platform for your website'])}

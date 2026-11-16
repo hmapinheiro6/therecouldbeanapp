@@ -1,6 +1,8 @@
 # Final engineering report
 
-Delivered 15 November 2026; updated with the blueprint visual addendum and corrective release. [Live application](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public source](https://github.com/hmapinheiro6/therecouldbeanapp).
+Delivered 15 November 2026; updated 16 November with interface simplification and working discovery of smaller products. [Live application](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public source](https://github.com/hmapinheiro6/therecouldbeanapp).
+
+Latest changes and live evidence: [Discovery update](DISCOVERY-UPDATE.md).
 
 ## A. Implemented features
 
@@ -37,17 +39,17 @@ Measured local synthetic lexical loads of 1,000 and 10,000 records use rolled-ba
 
 ## D. Database
 
-Production D1 contains **46 published products, 37 category definitions, 39 capability definitions, and 62 verified product-capability claims**. Not every category/capability has product coverage. The initial official-site verification checked 53 candidates and retained 45 publishable products; eight inaccessible or insufficiently verified candidates are recorded separately. Cloud discovery added one product.
+Production D1 contains **52 published products, 37 category definitions, 39 capability definitions, and 72 verified product-capability claims**. Not every category/capability has product coverage. The initial official-site verification checked 53 candidates and retained 45 publishable products; eight inaccessible or insufficiently verified candidates are recorded separately. Cloud discovery has added seven retained products, six in this iteration. Three other newly accepted listings were held after the evidence audit.
 
 Every published record has a real official URL, useful description, category, verification date, and source provenance. No unsupported launch dates, customer counts, pricing, or reviews were invented. First-seen dates are distinct from source-story dates. Normalized tables, constraints, indexes, FTS lifecycle triggers, publication blocks, and five versioned migrations are in `migrations/`. A sanitized actual production export is in `data/seeds/published-snapshot.json`; Otter’s feature evidence was corrected to concise official feature-page claims, and future extraction excludes navigation/footer text and oversized mixed fragments. Canonical SQL restoration and FTS reconstruction are documented in `docs/OPERATIONS.md`.
 
 ## E. Ingestion
 
-Enabled discovery sources are the official Hacker News Firebase API and GitHub REST API. RSS/Atom/JSON adapters exist; ScrollLaunch and Product Hunt remain disabled pending endpoint/permission clearance. Verification respects robots and access restrictions, pins validated public DNS addresses with TLS hostname checks, revalidates redirects, limits pages/bytes/time/retries, executes no website JavaScript, and requires an official identity plus explicit capability evidence. Original controlled descriptions avoid copying directory prose.
+Enabled discovery sources are the public chronological HN Search API and official GitHub REST API (SaaS, productivity, and developer-tool streams), plus submissions. No private Algolia index, subscription, or search service was provisioned; HN Search is the existing public source API. RSS/Atom/JSON adapters exist; ScrollLaunch and Product Hunt remain disabled pending endpoint/permission clearance. Verification respects robots and access restrictions, pins validated public DNS addresses with TLS hostname checks, revalidates redirects, limits pages/bytes/time/retries, executes no website JavaScript, and requires an official identity plus explicit capability evidence. Original controlled descriptions avoid copying directory prose.
 
 [Successful cloud run 43759620161](https://github.com/hmapinheiro6/therecouldbeanapp/actions/runs/43759620161) completed at **20:43:39 UTC on 15 November 2026**: **15 candidates processed, one accepted, 14 pending review, zero rejected**, successful D1 updates and checkpoints. D1 run ID: `2e7b012d-632d-4b7f-8054-aec08ef687f4`. Pizza was automatically published, then its evidence was reviewed and precisely classified as app connections through MCP. Its public record is included in the production snapshot.
 
-Earlier cloud attempts exposed client identification and IPv6 connectivity failures; both were fixed and the failure records retained. The daily workflow is enabled at **04:17 UTC**, with a 40-candidate batch cap. Retries, persisted checkpoints, failure recording, canonical/source deduplication, and moderation are implemented in `ingestion/` and `.github/workflows/`. GitHub schedules are best effort and can disable after 60 days of repository inactivity.
+Earlier cloud attempts exposed client identification and IPv6 connectivity failures; both were fixed and the failure records retained. The daily workflow is enabled at **04:17 UTC**, with a 100-candidate batch cap. Retries, persisted checkpoints, failure recording, canonical/source deduplication, and moderation are implemented in `ingestion/` and `.github/workflows/`. GitHub schedules are best effort and can disable after 60 days of repository inactivity.
 
 ## F. Submissions
 
@@ -59,11 +61,11 @@ The private CLI and manual moderation workflow support approve/reject/retry/remo
 
 ## G. Tests
 
-**83 automated checks pass:** 36 TypeScript/search/API/database tests, 35 Python ingestion/security tests, and 12 desktop/mobile Playwright cases. New regressions cover immediate ranking updates after a public listing edit, exclusion of navigation/footer/oversized evidence, and exactly one canonical product URL in server HTML. The API suite uses actual workerd/D1; browser tests use the real local frontend and API. Fresh/repeated/populated migrations, FTS lifecycle/rebuild, malicious inputs, signed replay protection, invalid/replayed Turnstile, pending persistence, and safe crawling have coverage. Turnstile substitution is restricted to isolated API tests.
+**108 automated checks pass:** 37 TypeScript/search/API/database tests, 59 Python ingestion/security tests, and 12 desktop/mobile Playwright cases. New regressions cover immediate ranking updates after a public listing edit, exclusion of navigation/footer/oversized evidence, and exactly one canonical product URL in server HTML. The API suite uses actual workerd/D1; browser tests use the real local frontend and API. Fresh/repeated/populated migrations, FTS lifecycle/rebuild, malicious inputs, signed replay protection, invalid/replayed Turnstile, pending persistence, and safe crawling have coverage. Turnstile substitution is restricted to isolated API tests.
 
 ESLint, strict TypeScript, production build, dependency audit (zero known vulnerabilities at verification), and the 60-case benchmark complete successfully. The benchmark target/judgment mismatch is reported above and is not represented as a passing 80% assertion. Hosted CI is configured for pushes/PRs; [the deployed baseline CI](https://github.com/hmapinheiro6/therecouldbeanapp/actions/runs/43759620386) passed. Final-source CI status is available from the repository's Actions tab.
 
-Production smoke tests covered health/stats/config/search/product APIs, source-backed product HTML, sitemap, missing-page 404, and invalid Turnstile rejection. Records: `docs/production-smoke.json`. Actual production desktop/mobile captures are `docs/homepage-desktop.png` and `docs/homepage-mobile.png`.
+Production smoke tests covered health/stats/config/search/product APIs, source-backed product HTML, sitemap, missing-page 404, and invalid Turnstile rejection. Records: `docs/production-smoke.json`. Latest production captures are `docs/simplified-homepage-desktop.jpg` and `docs/simplified-homepage-mobile.jpg`; earlier PNGs are retained as historical design evidence.
 
 ## H. Infrastructure and costs
 
