@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
 import { HTTPException } from "hono/http-exception";
+import { MAX_QUERY_LENGTH } from "../src/lib/search/limits";
 import { parseQuery } from "../src/lib/search/query";
 import { rank, verdict } from "../src/lib/search/rank";
 import {
@@ -202,7 +203,7 @@ app.get("/api/search", async (c) => {
   const offset = Number(c.req.query("offset") ?? 0);
   if (
     q.length < 2 ||
-    q.length > 500 ||
+    q.length > MAX_QUERY_LENGTH ||
     !Number.isInteger(offset) ||
     offset < 0 ||
     offset > 60
@@ -211,7 +212,7 @@ app.get("/api/search", async (c) => {
       {
         error: {
           code: "invalid_query",
-          message: "Describe an idea using 2–500 characters and a valid page.",
+          message: `Describe an idea using 2–${MAX_QUERY_LENGTH} characters and a valid page.`,
         },
       },
       400,

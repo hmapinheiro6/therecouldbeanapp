@@ -1,3 +1,4 @@
+import { MAX_QUERY_LENGTH } from "./search/limits";
 import { normalize, parseQuery } from "./search/query";
 import { rank, verdict } from "./search/rank";
 import type { Product } from "./types";
@@ -50,9 +51,14 @@ export function snapshotResponse(snapshot: CatalogSnapshot, path: string) {
     const started = performance.now(),
       q = (url.searchParams.get("q") ?? "").trim(),
       intent = parseQuery(q);
-    if (q.length < 2 || q.length > 500 || !intent.fts || offset > 60)
+    if (
+      q.length < 2 ||
+      q.length > MAX_QUERY_LENGTH ||
+      !intent.fts ||
+      offset > 60
+    )
       throw new Error(
-        "Describe an idea using 2–500 characters and a valid page.",
+        `Describe an idea using 2–${MAX_QUERY_LENGTH} characters and a valid page.`,
       );
     const terms = [...intent.fts.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
     const candidates = snapshot.products

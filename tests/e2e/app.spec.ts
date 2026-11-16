@@ -339,3 +339,49 @@ test("reduced motion and narrow screens keep the new controls usable", async ({
     page.getByRole("button", { name: "Ruin my idea" }),
   ).toBeVisible();
 });
+
+test("ghost suggestions type without becoming a query and pause during input", async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.goto("/");
+  const input = page.getByLabel("Describe your app idea");
+  const ghost = page.locator(".ghost-suggestion");
+  await expect(ghost).toHaveAttribute("aria-hidden", "true");
+  await page.clock.runFor(1000);
+  const first = await ghost.locator(".suggestion-motion").textContent();
+  await page.clock.runFor(200);
+  expect(await ghost.locator(".suggestion-motion").textContent()).not.toBe(
+    first,
+  );
+  await expect(input).toHaveValue("");
+  await input.focus();
+  const focused = await ghost.textContent();
+  await page.clock.runFor(1000);
+  expect(await ghost.textContent()).toBe(focused);
+  await input.fill("My own idea");
+  await expect(ghost).toHaveCount(0);
+  await expect(input).toHaveValue("My own idea");
+});
+
+test("search entry is smaller, enforces 160 characters, and offers a static reduced-motion hint", async ({
+  page,
+  request,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const input = page.getByLabel("Describe your app idea");
+  await expect(page.locator(".suggestion-static")).toBeVisible();
+  await expect(page.locator(".suggestion-motion")).toBeHidden();
+  expect(
+    await input.evaluate((node) => node.getBoundingClientRect().height),
+  ).toBeLessThanOrEqual(82);
+  await input.fill("a".repeat(170));
+  await expect(input).toHaveValue("a".repeat(160));
+  await expect(page.locator("#idea-limit")).toContainText("160 / 160");
+  await input.press("b");
+  await expect(input).toHaveValue("a".repeat(160));
+  expect((await request.get("/api/search?q=" + "a".repeat(161))).status()).toBe(
+    400,
+  );
+});

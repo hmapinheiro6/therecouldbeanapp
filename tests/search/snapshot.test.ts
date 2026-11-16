@@ -20,6 +20,14 @@ const snapshot: CatalogSnapshot = {
   })),
 };
 describe("public catalog recovery", () => {
+  it("uses the same 160-character boundary as the live API", () => {
+    expect(() =>
+      snapshotResponse(snapshot, "/search?q=" + "a".repeat(160)),
+    ).not.toThrow();
+    expect(() =>
+      snapshotResponse(snapshot, "/search?q=" + "a".repeat(161)),
+    ).toThrow("2–160 characters");
+  });
   it("retains exact name and verified evidence while marking snapshot results", () => {
     const r = snapshotResponse(
       snapshot,

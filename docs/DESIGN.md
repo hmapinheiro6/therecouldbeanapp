@@ -36,4 +36,10 @@ The landing page’s first fold is now a full CRT-style monitor. The actual sear
 
 Search helpers offer editable examples (never automatic submission), an expandable task-and-audience recipe, and a `/` focus shortcut that ignores editable fields, interactive controls, modifier keys, and IME composition. The physical power button cycles useful thoughts and one “42” easter egg without clearing or submitting an idea. It is a labelled keyboard-accessible button, with a polite status message. No sound, third-party assets, new requests, or persistent tracking are introduced.
 
-Page entrances, dossier arrivals, example icons and button presses have brief finite motion. The monitor uses a static texture rather than a flickering CRT effect. Reduced-motion preferences disable animations and transitions, including hover translations. The 22 desktop/mobile browser checks cover the original search/review/fallback flows plus helpers, keyboard interactions, the easter egg, reduced motion, and a 320px layout. The mobile textarea stays at 16px to avoid automatic focus zoom in Safari.
+Page entrances, dossier arrivals, example icons and button presses have brief finite motion. The monitor uses a static texture rather than a flickering CRT effect. Reduced-motion preferences disable animations and transitions, including hover translations. The desktop/mobile browser checks cover the original search/review/fallback flows plus helpers, keyboard interactions, the easter egg, reduced motion, and a 320px layout. The mobile textarea stays at 16px to avoid automatic focus zoom in Safari.
+
+## Idle suggestions and a shorter prompt
+
+The monitor input now has an 80px, two-line starting height and a visible 160-character budget. The same limit is enforced by the form, live search API, and saved-catalog search. Oversized shared queries receive a clear validation message.
+
+While empty and unfocused, the screen types and erases four faint example ideas. This is a decorative, pointer-transparent overlay, hidden from assistive technology, with a separate static accessible example. It never changes the textarea value. Focus freezes a complete suggestion; entering text removes it. Timers stop in background tabs and for reduced-motion preferences, which show a full static suggestion. The examples remain editable through “Try an example”.

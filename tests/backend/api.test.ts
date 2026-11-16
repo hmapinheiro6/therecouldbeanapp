@@ -138,7 +138,10 @@ describe("public API", () => {
   it("rejects empty and oversized queries", async () => {
     expect((await app.request("/api/search?q=", {}, env)).status).toBe(400);
     expect(
-      (await app.request("/api/search?q=" + "a".repeat(501), {}, env)).status,
+      (await app.request("/api/search?q=" + "a".repeat(160), {}, env)).status,
+    ).toBe(200);
+    expect(
+      (await app.request("/api/search?q=" + "a".repeat(161), {}, env)).status,
     ).toBe(400);
   });
   it("provides a published product and no private fields", async () => {
