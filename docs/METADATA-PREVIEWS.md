@@ -31,3 +31,7 @@ The client retains at most 128 preview promises per session. Missing metadata, u
 ## Verification
 
 Python tests cover metadata precedence/escaping, URL safety, thumbnail budgets, failed refresh preservation and bounded backlog collection. Worker tests cover fixed-path validation, size limits, caching, fallback and zero database access. Desktop/mobile browser tests cover real image rendering, lazy requests, static-first delivery, broken-image fallback, evidence disclosure and publisher/evidence separation.
+
+## First hosted collection, 16 November 2026
+
+[GitHub-hosted run 43933965163](https://github.com/hmapinheiro6/therecouldbeanapp/actions/runs/43933965163) checked 100 public products: 74 image previews, 18 metadata-only records, eight unavailable pages, and zero D1 writes. The runner committed its results as `bb397af`. The 100 records occupy 568,353 bytes in total; the largest is 29,212 bytes. All passed the application's preview validator before deployment. The eight failures retain ordinary card fallbacks and wait for the configured retry window. This is the first bounded batch, not completion of the whole-catalog backfill.
