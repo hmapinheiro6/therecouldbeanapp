@@ -49,6 +49,7 @@ function PageMetadata() {
   return null;
 }
 export function App() {
+  const { pathname } = useLocation();
   return (
     <>
       <PageMetadata />
@@ -56,18 +57,20 @@ export function App() {
         Skip to content
       </a>
       <main id="main" tabIndex={-1}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/apps/:slug" element={<Product />} />
-          <Route path="/submit" element={<Submit />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div className="route-content" key={pathname}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/apps/:slug" element={<Product />} />
+            <Route path="/submit" element={<Submit />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </main>
       <footer className="site-footer">
         <div>

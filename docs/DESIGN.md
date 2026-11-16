@@ -29,3 +29,11 @@ Current production captures: `blueprint-preview.png`, `homepage-desktop.png`, `h
 ## Simplification, 16 November
 
 Removed the top header/navigation, all heading eyebrows and figure/department annotations, card file numbers, generic verification badges, and the entire stamped closing manifesto. Useful navigation lives in the footer. Essential form labels and evidence/match labels remain. The blue grid, pixel typography, and computer illustration remain the visual identity. Recent additions have actual catalog dates and a short explanation of discovery. Current release screenshots are `simplified-homepage-desktop.jpg` and `simplified-homepage-mobile.jpg`.
+
+## Interactive monitor, 16 November
+
+The landing page’s first fold is now a full CRT-style monitor. The actual search form sits inside a recessed phosphor-green screen; the warm case, inset glass, vents, screws, power switch, and stand are native CSS geometry. The screen’s color tokens are scoped locally, so the blueprint identity continues throughout the catalog and evidence pages. Subtle scanlines sit behind content and never intercept input. The screen has a real caret, selectable text, responsive controls, and an ordinary semantic form.
+
+Search helpers offer editable examples (never automatic submission), an expandable task-and-audience recipe, and a `/` focus shortcut that ignores editable fields, interactive controls, modifier keys, and IME composition. The physical power button cycles useful thoughts and one “42” easter egg without clearing or submitting an idea. It is a labelled keyboard-accessible button, with a polite status message. No sound, third-party assets, new requests, or persistent tracking are introduced.
+
+Page entrances, dossier arrivals, example icons and button presses have brief finite motion. The monitor uses a static texture rather than a flickering CRT effect. Reduced-motion preferences disable animations and transitions, including hover translations. The 22 desktop/mobile browser checks cover the original search/review/fallback flows plus helpers, keyboard interactions, the easter egg, reduced motion, and a 320px layout. The mobile textarea stays at 16px to avoid automatic focus zoom in Safari.

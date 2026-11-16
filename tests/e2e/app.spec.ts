@@ -250,3 +250,92 @@ test("public browsing and search recover transparently when D1's daily allowance
     page.getByRole("status").filter({ hasText: "saved catalog" }),
   ).toBeVisible();
 });
+
+test("search helpers assist without submitting or taking over typing", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const input = page.getByLabel("Describe your app idea");
+  await page.locator("main").focus();
+  await page.keyboard.press("/");
+  await expect(input).toBeFocused();
+  await input.fill("An app for designers");
+  await input.press("/");
+  await expect(input).toHaveValue("An app for designers/");
+  await page.getByRole("button", { name: "What makes a good search?" }).click();
+  await expect(page.getByText("Start with", { exact: false })).toBeVisible();
+  await page.getByRole("button", { name: "Hide search tips" }).click();
+  await expect(page.locator("#idea-tip")).toHaveCount(0);
+  await page.getByRole("button", { name: "Try an example" }).click();
+  await expect(input).toHaveValue(
+    "A CRM for freelancers that handles invoicing",
+  );
+  await expect(input).toBeFocused();
+  await expect(page).toHaveURL(/\/$/);
+  await page.getByRole("button", { name: "Try an example" }).click();
+  await expect(input).toHaveValue("A tool that turns meetings into tasks");
+  await input.press("Enter");
+  await expect(page).toHaveURL(/search\?q=A%20tool/);
+  await expect(
+    page.getByRole("heading", { name: "Otter", exact: true }),
+  ).toBeVisible();
+});
+
+test("monitor easter egg works by keyboard and leaves search alone", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const input = page.getByLabel("Describe your app idea");
+  await input.fill("Keep this idea");
+  const machine = page.getByRole("button", {
+    name: "Press the monitor power button for a thought",
+  });
+  await machine.focus();
+  await machine.press("Enter");
+  await expect(page.locator("#machine-hint")).toContainText("Name the task");
+  await machine.press("Space");
+  await expect(page.locator("#machine-hint")).toContainText(
+    "useful difference",
+  );
+  await machine.press("Enter");
+  await expect(page.locator("#machine-hint")).toContainText(
+    "answer to everything",
+  );
+  await machine.press("Enter");
+  await expect(page.locator("#machine-hint")).toContainText(
+    "Describe. Search. Reconsider.",
+  );
+  await expect(input).toHaveValue("Keep this idea");
+});
+
+test("reduced motion and narrow screens keep the new controls usable", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 320, height: 780 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "What makes a good search?" }).click();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  expect(
+    await page
+      .locator(".route-content")
+      .evaluate((node) => getComputedStyle(node).animationName),
+  ).toBe("none");
+  expect(
+    await page
+      .locator(".monitor-message")
+      .evaluate((node) => getComputedStyle(node).animationName),
+  ).toBe("none");
+  await expect(
+    page.getByRole("button", {
+      name: "Press the monitor power button for a thought",
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Ruin my idea" }),
+  ).toBeVisible();
+});

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { SearchForm } from "../components/SearchForm";
 import { ProductCard } from "../components/ProductCard";
+import { Monitor } from "../components/Monitor";
 import { PixelArt } from "../components/PixelArt";
 import { useApi } from "../useApi";
 import type { Product } from "../lib/types";
@@ -19,38 +20,30 @@ export function Home() {
   return (
     <>
       <SnapshotNotice at={catalog.snapshotAt} />
-      <section className="hero blueprint-sheet">
-        <div className="hero-layout">
+      <section className="hero monitor-hero" aria-label="Search the catalog">
+        <Monitor>
           <div className="hero-title">
             <h1>
               THERE COULD BE
               <br />
-              AN APP
-              <br />
-              FOR THAT.
+              AN APP FOR THAT.
             </h1>
             <p className="hero-subtitle">
               There are probably 40.<span aria-hidden="true">*</span>
             </p>
             <p className="hero-copy">
-              Describe your brilliant invention.
-              <br />
-              We’ll find the people who already built it.
+              Describe your brilliant invention. We’ll find the people who
+              already built it.
             </p>
           </div>
-          <figure className="hero-schematic" aria-hidden="true">
-            <div className="schematic-drawing">
-              <PixelArt />
-            </div>
-          </figure>
-        </div>
-        <div className="invention-input">
-          <SearchForm />
-          <p className="under-search">
-            No account needed. * The 40 is a joke; the catalog count below is
-            real.
-          </p>
-        </div>
+          <div className="invention-input">
+            <SearchForm />
+          </div>
+        </Monitor>
+        <p className="under-search monitor-disclaimer">
+          No account needed. No pitch deck required.
+          <span>* The 40 is a joke; the catalog count below is real.</span>
+        </p>
       </section>
       <section className="examples-section">
         <div className="section-heading">
@@ -66,6 +59,17 @@ export function Home() {
               className="example"
               to={"/search?q=" + encodeURIComponent(q)}
             >
+              <PixelArt
+                kind={
+                  q.includes("CRM")
+                    ? "disk"
+                    : q.includes("videos")
+                      ? "window"
+                      : q.includes("social")
+                        ? "crane"
+                        : "bulb"
+                }
+              />
               <p>{q}</p>
               <span className="example-arrow" aria-hidden="true">
                 ↗
