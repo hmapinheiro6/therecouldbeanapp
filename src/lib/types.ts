@@ -18,6 +18,9 @@ export interface Product {
   first_seen_at: string;
   announced_at: string | null;
   last_verified_at: string;
+  verification_scope?: "identity" | "capabilities";
+  identity_evidence_url?: string;
+  identity_evidence_text?: string;
   capabilities: Capability[];
   sources?: {
     source_name: string;

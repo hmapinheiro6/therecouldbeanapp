@@ -460,3 +460,174 @@ describe("publication lifecycle", () => {
     ).toBe(400);
   });
 });
+
+describe("private review dashboard", () => {
+  const adminKey =
+    "isolated-admin-test-key-64-bytes-for-private-review-only-123456789";
+  async function login() {
+    env.ADMIN_SECRET = adminKey;
+    return app.request(
+      "/api/admin/login",
+      {
+        method: "POST",
+        headers: {
+          Origin: "http://localhost",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key: adminKey }),
+      },
+      env,
+    );
+  }
+  it("requires authentication and rejects cross-origin requests", async () => {
+    env.ADMIN_SECRET = adminKey;
+    expect((await app.request("/api/admin/queue", {}, env)).status).toBe(401);
+    const r = await app.request(
+      "/api/admin/login",
+      {
+        method: "POST",
+        headers: {
+          Origin: "https://attacker.dev",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key: adminKey }),
+      },
+      env,
+    );
+    expect(r.status).toBe(403);
+  });
+  it("uses a private session and revokes it on sign out", async () => {
+    const r = await login();
+    expect(r.status).toBe(200);
+    const cookie = r.headers.get("Set-Cookie")!;
+    expect(cookie).toContain("HttpOnly");
+    expect(cookie).toContain("SameSite=Strict");
+    expect(cookie).not.toContain(adminKey);
+    const auth = { Cookie: cookie.split(";")[0], Origin: "http://localhost" };
+    expect(
+      (await app.request("/api/admin/overview", { headers: auth }, env)).status,
+    ).toBe(200);
+    expect(
+      (
+        await app.request(
+          "/api/admin/logout",
+          { method: "POST", headers: auth },
+          env,
+        )
+      ).status,
+    ).toBe(200);
+    expect(
+      (await app.request("/api/admin/queue", { headers: auth }, env)).status,
+    ).toBe(401);
+  });
+  it("publishes a reviewed identity-only listing directly and indexes it", async () => {
+    const r = await login();
+    const auth = {
+      Cookie: r.headers.get("Set-Cookie")!.split(";")[0],
+      Origin: "http://localhost",
+      "Content-Type": "application/json",
+    };
+    const stamp = new Date().toISOString();
+    await env.DB.prepare(
+      "INSERT INTO ingestion_candidates(id,source_name,source_url,external_id,name,canonical_url,status,attempts,created_at,updated_at) VALUES('admin-review-test','GitHub','https://github.com/example/review','review','Admin Example','https://admin-product.dev','needs_review',1,?,?)",
+    )
+      .bind(stamp, stamp)
+      .run();
+    const product = {
+      slug: "admin-example-reviewed",
+      name: "Admin Example",
+      canonical_url: "https://admin-product.dev",
+      short_description:
+        "An application for testing private editorial publication.",
+      category_slug: "desktop-apps",
+      verification_scope: "identity",
+      identity_evidence_url: "https://admin-product.dev",
+      identity_evidence_text: "Admin Example official application",
+      capabilities: [],
+    };
+    const body = {
+      kind: "candidate",
+      id: "admin-review-test",
+      action: "publish",
+      reason: "Official website and identity checked.",
+      product,
+    };
+    expect(
+      (
+        await app.request(
+          "/api/admin/review",
+          { method: "POST", headers: auth, body: JSON.stringify(body) },
+          env,
+        )
+      ).status,
+    ).toBe(400);
+    const response = await app.request(
+      "/api/admin/review",
+      {
+        method: "POST",
+        headers: auth,
+        body: JSON.stringify({ ...body, attested: true }),
+      },
+      env,
+    );
+    expect(response.status, await response.clone().text()).toBe(200);
+    const publicResult = await app.request(
+      "/api/products/admin-example-reviewed",
+      {},
+      env,
+    );
+    expect(publicResult.status).toBe(200);
+    const p = (await publicResult.json()) as {
+      verification_scope: string;
+      capabilities: unknown[];
+    };
+    expect(p.verification_scope).toBe("identity");
+    expect(p.capabilities).toHaveLength(0);
+    expect(
+      (await app.request("/api/search?q=Admin%20Example", {}, env)).status,
+    ).toBe(200);
+    expect(
+      (
+        await env.DB.prepare(
+          "SELECT status FROM ingestion_candidates WHERE id='admin-review-test'",
+        ).first<{ status: string }>()
+      )?.status,
+    ).toBe("published");
+    expect(
+      (
+        await env.DB.prepare(
+          "SELECT count(*) n FROM review_audit WHERE record_id='admin-review-test'",
+        ).first<{ n: number }>()
+      )?.n,
+    ).toBe(1);
+  });
+  it("rejects identity claims with evidence on a different website", async () => {
+    const value = {
+      slug: "identity-example",
+      name: "Identity Example",
+      canonical_url: "https://actual.dev",
+      short_description:
+        "An application with an independently checked identity.",
+      category_slug: "desktop-apps",
+      verification_scope: "identity",
+      identity_evidence_url: "https://unrelated.dev",
+      identity_evidence_text: "A different source",
+      capabilities: [],
+      first_seen_at: new Date().toISOString(),
+      last_verified_at: new Date().toISOString(),
+      source: {
+        source_type: "feed",
+        source_name: "Homebrew",
+        source_url: "https://formulae.brew.sh/cask/example",
+        external_id: "example",
+        discovered_at: new Date().toISOString(),
+      },
+    };
+    const response = await app.request(
+      await signed("/api/internal/ingest", { products: [value] }),
+      {},
+      env,
+    );
+    expect(response.status).toBe(400);
+  });
+});

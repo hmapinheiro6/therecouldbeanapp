@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Admin } from "./pages/Admin";
 import { Home } from "./pages/Home";
 import { Search } from "./pages/Search";
 import { Explore } from "./pages/Explore";
@@ -28,7 +29,10 @@ function PageMetadata() {
       meta.name = "robots";
       document.head.appendChild(meta);
     }
-    meta.content = pathname === "/search" ? "noindex,nofollow" : "index,follow";
+    meta.content =
+      pathname === "/search" || pathname.startsWith("/admin")
+        ? "noindex,nofollow"
+        : "index,follow";
     let canonical = document.querySelector<HTMLLinkElement>(
       'link[rel="canonical"]',
     );
@@ -53,6 +57,7 @@ export function App() {
       <main id="main" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/search" element={<Search />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/apps/:slug" element={<Product />} />

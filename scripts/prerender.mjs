@@ -16,6 +16,7 @@ writeFileSync(
   ),
 );
 const pages = {
+  admin: ["Catalog review — There Could Be An App", "Private catalog review."],
   about: [
     "About — There Could Be An App",
     "Find existing apps and SaaS products, with evidence from their official websites.",
@@ -55,7 +56,7 @@ for (const [path, [title, description]] of Object.entries(pages)) {
     "</head>",
     '<link rel="canonical" href="' + base + "/" + path + '"/></head>',
   );
-  if (path === "search")
+  if (path === "search" || path === "admin")
     page = page.replace(
       "</head>",
       '<meta name="robots" content="noindex,nofollow"/></head>',

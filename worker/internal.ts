@@ -29,6 +29,23 @@ internal.get("/pending", async (c) => {
     runs: results[3].results,
   });
 });
+internal.post("/known", async (c) => {
+  const b = (await c.req.json()) as { urls?: unknown };
+  if (
+    !Array.isArray(b.urls) ||
+    b.urls.length > 30 ||
+    b.urls.some((u) => typeof u !== "string" || u.length > 2000)
+  )
+    return c.json({ error: { message: "Invalid URL batch." } }, 400);
+  if (!b.urls.length) return c.json({ known: [] });
+  const q = b.urls.map(() => "?").join(",");
+  const r = await c.env.DB.prepare(
+    `SELECT canonical_url FROM products WHERE status='published' AND canonical_url IN (${q}) UNION SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${q}) UNION SELECT canonical_url FROM ingestion_candidates WHERE status IN ('needs_review','rejected') AND canonical_url IN (${q})`,
+  )
+    .bind(...b.urls, ...b.urls, ...b.urls)
+    .all();
+  return c.json({ known: r.results.map((row) => row.canonical_url) });
+});
 internal.get("/snapshot", async (c) => {
   const offset = Number(c.req.query("offset") ?? 0);
   if (!Number.isInteger(offset) || offset < 0 || offset > 10000)
@@ -155,6 +172,18 @@ internal.post("/ingest", async (c) => {
     statements.push(
       db
         .prepare(
+          "UPDATE products SET verification_scope=?,identity_evidence_url=?,identity_evidence_text=? WHERE canonical_url=?",
+        )
+        .bind(
+          p.verification_scope,
+          p.identity_evidence_url ?? null,
+          p.identity_evidence_text ?? null,
+          p.canonical_url,
+        ),
+    );
+    statements.push(
+      db
+        .prepare(
           "DELETE FROM product_capabilities WHERE product_id=(SELECT id FROM products WHERE canonical_url=?)",
         )
         .bind(p.canonical_url),
@@ -211,6 +240,16 @@ internal.post("/ingest", async (c) => {
           a.updated_at,
         ),
     );
+  }
+  for (const a of b.candidates) {
+    if (a.review_draft_json)
+      statements.push(
+        db
+          .prepare(
+            "UPDATE ingestion_candidates SET review_draft_json=? WHERE id=?",
+          )
+          .bind(a.review_draft_json, a.id),
+      );
   }
   for (const a of b.candidates) {
     if (

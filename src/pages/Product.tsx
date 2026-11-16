@@ -57,29 +57,51 @@ export function Product() {
       </div>
       <div className="detail-columns">
         <section>
-          <h2>What it actually does.</h2>
-          <p className="muted">
-            Capabilities supported by the official website. A source check is
-            not a hands-on product review.
-          </p>
-          <div className="evidence-list">
-            {p.capabilities.map((c) => (
-              <article key={c.slug}>
-                <h3>
-                  <span aria-hidden="true">✓</span> {c.name}
-                </h3>
-                <p>“{c.evidence_text}”</p>
-                <a
-                  href={c.evidence_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Official evidence ↗
-                </a>
-                <small>Checked {date(c.verified_at)}</small>
-              </article>
-            ))}
-          </div>
+          {p.verification_scope === "identity" && (
+            <div className="notice">
+              <h2>Official identity checked</h2>
+              <p>
+                The official website confirms this product. Its capabilities
+                have not yet been independently classified. The description is
+                attributed to the discovery source below.
+              </p>
+              <p>“{p.identity_evidence_text}”</p>
+              <a
+                href={p.identity_evidence_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Official identity evidence ↗
+              </a>
+            </div>
+          )}
+          {p.capabilities.length > 0 && (
+            <>
+              <h2>What it actually does.</h2>
+              <p className="muted">
+                Capabilities supported by the official website. A source check
+                is not a hands-on product review.
+              </p>
+              <div className="evidence-list">
+                {p.capabilities.map((c) => (
+                  <article key={c.slug}>
+                    <h3>
+                      <span aria-hidden="true">✓</span> {c.name}
+                    </h3>
+                    <p>“{c.evidence_text}”</p>
+                    <a
+                      href={c.evidence_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Official evidence ↗
+                    </a>
+                    <small>Checked {date(c.verified_at)}</small>
+                  </article>
+                ))}
+              </div>
+            </>
+          )}
         </section>
         <aside className="product-facts">
           <dl>

@@ -15,6 +15,7 @@ def emit(products,path):
     for p in products:
         domain=p['canonical_url'].split('/')[2]
         lines.append('INSERT OR IGNORE INTO products(slug,name,canonical_url,normalized_domain,short_description,category_id,audience,status,first_seen_at,last_verified_at) VALUES('+','.join(sql(p[k]) for k in ('slug','name','canonical_url'))+','+sql(domain)+','+sql(p['short_description'])+', (SELECT id FROM categories WHERE slug='+sql(p['category_slug'])+'),'+sql(p['audience'])+",'published',"+sql(p['first_seen_at'])+','+sql(p['last_verified_at'])+');')
+        lines.append('UPDATE products SET verification_scope='+sql(p.get('verification_scope','capabilities'))+',identity_evidence_url='+sql(p.get('identity_evidence_url'))+',identity_evidence_text='+sql(p.get('identity_evidence_text'))+' WHERE canonical_url='+sql(p['canonical_url'])+';')
         for c in p['capabilities']:
             lines.append('INSERT OR REPLACE INTO product_capabilities(product_id,capability_id,evidence_url,evidence_text,confidence_class,verified_at) VALUES((SELECT id FROM products WHERE canonical_url='+sql(p['canonical_url'])+'),(SELECT id FROM capabilities WHERE slug='+sql(c['slug'])+'),'+sql(c['evidence_url'])+','+sql(c['evidence_text'])+",'verified',"+sql(c['verified_at'])+');')
         s=p['source']

@@ -31,10 +31,10 @@ export function About() {
       <h2>Where new apps come from</h2>
       <p>
         The initial catalog was seeded with 45 familiar products to test search.
-        Discovery runs daily at 04:17 UTC, collecting recent Show HN launches
-        and new GitHub repositories with official product websites. Founders can
-        also <Link to="/submit">submit an app</Link>. We do not require
-        popularity or GitHub stars.
+        Recent-launch discovery runs every six hours, collecting recent Show HN
+        launches and new GitHub repositories with official product websites.
+        Founders can also <Link to="/submit">submit an app</Link>. We do not
+        require popularity or GitHub stars.
       </p>
       <p>
         A source mention is a lead. Before publication, we check the official
@@ -48,6 +48,20 @@ export function About() {
         announced there, including many closed-source SaaS products. We will
         need additional permitted launch feeds and founder submissions to
         broaden it.
+      </p>
+      <h2>Catalog coverage and attribution</h2>
+      <p>
+        Licensed Homebrew Cask metadata supplies a broader catalog of desktop
+        applications. Each published entry is checked against its official
+        website. These entries are labelled “Official identity checked”;
+        capabilities remain unverified until supported by official evidence.
+        Descriptions from Homebrew are credited in the product’s Sources section
+        and covered by the{" "}
+        <a href="/licenses/homebrew.txt">
+          Homebrew contributors’ BSD 2-Clause license
+        </a>
+        . Recent additions are catalog additions, not necessarily recent
+        launches.
       </p>
       <h2>Someone else built it. Now what?</h2>
       <p>

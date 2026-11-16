@@ -228,3 +228,19 @@ def test_prices_navigation_and_examples_are_not_capabilities(sentence):
 
 def test_supported_services_keep_their_direct_claims():
     assert {'payments','support','search'}<={c['slug'] for c in evidence_from(['Our payment processing service helps you accept payments','Lumora runs your support inbox and sales pipeline','A full text search platform for your website'])}
+
+
+def test_backfill_filters_versions_fonts_and_non_apps_and_deduplicates():
+    from ingestion.backfill import candidates_from
+    base={'token':'actual','name':['Actual App'],'desc':'A real desktop application','homepage':'https://actual.dev','artifacts':[{'app':['Actual.app']}]}
+    rows=[base,{**base,'token':'duplicate'},{**base,'token':'actual@beta'},{**base,'token':'font-actual'},{**base,'token':'disabled','disabled':True},{**base,'token':'installer','artifacts':[{'pkg':['a.pkg']}]},{**base,'token':'private','homepage':'https://127.0.0.1'}]
+    result=candidates_from(rows);assert len(result)==1;assert result[0]['licensed_description']==base['desc']
+
+
+def test_identity_backfill_never_invents_feature_claims():
+    from ingestion.backfill import verify_identity
+    c={'name':'ActualApp','aliases':['ActualApp'],'canonical_url':'https://actual.dev','licensed_description':'Product management software','source_name':'Homebrew Cask (BSD-2-Clause)','source_type':'feed','source_url':'https://formulae.brew.sh/cask/actual','external_id':'actual','discovered_at':now()}
+    with patch('ingestion.backfill.SafeWeb') as web:
+        web.return_value.fetch.return_value={'status':200,'content_type':'text/html','url':'https://actual.dev','text':'<title>ActualApp official website</title><p>ActualApp is an application for organizing everyday work on your desktop computer. Download the current version.</p>'}
+        p=verify_identity(c)
+    assert p['verification_scope']=='identity';assert p['capabilities']==[];assert p['identity_evidence_text']=='ActualApp official website';assert p['source']['source_name'].startswith('Homebrew')

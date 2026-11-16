@@ -1,7 +1,7 @@
 name: Daily public product discovery
 on:
   schedule:
-    - cron: "17 4 * * *"
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 permissions:
   contents: read

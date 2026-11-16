@@ -57,6 +57,11 @@ export function ProductCard({
         {product.normalized_domain} <span aria-hidden="true">↗</span>
       </a>
       <p>{product.short_description}</p>
+      {product.verification_scope === "identity" && (
+        <p className="verification-note">
+          Official identity checked. Capabilities awaiting review.
+        </p>
+      )}
       {showAdded && (
         <p className="added-date">
           Added{" "}

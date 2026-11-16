@@ -5,6 +5,7 @@ export type Bindings = {
   INTERNAL_SECRET?: string;
   RATE_LIMIT_SALT?: string;
   TURNSTILE_SECRET_KEY?: string;
+  ADMIN_SECRET?: string;
 };
 export type AppEnv = { Bindings: Bindings };
 export const digest = async (value: string) =>

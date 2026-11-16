@@ -288,5 +288,166 @@
     "connect apps",
     "connected apps",
     "mcp integrations"
+  ],
+  "uptime": [
+    "uptime monitoring",
+    "website monitoring",
+    "monitor website",
+    "website uptime"
+  ],
+  "security-scanning": [
+    "vulnerability scanning",
+    "security scanner",
+    "secret scanning",
+    "vulnerability scanner",
+    "security scanning"
+  ],
+  "seo-indexing": [
+    "search engine indexing",
+    "indexnow",
+    "indexing api",
+    "url indexing"
+  ],
+  "image-generation": [
+    "image generation",
+    "generate images",
+    "ai images",
+    "text to image",
+    "image generator"
+  ],
+  "video-generation": [
+    "video generation",
+    "generate videos",
+    "ai videos",
+    "text to video",
+    "video generator"
+  ],
+  "ai-chat": [
+    "ai chat",
+    "ai assistant",
+    "chatbot",
+    "chat with ai",
+    "ai chatbot"
+  ],
+  "code-assistance": [
+    "coding assistant",
+    "code completion",
+    "ai coding",
+    "code assistant"
+  ],
+  "speech-to-text": [
+    "speech to text",
+    "audio transcription",
+    "speech recognition",
+    "transcribe audio"
+  ],
+  "email-client": [
+    "email client",
+    "mail client",
+    "email application"
+  ],
+  "clipboard": [
+    "clipboard manager",
+    "clipboard history",
+    "clipboard management"
+  ],
+  "terminal": [
+    "terminal emulator",
+    "terminal application"
+  ],
+  "git-client": [
+    "git client",
+    "git gui",
+    "git desktop"
+  ],
+  "bookmarks": [
+    "bookmark manager",
+    "bookmark management",
+    "manage bookmarks"
+  ],
+  "pdf": [
+    "pdf editor",
+    "edit pdf",
+    "pdf reader",
+    "pdf viewer",
+    "pdf tools"
+  ],
+  "image-editing": [
+    "image editor",
+    "photo editor",
+    "image editing",
+    "photo editing"
+  ],
+  "screen-recording": [
+    "screen recording",
+    "screen recorder",
+    "record your screen"
+  ],
+  "video-conferencing": [
+    "video conferencing",
+    "video calls",
+    "video meetings"
+  ],
+  "spreadsheets": [
+    "spreadsheet editor",
+    "spreadsheet software",
+    "spreadsheets"
+  ],
+  "backup": [
+    "backup software",
+    "backup tool",
+    "backup solution",
+    "data backup"
+  ],
+  "file-sync": [
+    "file synchronization",
+    "file sync",
+    "sync files"
+  ],
+  "database-client": [
+    "database client",
+    "database gui",
+    "sql client"
+  ],
+  "api-testing": [
+    "api testing",
+    "api client",
+    "test apis"
+  ],
+  "diagrams": [
+    "diagram editor",
+    "diagramming",
+    "create diagrams"
+  ],
+  "remote-access": [
+    "remote desktop",
+    "remote access",
+    "screen sharing"
+  ],
+  "website-builder": [
+    "website builder",
+    "build websites",
+    "site builder"
+  ],
+  "audio-player": [
+    "music player",
+    "audio player"
+  ],
+  "video-player": [
+    "video player",
+    "media player"
+  ],
+  "file-manager": [
+    "file manager",
+    "file management"
+  ],
+  "window-management": [
+    "window manager",
+    "window management",
+    "tiling windows"
+  ],
+  "password-generation": [
+    "password generator",
+    "generate passwords"
   ]
 }

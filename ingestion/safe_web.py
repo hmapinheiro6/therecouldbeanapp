@@ -54,7 +54,8 @@ class PinnedHTTPS(http.client.HTTPSConnection):
         self.sock = self._context.wrap_socket(self.sock,server_hostname=self.host)
 
 class SafeWeb:
-    def __init__(self, delay=1.0, max_pages=3):
+    def __init__(self, delay=1.0, max_pages=3, max_bytes=MAX_BYTES):
+        self.max_bytes=min(max_bytes,32*1024*1024)
         self.delay=delay
         self.max_pages=min(max_pages,3)
         self.robots={}
@@ -89,9 +90,9 @@ class SafeWeb:
             if r.status==404: return {'url':url,'status':404,'text':'','content_type':r.getheader('Content-Type','')}
             if r.status!=200: raise FetchError('HTTP '+str(r.status),r.status>=500)
             declared=r.getheader('Content-Length')
-            if declared and int(declared)>MAX_BYTES: raise FetchError('Response exceeds size limit',False)
-            payload=r.read(MAX_BYTES+1)
-            if len(payload)>MAX_BYTES: raise FetchError('Response exceeds size limit',False)
+            if declared and int(declared)>self.max_bytes: raise FetchError('Response exceeds size limit',False)
+            payload=r.read(self.max_bytes+1)
+            if len(payload)>self.max_bytes: raise FetchError('Response exceeds size limit',False)
             return {'url':url,'status':r.status,'text':payload.decode('utf-8',errors='replace'),'content_type':r.getheader('Content-Type','')}
         except (OSError,ssl.SSLError,http.client.HTTPException) as e:
             if attempt<1:

@@ -183,5 +183,10 @@
     "slug": "whiteboards",
     "name": "Whiteboards",
     "description": "Whiteboards software."
+  },
+  {
+    "slug": "desktop-apps",
+    "name": "Desktop apps",
+    "description": "Installable desktop software with checked official identity."
   }
 ]

@@ -82,7 +82,9 @@ export function rank(
       const lexical = intent.tokens.filter((t) => document.words.has(t)).length;
       const score =
         coverage * WEIGHTS.coverage -
-        missing.length * WEIGHTS.missing +
+        (p.verification_scope === "identity"
+          ? 0
+          : missing.length * WEIGHTS.missing) +
         Math.min(1, Math.abs(p.bm25)) * WEIGHTS.bm25 +
         (exact ? WEIGHTS.exactName : 0) +
         (text.includes(intent.normalized) ? WEIGHTS.phrase : 0) +

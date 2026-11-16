@@ -24,6 +24,7 @@ import {
   type ProductRow,
 } from "./catalog";
 import { internal } from "./internal";
+import { admin } from "./admin";
 import { escapeHtml, productSummary } from "./seo";
 const app = new Hono<AppEnv>();
 app.use("*", async (c, next) => {
@@ -394,6 +395,7 @@ app.post("/api/submit", async (c) => {
     202,
   );
 });
+app.route("/api/admin", admin);
 app.use("/api/internal/*", internalAuth);
 app.route("/api/internal", internal);
 app.get("/sitemap.xml", async (c) => {

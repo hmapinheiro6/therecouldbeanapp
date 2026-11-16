@@ -1,0 +1,39 @@
+name: Build the verified software catalog
+on:
+  schedule:
+    - cron: '35 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      candidates:
+        description: Maximum websites to check (up to 2000)
+        default: '500'
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: discovery
+  cancel-in-progress: false
+jobs:
+  backfill:
+    if: github.event.repository.private == false && vars.DISCOVERY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
+      INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
+      CANDIDATE_LIMIT: ${{ inputs.candidates || '500' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify official websites and publish identity-checked listings
+        shell: python
+        run: |
+          import os
+          from ingestion.backfill import run
+          limit=int(os.environ['CANDIDATE_LIMIT'])
+          assert 1<=limit<=2000
+          run(limit,8)

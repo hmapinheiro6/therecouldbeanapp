@@ -77,6 +77,11 @@ export const productInput = z
     search_aliases: text(0, 300).default(""),
     first_seen_at: date,
     last_verified_at: date,
+    verification_scope: z
+      .enum(["identity", "capabilities"])
+      .default("capabilities"),
+    identity_evidence_url: httpsUrl.optional(),
+    identity_evidence_text: text(2, 600).optional(),
     announced_at: date.nullable().default(null),
     capabilities: z
       .array(
@@ -87,7 +92,7 @@ export const productInput = z
           verified_at: date,
         }),
       )
-      .min(1)
+      .min(0)
       .max(12),
     source: z.object({
       source_type: z.enum([
@@ -107,6 +112,28 @@ export const productInput = z
   .strict()
   .superRefine((p, ctx) => {
     const official = new URL(p.canonical_url).hostname;
+    if (p.verification_scope === "capabilities" && !p.capabilities.length)
+      ctx.addIssue({
+        code: "custom",
+        message:
+          "Verified capabilities require at least one evidence-backed claim.",
+      });
+    if (
+      p.verification_scope === "identity" &&
+      (!p.identity_evidence_url || !p.identity_evidence_text)
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Identity-only listings require official identity evidence.",
+      });
+    if (
+      p.identity_evidence_url &&
+      new URL(p.identity_evidence_url).hostname !== official
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Identity evidence must come from the official website.",
+      });
     for (const c of p.capabilities)
       if (new URL(c.evidence_url).hostname !== official)
         ctx.addIssue({
@@ -155,6 +182,7 @@ export const candidateInput = z.object({
   submission_id: z.string().uuid().nullable().optional(),
   created_at: date,
   updated_at: date,
+  review_draft_json: z.string().max(12000).nullable().optional(),
 });
 export const ingestSchema = z
   .object({
@@ -167,10 +195,10 @@ export const ingestSchema = z
         started_at: date,
         completed_at: date.nullable(),
         status: z.enum(["running", "success", "failed", "partial"]),
-        candidates_found: z.number().int().min(0).max(100),
-        records_accepted: z.number().int().min(0).max(100),
-        records_rejected: z.number().int().min(0).max(100),
-        records_pending: z.number().int().min(0).max(100),
+        candidates_found: z.number().int().min(0).max(2000),
+        records_accepted: z.number().int().min(0).max(2000),
+        records_rejected: z.number().int().min(0).max(2000),
+        records_pending: z.number().int().min(0).max(2000),
         error_summary: text(0, 500).nullable(),
       })
       .optional(),

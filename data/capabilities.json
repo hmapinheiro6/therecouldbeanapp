@@ -232,5 +232,185 @@
     "name": "App connections",
     "category": "automation",
     "description": "Connects to external applications through a documented integration interface."
+  },
+  {
+    "slug": "uptime",
+    "name": "Website uptime monitoring",
+    "category": "monitoring",
+    "description": "Website uptime monitoring functionality."
+  },
+  {
+    "slug": "security-scanning",
+    "name": "Security scanning",
+    "category": "security",
+    "description": "Security scanning functionality."
+  },
+  {
+    "slug": "seo-indexing",
+    "name": "Search engine indexing",
+    "category": "search",
+    "description": "Search engine indexing functionality."
+  },
+  {
+    "slug": "image-generation",
+    "name": "Image generation",
+    "category": "graphics",
+    "description": "Image generation functionality."
+  },
+  {
+    "slug": "video-generation",
+    "name": "Video generation",
+    "category": "video",
+    "description": "Video generation functionality."
+  },
+  {
+    "slug": "ai-chat",
+    "name": "AI chat",
+    "category": "productivity",
+    "description": "AI chat functionality."
+  },
+  {
+    "slug": "code-assistance",
+    "name": "Code assistance",
+    "category": "development",
+    "description": "Code assistance functionality."
+  },
+  {
+    "slug": "speech-to-text",
+    "name": "Speech transcription",
+    "category": "audio",
+    "description": "Speech transcription functionality."
+  },
+  {
+    "slug": "email-client",
+    "name": "Email client",
+    "category": "productivity",
+    "description": "Email client functionality."
+  },
+  {
+    "slug": "clipboard",
+    "name": "Clipboard management",
+    "category": "productivity",
+    "description": "Clipboard management functionality."
+  },
+  {
+    "slug": "terminal",
+    "name": "Terminal emulator",
+    "category": "development",
+    "description": "Terminal emulator functionality."
+  },
+  {
+    "slug": "git-client",
+    "name": "Git client",
+    "category": "development",
+    "description": "Git client functionality."
+  },
+  {
+    "slug": "bookmarks",
+    "name": "Bookmark management",
+    "category": "productivity",
+    "description": "Bookmark management functionality."
+  },
+  {
+    "slug": "pdf",
+    "name": "PDF tools",
+    "category": "productivity",
+    "description": "PDF tools functionality."
+  },
+  {
+    "slug": "image-editing",
+    "name": "Image editing",
+    "category": "graphics",
+    "description": "Image editing functionality."
+  },
+  {
+    "slug": "screen-recording",
+    "name": "Screen recording",
+    "category": "video",
+    "description": "Screen recording functionality."
+  },
+  {
+    "slug": "video-conferencing",
+    "name": "Video conferencing",
+    "category": "collaboration",
+    "description": "Video conferencing functionality."
+  },
+  {
+    "slug": "spreadsheets",
+    "name": "Spreadsheets",
+    "category": "productivity",
+    "description": "Spreadsheets functionality."
+  },
+  {
+    "slug": "backup",
+    "name": "Backup",
+    "category": "storage",
+    "description": "Backup functionality."
+  },
+  {
+    "slug": "file-sync",
+    "name": "File synchronization",
+    "category": "storage",
+    "description": "File synchronization functionality."
+  },
+  {
+    "slug": "database-client",
+    "name": "Database client",
+    "category": "databases",
+    "description": "Database client functionality."
+  },
+  {
+    "slug": "api-testing",
+    "name": "API testing",
+    "category": "development",
+    "description": "API testing functionality."
+  },
+  {
+    "slug": "diagrams",
+    "name": "Diagramming",
+    "category": "design",
+    "description": "Diagramming functionality."
+  },
+  {
+    "slug": "remote-access",
+    "name": "Remote access",
+    "category": "productivity",
+    "description": "Remote access functionality."
+  },
+  {
+    "slug": "website-builder",
+    "name": "Website building",
+    "category": "design",
+    "description": "Website building functionality."
+  },
+  {
+    "slug": "audio-player",
+    "name": "Audio player",
+    "category": "audio",
+    "description": "Audio player functionality."
+  },
+  {
+    "slug": "video-player",
+    "name": "Video player",
+    "category": "video",
+    "description": "Video player functionality."
+  },
+  {
+    "slug": "file-manager",
+    "name": "File management",
+    "category": "storage",
+    "description": "File management functionality."
+  },
+  {
+    "slug": "window-management",
+    "name": "Window management",
+    "category": "productivity",
+    "description": "Window management functionality."
+  },
+  {
+    "slug": "password-generation",
+    "name": "Password generation",
+    "category": "security",
+    "description": "Password generation functionality."
   }
 ]
