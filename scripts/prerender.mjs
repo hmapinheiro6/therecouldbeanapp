@@ -36,7 +36,7 @@ const pages = {
   ],
   explore: [
     "Explore the catalog — There Could Be An App",
-    "Browse real software with capabilities backed by official evidence.",
+    "Browse software with checked official websites and clearly labelled feature evidence.",
   ],
   search: [
     "The reality check — There Could Be An App",

@@ -292,7 +292,7 @@ export function Admin() {
                 )?.count ?? 0)
               : "…"}
           </b>{" "}
-          with verified capabilities
+          with documented features
         </p>
         <p>
           <b>
@@ -509,10 +509,10 @@ export function Admin() {
                     }
                   >
                     <option value="identity">
-                      Official identity checked; capabilities unverified
+                      Official website checked; features not verified
                     </option>
                     <option value="capabilities">
-                      Capabilities verified against official evidence
+                      Features documented in official sources
                     </option>
                   </select>
                 </label>

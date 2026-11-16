@@ -38,10 +38,15 @@ export function About() {
       </p>
       <p>
         A source mention is a lead. Before publication, we check the official
-        website, confirm the product identity, and save explicit capability
-        evidence. Blocked sites, unclear identities, and unsupported claims stay
-        out of search for review. “Recently added” means first added to this
-        catalog; it does not mean a verified launch date.
+        website and confirm the product identity. Feature evidence is checked
+        separately. “Official website checked” confirms identity; “Features not
+        verified” means we have not established feature evidence, without
+        promising a scheduled review. “Features documented” means the listed
+        features have supporting official-source excerpts, not that we tested
+        the product hands-on or documented every feature. Blocked sites and
+        unclear identities are held for review. Unsupported feature claims do
+        not become verified search capabilities. “Recently added” means first
+        added to this catalog; it does not mean a verified launch date.
       </p>
       <p>
         Coverage is still small. These sources miss products that are not
@@ -53,7 +58,7 @@ export function About() {
       <p>
         Licensed Homebrew Cask metadata supplies a broader catalog of desktop
         applications. Each published entry is checked against its official
-        website. These entries are labelled “Official identity checked”;
+        website. These entries are labelled “Official website checked”;
         capabilities remain unverified until supported by official evidence.
         Descriptions from Homebrew are credited in the product’s Sources section
         and covered by the{" "}

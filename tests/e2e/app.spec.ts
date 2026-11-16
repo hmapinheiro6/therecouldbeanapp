@@ -36,7 +36,7 @@ test("homepage sends a real search and exposes source-backed results", async ({
     .click();
   await expect(page).toHaveURL(/\/apps\/otter$/);
   await expect(
-    page.getByRole("heading", { name: "What it actually does." }),
+    page.getByRole("heading", { name: "Features documented" }),
   ).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Official evidence ↗" }).first(),
@@ -223,7 +223,7 @@ test("operator can sign in, review, and publish an app without the CLI", async (
     }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Official identity checked" }),
+    page.getByRole("heading", { name: "Official website checked" }),
   ).toBeVisible();
 });
 
@@ -424,14 +424,14 @@ test("cards show lazy cached previews and keep evidence behind a clear disclosur
   await expect(card.locator(".card-evidence")).toBeHidden();
   await card.getByText("Why it matches", { exact: true }).click();
   await expect(card.locator(".card-evidence")).toContainText(
-    "official-source evidence",
+    "Features documented in official sources",
   );
   await expect(
     card.getByRole("link", { name: "Publisher metadata" }),
   ).toHaveAttribute("href", "https://otter.ai/meeting-notes");
   await card.getByRole("link", { name: "Open findings" }).click();
   await expect(
-    page.getByRole("heading", { name: "What it actually does." }),
+    page.getByRole("heading", { name: "Features documented" }),
   ).toBeVisible();
 });
 
@@ -481,7 +481,7 @@ test("preview failure leaves cards usable and publisher text never becomes verif
   ).toBeVisible();
   await expect(card.locator(".preview-fallback")).toBeVisible();
   await expect(card.locator(".verification-note")).toContainText(
-    "Features awaiting review",
+    "Features not verified",
   );
   await expect(card.locator(".tags")).toHaveCount(0);
   await expect(card.getByRole("link", { name: "Open findings" })).toBeVisible();

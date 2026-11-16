@@ -27,7 +27,7 @@ Open **/admin/** and sign in with the operator's separate admin access key. The 
 
 1. Choose **Discovered apps** or **Founder submissions**; select an entry.
 2. Open its official website and discovery source. Correct its name, official URL, description, category, and identity excerpt.
-3. Keep **Official identity checked** when feature evidence is incomplete. To verify capabilities, choose that scope and add each capability with its exact official URL and a concise supporting excerpt.
+3. Keep **Official website checked; features not verified** when feature evidence is incomplete. To verify capabilities, choose that scope and add each capability with its exact official URL and a concise supporting excerpt.
 4. Enter a review note, confirm the source check, then choose **Approve and publish**. Publication updates D1 and search immediately. **Save draft**, **Retry automatically**, and **Reject** are available for discovered apps.
 5. Choose **Published catalog** to edit any existing listing. Public slugs stay stable; corrected official URLs retain deduplication aliases. **Unpublish** removes the public record and search result while preserving a block against automatic republication. Reinstatement requires an explicit editorial approval.
 

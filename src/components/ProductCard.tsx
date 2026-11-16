@@ -80,7 +80,7 @@ export function ProductCard({
         )}
         {product.verification_scope === "identity" && (
           <p className="verification-note">
-            Website checked. Features awaiting review.
+            Official website checked · Features not verified.
           </p>
         )}
         <div className="card-meta">
@@ -102,13 +102,13 @@ export function ProductCard({
               {result && <p>{result.explanation}</p>}
               {product.verification_scope === "identity" ? (
                 <p>
-                  The official website confirms this product. Its capabilities
-                  await a separate review.
+                  The official website confirms this product’s identity. Its
+                  features have not been verified.
                 </p>
               ) : (
                 product.capabilities.length > 0 && (
                   <p>
-                    Capabilities have official-source evidence. This is a source
+                    Features documented in official sources. This is a source
                     check, not a hands-on review.
                   </p>
                 )

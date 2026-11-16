@@ -53,6 +53,7 @@ The API suite uses actual local D1 in workerd. The search benchmark uses SQLite 
 - [Offline HN/GitHub SaaS discovery](docs/OFFLINE-DISCOVERY.md)
 - [Autonomous hosted discovery and recovery](docs/AUTONOMOUS-DISCOVERY.md)
 - [Import reservations and export query budgets](docs/INGESTION-BUDGET.md)
+- [Measured catalog growth constraints and proposed ramp](docs/CATALOG-GROWTH.md)
 - [Work completed during the 16 November database block](docs/OUTAGE-WORK-2026-11-16.md)
 - [Latest discovery results and simplified interface](docs/DISCOVERY-UPDATE.md)
 - [Discovery and source permissions](docs/INGESTION.md)

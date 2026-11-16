@@ -62,11 +62,12 @@ export function Product() {
         <section>
           {p.verification_scope === "identity" && (
             <div className="notice">
-              <h2>Official identity checked</h2>
+              <h2>Official website checked</h2>
               <p>
-                The official website confirms this product. Its capabilities
-                have not yet been independently classified. The description is
-                attributed to the discovery source below.
+                We matched this product’s identity to its official website.
+                Features have not been verified. The description comes from the
+                discovery source below. We have not tested this product
+                hands-on.
               </p>
               <p>“{p.identity_evidence_text}”</p>
               <a
@@ -74,16 +75,17 @@ export function Product() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Official identity evidence ↗
+                Website identity evidence ↗
               </a>
             </div>
           )}
           {p.capabilities.length > 0 && (
             <>
-              <h2>What it actually does.</h2>
+              <h2>Features documented</h2>
               <p className="muted">
-                Capabilities supported by the official website. A source check
-                is not a hands-on product review.
+                The features below have supporting excerpts from official
+                sources. We have not tested the product hands-on; this is not a
+                complete list of its features.
               </p>
               <div className="evidence-list">
                 {p.capabilities.map((c) => (
@@ -128,7 +130,7 @@ export function Product() {
             )}
             <dt>First seen in our catalog</dt>
             <dd>{date(p.first_seen_at)}</dd>
-            <dt>Last checked</dt>
+            <dt>Last source check</dt>
             <dd>{date(p.last_verified_at)}</dd>
             {p.announced_at && (
               <>
