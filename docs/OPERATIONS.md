@@ -61,4 +61,8 @@ Scheduled cleanup prunes expired request nonces and daily rate keys, removes old
 
 ## Daily database allowance
 
-See [quota recovery](DATABASE-QUOTA-INCIDENT.md). A `database_daily_limit` response gives the actual next UTC reset and `Retry-After`. Stop source work until reset; do not retry or export repeatedly. The next normal cloud job applies tracked migration 0010 via `/api/internal/maintenance` before discovery. Public read-only recovery uses a labelled static snapshot; it cannot accept private submissions or approvals. After recovery, run the corrected four-pass export once, inspect its reported rows read, and redeploy to refresh the public recovery copy.
+See [quota recovery](DATABASE-QUOTA-INCIDENT.md). A `database_daily_limit` response gives the actual next UTC reset and `Retry-After`. Stop source work until reset; do not retry or export repeatedly. The next successful normal cloud preparation applies tracked migrations 0010 and 0011 via `/api/internal/maintenance` before discovery. Public read-only recovery uses a labelled static snapshot; it cannot accept private submissions or approvals. After recovery, run the corrected four-pass export once, inspect its reported rows read, and redeploy to refresh the public recovery copy.
+
+## Workflow failures and quota pauses
+
+Use [the 16 November workflow audit](WORKFLOW-AUDIT-2026-11-16.md) to distinguish historical failures from the latest status. Import jobs report `ready`, `completed`, `deferred`, or `failed` in their job summaries. A green handled quota pause is **not** a completed import. Typed daily-limit preparation pauses skip source work; genuine configuration, auth and source errors still fail. The existing schedules remain enabled and try again at their normal cadence.

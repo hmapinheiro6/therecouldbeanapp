@@ -13,8 +13,9 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         return None
 
 class InternalAPIError(RuntimeError):
-    def __init__(self,status,message):
+    def __init__(self,status,message,code=None,reset_at=None):
         super().__init__('Internal API HTTP '+str(status)+': '+message[:240]);self.status=status
+        self.code=code;self.reset_at=reset_at
 
 class InternalClient:
     def __init__(self,base=None,secret=None):
@@ -41,7 +42,7 @@ class InternalClient:
                 try:error=json.loads(e.read(8192)).get('error',{});message=error.get('message','Request failed')
                 except (ValueError,AttributeError):error={};message='Request failed'
                 if error.get('code') in ('database_daily_limit','ingestion_daily_budget') or e.code not in (429,500,502,503,504) or attempt==2:
-                    raise InternalAPIError(e.code,message) from None
+                    raise InternalAPIError(e.code,message,error.get('code'),error.get('reset_at')) from None
             except urllib.error.URLError:
                 if attempt==2:raise RuntimeError('Internal API connection failed') from None
             time.sleep(2**attempt)

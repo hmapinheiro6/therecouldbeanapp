@@ -106,7 +106,9 @@ def run(max_candidates=500,workers=8,dry_run=False,source='homebrew'):
         print(json.dumps({'dry_run':dry_run,'directory_candidates':available,'already_seen':len(known),'run':summary},indent=2),flush=True)
     except Exception as e:
         summary.update(completed_at=now(),status='failed',error_summary=type(e).__name__+': '+str(e)[:200])
-        if client:client.request('/api/internal/ingest',{'run':summary})
+        if client:
+            try:client.request('/api/internal/ingest',{'run':summary})
+            except Exception:print('Could not persist final failure status; inspect the interrupted run.',flush=True)
         raise
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--max-candidates',type=int,default=500);parser.add_argument('--workers',type=int,default=8);parser.add_argument('--dry-run',action='store_true');parser.add_argument('--source',choices=['homebrew','selfhosted'],default='homebrew');args=parser.parse_args()
