@@ -1,0 +1,3202 @@
+{
+  "measured_at": "2026-11-16T14:02:43.370Z",
+  "exported_at": "2026-11-16T10:23:03.397Z",
+  "catalog_products": 2785,
+  "judgment_method": "Engineering regression sample, judged against exported product names, aliases, licensed descriptions and verified capability evidence. Lexical relevance is discovery relevance only and does not verify features. Expected sets are deliberately incomplete; do not report market-wide recall or precision from them.",
+  "limitations": [
+    "Single-author regression judgments; neither a blind relevance assessment nor comprehensive precision/recall.",
+    "Lexical matches reflect saved directory wording and are not feature evidence.",
+    "Local Node timings do not measure deployed Worker CPU, D1 billed reads, or browser-device performance.",
+    "SQLite uses the deployed bounded FTS5 retrieval SQL; the browser snapshot has different lexical retrieval and is evaluated separately."
+  ],
+  "summary": {
+    "sqlite_fts5": {
+      "cases": 40,
+      "passed_cases": 37,
+      "expected_top10_cases": 32,
+      "judged_expected_cases": 33,
+      "name_alias_first": 13,
+      "name_alias_cases": 15,
+      "local_latency_p50_ms": 0.8449170000000095,
+      "local_latency_p95_ms": 2.8032499999999345,
+      "failures": [
+        {
+          "query": "像素蛋糕",
+          "failures": [
+            "no_expected_top10",
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "EmulationStation Desktop Edition",
+          "failures": [
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "quantum telepathy dolphin translator",
+          "failures": [
+            "expected_empty"
+          ]
+        }
+      ]
+    },
+    "browser_snapshot": {
+      "cases": 40,
+      "passed_cases": 33,
+      "expected_top10_cases": 27,
+      "judged_expected_cases": 33,
+      "name_alias_first": 9,
+      "name_alias_cases": 15,
+      "local_latency_p50_ms": 14.056708999999955,
+      "local_latency_p95_ms": 16.587790999999925,
+      "failures": [
+        {
+          "query": "像素蛋糕",
+          "failures": [
+            "search_error",
+            "no_expected_top10",
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "P4Merge",
+          "failures": [
+            "no_expected_top10",
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "WaveTerm",
+          "failures": [
+            "no_expected_top10",
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "PixCake",
+          "failures": [
+            "no_expected_top10",
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "KekaDefaultApp",
+          "failures": [
+            "no_expected_top10",
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "EmulationStation Desktop Edition",
+          "failures": [
+            "no_expected_top10",
+            "expected_name_not_first"
+          ]
+        },
+        {
+          "query": "quantum telepathy dolphin translator",
+          "failures": [
+            "expected_empty"
+          ]
+        }
+      ]
+    }
+  },
+  "runs": {
+    "sqlite_fts5": [
+      {
+        "query": "Otter",
+        "kind": "name",
+        "expected_names": [
+          "Otter"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.7350000000000136,
+        "top_5": [
+          {
+            "name": "Otter",
+            "slug": "otter",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "Otter Wiki",
+            "slug": "otter-wiki-affb0462",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "Make",
+        "kind": "name",
+        "expected_names": [
+          "Make"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.6148749999999836,
+        "top_5": [
+          {
+            "name": "Make",
+            "slug": "make",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "BookWright",
+            "slug": "bookwright-d5bc6436",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "CKAN",
+            "slug": "ckan-02b05e29",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "DevToys",
+            "slug": "devtoys-94871261",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Firefly III",
+            "slug": "firefly-iii-532ee752",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "Buffer",
+        "kind": "name",
+        "expected_names": [
+          "Buffer"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.12879099999997834,
+        "top_5": [
+          {
+            "name": "Buffer",
+            "slug": "buffer",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "Wave",
+        "kind": "name",
+        "expected_names": [
+          "Wave"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.19720799999993233,
+        "top_5": [
+          {
+            "name": "Wave",
+            "slug": "wave",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "LHA",
+            "slug": "lha-5020820c",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Wave Terminal",
+            "slug": "wave-terminal-071eae08",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Waves Central",
+            "slug": "waves-central-db2c49fd",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "1Password",
+        "kind": "name",
+        "expected_names": [
+          "1Password"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.10333400000001802,
+        "top_5": [
+          {
+            "name": "1Password",
+            "slug": "1password",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "015",
+        "kind": "name",
+        "expected_names": [
+          "015"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.09095800000000054,
+        "top_5": [
+          {
+            "name": "015",
+            "slug": "015-9bafce6e",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "n8n",
+        "kind": "name",
+        "expected_names": [
+          "n8n"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.09779100000002927,
+        "top_5": [
+          {
+            "name": "n8n",
+            "slug": "n8n",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "tl;dv",
+        "kind": "name",
+        "expected_names": [
+          "tl;dv"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.15999999999996817,
+        "top_5": [
+          {
+            "name": "tl;dv",
+            "slug": "tl-dv",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "Mox",
+            "slug": "mox-94782bc5",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "像素蛋糕",
+        "kind": "name",
+        "expected_names": [
+          "像素蛋糕"
+        ],
+        "first_expected_rank": null,
+        "failures": [
+          "no_expected_top10",
+          "expected_name_not_first"
+        ],
+        "error": null,
+        "elapsed_ms": 0.08237499999995634,
+        "top_5": []
+      },
+      {
+        "query": "Cycling ‘74 Max",
+        "kind": "name",
+        "expected_names": [
+          "Cycling ‘74 Max"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.21058400000003985,
+        "top_5": [
+          {
+            "name": "Cycling ‘74 Max",
+            "slug": "cycling-74-max-63d3d11f",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "ROUVY",
+            "slug": "rouvy-49f583dc",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "TrainerRoad",
+            "slug": "trainerroad-f8ac9ada",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "VirtualC64",
+            "slug": "virtualc64-c7e64ff3",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "P4Merge",
+        "kind": "alias",
+        "expected_names": [
+          "Perforce Helix Visual Client"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.09062500000004547,
+        "top_5": [
+          {
+            "name": "Perforce Helix Visual Client",
+            "slug": "perforce-helix-visual-client-95ee9aa1",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "WaveTerm",
+        "kind": "alias",
+        "expected_names": [
+          "Wave Terminal"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.07866699999999582,
+        "top_5": [
+          {
+            "name": "Wave Terminal",
+            "slug": "wave-terminal-071eae08",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "PixCake",
+        "kind": "alias",
+        "expected_names": [
+          "像素蛋糕"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.0892910000000029,
+        "top_5": [
+          {
+            "name": "像素蛋糕",
+            "slug": "app-434706ab",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "KekaDefaultApp",
+        "kind": "alias",
+        "expected_names": [
+          "Keka External Helper"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.0884169999999358,
+        "top_5": [
+          {
+            "name": "Keka External Helper",
+            "slug": "keka-external-helper-ddadbb7e",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "EmulationStation Desktop Edition",
+        "kind": "alias",
+        "expected_names": [
+          "ES-DE"
+        ],
+        "first_expected_rank": 8,
+        "failures": [
+          "expected_name_not_first"
+        ],
+        "error": null,
+        "elapsed_ms": 2.8032499999999345,
+        "top_5": [
+          {
+            "name": "Burp Suite Community Edition",
+            "slug": "burp-suite-community-edition-4d5db9f3",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "DBeaver Community Edition",
+            "slug": "dbeaver-community-edition-c3e08e13",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Studio 3T Community Edition",
+            "slug": "studio-3t-community-edition-f04a4ec2",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Adze",
+            "slug": "adze-4743bfbd",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Aphera",
+            "slug": "aphera-b7f8aa8e",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "meeting transcription and action items",
+        "kind": "capability",
+        "expected_names": [
+          "Otter",
+          "tl;dv"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.7239580000000387,
+        "top_5": [
+          {
+            "name": "tl;dv",
+            "slug": "tl-dv",
+            "classification": "Strong match",
+            "matched": [
+              "meetings",
+              "action-items"
+            ]
+          },
+          {
+            "name": "Otter",
+            "slug": "otter",
+            "classification": "Strong match",
+            "matched": [
+              "meetings",
+              "action-items"
+            ]
+          },
+          {
+            "name": "Enzo",
+            "slug": "enzo-af96c4a3",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "Fathom",
+            "slug": "fathom",
+            "classification": "Partial match",
+            "matched": [
+              "action-items"
+            ]
+          },
+          {
+            "name": "Fireflies",
+            "slug": "fireflies",
+            "classification": "Partial match",
+            "matched": [
+              "action-items"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "a CRM that tracks projects and sends invoices",
+        "kind": "capability",
+        "expected_names": [
+          "HoneyBook"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 2.504792000000066,
+        "top_5": [
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Strong match",
+            "matched": [
+              "crm",
+              "projects",
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Dolibarr",
+            "slug": "dolibarr-8552e2d6",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Group Office",
+            "slug": "group-office-ef803d02",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "TimeTracker",
+            "slug": "timetracker-12081acd",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Billings Pro",
+            "slug": "billings-pro-5bab568a",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "invoicing and accounting",
+        "kind": "capability",
+        "expected_names": [
+          "FreshBooks",
+          "Wave"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.8192080000000033,
+        "top_5": [
+          {
+            "name": "FreshBooks",
+            "slug": "freshbooks",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing",
+              "accounting"
+            ]
+          },
+          {
+            "name": "Wave",
+            "slug": "wave",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing",
+              "accounting"
+            ]
+          },
+          {
+            "name": "Dubsado",
+            "slug": "dubsado",
+            "classification": "Partial match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Harvest",
+            "slug": "harvest",
+            "classification": "Partial match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Partial match",
+            "matched": [
+              "invoicing"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "workflow automation",
+        "kind": "capability",
+        "expected_names": [
+          "Make",
+          "Zapier",
+          "n8n"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.3452920000000859,
+        "top_5": [
+          {
+            "name": "n8n",
+            "slug": "n8n",
+            "classification": "Strong match",
+            "matched": [
+              "automation"
+            ]
+          },
+          {
+            "name": "Zapier",
+            "slug": "zapier",
+            "classification": "Strong match",
+            "matched": [
+              "automation"
+            ]
+          },
+          {
+            "name": "Make",
+            "slug": "make",
+            "classification": "Strong match",
+            "matched": [
+              "automation"
+            ]
+          },
+          {
+            "name": "StackStorm",
+            "slug": "stackstorm-ba75aa15",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Activepieces",
+            "slug": "activepieces-c3cf9630",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "password manager",
+        "kind": "capability",
+        "expected_names": [
+          "1Password",
+          "Bitwarden"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 2.0167920000000095,
+        "top_5": [
+          {
+            "name": "Bitwarden",
+            "slug": "bitwarden",
+            "classification": "Strong match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "1Password",
+            "slug": "1password",
+            "classification": "Strong match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "AliasVault",
+            "slug": "aliasvault-61194c11",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Bramble",
+            "slug": "bramble-c5365777",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Elpass",
+            "slug": "elpass-91de630e",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "customer support",
+        "kind": "capability",
+        "expected_names": [
+          "Intercom",
+          "Zendesk",
+          "lumora"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 2.1557920000000195,
+        "top_5": [
+          {
+            "name": "lumora",
+            "slug": "lumora-c0afa7ea",
+            "classification": "Strong match",
+            "matched": [
+              "support"
+            ]
+          },
+          {
+            "name": "Intercom",
+            "slug": "intercom",
+            "classification": "Strong match",
+            "matched": [
+              "support"
+            ]
+          },
+          {
+            "name": "Zendesk",
+            "slug": "zendesk",
+            "classification": "Strong match",
+            "matched": [
+              "support"
+            ]
+          },
+          {
+            "name": "Answer",
+            "slug": "answer-a05cba08",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Channel Works",
+            "slug": "channel-works-da5bb899",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "product analytics",
+        "kind": "capability",
+        "expected_names": [
+          "Plausible",
+          "PostHog",
+          "Sauron"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.4641660000000911,
+        "top_5": [
+          {
+            "name": "PostHog",
+            "slug": "posthog",
+            "classification": "Strong match",
+            "matched": [
+              "analytics"
+            ]
+          },
+          {
+            "name": "Sauron",
+            "slug": "sauron-1810b13a",
+            "classification": "Strong match",
+            "matched": [
+              "analytics"
+            ]
+          },
+          {
+            "name": "Plausible",
+            "slug": "plausible",
+            "classification": "Strong match",
+            "matched": [
+              "analytics"
+            ]
+          },
+          {
+            "name": "ANALOG",
+            "slug": "analog-eb3c5105",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Answer",
+            "slug": "answer-a05cba08",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "project management without invoicing",
+        "kind": "capability",
+        "expected_names": [
+          "Asana",
+          "ClickUp",
+          "Linear",
+          "Todoist",
+          "Trello"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 3.666832999999997,
+        "top_5": [
+          {
+            "name": "ClickUp",
+            "slug": "clickup",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Asana",
+            "slug": "asana",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Linear",
+            "slug": "linear",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Todoist",
+            "slug": "todoist",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Trello",
+            "slug": "trello",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "invocing",
+        "kind": "misspelling",
+        "expected_names": [
+          "FreshBooks",
+          "Wave",
+          "Harvest",
+          "HoneyBook",
+          "Dubsado"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.35408399999994344,
+        "top_5": [
+          {
+            "name": "Dubsado",
+            "slug": "dubsado",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "FreshBooks",
+            "slug": "freshbooks",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Harvest",
+            "slug": "harvest",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Wave",
+            "slug": "wave",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "schedueling",
+        "kind": "misspelling",
+        "expected_names": [
+          "Calendly",
+          "Dubsado",
+          "HoneyBook",
+          "lumora"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.601415999999972,
+        "top_5": [
+          {
+            "name": "Calendly",
+            "slug": "calendly",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "lumora",
+            "slug": "lumora-c0afa7ea",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "Dubsado",
+            "slug": "dubsado",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "Cal.diy",
+            "slug": "cal-diy-bc0ef195",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "clipboard history",
+        "kind": "lexical",
+        "expected_names": [
+          "ClipBook"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 2.10612500000002,
+        "top_5": [
+          {
+            "name": "ClipBook",
+            "slug": "clipbook-a3f28064",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ArchiveBox",
+            "slug": "archivebox-dbd55470",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "CleanClip",
+            "slug": "cleanclip-866410f1",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Clibor for Mac",
+            "slug": "clibor-for-mac-6d0e77f4",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ClipCascade",
+            "slug": "clipcascade-aaff9622",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "bookmark manager",
+        "kind": "lexical",
+        "expected_names": [
+          "Buku",
+          "Betula",
+          "Faved"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.5653330000000096,
+        "top_5": [
+          {
+            "name": "Betula",
+            "slug": "betula-6cf27cf2",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Buku",
+            "slug": "buku-c2d69133",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Faved",
+            "slug": "faved-51ef3a02",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Raindrop.io",
+            "slug": "raindrop-io-96127608",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Readeck",
+            "slug": "readeck-d79c5bca",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "terminal emulator",
+        "kind": "lexical",
+        "expected_names": [
+          "Archipelago",
+          "Canario",
+          "Contour",
+          "Rio"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.8449170000000095,
+        "top_5": [
+          {
+            "name": "Archipelago",
+            "slug": "archipelago-77cdefb0",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Canario",
+            "slug": "canario-0b32d5ec",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Contour",
+            "slug": "contour-207dbfd6",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "kitty",
+            "slug": "kitty-7e7b78e1",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Otty",
+            "slug": "otty-78e3935d",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "RSS feed reader",
+        "kind": "lexical",
+        "expected_names": [
+          "Bubo Reader",
+          "NetNewsWire"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.1325839999999516,
+        "top_5": [
+          {
+            "name": "Bubo Reader",
+            "slug": "bubo-reader-cc2d3b72",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Tiny Tiny RSS",
+            "slug": "tiny-tiny-rss-de9b8043",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Yarr",
+            "slug": "yarr-7508688a",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "bewCloud",
+            "slug": "bewcloud-2a044621",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Cypht",
+            "slug": "cypht-bf1511a3",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "recipe manager",
+        "kind": "lexical",
+        "expected_names": [
+          "Mealie",
+          "Recipya",
+          "Tamari",
+          "Vanilla Cookbook"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.3730410000000575,
+        "top_5": [
+          {
+            "name": "Mealie",
+            "slug": "mealie-6c0a1ce4",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Recipya",
+            "slug": "recipya-24b86001",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Tamari",
+            "slug": "tamari-3d7d8c23",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Vanilla Cookbook",
+            "slug": "vanilla-cookbook-6ab76071",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "RecipeSage",
+            "slug": "recipesage-9704dc90",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "focus timer kanban",
+        "kind": "lexical",
+        "expected_names": [
+          "TriggerFlo"
+        ],
+        "first_expected_rank": 7,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.4005839999999807,
+        "top_5": [
+          {
+            "name": "Asana",
+            "slug": "asana",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "ClickUp",
+            "slug": "clickup",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Linear",
+            "slug": "linear",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Todoist",
+            "slug": "todoist",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "file synchronisation",
+        "kind": "lexical",
+        "expected_names": [
+          "Syncthing"
+        ],
+        "first_expected_rank": 2,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.5670000000000073,
+        "top_5": [
+          {
+            "name": "GoodSync",
+            "slug": "goodsync-13269bf1",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Syncthing",
+            "slug": "syncthing-dbed6996",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "015",
+            "slug": "015-9bafce6e",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Advanced Renamer",
+            "slug": "advanced-renamer-b9cc83d0",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "blip",
+            "slug": "blip-a6005dca",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "PDF converter OCR",
+        "kind": "lexical",
+        "expected_names": [
+          "Cisdem PDF Converter OCR",
+          "ABBYY FineReader PDF"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.184541999999965,
+        "top_5": [
+          {
+            "name": "Cisdem PDF Converter OCR",
+            "slug": "cisdem-pdf-converter-ocr-cc7d785d",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ABBYY FineReader PDF",
+            "slug": "abbyy-finereader-pdf-0ecd123f",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Bindery",
+            "slug": "bindery-f60d659a",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "PDF Reader Pro",
+            "slug": "pdf-reader-pro-cddb4ee3",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Stirling-PDF",
+            "slug": "stirling-pdf-a368faa9",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "offline CRM for dentists",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.8384999999999536,
+        "top_5": [
+          {
+            "name": "HubSpot",
+            "slug": "hubspot",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "Pipedrive",
+            "slug": "pipedrive",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "Zoho CRM",
+            "slug": "zoho-crm",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "lumora",
+            "slug": "lumora-c0afa7ea",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "password manager that translates dolphin thoughts",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.7163329999999632,
+        "top_5": [
+          {
+            "name": "Bitwarden",
+            "slug": "bitwarden",
+            "classification": "Partial match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "1Password",
+            "slug": "1password",
+            "classification": "Partial match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "AliasVault",
+            "slug": "aliasvault-61194c11",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Bramble",
+            "slug": "bramble-c5365777",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Elpass",
+            "slug": "elpass-91de630e",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "HIPAA meeting transcription",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.4886659999999665,
+        "top_5": [
+          {
+            "name": "Enzo",
+            "slug": "enzo-af96c4a3",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "tl;dv",
+            "slug": "tl-dv",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "Otter",
+            "slug": "otter",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "Biscotti",
+            "slug": "biscotti-06a7c43b",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "GhostPepper",
+            "slug": "ghostpepper-3f355c95",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "free project management",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 2.6371669999999767,
+        "top_5": [
+          {
+            "name": "ClickUp",
+            "slug": "clickup",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Asana",
+            "slug": "asana",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Linear",
+            "slug": "linear",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Todoist",
+            "slug": "todoist",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Trello",
+            "slug": "trello",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "encrypted cloud storage",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 1.7803750000000491,
+        "top_5": [
+          {
+            "name": "Dropbox",
+            "slug": "dropbox",
+            "classification": "Partial match",
+            "matched": [
+              "storage"
+            ]
+          },
+          {
+            "name": "Egnyte",
+            "slug": "egnyte-fe4dc267",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ExpanDrive",
+            "slug": "expandrive-a7cd67ed",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Hubzilla",
+            "slug": "hubzilla-dcf5bb5f",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Jottacloud",
+            "slug": "jottacloud-08498880",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "quantum telepathy dolphin translator",
+        "kind": "empty",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [
+          "expected_empty"
+        ],
+        "error": null,
+        "elapsed_ms": 0.3597090000000662,
+        "top_5": [
+          {
+            "name": "DeepL",
+            "slug": "deepl-8cd8841d",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Easydict",
+            "slug": "easydict-10d4bb3f",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Koharu",
+            "slug": "koharu-f4cc16c0",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Nani Translate",
+            "slug": "nani-translate-bb056ba5",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "PLaMo Translate",
+            "slug": "plamo-translate-456d8567",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "zzqvzxwqnonexistent",
+        "kind": "empty",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 0.055292000000008557,
+        "top_5": []
+      }
+    ],
+    "browser_snapshot": [
+      {
+        "query": "Otter",
+        "kind": "name",
+        "expected_names": [
+          "Otter"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 16.587790999999925,
+        "top_5": [
+          {
+            "name": "Otter",
+            "slug": "otter",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "Otter Wiki",
+            "slug": "otter-wiki-affb0462",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "Make",
+        "kind": "name",
+        "expected_names": [
+          "Make"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.320958000000019,
+        "top_5": [
+          {
+            "name": "Make",
+            "slug": "make",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "BookWright",
+            "slug": "bookwright-d5bc6436",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "CKAN",
+            "slug": "ckan-02b05e29",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "DevToys",
+            "slug": "devtoys-94871261",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Firefly III",
+            "slug": "firefly-iii-532ee752",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "Buffer",
+        "kind": "name",
+        "expected_names": [
+          "Buffer"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.590667000000053,
+        "top_5": [
+          {
+            "name": "Buffer",
+            "slug": "buffer",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "Wave",
+        "kind": "name",
+        "expected_names": [
+          "Wave"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.584334000000013,
+        "top_5": [
+          {
+            "name": "Wave",
+            "slug": "wave",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "LHA",
+            "slug": "lha-5020820c",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Wave Terminal",
+            "slug": "wave-terminal-071eae08",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "1Password",
+        "kind": "name",
+        "expected_names": [
+          "1Password"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.35287500000004,
+        "top_5": [
+          {
+            "name": "1Password",
+            "slug": "1password",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "015",
+        "kind": "name",
+        "expected_names": [
+          "015"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.554916000000048,
+        "top_5": [
+          {
+            "name": "015",
+            "slug": "015-9bafce6e",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "n8n",
+        "kind": "name",
+        "expected_names": [
+          "n8n"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.072917000000075,
+        "top_5": [
+          {
+            "name": "n8n",
+            "slug": "n8n",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "tl;dv",
+        "kind": "name",
+        "expected_names": [
+          "tl;dv"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.119166999999948,
+        "top_5": [
+          {
+            "name": "tl;dv",
+            "slug": "tl-dv",
+            "classification": "Strong match",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "像素蛋糕",
+        "kind": "name",
+        "expected_names": [
+          "像素蛋糕"
+        ],
+        "first_expected_rank": null,
+        "failures": [
+          "search_error",
+          "no_expected_top10",
+          "expected_name_not_first"
+        ],
+        "error": "Error: Describe an idea using 2–500 characters and a valid page.",
+        "elapsed_ms": 0.18916699999999764,
+        "top_5": []
+      },
+      {
+        "query": "Cycling ‘74 Max",
+        "kind": "name",
+        "expected_names": [
+          "Cycling ‘74 Max"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.144042000000013,
+        "top_5": [
+          {
+            "name": "Cycling ‘74 Max",
+            "slug": "cycling-74-max-63d3d11f",
+            "classification": "Strong match",
+            "matched": []
+          },
+          {
+            "name": "ROUVY",
+            "slug": "rouvy-49f583dc",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "TrainerRoad",
+            "slug": "trainerroad-f8ac9ada",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "P4Merge",
+        "kind": "alias",
+        "expected_names": [
+          "Perforce Helix Visual Client"
+        ],
+        "first_expected_rank": null,
+        "failures": [
+          "no_expected_top10",
+          "expected_name_not_first"
+        ],
+        "error": null,
+        "elapsed_ms": 13.246250000000032,
+        "top_5": []
+      },
+      {
+        "query": "WaveTerm",
+        "kind": "alias",
+        "expected_names": [
+          "Wave Terminal"
+        ],
+        "first_expected_rank": null,
+        "failures": [
+          "no_expected_top10",
+          "expected_name_not_first"
+        ],
+        "error": null,
+        "elapsed_ms": 14.598250000000007,
+        "top_5": []
+      },
+      {
+        "query": "PixCake",
+        "kind": "alias",
+        "expected_names": [
+          "像素蛋糕"
+        ],
+        "first_expected_rank": null,
+        "failures": [
+          "no_expected_top10",
+          "expected_name_not_first"
+        ],
+        "error": null,
+        "elapsed_ms": 13.218875000000025,
+        "top_5": []
+      },
+      {
+        "query": "KekaDefaultApp",
+        "kind": "alias",
+        "expected_names": [
+          "Keka External Helper"
+        ],
+        "first_expected_rank": null,
+        "failures": [
+          "no_expected_top10",
+          "expected_name_not_first"
+        ],
+        "error": null,
+        "elapsed_ms": 15.011792000000014,
+        "top_5": []
+      },
+      {
+        "query": "EmulationStation Desktop Edition",
+        "kind": "alias",
+        "expected_names": [
+          "ES-DE"
+        ],
+        "first_expected_rank": null,
+        "failures": [
+          "no_expected_top10",
+          "expected_name_not_first"
+        ],
+        "error": null,
+        "elapsed_ms": 14.790707999999995,
+        "top_5": [
+          {
+            "name": "Burp Suite Community Edition",
+            "slug": "burp-suite-community-edition-4d5db9f3",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "DBeaver Community Edition",
+            "slug": "dbeaver-community-edition-c3e08e13",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Studio 3T Community Edition",
+            "slug": "studio-3t-community-edition-f04a4ec2",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "4K Image Compressor",
+            "slug": "4k-image-compressor-2755139b",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "4K Tokkit",
+            "slug": "4k-tokkit-82c22598",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "meeting transcription and action items",
+        "kind": "capability",
+        "expected_names": [
+          "Otter",
+          "tl;dv"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.225459,
+        "top_5": [
+          {
+            "name": "tl;dv",
+            "slug": "tl-dv",
+            "classification": "Strong match",
+            "matched": [
+              "meetings",
+              "action-items"
+            ]
+          },
+          {
+            "name": "Otter",
+            "slug": "otter",
+            "classification": "Strong match",
+            "matched": [
+              "meetings",
+              "action-items"
+            ]
+          },
+          {
+            "name": "Enzo",
+            "slug": "enzo-af96c4a3",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "Fathom",
+            "slug": "fathom",
+            "classification": "Partial match",
+            "matched": [
+              "action-items"
+            ]
+          },
+          {
+            "name": "Fireflies",
+            "slug": "fireflies",
+            "classification": "Partial match",
+            "matched": [
+              "action-items"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "a CRM that tracks projects and sends invoices",
+        "kind": "capability",
+        "expected_names": [
+          "HoneyBook"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.795583000000079,
+        "top_5": [
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Strong match",
+            "matched": [
+              "crm",
+              "projects",
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Dolibarr",
+            "slug": "dolibarr-8552e2d6",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Group Office",
+            "slug": "group-office-ef803d02",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "TimeTracker",
+            "slug": "timetracker-12081acd",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Airfoil",
+            "slug": "airfoil-f60f675a",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "invoicing and accounting",
+        "kind": "capability",
+        "expected_names": [
+          "FreshBooks",
+          "Wave"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.167667000000051,
+        "top_5": [
+          {
+            "name": "FreshBooks",
+            "slug": "freshbooks",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing",
+              "accounting"
+            ]
+          },
+          {
+            "name": "Wave",
+            "slug": "wave",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing",
+              "accounting"
+            ]
+          },
+          {
+            "name": "Dubsado",
+            "slug": "dubsado",
+            "classification": "Partial match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Harvest",
+            "slug": "harvest",
+            "classification": "Partial match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Partial match",
+            "matched": [
+              "invoicing"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "workflow automation",
+        "kind": "capability",
+        "expected_names": [
+          "Make",
+          "Zapier",
+          "n8n"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.69741699999986,
+        "top_5": [
+          {
+            "name": "n8n",
+            "slug": "n8n",
+            "classification": "Strong match",
+            "matched": [
+              "automation"
+            ]
+          },
+          {
+            "name": "Zapier",
+            "slug": "zapier",
+            "classification": "Strong match",
+            "matched": [
+              "automation"
+            ]
+          },
+          {
+            "name": "Make",
+            "slug": "make",
+            "classification": "Strong match",
+            "matched": [
+              "automation"
+            ]
+          },
+          {
+            "name": "StackStorm",
+            "slug": "stackstorm-ba75aa15",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Activepieces",
+            "slug": "activepieces-c3cf9630",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "password manager",
+        "kind": "capability",
+        "expected_names": [
+          "1Password",
+          "Bitwarden"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.48808299999996,
+        "top_5": [
+          {
+            "name": "Bitwarden",
+            "slug": "bitwarden",
+            "classification": "Strong match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "1Password",
+            "slug": "1password",
+            "classification": "Strong match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "AliasVault",
+            "slug": "aliasvault-61194c11",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Bramble",
+            "slug": "bramble-c5365777",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Elpass",
+            "slug": "elpass-91de630e",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "customer support",
+        "kind": "capability",
+        "expected_names": [
+          "Intercom",
+          "Zendesk",
+          "lumora"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.418333999999959,
+        "top_5": [
+          {
+            "name": "lumora",
+            "slug": "lumora-c0afa7ea",
+            "classification": "Strong match",
+            "matched": [
+              "support"
+            ]
+          },
+          {
+            "name": "Intercom",
+            "slug": "intercom",
+            "classification": "Strong match",
+            "matched": [
+              "support"
+            ]
+          },
+          {
+            "name": "Zendesk",
+            "slug": "zendesk",
+            "classification": "Strong match",
+            "matched": [
+              "support"
+            ]
+          },
+          {
+            "name": "Answer",
+            "slug": "answer-a05cba08",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Channel Works",
+            "slug": "channel-works-da5bb899",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "product analytics",
+        "kind": "capability",
+        "expected_names": [
+          "Plausible",
+          "PostHog",
+          "Sauron"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.728667000000087,
+        "top_5": [
+          {
+            "name": "PostHog",
+            "slug": "posthog",
+            "classification": "Strong match",
+            "matched": [
+              "analytics"
+            ]
+          },
+          {
+            "name": "Sauron",
+            "slug": "sauron-1810b13a",
+            "classification": "Strong match",
+            "matched": [
+              "analytics"
+            ]
+          },
+          {
+            "name": "Plausible",
+            "slug": "plausible",
+            "classification": "Strong match",
+            "matched": [
+              "analytics"
+            ]
+          },
+          {
+            "name": "ANALOG",
+            "slug": "analog-eb3c5105",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Answer",
+            "slug": "answer-a05cba08",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "project management without invoicing",
+        "kind": "capability",
+        "expected_names": [
+          "Asana",
+          "ClickUp",
+          "Linear",
+          "Todoist",
+          "Trello"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.973124999999982,
+        "top_5": [
+          {
+            "name": "ClickUp",
+            "slug": "clickup",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Asana",
+            "slug": "asana",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Linear",
+            "slug": "linear",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Todoist",
+            "slug": "todoist",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Trello",
+            "slug": "trello",
+            "classification": "Strong match",
+            "matched": [
+              "projects"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "invocing",
+        "kind": "misspelling",
+        "expected_names": [
+          "FreshBooks",
+          "Wave",
+          "Harvest",
+          "HoneyBook",
+          "Dubsado"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.364334000000099,
+        "top_5": [
+          {
+            "name": "Dubsado",
+            "slug": "dubsado",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "FreshBooks",
+            "slug": "freshbooks",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Harvest",
+            "slug": "harvest",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          },
+          {
+            "name": "Wave",
+            "slug": "wave",
+            "classification": "Strong match",
+            "matched": [
+              "invoicing"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "schedueling",
+        "kind": "misspelling",
+        "expected_names": [
+          "Calendly",
+          "Dubsado",
+          "HoneyBook",
+          "lumora"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.013084000000163,
+        "top_5": [
+          {
+            "name": "Calendly",
+            "slug": "calendly",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "lumora",
+            "slug": "lumora-c0afa7ea",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "Dubsado",
+            "slug": "dubsado",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Strong match",
+            "matched": [
+              "scheduling"
+            ]
+          },
+          {
+            "name": "Cal.diy",
+            "slug": "cal-diy-bc0ef195",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "clipboard history",
+        "kind": "lexical",
+        "expected_names": [
+          "ClipBook"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 15.653708000000051,
+        "top_5": [
+          {
+            "name": "ClipBook",
+            "slug": "clipbook-a3f28064",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ArchiveBox",
+            "slug": "archivebox-dbd55470",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "CleanClip",
+            "slug": "cleanclip-866410f1",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Clibor for Mac",
+            "slug": "clibor-for-mac-6d0e77f4",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ClipCascade",
+            "slug": "clipcascade-aaff9622",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "bookmark manager",
+        "kind": "lexical",
+        "expected_names": [
+          "Buku",
+          "Betula",
+          "Faved"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.780499999999847,
+        "top_5": [
+          {
+            "name": "Betula",
+            "slug": "betula-6cf27cf2",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Buku",
+            "slug": "buku-c2d69133",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Faved",
+            "slug": "faved-51ef3a02",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Raindrop.io",
+            "slug": "raindrop-io-96127608",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Readeck",
+            "slug": "readeck-d79c5bca",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "terminal emulator",
+        "kind": "lexical",
+        "expected_names": [
+          "Archipelago",
+          "Canario",
+          "Contour",
+          "Rio"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 15.45720899999992,
+        "top_5": [
+          {
+            "name": "Archipelago",
+            "slug": "archipelago-77cdefb0",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Canario",
+            "slug": "canario-0b32d5ec",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Contour",
+            "slug": "contour-207dbfd6",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "kitty",
+            "slug": "kitty-7e7b78e1",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Otty",
+            "slug": "otty-78e3935d",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "RSS feed reader",
+        "kind": "lexical",
+        "expected_names": [
+          "Bubo Reader",
+          "NetNewsWire"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.268165999999837,
+        "top_5": [
+          {
+            "name": "Bubo Reader",
+            "slug": "bubo-reader-cc2d3b72",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Tiny Tiny RSS",
+            "slug": "tiny-tiny-rss-de9b8043",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Yarr",
+            "slug": "yarr-7508688a",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "bewCloud",
+            "slug": "bewcloud-2a044621",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Cypht",
+            "slug": "cypht-bf1511a3",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "recipe manager",
+        "kind": "lexical",
+        "expected_names": [
+          "Mealie",
+          "Recipya",
+          "Tamari",
+          "Vanilla Cookbook"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.056708999999955,
+        "top_5": [
+          {
+            "name": "Mealie",
+            "slug": "mealie-6c0a1ce4",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Recipya",
+            "slug": "recipya-24b86001",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Tamari",
+            "slug": "tamari-3d7d8c23",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Vanilla Cookbook",
+            "slug": "vanilla-cookbook-6ab76071",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "RecipeSage",
+            "slug": "recipesage-9704dc90",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "focus timer kanban",
+        "kind": "lexical",
+        "expected_names": [
+          "TriggerFlo"
+        ],
+        "first_expected_rank": 7,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.960542000000032,
+        "top_5": [
+          {
+            "name": "Asana",
+            "slug": "asana",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "ClickUp",
+            "slug": "clickup",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Linear",
+            "slug": "linear",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Todoist",
+            "slug": "todoist",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "file synchronisation",
+        "kind": "lexical",
+        "expected_names": [
+          "Syncthing"
+        ],
+        "first_expected_rank": 2,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.642333999999892,
+        "top_5": [
+          {
+            "name": "GoodSync",
+            "slug": "goodsync-13269bf1",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Syncthing",
+            "slug": "syncthing-dbed6996",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "015",
+            "slug": "015-9bafce6e",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "1time",
+            "slug": "1time-fe602b24",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "A Better Finder Attributes",
+            "slug": "a-better-finder-attributes-c01376bf",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "PDF converter OCR",
+        "kind": "lexical",
+        "expected_names": [
+          "Cisdem PDF Converter OCR",
+          "ABBYY FineReader PDF"
+        ],
+        "first_expected_rank": 1,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 15.136707999999999,
+        "top_5": [
+          {
+            "name": "Cisdem PDF Converter OCR",
+            "slug": "cisdem-pdf-converter-ocr-cc7d785d",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ABBYY FineReader PDF",
+            "slug": "abbyy-finereader-pdf-0ecd123f",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Bindery",
+            "slug": "bindery-f60d659a",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "PDF Reader Pro",
+            "slug": "pdf-reader-pro-cddb4ee3",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Stirling-PDF",
+            "slug": "stirling-pdf-a368faa9",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "offline CRM for dentists",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 13.2622080000001,
+        "top_5": [
+          {
+            "name": "HubSpot",
+            "slug": "hubspot",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "Pipedrive",
+            "slug": "pipedrive",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "Zoho CRM",
+            "slug": "zoho-crm",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "HoneyBook",
+            "slug": "honeybook",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          },
+          {
+            "name": "lumora",
+            "slug": "lumora-c0afa7ea",
+            "classification": "Partial match",
+            "matched": [
+              "crm"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "password manager that translates dolphin thoughts",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 17.238583000000062,
+        "top_5": [
+          {
+            "name": "Bitwarden",
+            "slug": "bitwarden",
+            "classification": "Partial match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "1Password",
+            "slug": "1password",
+            "classification": "Partial match",
+            "matched": [
+              "passwords"
+            ]
+          },
+          {
+            "name": "AliasVault",
+            "slug": "aliasvault-61194c11",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Bramble",
+            "slug": "bramble-c5365777",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Elpass",
+            "slug": "elpass-91de630e",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "HIPAA meeting transcription",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 12.930292000000009,
+        "top_5": [
+          {
+            "name": "Enzo",
+            "slug": "enzo-af96c4a3",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "tl;dv",
+            "slug": "tl-dv",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "Otter",
+            "slug": "otter",
+            "classification": "Partial match",
+            "matched": [
+              "meetings"
+            ]
+          },
+          {
+            "name": "Biscotti",
+            "slug": "biscotti-06a7c43b",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "GhostPepper",
+            "slug": "ghostpepper-3f355c95",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "free project management",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.213750000000118,
+        "top_5": [
+          {
+            "name": "ClickUp",
+            "slug": "clickup",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Asana",
+            "slug": "asana",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Linear",
+            "slug": "linear",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Todoist",
+            "slug": "todoist",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          },
+          {
+            "name": "Trello",
+            "slug": "trello",
+            "classification": "Partial match",
+            "matched": [
+              "projects"
+            ]
+          }
+        ]
+      },
+      {
+        "query": "encrypted cloud storage",
+        "kind": "unsupported",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 15.097041999999874,
+        "top_5": [
+          {
+            "name": "Dropbox",
+            "slug": "dropbox",
+            "classification": "Partial match",
+            "matched": [
+              "storage"
+            ]
+          },
+          {
+            "name": "Egnyte",
+            "slug": "egnyte-fe4dc267",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "ExpanDrive",
+            "slug": "expandrive-a7cd67ed",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Hubzilla",
+            "slug": "hubzilla-dcf5bb5f",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Jottacloud",
+            "slug": "jottacloud-08498880",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "quantum telepathy dolphin translator",
+        "kind": "empty",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [
+          "expected_empty"
+        ],
+        "error": null,
+        "elapsed_ms": 13.29295900000011,
+        "top_5": [
+          {
+            "name": "DeepL",
+            "slug": "deepl-8cd8841d",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Easydict",
+            "slug": "easydict-10d4bb3f",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Koharu",
+            "slug": "koharu-f4cc16c0",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "Nani Translate",
+            "slug": "nani-translate-bb056ba5",
+            "classification": "Related product",
+            "matched": []
+          },
+          {
+            "name": "PLaMo Translate",
+            "slug": "plamo-translate-456d8567",
+            "classification": "Related product",
+            "matched": []
+          }
+        ]
+      },
+      {
+        "query": "zzqvzxwqnonexistent",
+        "kind": "empty",
+        "expected_names": [],
+        "first_expected_rank": null,
+        "failures": [],
+        "error": null,
+        "elapsed_ms": 14.766333999999915,
+        "top_5": []
+      }
+    ]
+  }
+}

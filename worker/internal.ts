@@ -1,4 +1,6 @@
 import { Hono } from "hono";
+import { ingestionUnits, reserveIngestion } from "./ingestion-budget";
+import { quotaResponse } from "./availability";
 import type { AppEnv } from "./security";
 import { ingestSchema, moderationSchema } from "./validation";
 import { hydrate, PRODUCT_SELECT, type ProductRow } from "./catalog";
@@ -11,20 +13,36 @@ internal.post("/maintenance", async (c) => {
   )
     .bind(name)
     .first();
-  if (exists) return c.json({ status: "ready" });
-  const statements = [
-    "CREATE INDEX IF NOT EXISTS product_sources_product ON product_sources(product_id)",
-    "CREATE INDEX IF NOT EXISTS product_aliases_canonical ON product_url_aliases(canonical_url)",
-    "CREATE INDEX IF NOT EXISTS published_name ON products(status,name,id)",
-    "CREATE INDEX IF NOT EXISTS published_recent ON products(status,first_seen_at DESC,id DESC)",
-    "CREATE INDEX IF NOT EXISTS candidate_canonical ON ingestion_candidates(canonical_url,status,next_retry_at)",
-  ];
-  await c.env.DB.batch([
-    ...statements.map((sql) => c.env.DB.prepare(sql)),
-    c.env.DB.prepare(
-      "INSERT OR IGNORE INTO d1_migrations(name) VALUES(?)",
-    ).bind(name),
-  ]);
+  if (!exists) {
+    const statements = [
+      "CREATE INDEX IF NOT EXISTS product_sources_product ON product_sources(product_id)",
+      "CREATE INDEX IF NOT EXISTS product_aliases_canonical ON product_url_aliases(canonical_url)",
+      "CREATE INDEX IF NOT EXISTS published_name ON products(status,name,id)",
+      "CREATE INDEX IF NOT EXISTS published_recent ON products(status,first_seen_at DESC,id DESC)",
+      "CREATE INDEX IF NOT EXISTS candidate_canonical ON ingestion_candidates(canonical_url,status,next_retry_at)",
+    ];
+    await c.env.DB.batch([
+      ...statements.map((sql) => c.env.DB.prepare(sql)),
+      c.env.DB.prepare(
+        "INSERT OR IGNORE INTO d1_migrations(name) VALUES(?)",
+      ).bind(name),
+    ]);
+  }
+  const budgetName = "0011_ingestion_budget.sql";
+  const budgetExists = await c.env.DB.prepare(
+    "SELECT name FROM d1_migrations WHERE name=?",
+  )
+    .bind(budgetName)
+    .first();
+  if (!budgetExists)
+    await c.env.DB.batch([
+      c.env.DB.prepare(
+        "CREATE TABLE IF NOT EXISTS ingestion_daily_budget(day TEXT PRIMARY KEY,reserved_units INTEGER NOT NULL CHECK(reserved_units>=0))",
+      ),
+      c.env.DB.prepare(
+        "INSERT OR IGNORE INTO d1_migrations(name) VALUES(?)",
+      ).bind(budgetName),
+    ]);
   return c.json({ status: "ready" });
 });
 internal.get("/pending", async (c) => {
@@ -425,6 +443,21 @@ internal.post("/ingest", async (c) => {
       },
       400,
     );
+  if (!(await reserveIngestion(db, ingestionUnits(b)))) {
+    const { error, retry } = quotaResponse();
+    c.header("Retry-After", String(retry));
+    return c.json(
+      {
+        error: {
+          code: "ingestion_daily_budget",
+          message:
+            "Automatic imports have reached this project’s daily safety budget. Resume after 00:00 UTC; browsing and moderation remain available when D1 is healthy.",
+          reset_at: error.reset_at,
+        },
+      },
+      429,
+    );
+  }
   if (statements.length) await db.batch(statements);
   return c.json({
     status: "accepted",

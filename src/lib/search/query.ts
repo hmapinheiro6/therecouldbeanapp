@@ -19,17 +19,21 @@ const corrections: Record<string, string> = {
   followup: "follow up",
 };
 export function normalize(input: string) {
-  return input
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/['’]/g, "")
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(/\s+/)
-    .map((w) => corrections[w] ?? w)
-    .join(" ")
-    .trim()
-    .replace(/\s+/g, " ");
+  return (
+    input
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/['’]/g, "")
+      // FTS5 unicode61 indexes non-Latin product names too. Keep their letters
+      // and digits instead of silently turning a valid name into an empty query.
+      .replace(/[^\p{L}\p{N}\s]/gu, " ")
+      .split(/\s+/)
+      .map((w) => corrections[w] ?? w)
+      .join(" ")
+      .trim()
+      .replace(/\s+/g, " ")
+  );
 }
 // Immutable vocabulary preprocessing avoids hundreds of repeated normalizations per request.
 const normalizedSynonyms = Object.entries(synonyms).map(

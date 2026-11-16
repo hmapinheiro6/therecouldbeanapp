@@ -40,7 +40,7 @@ class InternalClient:
             except urllib.error.HTTPError as e:
                 try:error=json.loads(e.read(8192)).get('error',{});message=error.get('message','Request failed')
                 except (ValueError,AttributeError):error={};message='Request failed'
-                if error.get('code')=='database_daily_limit' or e.code not in (429,500,502,503,504) or attempt==2:
+                if error.get('code') in ('database_daily_limit','ingestion_daily_budget') or e.code not in (429,500,502,503,504) or attempt==2:
                     raise InternalAPIError(e.code,message) from None
             except urllib.error.URLError:
                 if attempt==2:raise RuntimeError('Internal API connection failed') from None

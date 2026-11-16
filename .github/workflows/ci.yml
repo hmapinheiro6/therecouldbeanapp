@@ -29,7 +29,9 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: python -m pytest tests/ingestion -q
+      - run: python scripts/benchmark-query-cost.py
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - run: npm run benchmark
+      - run: npm run benchmark:catalog

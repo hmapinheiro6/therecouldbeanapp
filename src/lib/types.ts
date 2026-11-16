@@ -12,6 +12,7 @@ export interface Product {
   canonical_url: string;
   normalized_domain: string;
   short_description: string;
+  search_aliases?: string;
   category: string;
   category_slug: string;
   audience: string;

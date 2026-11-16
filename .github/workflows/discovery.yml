@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: discovery
+  group: catalog-writes
   cancel-in-progress: false
 jobs:
   discover:

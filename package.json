@@ -16,6 +16,8 @@
     "db:seed": "wrangler d1 execute DB --local --file=data/seeds/catalog.sql",
     "db:rebuild": "wrangler d1 execute DB --local --file=scripts/rebuild-fts.sql",
     "benchmark": "tsx scripts/benchmark.ts",
+    "benchmark:catalog": "node --import tsx scripts/benchmark-full-catalog.ts",
+    "benchmark:budget": "python3 scripts/benchmark-query-cost.py",
     "deploy": "npm run build && wrangler deploy",
     "cf:types": "wrangler types"
   },

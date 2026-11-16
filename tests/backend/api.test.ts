@@ -13,6 +13,10 @@ import { Miniflare } from "miniflare";
 import { readFileSync, readdirSync } from "node:fs";
 import { app } from "../../worker/index";
 import { digest, hmac, type Bindings } from "../../worker/security";
+import {
+  DAILY_INGESTION_UNITS,
+  reserveIngestion,
+} from "../../worker/ingestion-budget";
 let mf: Miniflare, env: Bindings;
 const secret = "test-internal-secret-at-least-32-characters";
 async function signed(
@@ -836,6 +840,7 @@ it("lets signed scheduled maintenance install the read-budget indexes exactly on
     "candidate_canonical",
   ])
     await env.DB.prepare(`DROP INDEX ${name}`).run();
+  await env.DB.prepare("DROP TABLE ingestion_daily_budget").run();
   const response = await app.request(
     await signed("/api/internal/maintenance", {}),
     {},
@@ -854,4 +859,73 @@ it("lets signed scheduled maintenance install the read-budget indexes exactly on
     "SELECT name FROM sqlite_master WHERE type='index' AND name IN ('product_sources_product','product_aliases_canonical','published_name','published_recent','candidate_canonical')",
   ).all();
   expect(indexes.results).toHaveLength(5);
+  expect(
+    await env.DB.prepare(
+      "SELECT count(*) n FROM d1_migrations WHERE name='0011_ingestion_budget.sql'",
+    ).first<{ n: number }>(),
+  ).toEqual({ n: 1 });
+});
+
+it("shares an atomic ingestion allowance across jobs and resumes in a new UTC day", async () => {
+  const today = new Date().toISOString().slice(0, 10);
+  await env.DB.prepare("DELETE FROM ingestion_daily_budget WHERE day=?")
+    .bind(today)
+    .run();
+  const outcomes = await Promise.all([
+    reserveIngestion(env.DB, 12000),
+    reserveIngestion(env.DB, 12000),
+  ]);
+  expect(outcomes.filter(Boolean)).toHaveLength(1);
+  const used = await env.DB.prepare(
+    "SELECT reserved_units n FROM ingestion_daily_budget WHERE day=?",
+  )
+    .bind(today)
+    .first<{ n: number }>();
+  expect(used?.n).toBe(12000);
+  expect(
+    await reserveIngestion(
+      env.DB,
+      DAILY_INGESTION_UNITS,
+      new Date("2099-01-02T00:00:00Z"),
+    ),
+  ).toBe(true);
+  expect(
+    await reserveIngestion(env.DB, 1, new Date("2099-01-02T23:59:59Z")),
+  ).toBe(false);
+  expect(
+    await reserveIngestion(env.DB, 1, new Date("2099-01-03T00:00:00Z")),
+  ).toBe(true);
+  await env.DB.prepare(
+    "UPDATE ingestion_daily_budget SET reserved_units=? WHERE day=?",
+  )
+    .bind(DAILY_INGESTION_UNITS, today)
+    .run();
+  const response = await app.request(
+    await signed("/api/internal/ingest", {
+      run: {
+        id: crypto.randomUUID(),
+        source_name: "budget-test",
+        started_at: new Date().toISOString(),
+        completed_at: null,
+        status: "running",
+        candidates_found: 0,
+        records_accepted: 0,
+        records_rejected: 0,
+        records_pending: 0,
+        error_summary: null,
+      },
+    }),
+    {},
+    env,
+  );
+  expect(response.status).toBe(429);
+  expect(
+    ((await response.json()) as { error: { code: string } }).error.code,
+  ).toBe("ingestion_daily_budget");
+  expect(Number(response.headers.get("Retry-After"))).toBeGreaterThan(0);
+  expect(
+    await env.DB.prepare(
+      "SELECT count(*) n FROM ingestion_runs WHERE source_name='budget-test'",
+    ).first<{ n: number }>(),
+  ).toEqual({ n: 0 });
 });

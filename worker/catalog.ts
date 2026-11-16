@@ -2,7 +2,7 @@ import type { Product, Capability } from "../src/lib/types";
 export interface ProductRow extends Omit<Product, "capabilities" | "sources"> {
   bm25: number;
 }
-export const PRODUCT_SELECT = `SELECT p.id,p.slug,p.name,p.canonical_url,p.normalized_domain,p.short_description,p.audience,p.first_seen_at,p.announced_at,p.last_verified_at,p.verification_scope,p.identity_evidence_url,p.identity_evidence_text,c.name category,c.slug category_slug`;
+export const PRODUCT_SELECT = `SELECT p.id,p.slug,p.name,p.canonical_url,p.normalized_domain,p.short_description,p.search_aliases,p.audience,p.first_seen_at,p.announced_at,p.last_verified_at,p.verification_scope,p.identity_evidence_url,p.identity_evidence_text,c.name category,c.slug category_slug`;
 export async function hydrate(db: D1Database, rows: ProductRow[]) {
   if (!rows.length) return [];
   const ids = rows.map((p) => p.id);

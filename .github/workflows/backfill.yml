@@ -17,7 +17,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: catalog-${{ inputs.source || (github.event.schedule == '45 2 * * *' && 'selfhosted') || 'homebrew' }}
+  group: catalog-writes
   cancel-in-progress: false
 jobs:
   backfill:

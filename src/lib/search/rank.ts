@@ -5,6 +5,7 @@ export const WEIGHTS = {
   missing: 20,
   bm25: 6,
   exactName: 130,
+  nameAlias: 75,
   phrase: 15,
   audience: 8,
   category: 5,
@@ -19,10 +20,12 @@ const documents = new Map<
     source: {
       name: string;
       short_description: string;
+      search_aliases?: string;
       audience: string;
       category: string;
     };
     name: string;
+    aliases: string;
     text: string;
     words: Set<string>;
     audience: string;
@@ -35,6 +38,7 @@ function searchDocument(p: Product) {
     old &&
     old.source.name === p.name &&
     old.source.short_description === p.short_description &&
+    old.source.search_aliases === p.search_aliases &&
     old.source.audience === p.audience &&
     old.source.category === p.category
   )
@@ -44,10 +48,12 @@ function searchDocument(p: Product) {
     source: {
       name: p.name,
       short_description: p.short_description,
+      search_aliases: p.search_aliases,
       audience: p.audience,
       category: p.category,
     },
     name: normalize(p.name),
+    aliases: " " + normalize(p.search_aliases ?? "") + " ",
     text,
     words: new Set(text.split(" ")),
     audience: p.audience ? normalize(p.audience) : "",
@@ -74,6 +80,9 @@ export function rank(
         : 0;
       const document = searchDocument(p);
       const exact = document.name === intent.normalized;
+      const alias =
+        !!intent.normalized &&
+        document.aliases.includes(" " + intent.normalized + " ");
       const { text, audience: audienceText, category: categoryText } = document;
       const audience = intent.audience.some((a) => audienceText.includes(a));
       const category = intent.tokens.some((t) => categoryText.includes(t));
@@ -82,6 +91,19 @@ export function rank(
       );
       const unknownQualifier = intent.qualifiers.length > 0;
       const lexical = intent.tokens.filter((t) => document.words.has(t)).length;
+      // A lone generic word such as "translator" cannot establish a useful
+      // relationship to "quantum telepathy dolphin translator". Keep bounded
+      // broad retrieval, but require two lexical words for longer unrecognized
+      // ideas. Verified partial capability matches and catalog names stay useful.
+      if (
+        !exact &&
+        !alias &&
+        !matched.length &&
+        !intent.capabilities.length &&
+        intent.tokens.length >= 3 &&
+        lexical < 2
+      )
+        return null;
       const score =
         coverage * WEIGHTS.coverage -
         (p.verification_scope === "identity"
@@ -89,6 +111,7 @@ export function rank(
           : missing.length * WEIGHTS.missing) +
         Math.min(1, Math.abs(p.bm25)) * WEIGHTS.bm25 +
         (exact ? WEIGHTS.exactName : 0) +
+        (alias && !exact ? WEIGHTS.nameAlias : 0) +
         (text.includes(intent.normalized) ? WEIGHTS.phrase : 0) +
         (audience ? WEIGHTS.audience : 0) +
         (category ? WEIGHTS.category : 0) +
@@ -116,8 +139,8 @@ export function rank(
       const explanation =
         (matched.length
           ? `Matches ${matched.map((c) => c.name.toLowerCase()).join(", ")}.`
-          : exact
-            ? "Found by product name."
+          : exact || alias
+            ? "Found by product name or catalog alias."
             : "Related by catalog wording; core functionality is not established.") +
         (concerns.length
           ? ` ${concerns.join(", ")} could not be verified.`
@@ -132,6 +155,7 @@ export function rank(
         explanation,
       } as SearchResult;
     })
+    .filter((p): p is SearchResult => p !== null)
     .filter(
       (p) => !p.capabilities.some((c) => intent.excluded.includes(c.slug)),
     )

@@ -1,0 +1,48 @@
+{
+  "snapshot_exported_at": "2026-11-16T10:23:03.397Z",
+  "products": 2785,
+  "sqlite_version": "3.51.0",
+  "measurement": "Local SQLite VM instructions rounded down per query to 1000; not provider billing rows",
+  "queries": [
+    {
+      "query": "products",
+      "returned_rows": 2785,
+      "vm_instructions_approx": 58000,
+      "plan": [
+        "SEARCH p USING INDEX published_name (status=?)",
+        "SEARCH c USING INTEGER PRIMARY KEY (rowid=?)"
+      ]
+    },
+    {
+      "query": "claims",
+      "returned_rows": 73,
+      "vm_instructions_approx": 15000,
+      "plan": [
+        "SEARCH p USING COVERING INDEX products_status_category (status=?)",
+        "SEARCH pc USING INDEX sqlite_autoindex_product_capabilities_1 (product_id=?)",
+        "SEARCH k USING INTEGER PRIMARY KEY (rowid=?)"
+      ]
+    },
+    {
+      "query": "sources",
+      "returned_rows": 2800,
+      "vm_instructions_approx": 41000,
+      "plan": [
+        "SEARCH p USING COVERING INDEX products_status_category (status=?)",
+        "SEARCH s USING INDEX product_sources_product (product_id=?)"
+      ]
+    },
+    {
+      "query": "aliases",
+      "returned_rows": 0,
+      "vm_instructions_approx": 16000,
+      "plan": [
+        "SEARCH p USING INDEX products_status_category (status=?)",
+        "SEARCH a USING INDEX product_aliases_canonical (canonical_url=?)"
+      ]
+    }
+  ],
+  "total_vm_instructions_approx": 130000,
+  "maximum_vm_instructions": 557000,
+  "passed": true
+}
