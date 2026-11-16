@@ -8,6 +8,12 @@ from ingestion.offline_discovery import new_state
 from ingestion.safe_web import SafeWeb
 
 
+@pytest.fixture(autouse=True)
+def isolate_test_job_outputs(monkeypatch):
+    monkeypatch.delenv('GITHUB_STEP_SUMMARY', raising=False)
+    monkeypatch.delenv('GITHUB_OUTPUT', raising=False)
+
+
 def record(status='held'):
     return {'id':'cloud-1','status':status,'reason':'Needs official identity review',
         'candidate': {'name':'ActualApp','canonical_url':'https://actual.dev','source_name':'Hacker News',

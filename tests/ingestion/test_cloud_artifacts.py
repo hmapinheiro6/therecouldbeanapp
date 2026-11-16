@@ -51,6 +51,16 @@ def test_artifact_unpack_reads_only_the_single_ciphertext_file():
     assert artifacts.unpack(stream.getvalue())==b'ciphertext'
 
 
+def test_latest_checkpoint_uses_creation_time_not_numeric_artifact_id(monkeypatch):
+    monkeypatch.setenv('GITHUB_REPOSITORY','hmapinheiro6/therecouldbeanapp')
+    monkeypatch.setenv('GITHUB_TOKEN','isolated-test-token')
+    github=artifacts.GitHub()
+    older={'id':200,'name':artifacts.NAME,'expired':False,'created_at':'2026-11-16T15:06:32Z'}
+    newer={'id':100,'name':artifacts.NAME,'expired':False,'created_at':'2026-11-16T15:07:36Z'}
+    with patch.object(github,'api',return_value={'total_count':2,'artifacts':[older,newer]}):
+        assert github.artifacts()==[newer,older]
+
+
 def setup_paths(tmp_path,monkeypatch):
     monkeypatch.setattr(offline,'PRIVATE_ROOT',tmp_path)
     monkeypatch.setattr(artifacts,'JOURNAL',tmp_path/'cloud'/'journal.json')

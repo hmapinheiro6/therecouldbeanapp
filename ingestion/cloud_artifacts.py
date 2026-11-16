@@ -49,7 +49,7 @@ class GitHub:
         if body['total_count'] > 100:
             raise ValueError('Unexpected artifact backlog; refusing unbounded storage')
         return sorted([a for a in body['artifacts'] if a['name'] == NAME and not a['expired']],
-                      key=lambda a: int(a['id']), reverse=True)
+                      key=lambda a: (datetime.fromisoformat(a['created_at'].replace('Z', '+00:00')), int(a['id'])), reverse=True)
 
     def download(self, artifact_id):
         url = self.base + '/actions/artifacts/' + str(int(artifact_id)) + '/zip'
