@@ -6,7 +6,7 @@ A React 19 / TypeScript / Vite / Tailwind application calls Hono JSON routes on 
 
 D1 holds normalized canonical product records, categories, capabilities, evidence, sources, submissions, ingestion checkpoints/runs, review candidates, temporary rate-limit identifiers, and request nonces. FTS5 is a derived index. Triggers synchronize product, category, capability, publication, and deletion changes. Canonical public JSON/SQL snapshots rebuild the database and index without importing virtual-table exports.
 
-Search performs two bounded queries: FTS retrieval of at most 80 IDs and one indexed capability hydration query. No external website or inference call happens during search. Each isolate may cache normalized text for at most 256 public product records; field comparisons invalidate edited text immediately. Queries and private input are never cached. Product detail uses indexed lookups and source hydration. Browser requests have explicit lengths and pagination bounds. Public stats and product APIs return short cache lifetimes; raw search requests are not persisted or cached by application code.
+Search performs two bounded queries: FTS retrieval of at most 80 IDs and one indexed capability hydration query. No external website or inference call happens during search. Each isolate may cache normalized text for at most 1,024 public product records; field comparisons invalidate edited text immediately. Queries and private input are never cached. Product detail uses indexed lookups and source hydration. Browser requests have explicit lengths and pagination bounds. Public stats and product APIs return short cache lifetimes; raw search requests are not persisted or cached by application code.
 
 ## Discovery path
 
@@ -23,3 +23,7 @@ Submission writes require a single-use Turnstile challenge verified server-side 
 ## Limits
 
 Search counts describe the retrieved candidate set, not an exhaustive internet count. Unknown meaningful query terms, audience, and qualifiers prevent strong labels. Negation handling is intentionally conservative and does not implement a full linguistic parser. Automated extraction misses products without explicit supported phrases and cannot establish all features. Domain-level deduplication is deliberately avoided; canonical URLs and source IDs preserve distinct products from a parent company.
+
+## Quota recovery
+
+Daily D1 quota errors are identified explicitly. Public browser reads can use the sanitized static recovery snapshot and existing evidence-aware ranking; saved-data mode is labelled. Product HTML and sitemap have static recovery assets. Admin sessions, review queues, submissions, and writes remain database-backed and fail closed. See [quota incident](DATABASE-QUOTA-INCIDENT.md) for stale-copy semantics, pending index maintenance, and verification limits.

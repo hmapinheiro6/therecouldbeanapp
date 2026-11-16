@@ -26,6 +26,11 @@ import {
 import { internal } from "./internal";
 import { admin } from "./admin";
 import { escapeHtml, productSummary } from "./seo";
+import {
+  databaseQuota,
+  quotaResponse,
+  cachePublicAggregate,
+} from "./availability";
 const app = new Hono<AppEnv>();
 app.use("*", async (c, next) => {
   await next();
@@ -49,7 +54,45 @@ app.use(
       ),
   }),
 );
-app.onError((err, c) => {
+app.onError(async (err, c) => {
+  if (databaseQuota(err)) {
+    if (
+      c.req.method === "GET" &&
+      /^\/apps\/[a-z0-9-]{1,100}$/.test(c.req.path)
+    ) {
+      const asset = await c.env.ASSETS.fetch(
+        new Request(
+          new URL("/catalog-pages/" + c.req.path.slice(6) + ".html", c.req.url),
+        ),
+      );
+      if (asset.ok)
+        return new Response(asset.body, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html; charset=UTF-8",
+            "Cache-Control": "no-store",
+            "X-Catalog-Mode": "snapshot",
+          },
+        });
+    }
+    if (c.req.method === "GET" && c.req.path === "/sitemap.xml") {
+      const asset = await c.env.ASSETS.fetch(
+        new Request(new URL("/catalog-backup-sitemap.xml", c.req.url)),
+      );
+      if (asset.ok) return asset;
+    }
+    const limited = quotaResponse(
+      new Date(),
+      c.req.path === "/api/admin/login",
+    );
+    console.error(
+      JSON.stringify({ event: "database_daily_limit", path: c.req.path }),
+    );
+    return c.json({ error: limited.error }, 503, {
+      "Retry-After": String(limited.retry),
+      "Cache-Control": "no-store",
+    });
+  }
   if (err instanceof HTTPException)
     return c.json(
       {
@@ -132,6 +175,8 @@ app.get("/api/health", async (c) => {
     },
   });
 });
+app.use("/api/categories", cachePublicAggregate);
+app.use("/api/stats", cachePublicAggregate);
 app.get("/api/categories", async (c) => {
   const r = await c.env.DB.prepare(
     "SELECT c.slug,c.name,COUNT(p.id) product_count FROM categories c LEFT JOIN products p ON p.category_id=c.id AND p.status='published' GROUP BY c.id ORDER BY c.name",

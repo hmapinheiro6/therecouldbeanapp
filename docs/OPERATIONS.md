@@ -58,3 +58,7 @@ Update JSON taxonomy/alias files in `data/`. Vocabulary changes need migration/u
 Read the Cloudflare Worker CPU/request and D1 read/write/storage dashboards. Search logs contain counts, wall time, and D1 retrieval rows read without raw query text. Never turn on URL logging without query redaction. Free-plan exhaustion must remain a service-unavailable event, never an automatic upgrade. API errors return controlled JSON without stack traces; platform CPU/resource failures may return Cloudflare responses.
 
 Scheduled cleanup prunes expired request nonces and daily rate keys, removes old contact emails after 30 days, and deletes eligible closed submissions. Run discovery or an authenticated zero-candidate completed run to invoke cleanup after downtime. No privacy retention job can run if the cloud scheduler itself is disabled; monitor its last success.
+
+## Daily database allowance
+
+See [quota recovery](DATABASE-QUOTA-INCIDENT.md). A `database_daily_limit` response gives the actual next UTC reset and `Retry-After`. Stop source work until reset; do not retry or export repeatedly. The next normal cloud job applies tracked migration 0010 via `/api/internal/maintenance` before discovery. Public read-only recovery uses a labelled static snapshot; it cannot accept private submissions or approvals. After recovery, run the corrected four-pass export once, inspect its reported rows read, and redeploy to refresh the public recovery copy.

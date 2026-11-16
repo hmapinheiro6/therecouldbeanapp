@@ -2,6 +2,8 @@
 
 Delivered 15 November 2026; updated 16 November with interface simplification and working discovery of smaller products. [Live application](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public source](https://github.com/hmapinheiro6/therecouldbeanapp).
 
+Subsequent incident: D1 daily reads are exhausted until 17 November 00:00 UTC. Public browsing/search use the saved snapshot; approvals remain blocked. See the [cause and deployed mitigation](DATABASE-QUOTA-INCIDENT.md).
+
 Current release: **2,785 published entries**, 39 categories, 69 capability definitions, and a working private approval/editor dashboard. **120 automated checks pass**. See [catalog expansion, current verification, and operator instructions](CATALOG-EXPANSION.md). Baseline search-quality and infrastructure measurements below describe the earlier curated catalog; they are historical, not a quality evaluation of all 2,785 entries.
 
 ## A. Implemented features

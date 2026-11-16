@@ -6,6 +6,8 @@ Live: [There Could Be An App](https://therecouldbeanapp.henriquepinheiro.workers
 
 2,785 real published products, 39 categories, and 69 capability definitions as of 16 November 2026. 2,732 listings have checked official identities; 53 also have verified feature evidence (73 claims). [Catalog expansion and approval instructions](docs/CATALOG-EXPANSION.md).
 
+Current availability: the account reached D1’s daily read quota on 16 November. Public browsing/search use a labelled saved catalog; sign-in/publishing await the 17 November 00:00 UTC reset. The inefficient export is corrected, and index maintenance is queued through existing cloud jobs. See the [incident and recovery report](docs/DATABASE-QUOTA-INCIDENT.md).
+
 ## Run it
 
 Use Node 24 and Python 3.11+ (ingestion also tested on local Python 3.9).

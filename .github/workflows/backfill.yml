@@ -12,7 +12,7 @@ on:
         default: homebrew
       candidates:
         description: Maximum websites to check (up to 2000)
-        default: "500"
+        default: "100"
         required: true
 permissions:
   contents: read
@@ -28,7 +28,7 @@ jobs:
       INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
       INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
       DIRECTORY_SOURCE: ${{ inputs.source || (github.event.schedule == '45 2 * * *' && 'selfhosted') || 'homebrew' }}
-      CANDIDATE_LIMIT: ${{ inputs.candidates || '500' }}
+      CANDIDATE_LIMIT: ${{ inputs.candidates || '100' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,5 +36,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Apply tracked read-budget migration before source work
+        run: python -c "from ingestion.client import InternalClient; InternalClient().request('/api/internal/maintenance', {})"
       - name: Verify official websites and publish identity-checked listings
         run: python -m ingestion.backfill --max-candidates "$CANDIDATE_LIMIT" --workers 8 --source "$DIRECTORY_SOURCE"

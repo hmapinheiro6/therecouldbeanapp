@@ -3,6 +3,30 @@ import type { AppEnv } from "./security";
 import { ingestSchema, moderationSchema } from "./validation";
 import { hydrate, PRODUCT_SELECT, type ProductRow } from "./catalog";
 const internal = new Hono<AppEnv>();
+internal.post("/maintenance", async (c) => {
+  // Existing signed cloud jobs apply this tracked, idempotent migration after quota reset.
+  const name = "0010_read_budget_indexes.sql";
+  const exists = await c.env.DB.prepare(
+    "SELECT name FROM d1_migrations WHERE name=?",
+  )
+    .bind(name)
+    .first();
+  if (exists) return c.json({ status: "ready" });
+  const statements = [
+    "CREATE INDEX IF NOT EXISTS product_sources_product ON product_sources(product_id)",
+    "CREATE INDEX IF NOT EXISTS product_aliases_canonical ON product_url_aliases(canonical_url)",
+    "CREATE INDEX IF NOT EXISTS published_name ON products(status,name,id)",
+    "CREATE INDEX IF NOT EXISTS published_recent ON products(status,first_seen_at DESC,id DESC)",
+    "CREATE INDEX IF NOT EXISTS candidate_canonical ON ingestion_candidates(canonical_url,status,next_retry_at)",
+  ];
+  await c.env.DB.batch([
+    ...statements.map((sql) => c.env.DB.prepare(sql)),
+    c.env.DB.prepare(
+      "INSERT OR IGNORE INTO d1_migrations(name) VALUES(?)",
+    ).bind(name),
+  ]);
+  return c.json({ status: "ready" });
+});
 internal.get("/pending", async (c) => {
   const after = c.req.query("after") ?? "";
   if (after.length > 100)

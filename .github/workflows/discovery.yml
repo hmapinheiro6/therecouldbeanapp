@@ -29,6 +29,8 @@ jobs:
           import os
           assert os.environ.get('INGESTION_API_URL', '').startswith('https://'), 'Set the deployed API URL'
           assert len(os.environ.get('INTERNAL_SECRET', '')) >= 32, 'Set the signing secret'
+      - name: Apply tracked read-budget migration before source work
+        run: python -c "from ingestion.client import InternalClient; InternalClient().request('/api/internal/maintenance', {})"
       - name: Discover, verify, publish, persist checkpoints
         run: python -m ingestion.run --max-candidates 100
       # No artifacts: pending submissions and moderation details remain private in D1.

@@ -1,6 +1,7 @@
 // Static metadata for non-product pages. Product metadata is rendered against live D1.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { parse } from "jsonc-parser";
+import { escapeHtml, productSummary } from "../worker/seo.ts";
 const base = new URL(
   parse(readFileSync("wrangler.jsonc", "utf8")).vars.SITE_URL,
 ).origin;
@@ -71,4 +72,74 @@ writeFileSync(
     "</head>",
     '<meta name="robots" content="noindex,nofollow"/></head>',
   ),
+);
+
+// Static public recovery copy. Never include pending/private records or secrets.
+const snapshot = JSON.parse(
+  readFileSync("data/seeds/published-snapshot.json", "utf8"),
+);
+const categories = JSON.parse(readFileSync("data/categories.json", "utf8"));
+const products = snapshot.products.map((p, index) => ({
+  id: index + 1,
+  slug: p.slug,
+  name: p.name,
+  canonical_url: p.canonical_url,
+  normalized_domain: new URL(p.canonical_url).hostname,
+  short_description: p.short_description,
+  audience: p.audience,
+  search_aliases: p.search_aliases ?? "",
+  category_slug: p.category_slug,
+  category:
+    categories.find((c) => c.slug === p.category_slug)?.name ?? p.category_slug,
+  first_seen_at: p.first_seen_at,
+  announced_at: p.announced_at,
+  last_verified_at: p.last_verified_at,
+  verification_scope: p.verification_scope,
+  identity_evidence_url: p.identity_evidence_url,
+  identity_evidence_text: p.identity_evidence_text,
+  capabilities: p.capabilities,
+  sources: p.sources.map((s) => ({
+    source_name: s.source_name,
+    source_url: s.source_url,
+    discovered_at: s.discovered_at,
+  })),
+}));
+writeFileSync(
+  "dist/catalog-backup.json",
+  JSON.stringify({
+    exported_at: snapshot.exported_at,
+    products,
+    categories: categories.map((c) => ({
+      ...c,
+      product_count: products.filter((p) => p.category_slug === c.slug).length,
+    })),
+  }),
+);
+mkdirSync("dist/catalog-pages", { recursive: true });
+for (const p of products) {
+  if (!/^[a-z0-9-]{1,100}$/.test(p.slug))
+    throw new Error("Invalid public snapshot slug.");
+  const canonical = base + "/apps/" + p.slug;
+  const saved = html
+    .replace(
+      /<title>.*?<\/title>/,
+      `<title>${escapeHtml(p.name)} — There Could Be An App</title>`,
+    )
+    .replace(
+      /(<meta name="description" content=")[^"]*/,
+      `$1${escapeHtml(p.short_description)}`,
+    )
+    .replace(
+      '<div id="root"></div>',
+      `<div id="root"><p class="notice">Saved public catalog from ${escapeHtml(snapshot.exported_at)}. Recent changes may be missing.</p>${productSummary(p)}</div>`,
+    )
+    .replace(
+      "</head>",
+      `<link rel="canonical" href="${escapeHtml(canonical)}"/></head>`,
+    );
+  writeFileSync("dist/catalog-pages/" + p.slug + ".html", saved);
+}
+writeFileSync(
+  "dist/catalog-backup-sitemap.xml",
+  `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${["", "/about", "/submit", ...products.map((p) => "/apps/" + p.slug)].map((path) => `<url><loc>${base}${path}</loc></url>`).join("")}</urlset>`,
 );

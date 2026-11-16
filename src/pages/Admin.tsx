@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { ApiError } from "../lib/api";
 type Choice = { slug: string; name: string };
 type Overview = {
   published: { verification_scope: string; count: number }[];
@@ -57,7 +58,11 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
     cache: "no-store",
   });
   const b = (await r.json()) as { error?: { message?: string } };
-  if (!r.ok) throw new Error(b.error?.message ?? "The review request failed.");
+  if (!r.ok)
+    throw new ApiError(
+      b.error?.message ?? "The review request failed.",
+      r.status,
+    );
   return b as T;
 }
 export function Admin() {
@@ -82,7 +87,10 @@ export function Admin() {
   useEffect(() => {
     request("/session")
       .then(() => setSigned(true))
-      .catch(() => setSigned(false));
+      .catch((e) => {
+        setSigned(false);
+        if (e instanceof ApiError && e.status >= 500) setError(e.message);
+      });
   }, []);
   useEffect(() => {
     if (!signed) return;
@@ -278,16 +286,20 @@ export function Admin() {
         </p>
         <p>
           <b>
-            {overview?.published.find(
-              (p) => p.verification_scope === "capabilities",
-            )?.count ?? 0}
+            {overview
+              ? (overview.published.find(
+                  (p) => p.verification_scope === "capabilities",
+                )?.count ?? 0)
+              : "…"}
           </b>{" "}
           with verified capabilities
         </p>
         <p>
           <b>
-            {overview?.queue.find((p) => p.status === "needs_review")?.count ??
-              0}
+            {overview
+              ? (overview.queue.find((p) => p.status === "needs_review")
+                  ?.count ?? 0)
+              : "…"}
           </b>{" "}
           need review
         </p>
@@ -377,7 +389,13 @@ export function Admin() {
               <small>{row.source_name}</small>
             </button>
           ))}
-          {!rows.length && <p>No records match this filter.</p>}
+          {!rows.length && (
+            <p>
+              {error
+                ? "The review queue is unavailable while the database is paused."
+                : "No records match this filter."}
+            </p>
+          )}
           <div className="pagination">
             <button
               disabled={!offset}

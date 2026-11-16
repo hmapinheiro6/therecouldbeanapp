@@ -21,6 +21,7 @@ test("homepage sends a real search and exposes source-backed results", async ({
     .getByRole("heading", { name: "Otter", exact: true })
     .getByRole("link")
     .click();
+  await expect(page).toHaveURL(/\/apps\/otter$/);
   await expect(
     page.getByRole("heading", { name: "What it actually does." }),
   ).toBeVisible();
@@ -210,5 +211,42 @@ test("operator can sign in, review, and publish an app without the CLI", async (
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Official identity checked" }),
+  ).toBeVisible();
+});
+
+test("public browsing and search recover transparently when D1's daily allowance is exhausted", async ({
+  page,
+}) => {
+  await page.route("**/api/**", (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: JSON.stringify({
+        error: {
+          code: "database_daily_limit",
+          message: "Daily database limit reached.",
+        },
+      }),
+    }),
+  );
+  await page.goto("/explore");
+  await expect(
+    page.getByRole("status").filter({ hasText: "saved catalog" }),
+  ).toBeVisible();
+  await expect(page.locator(".product-card").first()).toBeVisible();
+  await page.goto("/search?q=Otter");
+  await expect(
+    page.getByRole("status").filter({ hasText: "saved catalog" }),
+  ).toBeVisible();
+  await page
+    .getByRole("heading", { name: "Otter", exact: true })
+    .getByRole("link")
+    .click();
+  await expect(page).toHaveURL(/\/apps\/otter$/);
+  await expect(
+    page.getByRole("heading", { name: "Otter", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("status").filter({ hasText: "saved catalog" }),
   ).toBeVisible();
 });

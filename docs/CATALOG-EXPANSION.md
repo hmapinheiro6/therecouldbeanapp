@@ -2,6 +2,8 @@
 
 Verified 16 November 2026. [Live catalog](https://therecouldbeanapp.henriquepinheiro.workers.dev/explore) · [Private review dashboard](https://therecouldbeanapp.henriquepinheiro.workers.dev/admin/).
 
+The subsequent quota incident and current availability are documented in [DATABASE-QUOTA-INCIDENT.md](DATABASE-QUOTA-INCIDENT.md). The live database is temporarily blocked until its daily reset; the public saved catalog remains browsable.
+
 ## Actual publication
 
 Production D1 contains **2,785 published products**: **2,732 official-identity listings** and **53 listings with verified capability evidence**, totaling **73 verified feature claims**. There are **39 categories and 69 capability definitions**; definitions are vocabulary, not proof of coverage. No synthetic records were added to production.
@@ -36,8 +38,8 @@ A real queued YVD listing was reviewed through the production browser, corrected
 ## Continued discovery
 
 - Recent Show HN launches, GitHub software repositories, submissions, and due retries: **every six hours at minute 17 UTC**, up to 100 candidates per run.
-- Homebrew Cask: **every six hours at minute 35 UTC**, up to 500 previously unseen eligible websites per scheduled run.
-- Awesome-Selfhosted: **daily at 02:45 UTC**, up to 500 previously unseen eligible websites per run.
+- Homebrew Cask: **every six hours at minute 35 UTC**, up to 100 previously unseen eligible websites per scheduled run.
+- Awesome-Selfhosted: **daily at 02:45 UTC**, up to 100 previously unseen eligible websites per run.
 
 Manual backfills support up to 2,000 websites, with eight workers in Actions. Persisted known URLs, publication blocks, review states, retry backoff, and URL aliases prevent repeated imports from inflating the catalog. Robots, public DNS/TLS checks, response/time budgets, and access restrictions remain enforced. Authenticated or blocked pages stay held; no JavaScript or CAPTCHA bypass is used.
 

@@ -255,3 +255,15 @@ def test_selfhosted_metadata_preserves_attribution_without_directory_markup():
     from ingestion.backfill import selfhosted_candidates
     rows=selfhosted_candidates('- [ActualApp](https://actual.dev) - A project collaboration application. ([Demo](https://demo.actual.dev)) `MIT` `Python`\n- [Again](https://actual.dev) - Duplicate.')
     assert len(rows)==1;assert rows[0]['licensed_description']=='A project collaboration application.';assert rows[0]['source_name']=='Awesome-Selfhosted (CC-BY-SA-3.0)';assert rows[0]['category_slug']=='web-apps'
+
+def test_daily_database_quota_is_not_retried_in_a_tight_loop():
+    from io import BytesIO
+    from urllib.error import HTTPError
+    from ingestion.client import InternalClient,InternalAPIError
+    opener=Mock()
+    opener.open.side_effect=HTTPError('https://example.dev/api/internal/maintenance',503,'Unavailable',{},BytesIO(json.dumps({'error':{'code':'database_daily_limit','message':'Resets at 00:00 UTC'}}).encode()))
+    with patch('ingestion.client.urllib.request.build_opener',return_value=opener),patch('ingestion.client.time.sleep') as sleep:
+        with pytest.raises(InternalAPIError,match='00:00 UTC'):
+            InternalClient(base='https://example.dev',secret='isolated-client-test-key-32-characters').request('/api/internal/maintenance',{})
+        assert opener.open.call_count==1
+        sleep.assert_not_called()

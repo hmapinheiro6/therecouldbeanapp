@@ -38,9 +38,9 @@ class InternalClient:
                     if len(data)>1048576:raise RuntimeError('Internal response too large')
                     return json.loads(data)
             except urllib.error.HTTPError as e:
-                if e.code not in (429,500,502,503,504) or attempt==2:
-                    try:message=json.loads(e.read(8192)).get('error',{}).get('message','Request failed')
-                    except (ValueError,AttributeError):message='Request failed'
+                try:error=json.loads(e.read(8192)).get('error',{});message=error.get('message','Request failed')
+                except (ValueError,AttributeError):error={};message='Request failed'
+                if error.get('code')=='database_daily_limit' or e.code not in (429,500,502,503,504) or attempt==2:
                     raise InternalAPIError(e.code,message) from None
             except urllib.error.URLError:
                 if attempt==2:raise RuntimeError('Internal API connection failed') from None

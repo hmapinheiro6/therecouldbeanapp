@@ -770,3 +770,88 @@ it("edits and unpublishes the existing catalog while preserving slugs and URL al
       .first(),
   ).toBeNull();
 });
+
+it("explains the daily database limit without accepting a login or leaking credentials", async () => {
+  const quota = new Error(
+    "D1_ERROR: Your account has exceeded D1's free tier daily row read limit. Upgrade to a paid plan or wait until tomorrow (midnight UTC) to continue.",
+  );
+  const blockedEnv = {
+    ...env,
+    ADMIN_SECRET: "isolated-quota-test-admin-key-at-least-32-characters",
+    DB: {
+      prepare() {
+        throw quota;
+      },
+    } as unknown as D1Database,
+  };
+  const r = await app.request(
+    "/api/admin/login",
+    {
+      method: "POST",
+      headers: {
+        Origin: "http://localhost",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ key: blockedEnv.ADMIN_SECRET }),
+    },
+    blockedEnv,
+  );
+  expect(r.status).toBe(503);
+  expect(r.headers.get("Set-Cookie")).toBeNull();
+  const body = (await r.json()) as {
+    error: { code: string; reset_at: string; message: string };
+  };
+  expect(body.error.code).toBe("database_daily_limit");
+  expect(body.error.reset_at).toMatch(/T00:00:00.000Z$/);
+  expect(body.error.message).toContain("access key has not been checked");
+  expect(Number(r.headers.get("Retry-After"))).toBeGreaterThan(0);
+  expect(JSON.stringify(body)).not.toContain(blockedEnv.ADMIN_SECRET);
+  const detail = await app.request(
+    "/apps/otter",
+    {},
+    {
+      ...blockedEnv,
+      ASSETS: {
+        fetch: async (req: Request) =>
+          new URL(req.url).pathname === "/catalog-pages/otter.html"
+            ? new Response("<h1>Saved Otter catalog</h1>")
+            : new Response("missing", { status: 404 }),
+      } as Fetcher,
+    },
+  );
+  expect(detail.status).toBe(200);
+  expect(detail.headers.get("X-Catalog-Mode")).toBe("snapshot");
+  expect(await detail.text()).toContain("Saved Otter");
+});
+
+it("lets signed scheduled maintenance install the read-budget indexes exactly once", async () => {
+  await env.DB.prepare(
+    "CREATE TABLE IF NOT EXISTS d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT UNIQUE,applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)",
+  ).run();
+  for (const name of [
+    "product_sources_product",
+    "product_aliases_canonical",
+    "published_name",
+    "published_recent",
+    "candidate_canonical",
+  ])
+    await env.DB.prepare(`DROP INDEX ${name}`).run();
+  const response = await app.request(
+    await signed("/api/internal/maintenance", {}),
+    {},
+    env,
+  );
+  expect(response.status, await response.clone().text()).toBe(200);
+  expect(
+    (await app.request(await signed("/api/internal/maintenance", {}), {}, env))
+      .status,
+  ).toBe(200);
+  const count = await env.DB.prepare(
+    "SELECT count(*) n FROM d1_migrations WHERE name='0010_read_budget_indexes.sql'",
+  ).first<{ n: number }>();
+  expect(count?.n).toBe(1);
+  const indexes = await env.DB.prepare(
+    "SELECT name FROM sqlite_master WHERE type='index' AND name IN ('product_sources_product','product_aliases_canonical','published_name','published_recent','candidate_canonical')",
+  ).all();
+  expect(indexes.results).toHaveLength(5);
+});
