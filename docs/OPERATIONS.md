@@ -21,7 +21,7 @@ The pending view contains private contact emails. Run it in a private terminal, 
 
 ## Discovery failures and retry
 
-Run `python3 -m ingestion.run --max-candidates 40`. Inspect `/api/health`, `/api/stats`, and the signed pending CLI for recent run statuses. A partial run does not advance source checkpoints. Previously persisted records are idempotent, so rediscovery is safe. Transient website failures retry after exponential day-level backoff; review failures need an operator retry. An interrupted runner can leave a stale running row; inspect its start time and the Actions job before treating it as healthy. A later successful run does not prove every candidate was publishable.
+Run `python3 -m ingestion.run --max-candidates 100`. Inspect `/api/health`, `/api/stats`, and the signed pending CLI for recent run statuses. A partial run does not advance source checkpoints. Previously persisted records are idempotent, so rediscovery is safe. Transient website failures retry after exponential day-level backoff; review failures need an operator retry. An interrupted runner can leave a stale running row; inspect its start time and the Actions job before treating it as healthy. A later successful run does not prove every candidate was publishable.
 
 To stop new source work set the repository `DISCOVERY_ENABLED=false`. To stop the ingestion endpoint set `INGESTION_ENABLED=false` and redeploy. Preserve queues/checkpoints; do not discard evidence to make a run look successful.
 

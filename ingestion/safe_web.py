@@ -7,7 +7,7 @@ import time
 from urllib.parse import urlsplit, urlunsplit, urljoin, parse_qsl, urlencode
 from urllib.robotparser import RobotFileParser
 
-USER_AGENT = 'ThereCouldBeAnAppBot/1.0 (+https://therecouldbeanapp.com/about)'
+USER_AGENT = 'ThereCouldBeAnAppBot/1.0 (+https://therecouldbeanapp.henriquepinheiro.workers.dev/about)'
 MAX_BYTES = 2097152
 
 class UnsafeURL(ValueError):

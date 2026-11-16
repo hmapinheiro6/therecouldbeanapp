@@ -43,9 +43,6 @@ export function Product() {
       </Link>
       <div className="detail-header">
         <div>
-          <span className="eyebrow">
-            FILE {String(p.id).padStart(4, "0")} / {p.category} / VERIFIED ENTRY
-          </span>
           <h1 className="page-title">{p.name}</h1>
           <p className="page-intro">{p.short_description}</p>
         </div>
@@ -85,7 +82,6 @@ export function Product() {
           </div>
         </section>
         <aside className="product-facts">
-          <span className="eyebrow">THE PAPER TRAIL</span>
           <dl>
             <dt>Official website</dt>
             <dd>

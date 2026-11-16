@@ -9,6 +9,17 @@ ROOT=Path(__file__).resolve().parents[1]
 SYNONYMS=json.loads((ROOT/'data/synonyms.json').read_text())
 CAPABILITIES={c['slug']:c for c in json.loads((ROOT/'data/capabilities.json').read_text())}
 
+def direct_capability(slug,sentence):
+    """Conservative guards for ambiguous discovery phrases, separate from search synonyms."""
+    if re.search(r'\b(built by|created by|founder|freelance|our customers|our clients)\b',sentence,re.I):return False
+    if slug=='ecommerce' and not re.search(r'\b(storefront|shopping cart|sell products|e.?commerce platform|online store)\b',sentence,re.I):return False
+    if slug=='ci':
+        if re.search(r'\b(audit|scanner|scanning|hardening|vulnerability|checks|security)\b',sentence,re.I):return False
+        if not re.search(r'\b(continuous integration|automated builds|(?:ci.?cd|build|deployment) (?:platform|service))\b',sentence,re.I):return False
+    if slug=='storage' and not re.search(r'\b(file storage (?:platform|service)|cloud storage (?:platform|service)|(?:store|share) (?:your )?files (?:securely|online)|secure file sharing)\b',sentence,re.I):return False
+    if slug=='reminders' and not re.search(r'\b(remind\w*|follow.up (?:emails?|clients?|leads?|contacts?)|(?:sales|client|contact|lead) follow.up)\b',sentence,re.I):return False
+    return True
+
 def now():
     return datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
 class Metadata(HTMLParser):
@@ -47,13 +58,28 @@ def evidence_from(sentences,allowed=None):
         if allowed is not None and slug not in allowed:continue
         for sentence in sentences:
             # Marketing negations and integration lists must not become positive product claims.
-            if re.search(r'\b(no |not |without |integrat|connect with|alternative to|compare|coming soon)',sentence,re.I):continue
+            if re.search(r'\b(no |not |without |integrat(?:e[sd]?|ions?) (?:with|include)|connect with|alternative to|compare|coming soon)',sentence,re.I):continue
+            if allowed is None and not direct_capability(slug,sentence):continue
             normalized=re.sub(r'[^a-z0-9 ]',' ',sentence.lower())
             normalized=re.sub(r'\s+',' ',normalized)
             terms=aliases if allowed is not None else [a for a in aliases if len(a.split())>=2 or a in ('crm','invoicing','bookkeeping','whiteboard','timesheets')]
             if any(re.search(r'\b'+re.escape(a)+r'\b',normalized) for a in terms):
                 found.append({'slug':slug,'evidence_text':sentence[:500]});break
     return found[:12]
+
+def confirmed_name(candidate,parser,content,url):
+    name=candidate['name'][:100].strip()
+    if len(name)>=2 and name.lower() in content:return name
+    # Show HN titles often describe the app instead of naming it. Resolve only
+    # explicit official metadata that also matches a label in its own domain.
+    if candidate.get('resolve_identity') and urlsplit(url).path.strip('/') in ('','en','en-us','home','app'):
+        options=[parser.meta.get('og:site_name',''),*re.split(r'\s[|–—-]\s|: ',parser.title)]
+        labels={re.sub(r'[^a-z0-9]','',part) for part in urlsplit(url).hostname.split('.')[:-1]}
+        for option in options:
+            option=option.strip()
+            if 2<=len(option)<=60 and len(option.split())<=5 and re.sub(r'[^a-z0-9]','',option.lower()) in labels and option.lower() in content:
+                return option
+    raise FetchError('Product name could not be confirmed on official website',False)
 
 def verify(candidate,web,curated=False):
     url=canonicalize(candidate['canonical_url'])
@@ -62,9 +88,8 @@ def verify(candidate,web,curated=False):
     parser=Metadata();parser.feed(page['text']);sentences=parser.sentences()
     if len(' '.join(sentences))<80:raise FetchError('Insufficient public product evidence',False)
     # Candidate product names are checked against the actual official page.
-    name=candidate['name'][:100].strip()
     content=' '.join(sentences).lower()
-    if len(name)<2 or name.lower() not in content:raise FetchError('Product name could not be confirmed on official website',False)
+    name=confirmed_name(candidate,parser,content,page['url'])
     if not curated and not re.search(r'\b(software|application|platform|app|tool|open.source|dashboard)\b',content):raise FetchError('Usable software identity not established',False)
     claims=evidence_from(sentences,candidate.get('capability_hints') if curated else None)
     if not claims:raise FetchError('No explicit capability evidence found',False)

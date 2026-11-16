@@ -3,9 +3,11 @@ import type { Product, SearchResult } from "../lib/types";
 export function ProductCard({
   product,
   index,
+  showAdded = false,
 }: {
   product: Product | SearchResult;
   index?: number;
+  showAdded?: boolean;
 }) {
   const result = "match_class" in product ? product : null;
   return (
@@ -21,24 +23,22 @@ export function ProductCard({
           : "catalog-dossier")
       }
     >
-      <div className="dossier-heading">
-        <span>FILE / {String(product.id).padStart(4, "0")}</span>
-        <span>SOFTWARE DOSSIER</span>
-      </div>
       <div className="card-top">
         <div className="product-monogram" aria-hidden="true">
           {product.name.slice(0, 1)}
         </div>
-        <span className="eyebrow">
-          {result && (
-            <span className="match-signal" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-          )}
-          {result ? result.match_class : "VERIFIED LISTING"}
-        </span>
+        {result && (
+          <span className="match-label">
+            {result && (
+              <span className="match-signal" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </span>
+            )}
+            {result.match_class}
+          </span>
+        )}
         {index !== undefined && (
           <span className="result-number">
             {String(index + 1).padStart(2, "0")}
@@ -57,6 +57,16 @@ export function ProductCard({
         {product.normalized_domain} <span aria-hidden="true">↗</span>
       </a>
       <p>{product.short_description}</p>
+      {showAdded && (
+        <p className="added-date">
+          Added{" "}
+          {new Date(product.first_seen_at).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
+        </p>
+      )}
       {result && <p className="match-explanation">{result.explanation}</p>}
       <div className="tags">
         {(result ? result.matched : product.capabilities)

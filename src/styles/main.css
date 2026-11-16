@@ -105,80 +105,14 @@ em {
   flex-shrink: 0;
   color: var(--paper);
 }
-.eyebrow,
-.hero-kicker,
-.sheet-heading,
-.sheet-footer,
-.drawing-field-heading,
-.schematic-label,
-.hero-schematic figcaption,
+
 .under-search,
-.archive-status,
-.dossier-heading,
 .catalog-note {
   font-family: var(--mono);
   font-weight: 400;
   font-size: 10px;
   line-height: 1.7;
   letter-spacing: 0.7px;
-}
-.eyebrow {
-  text-transform: uppercase;
-  color: var(--cyan);
-}
-.site-header {
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 110px;
-  padding: 22px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-  border-bottom: 1px solid var(--line);
-}
-.wordmark {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  line-height: 1.8;
-  letter-spacing: 1px;
-}
-.wordmark b {
-  font-family: var(--pixel);
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0;
-}
-.brand-symbol {
-  width: 44px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--cyan);
-  box-shadow: 3px 3px 0 var(--navy);
-}
-.brand-symbol .pixel-art {
-  width: 34px;
-  height: 30px;
-}
-.site-header nav {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  font-family: var(--mono);
-  font-size: 11px;
-}
-.site-header nav a {
-  padding: 10px 0;
-  border-bottom: 2px solid transparent;
-}
-.site-header nav a:hover,
-.site-header nav .active {
-  color: var(--cyan);
-  border-bottom-color: var(--cyan);
 }
 .blueprint-sheet {
   border: 1px solid var(--line);
@@ -203,35 +137,12 @@ em {
   max-width: 1136px;
   margin: 38px auto 0;
 }
-.sheet-heading,
-.sheet-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 12px 24px;
-  border-bottom: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 9px;
-}
-.sheet-footer {
-  border-top: 1px solid var(--line);
-  border-bottom: 0;
-}
 .hero-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
   gap: 35px;
   padding: 42px 42px 26px;
   align-items: center;
-}
-.hero-kicker {
-  color: var(--cyan);
-  font-size: 9px;
-  letter-spacing: 0.6px;
-  margin-bottom: 23px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 .status-dot {
   display: inline-block;
@@ -270,10 +181,6 @@ em {
   padding: 18px 0 18px 30px;
   color: var(--cyan);
 }
-.schematic-label {
-  font-size: 8px;
-  white-space: nowrap;
-}
 .schematic-drawing {
   position: relative;
   margin: 28px 0 24px;
@@ -282,20 +189,6 @@ em {
   width: 190px;
   height: 166px;
   display: block;
-}
-.schematic-callout {
-  font: 8px/1.8 var(--mono);
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 34px;
-  padding-left: 20px;
-  color: var(--cyan);
-}
-.hero-schematic figcaption {
-  font-size: 8px;
-  padding-top: 15px;
-  border-top: 1px dashed var(--line);
 }
 .invention-input {
   margin: 12px 42px 22px;
@@ -308,21 +201,6 @@ em {
   position: relative;
   text-align: left;
   max-width: 100%;
-}
-.drawing-field-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 10px 0;
-  border-bottom: 1px dashed var(--line);
-  margin-bottom: 16px;
-  font-size: 9px;
-  color: var(--cyan);
-}
-.search-form .eyebrow {
-  color: var(--paper);
-  font-size: 9px;
-  letter-spacing: 1px;
 }
 .search-form textarea {
   display: block;
@@ -426,7 +304,6 @@ textarea::placeholder {
 }
 .examples-section,
 .catalog-preview,
-.manifesto,
 .catalog-note,
 .site-footer,
 .page {
@@ -472,10 +349,6 @@ textarea::placeholder {
 .example:hover {
   background: var(--navy);
 }
-.example .eyebrow {
-  font-size: 8px;
-  letter-spacing: 0;
-}
 .example p {
   font: 14px/1.7 var(--mono);
   margin-top: 17px;
@@ -511,17 +384,6 @@ textarea::placeholder {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--navy);
 }
-.dossier-heading {
-  margin: 0 -24px 18px;
-  padding: 9px 12px;
-  border-bottom: 1px solid #123b8a4d;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 8px;
-  letter-spacing: 0.3px;
-  color: #34517e;
-}
 .card-top {
   display: flex;
   align-items: center;
@@ -538,7 +400,7 @@ textarea::placeholder {
   background: #123b8a0b;
   flex-shrink: 0;
 }
-.card-top .eyebrow {
+.card-top .match-label {
   font-size: 8px;
   letter-spacing: 0.4px;
   color: #34517e;
@@ -621,51 +483,6 @@ textarea::placeholder {
   font-size: 12px;
   color: #34517e;
 }
-.manifesto {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 35px;
-  padding: 36px 35px;
-  background: var(--navy);
-  margin-top: 55px;
-}
-.manifesto:before,
-.manifesto:after {
-  background: var(--blue);
-}
-.manifesto > .pixel-art {
-  width: 110px;
-  height: 110px;
-}
-.manifesto > div {
-  flex: 1;
-}
-.manifesto h2 {
-  font: 400 21px/1.8 var(--pixel);
-  margin: 15px 0 13px;
-}
-.manifesto p {
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--muted);
-}
-.blueprint-stamp {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transform: rotate(-8deg);
-  padding: 12px;
-  border: 2px solid var(--cyan);
-  outline: 1px solid var(--cyan);
-  outline-offset: 3px;
-  font: 10px/1.5 var(--pixel);
-  color: var(--cyan);
-  white-space: nowrap;
-}
-.blueprint-stamp > span {
-  font-size: 16px;
-}
 .catalog-note {
   display: flex;
   justify-content: center;
@@ -737,19 +554,6 @@ textarea::placeholder {
 }
 .results-header {
   padding-bottom: 28px;
-}
-.search-reference {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.archive-status {
-  padding: 5px 9px;
-  border: 1px solid var(--line);
-  font-size: 9px;
-  color: var(--cyan);
 }
 .query-display {
   font: 16px/1.8 var(--mono);
@@ -969,7 +773,7 @@ textarea::placeholder {
   border-top: 6px solid var(--cyan);
   box-shadow: 4px 4px 0 var(--navy);
 }
-.product-facts .eyebrow,
+
 .product-facts .muted {
   color: #34517e;
 }
@@ -1121,9 +925,6 @@ textarea::placeholder {
 .prose .button {
   margin-top: 25px;
 }
-.not-found > .eyebrow {
-  display: block;
-}
 .not-found .button {
   margin-top: 28px;
 }
@@ -1179,7 +980,6 @@ textarea::placeholder {
   .hero,
   .examples-section,
   .catalog-preview,
-  .manifesto,
   .catalog-note,
   .site-footer,
   .page {
@@ -1202,21 +1002,12 @@ textarea::placeholder {
   .hero h1 {
     font-size: 28px;
   }
-  .hero-kicker {
-    font-size: 8px;
-  }
   .hero-schematic {
     padding-left: 18px;
   }
   .hero-schematic .pixel-art {
     width: 145px;
     height: 135px;
-  }
-  .schematic-callout {
-    position: static;
-    margin-top: 10px;
-    padding-left: 0;
-    font-size: 7px;
   }
   .hero-subtitle {
     font-size: 20px;
@@ -1242,9 +1033,6 @@ textarea::placeholder {
   }
   .product-grid > .product-card:last-child:nth-child(3) {
     grid-column: 1 / -1;
-  }
-  .manifesto > .blueprint-stamp {
-    display: none;
   }
   .detail-columns {
     gap: 25px;
@@ -1278,14 +1066,6 @@ textarea::placeholder {
     width: 105px;
     height: 105px;
   }
-  .hero-schematic .schematic-label,
-  .schematic-callout,
-  .hero-schematic figcaption {
-    display: none;
-  }
-  .hero-kicker {
-    max-width: 280px;
-  }
   .hero-subtitle {
     font-size: 18px;
     margin-top: 13px;
@@ -1296,14 +1076,6 @@ textarea::placeholder {
   }
   .invention-input {
     margin: 10px 22px 22px;
-  }
-  .sheet-heading,
-  .sheet-footer {
-    padding: 10px 15px;
-    font-size: 8px;
-  }
-  .sheet-heading > span:last-child {
-    display: none;
   }
   .under-search {
     font-size: 7px;
@@ -1329,7 +1101,6 @@ textarea::placeholder {
   .hero,
   .examples-section,
   .catalog-preview,
-  .manifesto,
   .catalog-note,
   .site-footer,
   .page {
@@ -1339,38 +1110,9 @@ textarea::placeholder {
   .hero {
     margin-top: 28px;
   }
-  .site-header {
-    padding: 20px 22px;
-    min-height: 90px;
-  }
-  .site-header nav {
-    gap: 16px;
-    font-size: 10px;
-  }
-  .site-header nav a:last-child {
-    display: none;
-  }
-  .wordmark {
-    font-size: 9px;
-    gap: 9px;
-  }
-  .wordmark b {
-    font-size: 12px;
-  }
-  .brand-symbol {
-    width: 36px;
-    height: 36px;
-  }
-  .brand-symbol .pixel-art {
-    width: 28px;
-    height: 28px;
-  }
   .examples-section,
   .catalog-preview {
     margin-top: 40px;
-  }
-  .section-heading .eyebrow {
-    font-size: 8px;
   }
   .section-heading h2 {
     font-size: 15px;
@@ -1387,27 +1129,7 @@ textarea::placeholder {
     padding: 17px;
     min-height: 175px;
   }
-  .example .eyebrow {
-    font-size: 7px;
-  }
   .example p {
-    font-size: 12px;
-  }
-  .manifesto {
-    gap: 20px;
-    padding: 25px 22px;
-  }
-  .manifesto > .pixel-art {
-    width: 68px;
-    height: 74px;
-  }
-  .manifesto h2 {
-    font-size: 15px;
-  }
-  .manifesto .eyebrow {
-    font-size: 8px;
-  }
-  .manifesto p {
     font-size: 12px;
   }
   .catalog-note {
@@ -1441,9 +1163,6 @@ textarea::placeholder {
   }
   .found-count {
     width: 100%;
-  }
-  .results-header .eyebrow {
-    font-size: 9px;
   }
   .query-display {
     font-size: 14px;
@@ -1530,20 +1249,12 @@ textarea::placeholder {
     line-height: 1.65;
     letter-spacing: -0.5px;
   }
-  .hero-kicker {
-    font-size: 7px;
-    max-width: 230px;
-    margin-bottom: 20px;
-  }
   .hero-subtitle {
     font-size: 16px;
   }
   .hero-copy {
     max-width: 90%;
     font-size: 13px;
-  }
-  .sheet-footer > span:last-child {
-    display: none;
   }
   .product-grid {
     grid-template-columns: 1fr;
@@ -1555,16 +1266,8 @@ textarea::placeholder {
     padding-left: 20px;
     padding-right: 20px;
   }
-  .dossier-heading {
-    margin-left: -20px;
-    margin-right: -20px;
-  }
   .section-heading h2 {
     font-size: 13px;
-  }
-  .section-heading .eyebrow {
-    font-size: 7px;
-    letter-spacing: 0.3px;
   }
   .examples-grid {
     grid-template-columns: 1fr 1fr;
@@ -1576,37 +1279,14 @@ textarea::placeholder {
   .example p {
     font-size: 11px;
   }
-  .example .eyebrow {
-    font-size: 6.5px;
-  }
   .hero,
   .examples-section,
   .catalog-preview,
-  .manifesto,
   .catalog-note,
   .site-footer,
   .page {
     margin-left: 17px;
     margin-right: 17px;
-  }
-  .site-header {
-    padding-left: 17px;
-    padding-right: 17px;
-    gap: 15px;
-  }
-  .site-header nav {
-    gap: 13px;
-    font-size: 9px;
-  }
-  .wordmark {
-    font-size: 8px;
-  }
-  .wordmark b {
-    font-size: 10px;
-  }
-  .brand-symbol {
-    width: 31px;
-    height: 31px;
   }
   .hero-layout {
     padding-left: 19px;
@@ -1618,12 +1298,6 @@ textarea::placeholder {
   }
   .search-form {
     padding: 0 14px;
-  }
-  .drawing-field-heading {
-    font-size: 7px;
-  }
-  .search-form .eyebrow {
-    font-size: 7px;
   }
   .search-form textarea {
     font-size: 17px;
@@ -1638,15 +1312,9 @@ textarea::placeholder {
   .button {
     font-size: 11px;
   }
-  .manifesto > .pixel-art {
-    display: none;
-  }
   .page-title,
   .results-header h1 {
     font-size: 20px;
-  }
-  .archive-status {
-    font-size: 8px;
   }
   .prose h2 {
     font-size: 13px;
@@ -1687,4 +1355,58 @@ textarea::placeholder {
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+.search-label {
+  display: block;
+  padding-top: 20px;
+  font-size: 14px;
+  color: var(--paper);
+}
+.match-label {
+  font-family: var(--mono);
+}
+.product-card {
+  padding-top: 22px;
+}
+.example {
+  min-height: 150px;
+}
+.example p {
+  margin-top: 0;
+}
+.discovery-note {
+  max-width: 800px;
+  margin: -4px 0 24px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.discovery-note a {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.updated-date {
+  margin: 16px 0;
+  color: var(--muted);
+}
+.product-card .added-date {
+  font: 11px/1.6 var(--mono);
+  color: #34517e;
+  margin-top: 12px;
+}
+.catalog-order {
+  display: flex;
+  gap: 24px;
+  margin: 24px 0;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.catalog-order a {
+  padding-bottom: 6px;
+  border-bottom: 2px solid transparent;
+}
+.catalog-order a[aria-current] {
+  border-color: var(--cyan);
 }

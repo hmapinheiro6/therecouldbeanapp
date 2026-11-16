@@ -18,15 +18,14 @@ def parse_hn(item):
     title=title.removeprefix('Show HN:').strip()
     name=re.split(r'\s(?:–|—|\-|:)\s|: ',title)[0].strip()[:100]
     timestamp=datetime.fromtimestamp(item['time'],timezone.utc).isoformat().replace('+00:00','Z')
-    return {'name':name,'canonical_url':url,'source_name':'Hacker News','source_type':'hackernews','source_url':'https://news.ycombinator.com/item?id='+str(item['id']),'external_id':str(item['id']),'discovered_at':timestamp}
+    return {'name':name,'canonical_url':url,'source_name':'Hacker News','source_type':'hackernews','source_url':'https://news.ycombinator.com/item?id='+str(item['id']),'external_id':str(item['id']),'discovered_at':timestamp,'resolve_identity':True}
 
 def parse_github(repo):
     if repo.get('archived') or repo.get('fork') or repo.get('size',0)<20 or not repo.get('homepage') or not repo.get('description') or EXCLUDE.search(repo.get('description','')+' '+repo.get('name','')):return None
-    if not repo.get('topics') or repo.get('stargazers_count',0)<3:return None
     try:url=canonicalize(repo['homepage'])
     except ValueError:return None
     if url.startswith('https://github.com/'):return None
-    return {'name':repo['name'].replace('-',' '),'canonical_url':url,'source_name':'GitHub','source_type':'github','source_url':repo['html_url'],'external_id':str(repo['id']),'discovered_at':now()}
+    return {'name':repo['name'].replace('-',' '),'canonical_url':url,'source_name':'GitHub','source_type':'github','source_url':repo['html_url'],'external_id':str(repo['id']),'discovered_at':now(),'resolve_identity':True}
 
 def parse_feed(text,kind='rss'):
     if len(text)>524288:raise ValueError('Feed too large')
@@ -53,20 +52,49 @@ class Sources:
         if r['status']!=200:raise FetchError('Source unavailable')
         return json.loads(r['text'])
     def hackernews(self,checkpoint=None,limit=30):
-        ids=self.json('https://hacker-news.firebaseio.com/v0/showstories.json')[:min(limit,30)]
-        new=[i for i in ids if not checkpoint or i>int(checkpoint)]
+        # Read a complete time window before consuming oldest first. A timestamp/id
+        # cursor preserves ties and never skips unconsumed leads when the quota fills.
+        start,after_id=map(int,checkpoint.split(':')) if checkpoint else (int((datetime.now(timezone.utc)-timedelta(days=2)).timestamp()),0)
+        end=min(start+86400,int(datetime.now(timezone.utc).timestamp())+1)
+        hits=[]
+        for page in range(5):
+            payload=self.json('https://hn.algolia.com/api/v1/search_by_date?'+urlencode({'tags':'show_hn','numericFilters':f'created_at_i>={start},created_at_i<{end}','hitsPerPage':100,'page':page}))
+            if payload.get('nbPages',1)>5:raise FetchError('Show HN window exceeds bounded pagination; operator review required',False)
+            hits.extend(payload.get('hits',[]))
+            if page+1>=payload.get('nbPages',1):break
+        out=[];cursor=checkpoint
+        for hit in sorted(hits,key=lambda h:(h['created_at_i'],int(h['objectID']))):
+            key=(hit['created_at_i'],int(hit['objectID']))
+            if key<=(start,after_id):continue
+            item={'id':key[1],'time':key[0],'title':hit.get('title',''),'url':hit.get('url')}
+            candidate=parse_hn(item)
+            cursor=f'{key[0]}:{key[1]}'
+            if candidate:out.append(candidate)
+            if len(out)>=limit:return out,cursor
+        return out,f'{end}:0'
+
+    def github(self,checkpoint=None,limit=30,topic='saas'):
+        # A day is fully paged before advancing; page+offset retains candidates when
+        # the verification quota is smaller than a source response.
+        if checkpoint and checkpoint.startswith('{'):
+            state=json.loads(checkpoint);day=state['day'];page=state['page'];offset=state['offset']
+        else:
+            day=(datetime.now(timezone.utc)-timedelta(days=2)).strftime('%Y-%m-%d');page=1;offset=0
+        if day>=datetime.now(timezone.utc).strftime('%Y-%m-%d'):
+            return [],json.dumps({'day':day,'page':1,'offset':0},separators=(',',':'))
+        query=f'created:{day} archived:false fork:false topic:{topic}'
         out=[]
-        for i in new:
-            item=self.json('https://hacker-news.firebaseio.com/v0/item/'+str(i)+'.json')
-            if item:
-                candidate=parse_hn(item)
+        for _ in range(5):
+            payload=self.json('https://api.github.com/search/repositories?'+urlencode({'q':query,'sort':'created','order':'asc','per_page':100,'page':page}))
+            if payload.get('incomplete_results') or payload.get('total_count',0)>1000:
+                raise FetchError('GitHub source window incomplete; operator review required',False)
+            repos=payload.get('items',[])
+            for index in range(offset,len(repos)):
+                candidate=parse_github(repos[index])
                 if candidate:out.append(candidate)
-        # Advance only to an actually consumed item, after persistence by the caller.
-        return out,str(max(ids)) if ids else checkpoint
-    def github(self,checkpoint=None,limit=30):
-        since=checkpoint or (datetime.now(timezone.utc)-timedelta(days=7)).strftime('%Y-%m-%dT%H:%M:%SZ')
-        query='created:>'+since+' stars:>=3 archived:false fork:false topic:productivity topic:developer-tools'
-        payload=self.json('https://api.github.com/search/repositories?'+urlencode({'q':query,'sort':'created','order':'asc','per_page':min(limit,30)}))
-        repos=payload.get('items',[]);out=[c for r in repos if (c:=parse_github(r))]
-        cursor=max((r['created_at'] for r in repos),default=checkpoint)
-        return out,cursor
+                if len(out)>=limit:return out,json.dumps({'day':day,'page':page,'offset':index+1},separators=(',',':'))
+            if len(repos)<100 or page*100>=payload.get('total_count',0):
+                next_day=(datetime.fromisoformat(day)+timedelta(days=1)).strftime('%Y-%m-%d')
+                return out,json.dumps({'day':next_day,'page':1,'offset':0},separators=(',',':'))
+            page+=1;offset=0
+        return out,json.dumps({'day':day,'page':page,'offset':0},separators=(',',':'))

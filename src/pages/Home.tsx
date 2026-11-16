@@ -1,41 +1,25 @@
 import { Link } from "react-router-dom";
 import { SearchForm } from "../components/SearchForm";
 import { ProductCard } from "../components/ProductCard";
-import { BlueprintStamp, PixelArt } from "../components/PixelArt";
+import { PixelArt } from "../components/PixelArt";
 import { useApi } from "../useApi";
 import type { Product } from "../lib/types";
 const examples = [
-  ["01", "THE SOLO EMPIRE", "A CRM for freelancers that handles invoicing"],
-  ["02", "THE CONTENT MACHINE", "An app that automatically edits short videos"],
-  [
-    "03",
-    "THE UNPAID INTERN",
-    "A tool that schedules social posts across platforms",
-  ],
-  [
-    "04",
-    "THE MEETING SURVIVOR",
-    "An AI assistant that takes notes during meetings",
-  ],
+  "A CRM for freelancers that handles invoicing",
+  "An app that automatically edits short videos",
+  "A tool that schedules social posts across platforms",
+  "An AI assistant that takes notes during meetings",
 ];
 export function Home() {
   const { data } = useApi<{ products: number; catalog_updated_at: string }>(
     "/stats",
   );
-  const catalog = useApi<{ products: Product[] }>("/products");
+  const catalog = useApi<{ products: Product[] }>("/products?sort=recent");
   return (
     <>
       <section className="hero blueprint-sheet">
-        <div className="sheet-heading">
-          <span>TCBA / DEPARTMENT OF QUESTIONABLE ORIGINALITY</span>
-          <span>DRAWING NO. 001</span>
-        </div>
         <div className="hero-layout">
           <div className="hero-title">
-            <div className="hero-kicker">
-              <span className="status-dot" /> YOUR NEXT BIG IDEA. FILE UNDER:
-              PROBABLY EXISTS.
-            </div>
             <h1>
               THERE COULD BE
               <br />
@@ -52,55 +36,34 @@ export function Home() {
               We’ll find the people who already built it.
             </p>
           </div>
-          <figure className="hero-schematic">
-            <span className="schematic-label">FIG. A / THE IDEA MACHINE</span>
+          <figure className="hero-schematic" aria-hidden="true">
             <div className="schematic-drawing">
               <PixelArt />
-              <span className="schematic-callout">
-                ORIGINALITY
-                <br />
-                NOT INCLUDED ↙
-              </span>
             </div>
-            <figcaption>
-              INPUT: ONE BRILLIANT IDEA
-              <br />
-              OUTPUT: A SMALL REALITY CHECK
-            </figcaption>
           </figure>
         </div>
         <div className="invention-input">
           <SearchForm />
           <p className="under-search">
-            <span>NO ACCOUNT. NO AI PROPHECY. JUST ACTUAL SOFTWARE.</span>
-            <span>* A joke. The counts below are real.</span>
+            No account needed. * The 40 is a joke; the catalog count below is
+            real.
           </p>
-        </div>
-        <div className="sheet-footer">
-          <span>METHOD: SEARCH → COMPARE → RECONSIDER</span>
-          <span>NOT A PATENT SEARCH.</span>
         </div>
       </section>
       <section className="examples-section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">
-              01 / START WITH A FAMILIAR INVENTION
-            </span>
             <h2>Need an idea to ruin?</h2>
           </div>
           <PixelArt kind="bulb" />
         </div>
         <div className="examples-grid">
-          {examples.map(([n, title, q]) => (
+          {examples.map((q) => (
             <Link
-              key={n}
+              key={q}
               className="example"
               to={"/search?q=" + encodeURIComponent(q)}
             >
-              <span className="eyebrow">
-                CONCEPT {n} / {title}
-              </span>
               <p>{q}</p>
               <span className="example-arrow" aria-hidden="true">
                 ↗
@@ -112,16 +75,20 @@ export function Home() {
       <section className="catalog-preview">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">02 / RETRIEVED FROM THE ARCHIVE</span>
-            <h2>Already a thing.</h2>
+            <h2>Recently added.</h2>
           </div>
           <Link className="text-link" to="/explore">
-            OPEN THE ARCHIVE →
+            Explore all apps →
           </Link>
         </div>
+        <p className="discovery-note">
+          New to this catalog, not necessarily newly launched. We check Show HN,
+          GitHub, and founder submissions against official product pages.{" "}
+          <Link to="/about">How discovery works →</Link>
+        </p>
         <div className="product-grid">
           {catalog.data?.products.slice(0, 3).map((p) => (
-            <ProductCard key={p.slug} product={p} />
+            <ProductCard key={p.slug} product={p} showAdded />
           ))}
           {catalog.loading && (
             <p className="loading-state" role="status">
@@ -136,31 +103,11 @@ export function Home() {
           )}
         </div>
       </section>
-      <section className="manifesto blueprint-sheet">
-        <PixelArt kind="crane" />
-        <div>
-          <span className="eyebrow">
-            ENGINEER’S NOTE / PLEASE KEEP BUILDING
-          </span>
-          <h2>
-            ALREADY BUILT.
-            <br />
-            NOT THE END.
-          </h2>
-          <p>
-            Someone having built it doesn’t mean you shouldn’t.
-            <br />
-            It just means you should know.
-          </p>
-        </div>
-        <BlueprintStamp />
-      </section>
       <div className="catalog-note">
         <span className="status-dot" />
         {data
           ? `${data.products} PUBLISHED PRODUCTS`
           : "SOURCE-CHECKED SOFTWARE"}
-        <span>DOCUMENTED CAPABILITIES. ZERO INVENTED SCORES.</span>
       </div>
     </>
   );

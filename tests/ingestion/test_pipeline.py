@@ -120,3 +120,94 @@ def test_navigation_and_oversized_fragments_are_not_capability_evidence():
     p=Metadata();p.feed('<title>ActualApp</title><main><p>ActualApp is a public software tool for simple everyday work.</p></main><nav>Project management software</nav><footer>Password manager platform</footer>')
     assert evidence_from(p.sentences())==[]
     assert evidence_from(['Project management '+('unrelated words '*50)])==[]
+
+
+def test_show_hn_consumes_oldest_first_across_pages_and_preserves_timestamp_ties():
+    from ingestion.sources import Sources
+    source=Sources(Mock())
+    def hit(i,t):return {'objectID':str(i),'created_at_i':t,'title':'Show HN: ActualApp – project management','url':f'https://actual{i}.dev'}
+    responses=[{'nbPages':2,'hits':[hit(9,1002)]},{'nbPages':2,'hits':[hit(8,1001),hit(7,1001)]}]
+    with patch.object(source,'json',side_effect=responses):
+        items,cursor=source.hackernews('1000:0',1)
+    assert [c['external_id'] for c in items]==['7'];assert cursor=='1001:7'
+    with patch.object(source,'json',side_effect=responses):
+        items,cursor=source.hackernews(cursor,1)
+    assert [c['external_id'] for c in items]==['8'];assert cursor=='1001:8'
+
+
+def test_show_hn_never_silently_advances_past_truncated_window():
+    from ingestion.sources import Sources
+    source=Sources(Mock())
+    with patch.object(source,'json',return_value={'nbPages':6,'hits':[]}):
+        with pytest.raises(FetchError,match='pagination'):source.hackernews('1000:0',10)
+
+
+def test_github_keeps_unconsumed_candidates_without_star_threshold():
+    from ingestion.sources import Sources
+    source=Sources(Mock())
+    repos=[{'id':i,'name':f'Actual{i}','homepage':f'https://actual{i}.dev','description':'Project management software','size':100,'topics':['saas'],'stargazers_count':0,'html_url':f'https://github.com/maker/actual{i}'} for i in (1,2,3)]
+    payload={'items':repos,'total_count':3,'incomplete_results':False}
+    start=json.dumps({'day':'2026-01-01','page':1,'offset':0})
+    with patch.object(source,'json',return_value=payload) as fetch:
+        first,cursor=source.github(start,1,'saas')
+        second,cursor=source.github(cursor,1,'saas')
+        third,cursor=source.github(cursor,10,'saas')
+    assert [c['external_id'] for c in first+second+third]==['1','2','3']
+    assert json.loads(cursor)['day']=='2026-01-02'
+    assert 'stars' not in fetch.call_args.args[0]
+
+
+def test_incomplete_github_window_is_not_checkpointed():
+    from ingestion.sources import Sources
+    source=Sources(Mock())
+    with patch.object(source,'json',return_value={'items':[],'incomplete_results':True}):
+        with pytest.raises(FetchError,match='incomplete'):source.github(None,10)
+
+
+def test_descriptive_launch_title_can_resolve_explicit_official_brand():
+    c={'name':'I built a project management tool','canonical_url':'https://actualapp.dev','source_name':'Hacker News','source_url':'https://news.ycombinator.com/item?id=42','external_id':'42','resolve_identity':True}
+    web=Mock();web.fetch.return_value={'status':200,'content_type':'text/html','url':'https://actualapp.dev','text':'<title>ActualApp | Project management</title><meta property="og:site_name" content="ActualApp"><h1>ActualApp</h1><p>ActualApp is project management software that helps teams organize their work and plan upcoming projects.</p>'}
+    assert verify(c,web)['name']=='ActualApp'
+    web.fetch.return_value['text']=web.fetch.return_value['text'].replace('ActualApp','DifferentBrand')
+    with pytest.raises(FetchError,match='name'):verify(c,web)
+
+
+def test_source_quotas_allow_github_even_when_show_hn_is_busy():
+    from ingestion.run import run
+    sample={'name':'ActualApp','canonical_url':'https://actual.dev','source_name':'Hacker News','source_type':'hackernews','source_url':'https://news.ycombinator.com/item?id=1','external_id':'1'}
+    with patch('ingestion.run.Sources') as source,patch('ingestion.run.verify',side_effect=FetchError('Review',False)):
+        source.return_value.hackernews.side_effect=lambda checkpoint,limit:([{**sample,'external_id':str(i)} for i in range(limit)],'1000:1')
+        source.return_value.github.return_value=([],None)
+        assert run(True,40)==0
+        assert source.return_value.github.call_count==3
+        assert source.return_value.hackernews.call_args.kwargs['limit']<40
+
+
+@pytest.mark.parametrize('sentence',[
+ 'Built by a freelance video editor',
+ 'E-Commerce SEO',
+ 'Our scanner provides CI/CD pipeline hardening checks',
+ "They are kept on your computer or in your own cloud storage",
+ 'bun and pnpm share files between projects',
+ 'Type in a follow-up field to ask a question',
+ 'Monday: rate Tuesday: send Thursday: follow up Friday: read',
+])
+def test_incidental_mentions_are_not_product_capabilities(sentence):
+    assert evidence_from([sentence])==[]
+
+
+def test_direct_product_claims_remain_publishable():
+    claims=evidence_from(['Error tracking and product analytics in one self-hosted stack','Staff schedule and timesheets','A cloud storage service to store your files securely online'])
+    assert {'monitoring','analytics','time','storage'}<={c['slug'] for c in claims}
+
+
+def test_ci_security_scanning_is_not_continuous_integration():
+    assert evidence_from(['CI/CD security flags GitHub Actions pinned to mutable tags'])==[]
+    assert [c['slug'] for c in evidence_from(['A continuous integration platform for automated builds'])]==['ci']
+
+
+def test_agency_brand_cannot_replace_a_tool_name_on_a_nested_page():
+    from ingestion.extraction import confirmed_name
+    p=Metadata();p.feed('<title>Agency | Free Tool</title><h1>Agency provides this free tool</h1>')
+    with pytest.raises(FetchError,match='name'):
+        confirmed_name({'name':'A new tool','resolve_identity':True},p,'agency provides this free tool','https://agency.dev/free-tool')

@@ -30,12 +30,8 @@ export function SearchForm({
         submit();
       }}
     >
-      <div className="drawing-field-heading">
-        <span aria-hidden="true">FIG. 01 / CONCEPT INPUT</span>
-        <span aria-hidden="true">SCALE 1:1</span>
-      </div>
-      <label htmlFor="idea" className="eyebrow">
-        THE NEXT BIG THING, APPARENTLY
+      <label htmlFor="idea" className="search-label">
+        Describe your app idea
       </label>
       <textarea
         id="idea"

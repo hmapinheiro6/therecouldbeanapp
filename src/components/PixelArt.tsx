@@ -103,15 +103,3 @@ export function PixelArt({
     </svg>
   );
 }
-export function BlueprintStamp({
-  children = "ALREADY BUILT",
-}: {
-  children?: string;
-}) {
-  return (
-    <span className="blueprint-stamp">
-      {children}
-      <span aria-hidden="true">▦</span>
-    </span>
-  );
-}

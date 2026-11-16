@@ -18,7 +18,7 @@ writeFileSync(
 const pages = {
   about: [
     "About — There Could Be An App",
-    "A source-backed software search engine with a raised eyebrow.",
+    "Find existing apps and SaaS products, with evidence from their official websites.",
   ],
   privacy: [
     "Privacy — There Could Be An App",

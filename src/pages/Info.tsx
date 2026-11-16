@@ -3,12 +3,7 @@ import { Link } from "react-router-dom";
 export function About() {
   return (
     <div className="page prose">
-      <span className="eyebrow">ORIGINALITY IS OVERRATED. RESEARCH ISN’T.</span>
-      <h1 className="page-title">
-        A search engine.
-        <br />
-        With a raised eyebrow.
-      </h1>
+      <h1 className="page-title">Find software that already exists.</h1>
       <p className="lead">
         There Could Be An App helps you find the software that already solves
         your very original problem.
@@ -26,12 +21,33 @@ export function About() {
         a strong match. These labels describe our evidence, not a guarantee of
         fit.
       </p>
-      <h2>No artificial crystal ball.</h2>
+      <h2>How search works</h2>
       <p>
         Search uses full-text indexing, synonyms, and deterministic ranking. No
         AI inference, invented percentages, or “87 competitors detected”
         theater. We don’t test every product hands-on, and our catalog doesn’t
         cover the whole internet.
+      </p>
+      <h2>Where new apps come from</h2>
+      <p>
+        The initial catalog was seeded with 45 familiar products to test search.
+        Discovery runs daily at 04:17 UTC, collecting recent Show HN launches
+        and new GitHub repositories with official product websites. Founders can
+        also <Link to="/submit">submit an app</Link>. We do not require
+        popularity or GitHub stars.
+      </p>
+      <p>
+        A source mention is a lead. Before publication, we check the official
+        website, confirm the product identity, and save explicit capability
+        evidence. Blocked sites, unclear identities, and unsupported claims stay
+        out of search for review. “Recently added” means first added to this
+        catalog; it does not mean a verified launch date.
+      </p>
+      <p>
+        Coverage is still small. These sources miss products that are not
+        announced there, including many closed-source SaaS products. We will
+        need additional permitted launch feeds and founder submissions to
+        broaden it.
       </p>
       <h2>Someone else built it. Now what?</h2>
       <p>
@@ -47,8 +63,8 @@ export function About() {
 export function Privacy() {
   return (
     <div className="page prose">
-      <span className="eyebrow">LAST UPDATED 15 NOVEMBER 2026</span>
       <h1 className="page-title">Your ideas are yours.</h1>
+      <p className="updated-date">Last updated 15 November 2026</p>
       <p className="lead">
         This policy describes the application as implemented. No advertising
         trackers or analytics scripts are installed.
@@ -114,7 +130,6 @@ export function Privacy() {
 export function Terms() {
   return (
     <div className="page prose">
-      <span className="eyebrow">LAST UPDATED 15 NOVEMBER 2026</span>
       <h1 className="page-title">
         The small print.
         <br />
@@ -171,7 +186,6 @@ export function NotFound() {
   return (
     <div className="page empty-state not-found">
       <PixelArt kind="disk" />
-      <span className="eyebrow">ERROR 404 / FILE NOT IN ARCHIVE</span>
       <h1 className="page-title">
         There isn’t a page
         <br />

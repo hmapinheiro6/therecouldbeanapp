@@ -7,7 +7,7 @@ test("homepage sends a real search and exposes source-backed results", async ({
     "THERE COULD BE",
   );
   await page
-    .getByLabel("THE NEXT BIG THING, APPARENTLY")
+    .getByLabel("Describe your app idea")
     .fill("meeting transcription and action items");
   await page.getByRole("button", { name: "Ruin my idea" }).click();
   await expect(page).toHaveURL(/search\?q=/);
@@ -34,8 +34,8 @@ test("empty queries show accessible feedback and Enter searches", async ({
   await page.goto("/");
   await page.getByRole("button", { name: "Ruin my idea" }).click();
   await expect(page.getByRole("alert")).toContainText("At least two");
-  await page.getByLabel("THE NEXT BIG THING, APPARENTLY").fill("Otter");
-  await page.getByLabel("THE NEXT BIG THING, APPARENTLY").press("Enter");
+  await page.getByLabel("Describe your app idea").fill("Otter");
+  await page.getByLabel("Describe your app idea").press("Enter");
   await expect(
     page.getByRole("heading", { name: "Otter", exact: true }),
   ).toBeVisible();

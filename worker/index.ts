@@ -224,9 +224,11 @@ app.get("/api/search", async (c) => {
 });
 app.get("/api/products", async (c) => {
   const category = c.req.query("category") ?? "";
+  const sort = c.req.query("sort") ?? "name";
   const offset = Number(c.req.query("offset") ?? 0);
   if (
     category.length > 80 ||
+    !["name", "recent"].includes(sort) ||
     !Number.isInteger(offset) ||
     offset < 0 ||
     offset > 10000
@@ -236,7 +238,7 @@ app.get("/api/products", async (c) => {
       400,
     );
   const r = await c.env.DB.prepare(
-    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.status='published' AND (?='' OR c.slug=?) ORDER BY p.name LIMIT 24 OFFSET ?`,
+    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.status='published' AND (?='' OR c.slug=?) ORDER BY ${sort === "recent" ? "p.first_seen_at DESC,p.id DESC" : "p.name,p.id"} LIMIT 24 OFFSET ?`,
   )
     .bind(category, category, offset)
     .all<ProductRow>();

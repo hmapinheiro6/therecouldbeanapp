@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { PixelArt } from "./components/PixelArt";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Search } from "./pages/Search";
 import { Explore } from "./pages/Explore";
@@ -51,29 +50,6 @@ export function App() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="site-header">
-        <Link
-          to="/"
-          className="wordmark"
-          aria-label="There Could Be An App home"
-        >
-          <span className="brand-symbol" aria-hidden="true">
-            <PixelArt kind="window" />
-          </span>
-          <span>
-            THERE COULD BE
-            <br />
-            <b>AN APP.</b>
-          </span>
-        </Link>
-        <nav aria-label="Main navigation">
-          <NavLink to="/explore">Explore</NavLink>
-          <NavLink to="/submit">
-            Submit your app <span aria-hidden="true">↗</span>
-          </NavLink>
-          <NavLink to="/about">About</NavLink>
-        </nav>
-      </header>
       <main id="main" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -90,15 +66,15 @@ export function App() {
       <footer className="site-footer">
         <div>
           <Link to="/" className="footer-brand">
-            there could be an app. ↗
+            there could be an app.
           </Link>
-          <p>Original ideas. Previously implemented. / Keep the drawings.</p>
         </div>
         <nav aria-label="Footer">
+          <Link to="/explore">Explore</Link>
+          <Link to="/submit">Submit your app</Link>
           <Link to="/about">About</Link>
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
-          <span>THE INVENTION ARCHIVE / EST. 2026</span>
         </nav>
       </footer>
     </>

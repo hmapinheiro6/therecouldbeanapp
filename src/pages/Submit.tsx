@@ -22,7 +22,6 @@ export function Submit() {
     } | null>(null);
   return (
     <div className="page submission-page">
-      <span className="eyebrow">INTAKE DESK / NEW INVENTION</span>
       <h1 className="page-title">
         Built another app?
         <br />

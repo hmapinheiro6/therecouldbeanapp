@@ -145,6 +145,36 @@ describe("public API", () => {
       404,
     );
   });
+  it("orders recent additions by catalog entry date, with stable pagination", async () => {
+    const original = await env.DB.prepare(
+      "SELECT first_seen_at FROM products WHERE slug='otter'",
+    ).first<{ first_seen_at: string }>();
+    try {
+      await env.DB.prepare(
+        "UPDATE products SET first_seen_at='2099-01-01T00:00:00Z' WHERE slug='otter'",
+      ).run();
+      const r = await app.request("/api/products?sort=recent", {}, env);
+      expect(r.status).toBe(200);
+      const b = (await r.json()) as {
+        products: { slug: string; first_seen_at: string }[];
+      };
+      expect(b.products[0].slug).toBe("otter");
+      expect(
+        b.products.every(
+          (p, i) => !i || b.products[i - 1].first_seen_at >= p.first_seen_at,
+        ),
+      ).toBe(true);
+      expect(
+        (await app.request("/api/products?sort=arbitrary-sql", {}, env)).status,
+      ).toBe(400);
+    } finally {
+      await env.DB.prepare(
+        "UPDATE products SET first_seen_at=? WHERE slug='otter'",
+      )
+        .bind(original!.first_seen_at)
+        .run();
+    }
+  });
   it("rejects malicious URLs and XSS submissions before verification", async () => {
     expect((await submit("Bad", "https://127.0.0.1")).status).toBe(400);
     expect((await submit("<script>alert(1)</script>")).status).toBe(400);

@@ -15,7 +15,7 @@ No paid model, search API, scraping service, email service, vector database, ana
 
 ## Operational reality
 
-D1 indexes and FTS triggers amplify writes. A five-product batch can write multiple rows per product; source-run counts are not billing rows. Popular-query caching is not enabled because search URLs may contain private ideas. Short public product/category cache headers help browser/CDN reuse but do not remove every Worker invocation. Track actual D1 `rows_read`, `rows_written`, storage, Worker CPU and requests in the dashboard. The ingestion cap defaults to 40/day in Actions (hard code maximum 100). Turn it off with `DISCOVERY_ENABLED=false` if quotas approach limits.
+D1 indexes and FTS triggers amplify writes. A five-product batch can write multiple rows per product; source-run counts are not billing rows. Popular-query caching is not enabled because search URLs may contain private ideas. Short public product/category cache headers help browser/CDN reuse but do not remove every Worker invocation. Track actual D1 `rows_read`, `rows_written`, storage, Worker CPU and requests in the dashboard. The ingestion cap defaults to 100 candidates/run in daily Actions (hard code maximum 100). Turn it off with `DISCOVERY_ENABLED=false` if quotas approach limits.
 
 A public repository reveals source code, not submission PII. Do not use private runners/jobs as a workaround without reviewing billing. GitHub schedules can be delayed or dropped and automatically disable after 60 days of repository inactivity; reenable manually. This operational limit prevents a guarantee of permanent unattended discovery without maintenance.
 

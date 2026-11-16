@@ -26,15 +26,20 @@ def run(dry_run=False,max_candidates=100,output=None):
     if client:client.request('/api/internal/ingest',{'run':summary})
     try:
         candidates=[];errors=[];new_checkpoints=[]
-        for s in [x for x in state['submissions'] if x['status'] in ('pending','approved')][:10]:
+        for s in [x for x in state['submissions'] if x['status'] in ('pending','approved')][:min(10,max_candidates)]:
             candidates.append({'name':s['product_name'],'canonical_url':s['submitted_url'],'source_name':'Submissions','source_type':'submission','source_url':s['submitted_url'],'external_id':s['id'],'submission_id':s['id'],'discovered_at':s['created_at']})
-        for c in [x for x in state['candidates'] if x['status']=='pending_verification'][:20]:
-            c=dict(c);c['source_type']={'Hacker News':'hackernews','GitHub':'github','Submissions':'submission'}.get(c['source_name'],'feed');c['discovered_at']=c['created_at'];candidates.append(c)
+        for c in [x for x in state['candidates'] if x['status']=='pending_verification'][:min(10,max(0,max_candidates-len(candidates)))]:
+            c=dict(c);c['source_type']={'Hacker News':'hackernews','GitHub':'github','Submissions':'submission'}.get(c['source_name'],'feed');c['discovered_at']=c['created_at'];c['resolve_identity']=c['source_name'] in ('Hacker News','GitHub');candidates.append(c)
         sources=Sources(SafeWeb(delay=.25))
-        for name,fetch in [('hackernews',sources.hackernews),('github',sources.github)]:
+        # Independent quotas prevent one busy source from starving all others.
+        adapters=[('hackernews_newest',sources.hackernews),
+                  *[(f'github_{topic}',lambda checkpoint,limit,topic=topic:sources.github(checkpoint,limit,topic)) for topic in ('saas','productivity','developer-tools')]]
+        for source_index,(name,fetch) in enumerate(adapters):
             try:
                 if len(candidates)>=max_candidates:break
-                items,cursor=fetch(checkpoints.get(name),limit=min(30,max_candidates-len(candidates)))
+                remaining=max_candidates-len(candidates)
+                quota=max(1,int(remaining*.6)) if source_index==0 else max(1,remaining//(len(adapters)-source_index))
+                items,cursor=fetch(checkpoints.get(name),limit=min(60,quota))
                 candidates.extend(items)
                 if cursor:new_checkpoints.append({'source_name':name,'cursor_value':cursor})
             except (ValueError,FetchError) as e:errors.append(name+': '+str(e)[:160])

@@ -19,21 +19,6 @@ export function Search() {
         ← A different brilliant idea
       </Link>
       <div className="results-header">
-        <div className="search-reference">
-          <span className="eyebrow">BLUEPRINT SEARCH / ARCHIVE RESULTS</span>
-          <span className="archive-status">
-            STATUS:{" "}
-            {loading
-              ? "SCANNING"
-              : error
-                ? "CONNECTION ERROR"
-                : data?.summary.strong
-                  ? "ALREADY INVENTED"
-                  : data?.total
-                    ? "RELATED FILES FOUND"
-                    : "NO CLOSE MATCH"}
-          </span>
-        </div>
         <h1>
           {loading
             ? "Consulting the evidence…"
