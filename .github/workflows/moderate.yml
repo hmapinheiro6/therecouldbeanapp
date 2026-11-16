@@ -40,7 +40,8 @@ jobs:
       - name: Apply authorized moderation
         shell: python
         run: |
-          import os
+          import os, sys
+          sys.path.insert(0, os.getcwd())
           from ingestion.client import InternalClient
           body = {k: os.environ[v] for k,v in [('kind','RECORD_KIND'),('action','RECORD_ACTION'),('id','RECORD_ID'),('reason','RECORD_REASON')]}
           InternalClient().request('/api/internal/moderate', body)

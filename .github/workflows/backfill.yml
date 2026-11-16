@@ -30,10 +30,4 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify official websites and publish identity-checked listings
-        shell: python
-        run: |
-          import os
-          from ingestion.backfill import run
-          limit=int(os.environ['CANDIDATE_LIMIT'])
-          assert 1<=limit<=2000
-          run(limit,8)
+        run: python -m ingestion.backfill --max-candidates "$CANDIDATE_LIMIT" --workers 8
