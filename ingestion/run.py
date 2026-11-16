@@ -17,12 +17,12 @@ def queue_record(c,status,reason=None):
     attempts=c.get('attempts',0)+1
     return {'id':c.get('id',identity(c)),'source_name':c['source_name'],'source_url':c['source_url'],'external_id':c['external_id'],'name':c['name'][:100],'canonical_url':canonicalize(c['canonical_url']),'status':status,'reason':reason[:500] if reason else None,'attempts':attempts,'next_retry_at':(datetime.now(timezone.utc)+timedelta(days=min(7,2**attempts))).isoformat().replace('+00:00','Z') if status=='pending_verification' else None,'submission_id':c.get('submission_id'),'created_at':c.get('created_at',now()),'updated_at':now()}
 
-def run(dry_run=False,max_candidates=100,output=None):
+def run(dry_run=False,max_candidates=100,output=None,queue_only=False):
     max_candidates=min(max_candidates,100);client=None if dry_run else InternalClient()
     state=client.request('/api/internal/pending') if client else {'submissions':[],'candidates':[],'checkpoints':[]}
     checkpoints={p['source_name']:p['cursor_value'] for p in state['checkpoints']}
     run_id=str(uuid.uuid4());started=now()
-    summary={'id':run_id,'source_name':'daily-discovery','started_at':started,'completed_at':None,'status':'running','candidates_found':0,'records_accepted':0,'records_rejected':0,'records_pending':0,'error_summary':None}
+    summary={'id':run_id,'source_name':'pending-verification' if queue_only else 'daily-discovery','started_at':started,'completed_at':None,'status':'running','candidates_found':0,'records_accepted':0,'records_rejected':0,'records_pending':0,'error_summary':None}
     if client:client.request('/api/internal/ingest',{'run':summary})
     try:
         candidates=[];errors=[];new_checkpoints=[]
@@ -32,7 +32,7 @@ def run(dry_run=False,max_candidates=100,output=None):
             c=dict(c);c['source_type']={'Hacker News':'hackernews','GitHub':'github','Submissions':'submission'}.get(c['source_name'],'feed');c['discovered_at']=c['created_at'];c['resolve_identity']=c['source_name'] in ('Hacker News','GitHub');candidates.append(c)
         sources=Sources(SafeWeb(delay=.25))
         # Independent quotas prevent one busy source from starving all others.
-        adapters=[('hackernews_newest',sources.hackernews),
+        adapters=[] if queue_only else [('hackernews_newest',sources.hackernews),
                   *[(f'github_{topic}',lambda checkpoint,limit,topic=topic:sources.github(checkpoint,limit,topic)) for topic in ('saas','productivity','developer-tools')]]
         for source_index,(name,fetch) in enumerate(adapters):
             try:
@@ -43,7 +43,7 @@ def run(dry_run=False,max_candidates=100,output=None):
                 candidates.extend(items)
                 if cursor:new_checkpoints.append({'source_name':name,'cursor_value':cursor})
             except (ValueError,FetchError) as e:errors.append(name+': '+str(e)[:160])
-        for feed in json.loads((ROOT/'data/feeds.json').read_text()):
+        for feed in ([] if queue_only else json.loads((ROOT/'data/feeds.json').read_text())):
             if not feed['enabled']:continue
             if not feed.get('permission_cleared_at'):raise RuntimeError('Enabled feed lacks a permission review')
             try:
@@ -67,8 +67,16 @@ def run(dry_run=False,max_candidates=100,output=None):
                     c['category_slug']=draft.get('category_slug','desktop-apps')
                     p=verify_identity(c)
                 else:p=verify(c,web)
-                products.append(p);record=queue_record(c,'published');summary['records_accepted']+=1
-                if client:client.request('/api/internal/ingest',{'products':[p],'candidates':[record]})
+                if queue_only:
+                    record=queue_record(c,'needs_review','Official evidence prepared; review every claim before publication.')
+                    p.setdefault('verification_scope','capabilities')
+                    record['review_draft_json']=json.dumps(p)
+                    if len(record['review_draft_json'])>12000:raise ValueError('Review draft exceeds the editorial API limit')
+                    summary['records_pending']+=1
+                    if client:client.request('/api/internal/ingest',{'candidates':[record]})
+                else:
+                    products.append(p);record=queue_record(c,'published');summary['records_accepted']+=1
+                    if client:client.request('/api/internal/ingest',{'products':[p],'candidates':[record]})
             except (ValueError,FetchError) as e:
                 temporary=isinstance(e,FetchError) and e.temporary
                 status='pending_verification' if temporary else 'needs_review'
@@ -90,9 +98,9 @@ def run(dry_run=False,max_candidates=100,output=None):
         raise
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--dry-run',action='store_true');parser.add_argument('--max-candidates',type=int,default=100);parser.add_argument('--output');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--dry-run',action='store_true');parser.add_argument('--max-candidates',type=int,default=100);parser.add_argument('--output');parser.add_argument('--queue-only',action='store_true');args=parser.parse_args()
     if args.max_candidates<1:parser.error('max-candidates must be positive')
-    try:sys.exit(run(args.dry_run,args.max_candidates,args.output))
+    try:sys.exit(run(args.dry_run,args.max_candidates,args.output,args.queue_only))
     except Exception as e:
         # Deliberately omit data, credentials, and tracebacks in unattended logs.
         print(json.dumps({'status':'failed','kind':type(e).__name__,'message':str(e)[:200]}),file=sys.stderr);sys.exit(1)

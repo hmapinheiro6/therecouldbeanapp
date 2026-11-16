@@ -14,6 +14,7 @@ def parse_hn(item):
     if not title.startswith('Show HN:') or item.get('dead') or item.get('deleted') or not item.get('url') or EXCLUDE.search(title):return None
     try:url=canonicalize(item['url'])
     except ValueError:return None
+    if len(url.encode('utf-16-le'))//2>2000:return None
     if url.startswith(('https://github.com/','https://youtube.com/','https://youtu.be/')):return None
     title=title.removeprefix('Show HN:').strip()
     name=re.split(r'\s(?:–|—|\-|:)\s|: ',title)[0].strip()[:100]
@@ -24,6 +25,7 @@ def parse_github(repo):
     if repo.get('archived') or repo.get('fork') or repo.get('size',0)<20 or not repo.get('homepage') or not repo.get('description') or EXCLUDE.search(repo.get('description','')+' '+repo.get('name','')):return None
     try:url=canonicalize(repo['homepage'])
     except ValueError:return None
+    if len(url.encode('utf-16-le'))//2>2000:return None
     if url.startswith('https://github.com/'):return None
     return {'name':repo['name'].replace('-',' '),'canonical_url':url,'source_name':'GitHub','source_type':'github','source_url':repo['html_url'],'external_id':str(repo['id']),'discovered_at':now(),'resolve_identity':True}
 

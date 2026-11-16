@@ -55,7 +55,7 @@ def report(stage, outcome, code=None, reset=None, kind=None, status=None):
         print('::notice title=Catalog import deferred::Daily allowance pause; see the job summary. No completed import is claimed.')
 
 
-def execute(stage, max_candidates=100, workers=8, source='homebrew'):
+def execute(stage, max_candidates=100, workers=8, source='homebrew', queue_only=False):
     try:
         if stage == 'prepare':
             result = InternalClient().request('/api/internal/maintenance', {})
@@ -65,7 +65,7 @@ def execute(stage, max_candidates=100, workers=8, source='homebrew'):
             return 0
         if stage == 'discover':
             from .run import run
-            result = run(False, max_candidates)
+            result = run(False, max_candidates, queue_only=True) if queue_only else run(False, max_candidates)
             if result:
                 report(stage, 'failed', kind='PartialSourceFailure')
                 return 1
@@ -93,11 +93,12 @@ def main():
     parser.add_argument('stage', choices=['prepare', 'discover', 'backfill'])
     parser.add_argument('--max-candidates', type=int, default=100)
     parser.add_argument('--workers', type=int, default=8)
+    parser.add_argument('--queue-only', action='store_true')
     parser.add_argument('--source', choices=['homebrew', 'selfhosted'], default='homebrew')
     args = parser.parse_args()
     if not 1 <= args.max_candidates <= (100 if args.stage == 'discover' else 2000) or not 1 <= args.workers <= 12:
         parser.error('Use 1–100 discovery / 1–2000 backfill candidates and 1–12 workers')
-    raise SystemExit(execute(args.stage, args.max_candidates, args.workers, args.source))
+    raise SystemExit(execute(args.stage, args.max_candidates, args.workers, args.source, args.queue_only))
 
 
 if __name__ == '__main__':

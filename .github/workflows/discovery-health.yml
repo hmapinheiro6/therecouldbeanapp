@@ -1,0 +1,27 @@
+name: Autonomous discovery watchdog
+on:
+  schedule:
+    - cron: "41 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: discovery-health
+  cancel-in-progress: false
+jobs:
+  check:
+    if: github.event.repository.private == false && github.repository == 'hmapinheiro6/therecouldbeanapp' && vars.DISCOVERY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check durable cloud collection and recover missed runs
+        run: python -m ingestion.cloud_health

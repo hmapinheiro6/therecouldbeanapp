@@ -1,4 +1,4 @@
-name: Daily public product discovery
+name: Process submissions and verification retries
 on:
   schedule:
     - cron: "17 */6 * * *"
@@ -32,7 +32,7 @@ jobs:
       - name: Check database allowance and apply tracked migrations
         id: database
         run: python -m ingestion.workflow prepare
-      - name: Discover, verify, publish, persist checkpoints
+      - name: Process pending submissions and verification retries
         if: steps.database.outputs.ready == 'true'
-        run: python -m ingestion.workflow discover --max-candidates 100
+        run: python -m ingestion.workflow discover --queue-only --max-candidates 100
       # No artifacts: pending submissions and moderation details remain private in D1.

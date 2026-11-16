@@ -54,7 +54,8 @@ class PinnedHTTPS(http.client.HTTPSConnection):
         self.sock = self._context.wrap_socket(self.sock,server_hostname=self.host)
 
 class SafeWeb:
-    def __init__(self, delay=1.0, max_pages=3, max_bytes=MAX_BYTES):
+    def __init__(self, delay=1.0, max_pages=3, max_bytes=MAX_BYTES, github_token=None):
+        self.github_token=github_token
         self.max_bytes=min(max_bytes,32*1024*1024)
         self.delay=delay
         self.max_pages=min(max_pages,3)
@@ -70,7 +71,12 @@ class SafeWeb:
         connection=PinnedHTTPS(host,addresses[0])
         u=urlsplit(url)
         try:
-            connection.request('GET',urlunsplit(('', '',u.path or '/',u.query,'')),headers={'Host':host,'User-Agent':USER_AGENT,'Accept':'text/html,application/xhtml+xml,application/json,application/xml,text/plain','Accept-Encoding':'identity'})
+            headers={'Host':host,'User-Agent':USER_AGENT,'Accept':'text/html,application/xhtml+xml,application/json,application/xml,text/plain','Accept-Encoding':'identity'}
+            # A runner-scoped token is sent only to GitHub's repository-search
+            # API, never to product websites or a cross-host redirect.
+            if self.github_token and host=='api.github.com' and u.path=='/search/repositories':
+                headers['Authorization']='Bearer '+self.github_token
+            connection.request('GET',urlunsplit(('', '',u.path or '/',u.query,'')),headers=headers)
             self.last_request[host]=time.monotonic()
             r=connection.getresponse()
             if r.status in (301,302,303,307,308):
