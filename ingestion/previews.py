@@ -14,6 +14,7 @@ from urllib.parse import urlsplit
 from PIL import Image, ImageOps
 from .extraction import Metadata, ROOT, now
 from .preview_metadata import preview_metadata
+from .public_catalog import published_products, snapshot_products
 from .safe_web import SafeWeb, FetchError, canonicalize
 
 DIRECTORY = ROOT / 'public/catalog-previews'
@@ -63,6 +64,11 @@ def collect_preview(product, web=None):
     record = {'version': 1, 'slug': product['slug'], 'canonical_url': product['canonical_url'],
               'source_url': page['url'], 'checked_at': now(), 'title': metadata['title'],
               'description': metadata['description'], 'image': None}
+    try:
+        from .intelligence import observe_preview
+        observe_preview(product, page, parser)
+    except (OSError, ValueError, TypeError, KeyError):
+        pass
     # At most two public raster candidates; image failures never lose metadata.
     for candidate in metadata['images']:
         try:
@@ -77,49 +83,6 @@ def collect_preview(product, web=None):
             continue
     return record
 
-
-def snapshot_products():
-    return json.loads((ROOT / 'data/seeds/published-snapshot.json').read_text())['products']
-
-
-def published_products(web, snapshot, directory):
-    """Durable, forward-only public IDs retain every approved entry across bounded runs."""
-    index_file = directory / '.catalog-index.json'
-    state = json.loads(index_file.read_text()) if index_file.exists() and index_file.stat().st_size <= 2 * 1024 * 1024 else {'after': 0, 'products': []}
-    products = {p['slug']: p for p in [*snapshot, *state['products']]}
-    after = int(state.get('after', 0))
-    for _ in range(3):
-        try:
-            response = web.fetch(SITE + '/api/preview-products?after=' + str(after))
-            if response['status'] != 200:
-                break
-            data = json.loads(response['text'])
-            incoming = data.get('products', [])
-            next_after = data.get('next_after')
-            if not isinstance(incoming, list) or len(incoming) > 100 or not isinstance(next_after, int) or next_after < after:
-                break
-            for product in incoming:
-                slug = product.get('slug', '')
-                if not isinstance(slug, str) or len(slug) > 100 or not SLUG.fullmatch(slug):
-                    continue
-                canonicalize(product['canonical_url'])
-                if slug not in products and len(products) >= MAX_FILES:
-                    raise ValueError('Published preview index budget reached')
-                products[slug] = {key: product[key] for key in ('slug', 'name', 'canonical_url', 'verification_scope', 'first_seen_at') if key in product}
-            after = next_after
-            if not data.get('has_more'):
-                break
-        except (ValueError, FetchError, OSError, KeyError, TypeError):
-            break
-    # Only minimal already-public identity fields; never review queues or secrets.
-    indexed = [{key: product[key] for key in ('slug', 'name', 'canonical_url', 'verification_scope', 'first_seen_at') if key in product} for product in products.values()]
-    encoded = json.dumps({'after': after, 'products': indexed}, ensure_ascii=True, separators=(',', ':')) + '\n'
-    if len(encoded.encode()) > 2 * 1024 * 1024:
-        raise ValueError('Published index byte budget reached')
-    temporary = index_file.with_suffix('.tmp')
-    temporary.write_text(encoded)
-    temporary.replace(index_file)
-    return list(products.values())
 
 
 def save_record(path, record):

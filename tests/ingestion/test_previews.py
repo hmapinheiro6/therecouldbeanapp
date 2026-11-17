@@ -13,6 +13,11 @@ from ingestion.safe_web import FetchError
 PRODUCT = {'slug': 'actual', 'canonical_url': 'https://actual.dev', 'verification_scope': 'capabilities'}
 
 
+@pytest.fixture(autouse=True)
+def isolate_observations(tmp_path, monkeypatch):
+    monkeypatch.setattr('ingestion.intelligence.DIRECTORY', tmp_path / 'observations')
+
+
 def png(size=(1000, 700)):
     output = io.BytesIO()
     Image.new('RGB', size, 'blue').save(output, format='PNG')

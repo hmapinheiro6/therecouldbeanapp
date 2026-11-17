@@ -5,6 +5,12 @@ const previewFixture = JSON.parse(
 );
 // Preview enrichment is tested with fixtures; the test suite never fans out to GitHub.
 test.beforeEach(async ({ page }) => {
+  await page.route("**/catalog-intelligence/*.json", (route) =>
+    route.fulfill({ status: 404 }),
+  );
+  await page.route("**/api/intelligence/*", (route) =>
+    route.fulfill({ json: null }),
+  );
   await page.route("**/catalog-previews/*.json", (route) =>
     route.fulfill({ status: 404 }),
   );
@@ -505,5 +511,105 @@ test("fresh bundled previews use static assets and avoid a Worker request", asyn
     .getByRole("article")
     .filter({ has: page.getByRole("heading", { name: "Otter", exact: true }) });
   await expect(card.locator(".product-preview img")).toBeVisible();
+  expect(dynamicRequests).toBe(0);
+});
+
+// Entirely synthetic dates; these are never published as real Otter intelligence.
+const intelligenceFixture = JSON.parse(
+  readFileSync(
+    new URL("../intelligence-fixture.json", import.meta.url),
+    "utf8",
+  ),
+);
+test("product intelligence separates publication, repository age and dated updates with sources", async ({
+  page,
+}) => {
+  await page.route("**/api/intelligence/otter", (route) =>
+    route.fulfill({
+      json: { ...intelligenceFixture, checked_at: new Date().toISOString() },
+    }),
+  );
+  await page.goto("/apps/otter");
+  const intel = page.getByRole("region", { name: "Product intelligence" });
+  await expect(
+    intel
+      .locator(".intelligence-grid")
+      .getByText("Website reachable", { exact: true }),
+  ).toBeVisible();
+  await expect(intel.getByText("12 May 2020", { exact: true })).toBeVisible();
+  await expect(intel.getByText("Repository created 4 Mar 2018")).toBeVisible();
+  await expect(
+    intel.getByText("Repository age is separate from product launch."),
+  ).toBeVisible();
+  await expect(intel.getByText("30 Oct 2026", { exact: true })).toBeVisible();
+  await expect(
+    intel.getByRole("link", { name: "Source" }).first(),
+  ).toHaveAttribute("href", "https://otter.ai");
+  await expect(intel.locator(".observation-history ol")).toBeHidden();
+  await intel.getByText("Observation history (1)").click();
+  await expect(intel.locator(".observation-history ol")).toContainText(
+    "Website reachable",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+});
+test("restricted, old and missing website observations never claim a dead app or known launch", async ({
+  page,
+}) => {
+  await page.route("**/api/intelligence/otter", (route) =>
+    route.fulfill({
+      json: {
+        ...intelligenceFixture,
+        checked_at: "2020-01-01T12:00:00Z",
+        website: { ...intelligenceFixture.website, state: "restricted" },
+        facts: {},
+      },
+    }),
+  );
+  await page.goto("/apps/otter");
+  const intel = page.getByRole("region", { name: "Product intelligence" });
+  await expect(
+    intel.getByText("Automated check restricted", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    intel.getByText("Product age unknown", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    intel.getByText(
+      "This website observation is over 14 days old. Current availability is unknown.",
+    ),
+  ).toBeVisible();
+  await page.unroute("**/api/intelligence/otter");
+  await page.reload();
+  await expect(
+    page.getByText("Not yet checked by our scheduled observation job.", {
+      exact: false,
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Visit website" })).toBeVisible();
+});
+test("visible cards use fresh static observations without a Worker request", async ({
+  page,
+}) => {
+  let dynamicRequests = 0;
+  await page.route("**/catalog-intelligence/otter.json", (route) =>
+    route.fulfill({
+      json: { ...intelligenceFixture, checked_at: new Date().toISOString() },
+    }),
+  );
+  await page.route("**/api/intelligence/otter", (route) => {
+    dynamicRequests++;
+    return route.fulfill({ json: null });
+  });
+  await page.goto("/search?q=Otter");
+  const card = page
+    .getByRole("article")
+    .filter({ has: page.getByRole("heading", { name: "Otter", exact: true }) });
+  await expect(card.locator(".card-observation")).toContainText(
+    "Website reachable",
+  );
   expect(dynamicRequests).toBe(0);
 });

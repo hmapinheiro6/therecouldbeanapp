@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import type { Product, SearchResult } from "../lib/types";
 import type { ProductPreview as Preview } from "../lib/previews";
+import { ProductIntelligence } from "./ProductIntelligence";
 import { ProductPreview } from "./ProductPreview";
 export function ProductCard({
   product,
@@ -83,6 +84,7 @@ export function ProductCard({
             Official website checked · Features not verified.
           </p>
         )}
+        <ProductIntelligence product={product} compact />
         <div className="card-meta">
           <span>{product.category}</span>
           {showAdded && (

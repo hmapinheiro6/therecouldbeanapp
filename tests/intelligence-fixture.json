@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "slug": "otter",
+  "canonical_url": "https://otter.ai",
+  "first_observed_at": "2026-11-16T12:00:00Z",
+  "checked_at": "2026-11-17T12:00:00Z",
+  "enriched_at": "2026-11-17T12:00:00Z",
+  "website": {
+    "state": "reachable",
+    "source_url": "https://otter.ai",
+    "http_status": 200,
+    "last_reachable_at": "2026-11-17T12:00:00Z",
+    "failed_observation_days": 0
+  },
+  "facts": {
+    "publication": {
+      "date": "2020-05-12",
+      "source_url": "https://otter.ai",
+      "observed_at": "2026-11-17T12:00:00Z",
+      "kind": "publisher_reported"
+    },
+    "publisher_update": {
+      "date": "2026-10-30",
+      "source_url": "https://otter.ai",
+      "observed_at": "2026-11-17T12:00:00Z",
+      "kind": "publisher_reported"
+    },
+    "repository_created": {
+      "date": "2018-03-04",
+      "source_url": "https://github.com/example/synthetic-fixture",
+      "observed_at": "2026-11-17T12:00:00Z",
+      "kind": "repository_metadata"
+    }
+  },
+  "checks": [{ "date": "2026-11-17", "state": "reachable" }],
+  "history": [
+    {
+      "observed_at": "2026-11-17T12:00:00Z",
+      "kind": "website",
+      "value": "reachable",
+      "source_url": "https://otter.ai"
+    }
+  ]
+}

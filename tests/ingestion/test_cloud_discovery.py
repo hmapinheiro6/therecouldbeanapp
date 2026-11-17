@@ -82,8 +82,8 @@ def test_queue_only_processing_never_fetches_external_sources():
 
 
 @pytest.mark.parametrize('url,expected', [('https://api.github.com/search/repositories?q=saas',True),
-    ('https://actual.dev/search/repositories',False),('https://api.github.com/repos/owner/repo',False)])
-def test_github_runner_token_is_scoped_to_the_search_api(url,expected):
+    ('https://actual.dev/search/repositories',False),('https://api.github.com/repos/owner/repo',True),('https://api.github.com/repos/owner/repo/releases?per_page=10',True),('https://api.github.com/repos/owner/repo/issues',False),('https://actual.dev/repos/owner/repo/releases',False)])
+def test_github_runner_token_is_scoped_to_public_repository_apis(url,expected):
     response=Mock();response.status=200;response.read.return_value=b'{}';response.getheader.return_value=None
     connection=Mock();connection.getresponse.return_value=response
     with patch('ingestion.safe_web.resolve_public',return_value=['1.1.1.1']),patch('ingestion.safe_web.PinnedHTTPS',return_value=connection):

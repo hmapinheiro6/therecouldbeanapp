@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useApi } from "../useApi";
 import type { Product as ProductType } from "../lib/types";
+import { ProductIntelligence } from "../components/ProductIntelligence";
 import { SnapshotNotice } from "../components/SnapshotNotice";
 const date = (v: string) =>
   new Date(v).toLocaleDateString("en-GB", {
@@ -58,6 +59,7 @@ export function Product() {
           Visit website ↗
         </a>
       </div>
+      <ProductIntelligence product={p} />
       <div className="detail-columns">
         <section>
           {p.verification_scope === "identity" && (

@@ -1,0 +1,23 @@
+# Dated product intelligence
+
+The catalog records public observations, with a source and observation date for each fact. It does not infer product closure, continuous runtime, uptime percentages or an independent launch date.
+
+- Website: a bounded HTTPS request using the existing public-DNS, TLS, robots and redirect safeguards. A 200 HTML page must match the product name in its title/identity metadata. A different host, parked domain or unmatched identity remains unconfirmed. Robots, 401/403 and 429 restrictions mean availability is undetermined. Three failures on distinct observed days earn “Repeatedly unreachable”, never “closed”.
+- Publication/version: only a matching `SoftwareApplication`, `WebApplication`, `MobileApplication` or `DesktopApplication` JSON-LD entity on the official site. Publisher dates remain explicitly publisher-reported. Partial and future dates are rejected.
+- Changelog: one same-host `/changelog` or `/release-notes` page, matching title, dates from `<time datetime>` outside navigation/footer. A dated entry is not proof that a release shipped.
+- Repository: a canonical GitHub repository or an unambiguous official/source link. For a website product, repository metadata must point back to that exact canonical product URL. Repository creation and archive status are separate from launch/closure.
+- Releases: at most the first and last ten releases, with `published_at`, excluding drafts/prereleases. “Earliest release found” is a lower bound from available evidence, not an exhaustive launch investigation. API pagination can only reach the same repository’s release endpoint.
+
+Every six hours, `.github/workflows/intelligence.yml` runs on public GitHub-hosted standard runners, independent of any personal computer. It checks up to 100 products with four workers, an eight-minute start deadline and a 15-minute job timeout. It uses the runner’s ephemeral token only on GitHub’s public repository/search/release API paths. The existing preview job also reuses HTML it already fetched to record website observations without another request. Both writers share a concurrency group.
+
+Selection favors overdue initial failure rechecks, then unchecked products, then older enrichment. Successful, restricted and unknown records become eligible after seven days; the first two unreachable observations retry after a day. These are rotation targets, not guaranteed check intervals. The UI dates observations and warns when the website observation exceeds 14 days. Preview reuse does not postpone repository/date enrichment.
+
+Storage: up to 4,000 JSON files including the minimal product index, 32 KiB per observation record, 64 MiB total. Retain up to 56 daily website observations and 32 change events. Same-day observations replace that day’s check; history records state or fact changes. Failure to refresh a fact preserves its prior dated evidence. Canonical URL changes reset observations. Capacity exhaustion stops further records rather than silently expanding costs.
+
+The product list comes from the saved published catalog and a durable forward cursor over `/api/preview-products`: at most three bounded pages per run. No private candidate data is copied. Collection makes no D1 writes or product/FTS updates; the bounded public feed still uses existing indexed D1 reads. No full database export is needed.
+
+Public delivery is static-first from `/catalog-intelligence/<slug>.json`, then `/api/intelligence/<slug>` if missing or older than a day. The Worker reads only the fixed public GitHub record path, edge-caches valid records for six hours, caches JSON `null` for an hour, and can fall back to bundled records if GitHub is unavailable. It never queries D1 or fetches a product website. Both parsers enforce record size and allowlisted fields. Cards wait until near the viewport; requests are deduplicated in a bounded 128-entry map. The feature adds no paid API, screenshots, browser crawler or external image dependency.
+
+Manual run: GitHub Actions → **Product intelligence** → **Run workflow** → limit 1–100. `DISCOVERY_ENABLED=true` and the exact public repository guard apply. Unchecked entries remain unknown while the hosted rotation accumulates coverage. Real collected files live under `public/catalog-intelligence`; synthetic test fixtures remain under `tests/`.
+
+Validation covers evidence matching, restriction/error classification, date semantics, release association/pagination, retention, retry selection, size budgets, credential scoping, Worker cache/fallback paths, and desktop/mobile display. This phase does not add pricing, revenue, domain registration dates, product shutdown claims or catalog-wide age/availability filters before there is sufficient coverage.

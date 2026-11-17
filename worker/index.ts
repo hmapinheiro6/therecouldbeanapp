@@ -33,6 +33,7 @@ import {
   cachePublicAggregate,
 } from "./availability";
 import { previewResponse } from "./previews";
+import { intelligenceResponse } from "./intelligence";
 const app = new Hono<AppEnv>();
 app.use("*", async (c, next) => {
   await next();
@@ -234,6 +235,9 @@ app.get("/api/preview-products", async (c) => {
 });
 app.get("/api/previews/:slug", (c) =>
   previewResponse(c.req.raw, c.req.param("slug"), c.env.ASSETS),
+);
+app.get("/api/intelligence/:slug", (c) =>
+  intelligenceResponse(c.req.raw, c.req.param("slug"), c.env.ASSETS),
 );
 app.get("/api/search", async (c) => {
   const started = performance.now();

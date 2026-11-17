@@ -1,6 +1,7 @@
 """HTTPS fetcher: public DNS only, pinned connection, verified TLS, bounded redirects/body."""
 import http.client
 import ipaddress
+import re
 import socket
 import ssl
 import time
@@ -13,9 +14,10 @@ MAX_BYTES = 2097152
 class UnsafeURL(ValueError):
     pass
 class FetchError(RuntimeError):
-    def __init__(self, reason, temporary=True):
+    def __init__(self, reason, temporary=True, http_status=None):
         super().__init__(reason)
         self.temporary = temporary
+        self.http_status = http_status
 
 def canonicalize(value, keep_www=False):
     u = urlsplit(value)
@@ -72,9 +74,9 @@ class SafeWeb:
         u=urlsplit(url)
         try:
             headers={'Host':host,'User-Agent':USER_AGENT,'Accept':'text/html,application/xhtml+xml,application/json,application/xml,text/plain','Accept-Encoding':'identity'}
-            # A runner-scoped token is sent only to GitHub's repository-search
-            # API, never to product websites or a cross-host redirect.
-            if self.github_token and host=='api.github.com' and u.path=='/search/repositories':
+            # Runner token: only fixed public search/repository/release API paths.
+            # Never send it to product websites or a cross-host redirect.
+            if self.github_token and host=='api.github.com' and (u.path=='/search/repositories' or re.fullmatch(r'/repos/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?:/releases)?', u.path)):
                 headers['Authorization']='Bearer '+self.github_token
             connection.request('GET',urlunsplit(('', '',u.path or '/',u.query,'')),headers=headers)
             self.last_request[host]=time.monotonic()
@@ -91,15 +93,15 @@ class SafeWeb:
                     retry=r.getheader('Retry-After','2')
                     time.sleep(min(int(retry) if retry.isdigit() else 2,8))
                     return self._raw(url,redirects,attempt+1)
-                raise FetchError('Temporary HTTP '+str(r.status))
-            if r.status in (401,403): raise FetchError('Access restricted (no bypass attempted)',False)
+                raise FetchError('Temporary HTTP '+str(r.status), http_status=r.status)
+            if r.status in (401,403): raise FetchError('Access restricted (no bypass attempted)',False,http_status=r.status)
             if r.status==404: return {'url':url,'status':404,'text':'','content_type':r.getheader('Content-Type','')}
             if r.status!=200: raise FetchError('HTTP '+str(r.status),r.status>=500)
             declared=r.getheader('Content-Length')
             if declared and int(declared)>self.max_bytes: raise FetchError('Response exceeds size limit',False)
             payload=r.read(self.max_bytes+1)
             if len(payload)>self.max_bytes: raise FetchError('Response exceeds size limit',False)
-            return {'url':url,'status':r.status,'text':payload.decode('utf-8',errors='replace'),'body':payload,'content_type':r.getheader('Content-Type','')}
+            return {'url':url,'status':r.status,'text':payload.decode('utf-8',errors='replace'),'body':payload,'content_type':r.getheader('Content-Type',''),'links':r.getheader('Link','')}
         except (OSError,ssl.SSLError,http.client.HTTPException) as e:
             if attempt<1:
                 time.sleep(2)

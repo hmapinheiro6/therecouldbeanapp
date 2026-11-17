@@ -14,3 +14,7 @@
 /catalog-previews/*
   Cache-Control: public, max-age=86400
   X-Robots-Tag: noindex
+
+/catalog-intelligence/*
+  Cache-Control: public, max-age=21600
+  X-Robots-Tag: noindex
