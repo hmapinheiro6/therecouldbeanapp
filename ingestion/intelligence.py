@@ -9,7 +9,7 @@ from pathlib import Path
 import re
 import time
 from threading import Lock
-from urllib.parse import urlsplit, urljoin
+from urllib.parse import urlsplit, urljoin, parse_qs
 from .extraction import Metadata, ROOT, now
 from .preview_metadata import plain
 from .public_catalog import published_products, snapshot_products, SLUG
@@ -197,8 +197,14 @@ def github_facts(product, repo, web, stamp):
         pages = re.findall(r'<([^>]+)>;\s*rel="last"', response.get('links', ''))
         if pages:
             last = pages[0]
-            if re.fullmatch(re.escape(api) + r'/releases\?(?:per_page=10&page=\d{1,7}|page=\d{1,7}&per_page=10)', last):
-                end = web._raw(last)
+            target = urlsplit(last); query = parse_qs(target.query, keep_blank_values=True)
+            paths = {urlsplit(api).path + '/releases'}
+            if type(data.get('id')) is int and data['id'] > 0: paths.add('/repositories/' + str(data['id']) + '/releases')
+            # GitHub canonicalizes Link headers to its numeric repository ID.
+            # Validate that ID, then fetch the original fixed repository path.
+            number = query.get('page', [''])[0]
+            if target.scheme == 'https' and target.netloc == 'api.github.com' and target.path in paths and not target.fragment and set(query) == {'page', 'per_page'} and query['per_page'] == ['10'] and len(query['page']) == 1 and re.fullmatch(r'\d{1,7}', number) and int(number) > 1:
+                end = web._raw(api + '/releases?per_page=10&page=' + number)
                 older = json.loads(end['text'])
                 if end['status'] == 200 and isinstance(older, list): releases += older[:10]
     except (ValueError, FetchError, OSError, KeyError, TypeError): pass

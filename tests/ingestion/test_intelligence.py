@@ -155,3 +155,13 @@ def test_large_source_history_trims_to_the_record_byte_budget():
         old=intel.update_record(PRODUCT,old,site,stamp=STAMP)
     assert len(old['history']) < 32
     assert len(json.dumps(old,ensure_ascii=True,separators=(',',':')).encode())+1 <= intel.MAX_BYTES
+
+
+@pytest.mark.parametrize('numeric_id,requests,earliest',[(1234,3,'2018-05-01'),(9999,2,'2026-11-10')])
+def test_numeric_github_pagination_is_verified_then_rewritten_to_fixed_repository(numeric_id,requests,earliest):
+    web=Mock();api='https://api.github.com/repos/owner/actual'
+    web._raw.side_effect=[response({'id':1234,'private':False,'html_url':'https://github.com/owner/actual','homepage':PRODUCT['canonical_url'],'created_at':'2017-03-04','archived':False}),response([release('2026-11-10T12:00:00Z','v3')],links='<https://api.github.com/repositories/'+str(numeric_id)+'/releases?per_page=10&page=7>; rel="last"'),response([release('2018-05-01T12:00:00Z','v1')])]
+    f=intel.github_facts(PRODUCT,'https://github.com/owner/actual',web,STAMP)
+    assert f['earliest_release']['date']==earliest
+    assert web._raw.call_count==requests
+    if requests==3: assert web._raw.call_args.args[0]==api+'/releases?per_page=10&page=7'
