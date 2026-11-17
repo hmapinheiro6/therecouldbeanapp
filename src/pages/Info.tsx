@@ -119,8 +119,8 @@ export function Privacy() {
         We store the product name, website, description, category, submission
         status, and an optional contact email. We use this information to verify
         and moderate the product. Contact emails and moderation notes are never
-        included in public APIs or catalog snapshots. An email is optional and
-        used only for the submission.
+        included in public APIs or static catalog files. An email is optional
+        and used only for the submission.
       </p>
       <p>
         Contact emails are removed after 30 days by the scheduled ingestion
@@ -128,6 +128,13 @@ export function Privacy() {
         linked review records may be retained without their contact email. If
         the scheduler stops, cleanup is delayed until the next successful run.
         Published product facts and their evidence remain in the catalog.
+      </p>
+      <p>
+        Where enabled, encrypted recovery backups include private submission
+        data. They use fourteen rotating daily slots and a latest copy. Older
+        copies are replaced when scheduled backups succeed; replacement is
+        delayed if those jobs stop. GitHub runs the automated jobs, and
+        Cloudflare stores the encrypted database backups.
       </p>
       <h2>Spam protection and hosting</h2>
       <p>

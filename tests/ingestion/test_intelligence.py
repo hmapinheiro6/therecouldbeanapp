@@ -172,6 +172,7 @@ def test_own_public_identity_feed_is_allowed_without_opening_private_routes():
     from ingestion.safe_web import USER_AGENT
     parser=RobotFileParser();parser.parse((intel.ROOT/'public/robots.txt').read_text().splitlines())
     site='https://therecouldbeanapp.henriquepinheiro.workers.dev'
-    assert parser.can_fetch(USER_AGENT,site+'/api/preview-products?after=300')
+    assert parser.can_fetch(USER_AGENT,site+'/catalog/products.json')
+    assert not parser.can_fetch(USER_AGENT,site+'/api/preview-products?after=300')
     assert not parser.can_fetch(USER_AGENT,site+'/api/admin/candidates')
     assert not parser.can_fetch(USER_AGENT,site+'/api/search?q=test')
