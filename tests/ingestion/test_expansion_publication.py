@@ -96,3 +96,19 @@ def test_same_name_variants_in_one_batch_do_not_inflate_the_count(setup):
     state,client,_=setup
     result=ex.publish(state,20,client,verify=lambda c:{**c,'name':'Actual'})
     assert result['held']==19 and result['published_by_campaign']==1
+
+
+def test_finishing_early_still_preserves_the_daily_allowance(monkeypatch,tmp_path):
+    monkeypatch.setattr(campaign,'ROOT',tmp_path);(tmp_path/'data').mkdir()
+    (tmp_path/'data/expansion-campaign.json').write_text(json.dumps({'enabled':True,'deadline':'2026-11-17T23:50:00Z'}))
+    (tmp_path/'data/expansion-health.json').write_text(json.dumps({'status':'target_reached'}))
+    assert campaign.expansion_priority(datetime(2026,11,17,18,tzinfo=timezone.utc))=='2026-11-17T23:50:00Z'
+
+
+def test_cached_source_cannot_use_download_directories_or_generic_aliases():
+    web=Mock();candidate={'name':'Actual','aliases':['Actual','Windows'],'canonical_url':'https://softsea.com/Actual.html'}
+    with pytest.raises(ValueError,match='not an official'):ex.verify_candidate(candidate,web)
+    web.fetch.assert_not_called()
+    candidate['canonical_url']='https://actual.dev'
+    web.fetch.return_value={'status':200,'url':'https://actual.dev','content_type':'text/html','text':'<title>Windows Downloads</title><p>'+('Generic publisher downloads. '*10)+'</p>'}
+    with pytest.raises(ValueError,match='title'):ex.verify_candidate(candidate,web)

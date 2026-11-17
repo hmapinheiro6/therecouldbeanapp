@@ -23,6 +23,12 @@ ARCHIVES = {
 MAX_ARCHIVE = 384 * 1024 * 1024
 MAX_EXPANDED = 3 * 1024 * 1024 * 1024
 NON_PRODUCT = re.compile(r'\b(sdk|redistributable|runtime|device driver|language pack|font family|development kit|uninstaller|update assistant|boilerplate|template|library)\b', re.I)
+UNOFFICIAL_HOSTS = {'softsea.com','softpedia.com','filehippo.com','majorgeeks.com','download.cnet.com','uptodown.com','softonic.com'}
+
+def third_party_homepage(host):
+    host=(host or '').removeprefix('www.')
+    return any(host==blocked or host.endswith('.'+blocked) for blocked in UNOFFICIAL_HOSTS)
+
 EXCLUDED_HOSTS = {'apps.microsoft.com', 'apps.apple.com', 'play.google.com', 'www.microsoft.com', 'microsoft.com', 'sourceforge.net', 'www.sourceforge.net'}
 
 
@@ -41,6 +47,7 @@ def candidate(name, homepage, description, source, source_url, external_id, alia
         parts=parsed.path.strip('/').split('/')
         if len(parts)<2 or len(parts)>2 and parts[2] not in ('releases','tree','wiki'): return None
         homepage='https://github.com/'+'/'.join(parts[:2]);parsed=urlsplit(homepage)
+    if third_party_homepage(parsed.hostname): return None
     if len(homepage)>1800 or parsed.hostname in EXCLUDED_HOSTS and parsed.path in ('','/'): return None
     if parsed.hostname and (parsed.hostname.endswith('.github.io') and parsed.path in ('','/')):
         pass  # A project's own GitHub Pages website can establish identity.

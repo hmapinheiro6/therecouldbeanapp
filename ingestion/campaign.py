@@ -9,6 +9,6 @@ def expansion_priority(stamp=None):
     if not path.exists(): return None
     config=json.loads(path.read_text());moment=stamp or datetime.now(timezone.utc)
     if not config.get('enabled') or moment >= datetime.fromisoformat(config['deadline'].replace('Z','+00:00')): return None
-    health=ROOT/'data/expansion-health.json'
-    if health.exists() and json.loads(health.read_text()).get('status') in ('target_reached','source_exhausted','deadline_reached'): return None
+    # Preserve today's remaining allowance even when the campaign finishes early.
+    # Regular scheduled imports resume after the dated hold, around UTC reset.
     return config['deadline']

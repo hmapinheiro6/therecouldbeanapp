@@ -30,6 +30,6 @@ def test_source_metadata_cannot_execute_yaml_tags_or_scoop_scripts():
     assert directory('winget',archived({'repo/x.locale.en-US.yaml':'!!python/object/apply:os.system [echo unsafe]'}))==[]
 
 
-@pytest.mark.parametrize('name,url,description',[('Runtime SDK','https://sdk.dev','A runtime development kit.'),('Actual','http://actual.dev','A useful product.'),('Actual','https://127.0.0.1','A useful product.'),('Actual','https://microsoft.com','A useful product.')])
+@pytest.mark.parametrize('name,url,description',[('Runtime SDK','https://sdk.dev','A runtime development kit.'),('Actual','http://actual.dev','A useful product.'),('Actual','https://127.0.0.1','A useful product.'),('Actual','https://microsoft.com','A useful product.'),('Actual','https://softsea.com/software/Actual.html','A useful product.')])
 def test_dependencies_and_unsafe_or_generic_homepages_are_excluded(name,url,description):
     assert candidate(name,url,description,'Source','https://source.dev','id') is None

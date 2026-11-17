@@ -1,0 +1,2073 @@
+{
+  "checked_at": "2026-11-17T12:51:00Z",
+  "published_sample": 3848,
+  "note": "Read-only name collisions, not confirmed duplicates. No listing has been changed. Shared names across URLs require identity review.",
+  "collision_groups": [
+    {
+      "normalized_name": "1password",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1,
+          "slug": "1password",
+          "name": "1Password",
+          "canonical_url": "https://1password.com",
+          "first_seen_at": "2026-11-15T20:19:54Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 2918,
+          "slug": "1password-01bc641e",
+          "name": "1Password",
+          "canonical_url": "https://1password.com/downloads/windows",
+          "first_seen_at": "2026-11-17T12:36:20Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "asana",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2,
+          "slug": "asana",
+          "name": "Asana",
+          "canonical_url": "https://asana.com",
+          "first_seen_at": "2026-11-15T20:19:43Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3460,
+          "slug": "asana-13112d75",
+          "name": "Asana",
+          "canonical_url": "https://asana.com/download",
+          "first_seen_at": "2026-11-17T12:44:01Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "clickup",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 7,
+          "slug": "clickup",
+          "name": "ClickUp",
+          "canonical_url": "https://clickup.com",
+          "first_seen_at": "2026-11-15T20:19:44Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3026,
+          "slug": "clickup-057707e9",
+          "name": "ClickUp",
+          "canonical_url": "https://clickup.com/download",
+          "first_seen_at": "2026-11-17T12:38:01Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "fathom",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 12,
+          "slug": "fathom",
+          "name": "Fathom",
+          "canonical_url": "https://fathom.ai",
+          "first_seen_at": "2026-11-15T20:19:38Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 2740,
+          "slug": "fathom-c5f0b068",
+          "name": "Fathom",
+          "canonical_url": "https://fathom.video",
+          "first_seen_at": "2026-11-16T10:06:49Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "miro",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 26,
+          "slug": "miro",
+          "name": "Miro",
+          "canonical_url": "https://miro.com",
+          "first_seen_at": "2026-11-15T20:19:47Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3245,
+          "slug": "miro-0bf0b93d",
+          "name": "Miro",
+          "canonical_url": "https://miro.com/apps",
+          "first_seen_at": "2026-11-17T12:40:50Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "tldv",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 37,
+          "slug": "tl-dv",
+          "name": "tl;dv",
+          "canonical_url": "https://tldv.io",
+          "first_seen_at": "2026-11-15T20:19:38Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3810,
+          "slug": "tl-dv-1e9c21d9",
+          "name": "tl;dv",
+          "canonical_url": "https://tldv.io/desktop-app",
+          "first_seen_at": "2026-11-17T12:50:21Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "todoist",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 38,
+          "slug": "todoist",
+          "name": "Todoist",
+          "canonical_url": "https://todoist.com",
+          "first_seen_at": "2026-11-15T20:19:45Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 2204,
+          "slug": "todoist-b6c07a86",
+          "name": "Todoist",
+          "canonical_url": "https://todoist.com/home",
+          "first_seen_at": "2026-11-16T10:05:05Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "4kvideodownloader",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 70,
+          "slug": "4k-video-downloader-a5fac81e",
+          "name": "4K Video Downloader",
+          "canonical_url": "https://4kdownload.com/products/product-videodownloader",
+          "first_seen_at": "2026-11-16T09:48:46Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2969,
+          "slug": "4k-video-downloader-10dc839d",
+          "name": "4K Video Downloader+",
+          "canonical_url": "https://4kdownload.com/products/videodownloader-42",
+          "first_seen_at": "2026-11-17T12:37:12Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "kodi",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 203,
+          "slug": "kodi-29b56f23",
+          "name": "Kodi",
+          "canonical_url": "https://kodi.tv",
+          "first_seen_at": "2026-11-16T10:00:25Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3441,
+          "slug": "kodi-128666b2",
+          "name": "Kodi",
+          "canonical_url": "https://kodi.tv/download/windows",
+          "first_seen_at": "2026-11-17T12:43:39Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "homeassistant",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 219,
+          "slug": "home-assistant-d15d13ec",
+          "name": "Home Assistant",
+          "canonical_url": "https://companion.home-assistant.io",
+          "first_seen_at": "2026-11-16T10:00:42Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2337,
+          "slug": "home-assistant-e30a300a",
+          "name": "Home Assistant",
+          "canonical_url": "https://home-assistant.io",
+          "first_seen_at": "2026-11-16T10:05:19Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "shadow",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 224,
+          "slug": "shadow-79784e16",
+          "name": "Shadow",
+          "canonical_url": "https://shadow.tech",
+          "first_seen_at": "2026-11-16T10:00:42Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2306,
+          "slug": "shadow-6f5d8964",
+          "name": "Shadow",
+          "canonical_url": "https://shadow.do",
+          "first_seen_at": "2026-11-16T10:05:21Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "rawtherapee",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 228,
+          "slug": "rawtherapee-7085e406",
+          "name": "RawTherapee",
+          "canonical_url": "https://rawtherapee.com",
+          "first_seen_at": "2026-11-16T10:00:43Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3117,
+          "slug": "rawtherapee-08018ba3",
+          "name": "RawTherapee",
+          "canonical_url": "https://rawtherapee.com/downloads",
+          "first_seen_at": "2026-11-17T12:39:05Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "stirlingpdf",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 261,
+          "slug": "stirling-pdf-cbd43b27",
+          "name": "Stirling PDF",
+          "canonical_url": "https://stirling.com",
+          "first_seen_at": "2026-11-16T10:00:48Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 384,
+          "slug": "stirling-pdf-a368faa9",
+          "name": "Stirling-PDF",
+          "canonical_url": "https://github.com/Stirling-Tools/Stirling-PDF",
+          "first_seen_at": "2026-11-16T10:00:46Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "goose",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 308,
+          "slug": "goose-b85dbd6d",
+          "name": "Goose",
+          "canonical_url": "https://block.github.io/goose",
+          "first_seen_at": "2026-11-16T10:00:53Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2981,
+          "slug": "goose-042f07bb",
+          "name": "Goose",
+          "canonical_url": "https://github.com/pressly/goose",
+          "first_seen_at": "2026-11-17T12:37:27Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "celestia",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 357,
+          "slug": "celestia-11a0a00c",
+          "name": "Celestia",
+          "canonical_url": "https://celestiaproject.space",
+          "first_seen_at": "2026-11-16T10:01:00Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3776,
+          "slug": "celestia-1d712738",
+          "name": "Celestia",
+          "canonical_url": "https://github.com/CelestiaProject/Celestia",
+          "first_seen_at": "2026-11-17T12:49:50Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "sonarr",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 418,
+          "slug": "sonarr-9935e105",
+          "name": "Sonarr",
+          "canonical_url": "https://sonarr.tv",
+          "first_seen_at": "2026-11-16T10:00:49Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3494,
+          "slug": "sonarr-7caf8a17",
+          "name": "Sonarr",
+          "canonical_url": "https://github.com/Sonarr/Sonarr",
+          "first_seen_at": "2026-11-17T12:44:37Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "onlyoffice",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 460,
+          "slug": "onlyoffice-565d3478",
+          "name": "ONLYOFFICE",
+          "canonical_url": "https://onlyoffice.com",
+          "first_seen_at": "2026-11-16T10:01:12Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 689,
+          "slug": "onlyoffice-fa56645a",
+          "name": "ONLYOFFICE",
+          "canonical_url": "https://helpcenter.onlyoffice.com/faq/server-opensource.aspx",
+          "first_seen_at": "2026-11-16T10:01:26Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "orange",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 498,
+          "slug": "orange-cba00af5",
+          "name": "Orange",
+          "canonical_url": "https://orangedatamining.com",
+          "first_seen_at": "2026-11-16T10:01:17Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3623,
+          "slug": "orange-18929d9d",
+          "name": "Orange",
+          "canonical_url": "https://github.com/naaive/orange",
+          "first_seen_at": "2026-11-17T12:47:18Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "audius",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 537,
+          "slug": "audius-08485e64",
+          "name": "Audius",
+          "canonical_url": "https://audius.co",
+          "first_seen_at": "2026-11-16T10:01:23Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3404,
+          "slug": "audius-1151758d",
+          "name": "Audius",
+          "canonical_url": "https://audius.co/download",
+          "first_seen_at": "2026-11-17T12:43:05Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "tagspaces",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 666,
+          "slug": "tagspaces-7a661679",
+          "name": "TagSpaces",
+          "canonical_url": "https://tagspaces.org",
+          "first_seen_at": "2026-11-16T10:01:23Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3761,
+          "slug": "tagspaces-1cd52cf9",
+          "name": "TagSpaces",
+          "canonical_url": "https://github.com/tagspaces/tagspaces",
+          "first_seen_at": "2026-11-17T12:49:30Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "jupyterlab",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 770,
+          "slug": "jupyterlab-6f7173ce",
+          "name": "JupyterLab",
+          "canonical_url": "https://jupyterlab.readthedocs.io/en/stable",
+          "first_seen_at": "2026-11-16T10:01:37Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3457,
+          "slug": "jupyterlab-12e4241e",
+          "name": "JupyterLab",
+          "canonical_url": "https://github.com/jupyterlab/jupyterlab-desktop",
+          "first_seen_at": "2026-11-17T12:44:03Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "spotify",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 775,
+          "slug": "spotify-b3927a7a",
+          "name": "Spotify",
+          "canonical_url": "https://spotify.com",
+          "first_seen_at": "2026-11-16T10:01:56Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3503,
+          "slug": "spotify-8c2cc9ee",
+          "name": "Spotify",
+          "canonical_url": "https://spotify.com/us/download/windows",
+          "first_seen_at": "2026-11-17T12:44:44Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "jitsimeet",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 785,
+          "slug": "jitsi-meet-272f8f5d",
+          "name": "Jitsi Meet",
+          "canonical_url": "https://jitsi.org/Projects/JitsiMeet",
+          "first_seen_at": "2026-11-16T10:01:39Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2809,
+          "slug": "jitsi-meet-7e09f5b1",
+          "name": "Jitsi Meet",
+          "canonical_url": "https://github.com/jitsi/jitsi-meet-electron",
+          "first_seen_at": "2026-11-17T08:25:21Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "stash",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 792,
+          "slug": "stash-d8402d6c",
+          "name": "Stash",
+          "canonical_url": "https://stash.ws",
+          "first_seen_at": "2026-11-16T10:01:58Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2482,
+          "slug": "stash-538418cb",
+          "name": "Stash",
+          "canonical_url": "https://stashapp.cc",
+          "first_seen_at": "2026-11-16T10:05:40Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "laserpeckerdesignspace",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 801,
+          "slug": "laserpecker-design-space-38328b4b",
+          "name": "LaserPecker Design Space",
+          "canonical_url": "https://laserpecker.net",
+          "first_seen_at": "2026-11-16T10:02:00Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3742,
+          "slug": "laserpecker-design-space-1c180705",
+          "name": "LaserPecker Design Space",
+          "canonical_url": "https://us.laserpecker.net/pages/software",
+          "first_seen_at": "2026-11-17T12:49:04Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "netron",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 839,
+          "slug": "netron-61a89b68",
+          "name": "Netron",
+          "canonical_url": "https://github.com/lutzroeder/netron",
+          "first_seen_at": "2026-11-16T10:02:05Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1874,
+          "slug": "netron-30c1c658",
+          "name": "Netron",
+          "canonical_url": "https://netron.app",
+          "first_seen_at": "2026-11-16T10:04:12Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "firealpaca",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 865,
+          "slug": "fire-alpaca-9826b9db",
+          "name": "Fire Alpaca",
+          "canonical_url": "https://firealpaca.com",
+          "first_seen_at": "2026-11-16T10:02:08Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3212,
+          "slug": "firealpaca-0ac8d62b",
+          "name": "FireAlpaca",
+          "canonical_url": "https://firealpaca.com/download",
+          "first_seen_at": "2026-11-17T12:40:30Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "outline",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 886,
+          "slug": "outline-fe239466",
+          "name": "Outline",
+          "canonical_url": "https://outline.app",
+          "first_seen_at": "2026-11-16T10:02:11Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1314,
+          "slug": "outline-68170d09",
+          "name": "Outline",
+          "canonical_url": "https://getoutline.com",
+          "first_seen_at": "2026-11-16T10:03:13Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3816,
+          "slug": "outline-1eb1d0f8",
+          "name": "Outline",
+          "canonical_url": "https://getoutline.com/download",
+          "first_seen_at": "2026-11-17T12:50:23Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "requestly",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 917,
+          "slug": "requestly-4d446367",
+          "name": "Requestly",
+          "canonical_url": "https://requestly.com",
+          "first_seen_at": "2026-11-16T10:02:16Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2959,
+          "slug": "requestly-329b4fb1",
+          "name": "Requestly",
+          "canonical_url": "https://github.com/requestly/http-interceptor-desktop-app",
+          "first_seen_at": "2026-11-17T12:37:08Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "strix",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 948,
+          "slug": "strix-1fcbe4b9",
+          "name": "Strix",
+          "canonical_url": "https://github.com/eduard256/Strix",
+          "first_seen_at": "2026-11-16T10:02:01Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3482,
+          "slug": "strix-13bb78a9",
+          "name": "Strix",
+          "canonical_url": "https://strix.ai",
+          "first_seen_at": "2026-11-17T12:44:23Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "electroncash",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1011,
+          "slug": "electron-cash-5d29004a",
+          "name": "Electron Cash",
+          "canonical_url": "https://electroncash.org",
+          "first_seen_at": "2026-11-16T10:02:29Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3338,
+          "slug": "electron-cash-0f2b9e0e",
+          "name": "Electron Cash",
+          "canonical_url": "https://github.com/Electron-Cash/Electron-Cash",
+          "first_seen_at": "2026-11-17T12:42:15Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "pulse",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1131,
+          "slug": "pulse-2d5b2b04",
+          "name": "Pulse",
+          "canonical_url": "https://pulse.egoist.dev",
+          "first_seen_at": "2026-11-16T10:02:44Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3428,
+          "slug": "pulse-121184f0",
+          "name": "Pulse",
+          "canonical_url": "https://github.com/sovera-dev/sovera-toolkit",
+          "first_seen_at": "2026-11-17T12:43:33Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "element",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1187,
+          "slug": "element-cbead181",
+          "name": "Element",
+          "canonical_url": "https://element.io/get-started",
+          "first_seen_at": "2026-11-16T10:02:52Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1828,
+          "slug": "element-984bda00",
+          "name": "Element",
+          "canonical_url": "https://element.io",
+          "first_seen_at": "2026-11-16T10:04:07Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "simplexchat",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1210,
+          "slug": "simplex-chat-de2b642d",
+          "name": "SimpleX Chat",
+          "canonical_url": "https://github.com/simplex-chat/simplex-chat",
+          "first_seen_at": "2026-11-16T10:02:39Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2461,
+          "slug": "simplex-chat-15c3cd05",
+          "name": "SimpleX Chat",
+          "canonical_url": "https://simplex.chat",
+          "first_seen_at": "2026-11-16T10:05:43Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "buzz",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1215,
+          "slug": "buzz-59122470",
+          "name": "Buzz",
+          "canonical_url": "https://github.com/block/buzz",
+          "first_seen_at": "2026-11-16T10:02:57Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2686,
+          "slug": "buzz-04665da9",
+          "name": "Buzz",
+          "canonical_url": "https://github.com/chidiwilliams/buzz",
+          "first_seen_at": "2026-11-16T10:06:30Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "onionshare",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1227,
+          "slug": "onionshare-2f75fa3f",
+          "name": "OnionShare",
+          "canonical_url": "https://github.com/onionshare/onionshare",
+          "first_seen_at": "2026-11-16T10:02:43Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1393,
+          "slug": "onionshare-ad252ddf",
+          "name": "OnionShare",
+          "canonical_url": "https://onionshare.org",
+          "first_seen_at": "2026-11-16T10:03:21Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "standardnotes",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1446,
+          "slug": "standard-notes-863e881a",
+          "name": "Standard Notes",
+          "canonical_url": "https://standardnotes.com",
+          "first_seen_at": "2026-11-16T10:03:28Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1766,
+          "slug": "standard-notes-6e9c8d84",
+          "name": "Standard Notes",
+          "canonical_url": "https://docs.standardnotes.com/self-hosting/getting-started",
+          "first_seen_at": "2026-11-16T10:04:01Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "gitkraken",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1509,
+          "slug": "gitkraken-dbecbaf5",
+          "name": "GitKraken",
+          "canonical_url": "https://gitkraken.com",
+          "first_seen_at": "2026-11-16T10:03:36Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3788,
+          "slug": "gitkraken-1db673ef",
+          "name": "GitKraken",
+          "canonical_url": "https://gitkraken.com/git-client",
+          "first_seen_at": "2026-11-17T12:49:53Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "homer",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1554,
+          "slug": "homer-a86fe8cf",
+          "name": "Homer",
+          "canonical_url": "https://github.com/bastienwirtz/homer",
+          "first_seen_at": "2026-11-16T10:03:33Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2868,
+          "slug": "homer-497e75db",
+          "name": "Homer",
+          "canonical_url": "https://github.com/homer-dashboard/homer",
+          "first_seen_at": "2026-11-17T11:12:01Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "teleport",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1562,
+          "slug": "teleport-4c26c1ed",
+          "name": "Teleport",
+          "canonical_url": "https://goteleport.com",
+          "first_seen_at": "2026-11-16T10:03:34Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2567,
+          "slug": "teleport-cdaeb0e2",
+          "name": "teleport",
+          "canonical_url": "https://github.com/abyssoft/teleport",
+          "first_seen_at": "2026-11-16T10:05:57Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "gemini",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1616,
+          "slug": "gemini-2082cdf4",
+          "name": "Gemini",
+          "canonical_url": "https://gemini.google",
+          "first_seen_at": "2026-11-16T10:03:48Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1626,
+          "slug": "gemini-a76fbc66",
+          "name": "Gemini",
+          "canonical_url": "https://macpaw.com/gemini",
+          "first_seen_at": "2026-11-16T10:03:50Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "jandi",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1639,
+          "slug": "jandi-6174c23e",
+          "name": "jandi",
+          "canonical_url": "https://github.com/techinpark/Jandi",
+          "first_seen_at": "2026-11-16T10:03:52Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2450,
+          "slug": "jandi-c70b5b6a",
+          "name": "JANDI",
+          "canonical_url": "https://jandi.com/landing",
+          "first_seen_at": "2026-11-16T10:05:42Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "helium",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1658,
+          "slug": "helium-88386c8d",
+          "name": "Helium",
+          "canonical_url": "https://heliumedu.com",
+          "first_seen_at": "2026-11-16T10:03:47Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1710,
+          "slug": "helium-6a766f68",
+          "name": "Helium",
+          "canonical_url": "https://helium.computer",
+          "first_seen_at": "2026-11-16T10:04:02Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "basecamp",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1664,
+          "slug": "basecamp-5fe11fe6",
+          "name": "Basecamp",
+          "canonical_url": "https://basecamp.com",
+          "first_seen_at": "2026-11-16T10:03:55Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3718,
+          "slug": "basecamp-1b7728c6",
+          "name": "Basecamp",
+          "canonical_url": "https://basecamp.com/apps",
+          "first_seen_at": "2026-11-17T12:48:44Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "markpad",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1677,
+          "slug": "markpad-0566a861",
+          "name": "Markpad",
+          "canonical_url": "https://markpad.dev",
+          "first_seen_at": "2026-11-16T10:03:58Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3299,
+          "slug": "markpad-0dde67ae",
+          "name": "Markpad",
+          "canonical_url": "https://github.com/sftwrdotdev/Markpad",
+          "first_seen_at": "2026-11-17T12:41:42Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "beeper",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1769,
+          "slug": "beeper-ec229068",
+          "name": "Beeper",
+          "canonical_url": "https://beeper.com",
+          "first_seen_at": "2026-11-16T10:04:12Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3825,
+          "slug": "beeper-1f113d10",
+          "name": "Beeper",
+          "canonical_url": "https://beeper.com/download",
+          "first_seen_at": "2026-11-17T12:50:35Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "moneymanagerex",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1857,
+          "slug": "money-manager-ex-af05ec30",
+          "name": "Money Manager Ex",
+          "canonical_url": "https://moneymanagerex.org",
+          "first_seen_at": "2026-11-16T10:04:23Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3480,
+          "slug": "money-manager-ex-13827a03",
+          "name": "Money Manager EX",
+          "canonical_url": "https://github.com/moneymanagerex/moneymanagerex",
+          "first_seen_at": "2026-11-17T12:44:24Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "overflow",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1903,
+          "slug": "overflow-8c9fce4b",
+          "name": "Overflow",
+          "canonical_url": "https://overflow.io",
+          "first_seen_at": "2026-11-16T10:04:28Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2581,
+          "slug": "overflow-d3c6f83d",
+          "name": "Overflow",
+          "canonical_url": "https://stuntsoftware.com/overflow",
+          "first_seen_at": "2026-11-16T10:06:02Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "ente",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 1987,
+          "slug": "ente-b1274842",
+          "name": "Ente",
+          "canonical_url": "https://ente.com",
+          "first_seen_at": "2026-11-16T10:04:31Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2049,
+          "slug": "ente-05bae2b0",
+          "name": "Ente",
+          "canonical_url": "https://ente.io",
+          "first_seen_at": "2026-11-16T10:04:45Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "mediamtx",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2093,
+          "slug": "mediamtx-82c1881f",
+          "name": "MediaMTX",
+          "canonical_url": "https://mediamtx.org",
+          "first_seen_at": "2026-11-16T10:04:47Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3027,
+          "slug": "mediamtx-05461613",
+          "name": "mediamtx",
+          "canonical_url": "https://github.com/bluenviron/mediamtx",
+          "first_seen_at": "2026-11-17T12:38:03Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "cpuinfo",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2198,
+          "slug": "cpuinfo-7d2f34fc",
+          "name": "cpuinfo",
+          "canonical_url": "https://github.com/yusukeshib/cpuinfo",
+          "first_seen_at": "2026-11-16T10:05:04Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2260,
+          "slug": "cpu-info-be9e0959",
+          "name": "CPU Info",
+          "canonical_url": "https://github.com/kamgurgul/cpu-info",
+          "first_seen_at": "2026-11-16T10:05:14Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "dbbrowserforsqlite",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2275,
+          "slug": "db-browser-for-sqlite-a7829bd2",
+          "name": "DB Browser for SQLite",
+          "canonical_url": "https://sqlitebrowser.org",
+          "first_seen_at": "2026-11-16T10:05:16Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3082,
+          "slug": "db-browser-for-sqlite-06fbe1af",
+          "name": "DB Browser for SQLite",
+          "canonical_url": "https://sqlitebrowser.org/dl",
+          "first_seen_at": "2026-11-17T12:38:39Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "opencodex",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2286,
+          "slug": "opencodex-10c9863e",
+          "name": "OpenCodex",
+          "canonical_url": "https://opencodex.me",
+          "first_seen_at": "2026-11-16T10:05:16Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3532,
+          "slug": "opencodex-157dddeb",
+          "name": "OpenCodex",
+          "canonical_url": "https://github.com/RyensX/OpenCodex",
+          "first_seen_at": "2026-11-17T12:45:15Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "amethyst",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2376,
+          "slug": "amethyst-8ac3f486",
+          "name": "Amethyst",
+          "canonical_url": "https://ianyh.com/amethyst",
+          "first_seen_at": "2026-11-16T10:05:30Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3290,
+          "slug": "amethyst-0d72d0b6",
+          "name": "Amethyst",
+          "canonical_url": "https://github.com/vitorpamplona/amethyst",
+          "first_seen_at": "2026-11-17T12:41:34Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "ferdium",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2511,
+          "slug": "ferdium-5c1d2750",
+          "name": "Ferdium",
+          "canonical_url": "https://ferdium.org",
+          "first_seen_at": "2026-11-16T10:05:49Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3576,
+          "slug": "ferdium-17088454",
+          "name": "Ferdium",
+          "canonical_url": "https://github.com/ferdium/ferdium-app",
+          "first_seen_at": "2026-11-17T12:45:59Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "tabularis",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2514,
+          "slug": "tabularis-38fadc82",
+          "name": "Tabularis",
+          "canonical_url": "https://tabularis.dev",
+          "first_seen_at": "2026-11-16T10:05:49Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3511,
+          "slug": "tabularis-9ebf8200",
+          "name": "tabularis",
+          "canonical_url": "https://github.com/TabularisDB/tabularis",
+          "first_seen_at": "2026-11-17T12:44:56Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "dixa",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2557,
+          "slug": "dixa-d2518855",
+          "name": "Dixa",
+          "canonical_url": "https://dixa.com",
+          "first_seen_at": "2026-11-16T10:05:55Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3166,
+          "slug": "dixa-095ccd23",
+          "name": "Dixa",
+          "canonical_url": "https://github.com/dixahq/dixa-desktop-app-release",
+          "first_seen_at": "2026-11-17T12:39:56Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "bitcoincore",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2563,
+          "slug": "bitcoin-core-9a8b4498",
+          "name": "Bitcoin Core",
+          "canonical_url": "https://bitcoincore.org",
+          "first_seen_at": "2026-11-16T10:05:56Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3341,
+          "slug": "bitcoin-core-0f563838",
+          "name": "Bitcoin Core",
+          "canonical_url": "https://bitcoincore.org/en/download",
+          "first_seen_at": "2026-11-17T12:42:12Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "eagle",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2572,
+          "slug": "eagle-ecaba8f6",
+          "name": "Eagle",
+          "canonical_url": "https://eagle.cool",
+          "first_seen_at": "2026-11-16T10:05:59Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2956,
+          "slug": "eagle-031a0cdf",
+          "name": "Eagle",
+          "canonical_url": "https://en.eagle.cool",
+          "first_seen_at": "2026-11-17T12:36:58Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "pomatez",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2713,
+          "slug": "pomatez-fd92165f",
+          "name": "Pomatez",
+          "canonical_url": "https://zidoro.github.io/pomatez",
+          "first_seen_at": "2026-11-16T10:06:39Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3584,
+          "slug": "pomatez-175349a8",
+          "name": "Pomatez",
+          "canonical_url": "https://github.com/zidoro/pomatez",
+          "first_seen_at": "2026-11-17T12:46:09Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "crest",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2746,
+          "slug": "crest-ddaf4108",
+          "name": "Crest",
+          "canonical_url": "https://crestbrowser.com",
+          "first_seen_at": "2026-11-16T10:06:51Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2799,
+          "slug": "crest-bd14df6c",
+          "name": "Crest",
+          "canonical_url": "https://crestnotch.app",
+          "first_seen_at": "2026-11-17T08:25:19Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "4kyoutubetomp3",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2822,
+          "slug": "4k-youtube-to-mp3-9e5bea25",
+          "name": "4K YouTube to MP3",
+          "canonical_url": "https://4kdownload.com/products/youtubetomp3/1",
+          "first_seen_at": "2026-11-17T08:25:24Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2873,
+          "slug": "4k-youtube-to-mp3-4dc8e5f1",
+          "name": "4K YouTube to MP3",
+          "canonical_url": "https://4kdownload.com/products/youtubetomp3-74",
+          "first_seen_at": "2026-11-17T12:34:38Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "navicatpremium",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2831,
+          "slug": "navicat-premium-6a0b9967",
+          "name": "Navicat Premium",
+          "canonical_url": "https://navicat.com/products/navicat-premium",
+          "first_seen_at": "2026-11-17T08:25:27Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2964,
+          "slug": "navicat-premium-036cd521",
+          "name": "Navicat Premium",
+          "canonical_url": "https://navicat.com/en/products/navicat-premium",
+          "first_seen_at": "2026-11-17T12:37:07Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "normalized_name": "firebird",
+      "classification": "needs_identity_review",
+      "listings": [
+        {
+          "id": 2943,
+          "slug": "firebird-02a9551e",
+          "name": "Firebird",
+          "canonical_url": "https://firebirdsql.org/en/firebird-5-0",
+          "first_seen_at": "2026-11-17T12:36:47Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3159,
+          "slug": "firebird-0942775e",
+          "name": "Firebird",
+          "canonical_url": "https://firebirdsql.org/en/firebird-4-0",
+          "first_seen_at": "2026-11-17T12:39:42Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3600,
+          "slug": "firebird-17de1bc3",
+          "name": "Firebird",
+          "canonical_url": "https://firebirdsql.org/en/firebird-3-0",
+          "first_seen_at": "2026-11-17T12:46:20Z",
+          "verification_scope": "identity"
+        }
+      ]
+    }
+  ],
+  "same_host_groups": [
+    {
+      "host": "1password.com",
+      "listings": [
+        {
+          "id": 1,
+          "slug": "1password",
+          "name": "1Password",
+          "canonical_url": "https://1password.com",
+          "first_seen_at": "2026-11-15T20:19:54Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 2918,
+          "slug": "1password-01bc641e",
+          "name": "1Password",
+          "canonical_url": "https://1password.com/downloads/windows",
+          "first_seen_at": "2026-11-17T12:36:20Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "asana.com",
+      "listings": [
+        {
+          "id": 2,
+          "slug": "asana",
+          "name": "Asana",
+          "canonical_url": "https://asana.com",
+          "first_seen_at": "2026-11-15T20:19:43Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3460,
+          "slug": "asana-13112d75",
+          "name": "Asana",
+          "canonical_url": "https://asana.com/download",
+          "first_seen_at": "2026-11-17T12:44:01Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "clickup.com",
+      "listings": [
+        {
+          "id": 7,
+          "slug": "clickup",
+          "name": "ClickUp",
+          "canonical_url": "https://clickup.com",
+          "first_seen_at": "2026-11-15T20:19:44Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3026,
+          "slug": "clickup-057707e9",
+          "name": "ClickUp",
+          "canonical_url": "https://clickup.com/download",
+          "first_seen_at": "2026-11-17T12:38:01Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "miro.com",
+      "listings": [
+        {
+          "id": 26,
+          "slug": "miro",
+          "name": "Miro",
+          "canonical_url": "https://miro.com",
+          "first_seen_at": "2026-11-15T20:19:47Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3245,
+          "slug": "miro-0bf0b93d",
+          "name": "Miro",
+          "canonical_url": "https://miro.com/apps",
+          "first_seen_at": "2026-11-17T12:40:50Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "tldv.io",
+      "listings": [
+        {
+          "id": 37,
+          "slug": "tl-dv",
+          "name": "tl;dv",
+          "canonical_url": "https://tldv.io",
+          "first_seen_at": "2026-11-15T20:19:38Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 3810,
+          "slug": "tl-dv-1e9c21d9",
+          "name": "tl;dv",
+          "canonical_url": "https://tldv.io/desktop-app",
+          "first_seen_at": "2026-11-17T12:50:21Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "todoist.com",
+      "listings": [
+        {
+          "id": 38,
+          "slug": "todoist",
+          "name": "Todoist",
+          "canonical_url": "https://todoist.com",
+          "first_seen_at": "2026-11-15T20:19:45Z",
+          "verification_scope": "capabilities"
+        },
+        {
+          "id": 2204,
+          "slug": "todoist-b6c07a86",
+          "name": "Todoist",
+          "canonical_url": "https://todoist.com/home",
+          "first_seen_at": "2026-11-16T10:05:05Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "4kdownload.com",
+      "listings": [
+        {
+          "id": 70,
+          "slug": "4k-video-downloader-a5fac81e",
+          "name": "4K Video Downloader",
+          "canonical_url": "https://4kdownload.com/products/product-videodownloader",
+          "first_seen_at": "2026-11-16T09:48:46Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2969,
+          "slug": "4k-video-downloader-10dc839d",
+          "name": "4K Video Downloader+",
+          "canonical_url": "https://4kdownload.com/products/videodownloader-42",
+          "first_seen_at": "2026-11-17T12:37:12Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "kodi.tv",
+      "listings": [
+        {
+          "id": 203,
+          "slug": "kodi-29b56f23",
+          "name": "Kodi",
+          "canonical_url": "https://kodi.tv",
+          "first_seen_at": "2026-11-16T10:00:25Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3441,
+          "slug": "kodi-128666b2",
+          "name": "Kodi",
+          "canonical_url": "https://kodi.tv/download/windows",
+          "first_seen_at": "2026-11-17T12:43:39Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "rawtherapee.com",
+      "listings": [
+        {
+          "id": 228,
+          "slug": "rawtherapee-7085e406",
+          "name": "RawTherapee",
+          "canonical_url": "https://rawtherapee.com",
+          "first_seen_at": "2026-11-16T10:00:43Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3117,
+          "slug": "rawtherapee-08018ba3",
+          "name": "RawTherapee",
+          "canonical_url": "https://rawtherapee.com/downloads",
+          "first_seen_at": "2026-11-17T12:39:05Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "audius.co",
+      "listings": [
+        {
+          "id": 537,
+          "slug": "audius-08485e64",
+          "name": "Audius",
+          "canonical_url": "https://audius.co",
+          "first_seen_at": "2026-11-16T10:01:23Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3404,
+          "slug": "audius-1151758d",
+          "name": "Audius",
+          "canonical_url": "https://audius.co/download",
+          "first_seen_at": "2026-11-17T12:43:05Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "spotify.com",
+      "listings": [
+        {
+          "id": 775,
+          "slug": "spotify-b3927a7a",
+          "name": "Spotify",
+          "canonical_url": "https://spotify.com",
+          "first_seen_at": "2026-11-16T10:01:56Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3503,
+          "slug": "spotify-8c2cc9ee",
+          "name": "Spotify",
+          "canonical_url": "https://spotify.com/us/download/windows",
+          "first_seen_at": "2026-11-17T12:44:44Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "firealpaca.com",
+      "listings": [
+        {
+          "id": 865,
+          "slug": "fire-alpaca-9826b9db",
+          "name": "Fire Alpaca",
+          "canonical_url": "https://firealpaca.com",
+          "first_seen_at": "2026-11-16T10:02:08Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3212,
+          "slug": "firealpaca-0ac8d62b",
+          "name": "FireAlpaca",
+          "canonical_url": "https://firealpaca.com/download",
+          "first_seen_at": "2026-11-17T12:40:30Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "getoutline.com",
+      "listings": [
+        {
+          "id": 1314,
+          "slug": "outline-68170d09",
+          "name": "Outline",
+          "canonical_url": "https://getoutline.com",
+          "first_seen_at": "2026-11-16T10:03:13Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3816,
+          "slug": "outline-1eb1d0f8",
+          "name": "Outline",
+          "canonical_url": "https://getoutline.com/download",
+          "first_seen_at": "2026-11-17T12:50:23Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "element.io",
+      "listings": [
+        {
+          "id": 1187,
+          "slug": "element-cbead181",
+          "name": "Element",
+          "canonical_url": "https://element.io/get-started",
+          "first_seen_at": "2026-11-16T10:02:52Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 1828,
+          "slug": "element-984bda00",
+          "name": "Element",
+          "canonical_url": "https://element.io",
+          "first_seen_at": "2026-11-16T10:04:07Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "gitkraken.com",
+      "listings": [
+        {
+          "id": 1509,
+          "slug": "gitkraken-dbecbaf5",
+          "name": "GitKraken",
+          "canonical_url": "https://gitkraken.com",
+          "first_seen_at": "2026-11-16T10:03:36Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3788,
+          "slug": "gitkraken-1db673ef",
+          "name": "GitKraken",
+          "canonical_url": "https://gitkraken.com/git-client",
+          "first_seen_at": "2026-11-17T12:49:53Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "basecamp.com",
+      "listings": [
+        {
+          "id": 1664,
+          "slug": "basecamp-5fe11fe6",
+          "name": "Basecamp",
+          "canonical_url": "https://basecamp.com",
+          "first_seen_at": "2026-11-16T10:03:55Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3718,
+          "slug": "basecamp-1b7728c6",
+          "name": "Basecamp",
+          "canonical_url": "https://basecamp.com/apps",
+          "first_seen_at": "2026-11-17T12:48:44Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "beeper.com",
+      "listings": [
+        {
+          "id": 1769,
+          "slug": "beeper-ec229068",
+          "name": "Beeper",
+          "canonical_url": "https://beeper.com",
+          "first_seen_at": "2026-11-16T10:04:12Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3825,
+          "slug": "beeper-1f113d10",
+          "name": "Beeper",
+          "canonical_url": "https://beeper.com/download",
+          "first_seen_at": "2026-11-17T12:50:35Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "sqlitebrowser.org",
+      "listings": [
+        {
+          "id": 2275,
+          "slug": "db-browser-for-sqlite-a7829bd2",
+          "name": "DB Browser for SQLite",
+          "canonical_url": "https://sqlitebrowser.org",
+          "first_seen_at": "2026-11-16T10:05:16Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3082,
+          "slug": "db-browser-for-sqlite-06fbe1af",
+          "name": "DB Browser for SQLite",
+          "canonical_url": "https://sqlitebrowser.org/dl",
+          "first_seen_at": "2026-11-17T12:38:39Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "bitcoincore.org",
+      "listings": [
+        {
+          "id": 2563,
+          "slug": "bitcoin-core-9a8b4498",
+          "name": "Bitcoin Core",
+          "canonical_url": "https://bitcoincore.org",
+          "first_seen_at": "2026-11-16T10:05:56Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3341,
+          "slug": "bitcoin-core-0f563838",
+          "name": "Bitcoin Core",
+          "canonical_url": "https://bitcoincore.org/en/download",
+          "first_seen_at": "2026-11-17T12:42:12Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "4kdownload.com",
+      "listings": [
+        {
+          "id": 2822,
+          "slug": "4k-youtube-to-mp3-9e5bea25",
+          "name": "4K YouTube to MP3",
+          "canonical_url": "https://4kdownload.com/products/youtubetomp3/1",
+          "first_seen_at": "2026-11-17T08:25:24Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2873,
+          "slug": "4k-youtube-to-mp3-4dc8e5f1",
+          "name": "4K YouTube to MP3",
+          "canonical_url": "https://4kdownload.com/products/youtubetomp3-74",
+          "first_seen_at": "2026-11-17T12:34:38Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "navicat.com",
+      "listings": [
+        {
+          "id": 2831,
+          "slug": "navicat-premium-6a0b9967",
+          "name": "Navicat Premium",
+          "canonical_url": "https://navicat.com/products/navicat-premium",
+          "first_seen_at": "2026-11-17T08:25:27Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 2964,
+          "slug": "navicat-premium-036cd521",
+          "name": "Navicat Premium",
+          "canonical_url": "https://navicat.com/en/products/navicat-premium",
+          "first_seen_at": "2026-11-17T12:37:07Z",
+          "verification_scope": "identity"
+        }
+      ]
+    },
+    {
+      "host": "firebirdsql.org",
+      "listings": [
+        {
+          "id": 2943,
+          "slug": "firebird-02a9551e",
+          "name": "Firebird",
+          "canonical_url": "https://firebirdsql.org/en/firebird-5-0",
+          "first_seen_at": "2026-11-17T12:36:47Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3159,
+          "slug": "firebird-0942775e",
+          "name": "Firebird",
+          "canonical_url": "https://firebirdsql.org/en/firebird-4-0",
+          "first_seen_at": "2026-11-17T12:39:42Z",
+          "verification_scope": "identity"
+        },
+        {
+          "id": 3600,
+          "slug": "firebird-17de1bc3",
+          "name": "Firebird",
+          "canonical_url": "https://firebirdsql.org/en/firebird-3-0",
+          "first_seen_at": "2026-11-17T12:46:20Z",
+          "verification_scope": "identity"
+        }
+      ]
+    }
+  ],
+  "proposed_holds_requiring_approval": [
+    {
+      "name": "1Password",
+      "keep_url": "https://1password.com",
+      "keep_slug": "1password",
+      "hold_url": "https://1password.com/downloads/windows",
+      "hold_slug": "1password-01bc641e",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Asana",
+      "keep_url": "https://asana.com",
+      "keep_slug": "asana",
+      "hold_url": "https://asana.com/download",
+      "hold_slug": "asana-13112d75",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "ClickUp",
+      "keep_url": "https://clickup.com",
+      "keep_slug": "clickup",
+      "hold_url": "https://clickup.com/download",
+      "hold_slug": "clickup-057707e9",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Miro",
+      "keep_url": "https://miro.com",
+      "keep_slug": "miro",
+      "hold_url": "https://miro.com/apps",
+      "hold_slug": "miro-0bf0b93d",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "tl;dv",
+      "keep_url": "https://tldv.io",
+      "keep_slug": "tl-dv",
+      "hold_url": "https://tldv.io/desktop-app",
+      "hold_slug": "tl-dv-1e9c21d9",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "4K Video Downloader+",
+      "keep_url": "https://4kdownload.com/products/product-videodownloader",
+      "keep_slug": "4k-video-downloader-a5fac81e",
+      "hold_url": "https://4kdownload.com/products/videodownloader-42",
+      "hold_slug": "4k-video-downloader-10dc839d",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Kodi",
+      "keep_url": "https://kodi.tv",
+      "keep_slug": "kodi-29b56f23",
+      "hold_url": "https://kodi.tv/download/windows",
+      "hold_slug": "kodi-128666b2",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "RawTherapee",
+      "keep_url": "https://rawtherapee.com",
+      "keep_slug": "rawtherapee-7085e406",
+      "hold_url": "https://rawtherapee.com/downloads",
+      "hold_slug": "rawtherapee-08018ba3",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Audius",
+      "keep_url": "https://audius.co",
+      "keep_slug": "audius-08485e64",
+      "hold_url": "https://audius.co/download",
+      "hold_slug": "audius-1151758d",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Spotify",
+      "keep_url": "https://spotify.com",
+      "keep_slug": "spotify-b3927a7a",
+      "hold_url": "https://spotify.com/us/download/windows",
+      "hold_slug": "spotify-8c2cc9ee",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "FireAlpaca",
+      "keep_url": "https://firealpaca.com",
+      "keep_slug": "fire-alpaca-9826b9db",
+      "hold_url": "https://firealpaca.com/download",
+      "hold_slug": "firealpaca-0ac8d62b",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Outline",
+      "keep_url": "https://getoutline.com",
+      "keep_slug": "outline-68170d09",
+      "hold_url": "https://getoutline.com/download",
+      "hold_slug": "outline-1eb1d0f8",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "GitKraken",
+      "keep_url": "https://gitkraken.com",
+      "keep_slug": "gitkraken-dbecbaf5",
+      "hold_url": "https://gitkraken.com/git-client",
+      "hold_slug": "gitkraken-1db673ef",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Basecamp",
+      "keep_url": "https://basecamp.com",
+      "keep_slug": "basecamp-5fe11fe6",
+      "hold_url": "https://basecamp.com/apps",
+      "hold_slug": "basecamp-1b7728c6",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Beeper",
+      "keep_url": "https://beeper.com",
+      "keep_slug": "beeper-ec229068",
+      "hold_url": "https://beeper.com/download",
+      "hold_slug": "beeper-1f113d10",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "DB Browser for SQLite",
+      "keep_url": "https://sqlitebrowser.org",
+      "keep_slug": "db-browser-for-sqlite-a7829bd2",
+      "hold_url": "https://sqlitebrowser.org/dl",
+      "hold_slug": "db-browser-for-sqlite-06fbe1af",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Bitcoin Core",
+      "keep_url": "https://bitcoincore.org",
+      "keep_slug": "bitcoin-core-9a8b4498",
+      "hold_url": "https://bitcoincore.org/en/download",
+      "hold_slug": "bitcoin-core-0f563838",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "4K YouTube to MP3",
+      "keep_url": "https://4kdownload.com/products/youtubetomp3/1",
+      "keep_slug": "4k-youtube-to-mp3-9e5bea25",
+      "hold_url": "https://4kdownload.com/products/youtubetomp3-74",
+      "hold_slug": "4k-youtube-to-mp3-4dc8e5f1",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Navicat Premium",
+      "keep_url": "https://navicat.com/products/navicat-premium",
+      "keep_slug": "navicat-premium-6a0b9967",
+      "hold_url": "https://navicat.com/en/products/navicat-premium",
+      "hold_slug": "navicat-premium-036cd521",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Firebird",
+      "keep_url": "https://firebirdsql.org/en/firebird-5-0",
+      "keep_slug": "firebird-02a9551e",
+      "hold_url": "https://firebirdsql.org/en/firebird-4-0",
+      "hold_slug": "firebird-0942775e",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    },
+    {
+      "name": "Firebird",
+      "keep_url": "https://firebirdsql.org/en/firebird-5-0",
+      "keep_slug": "firebird-02a9551e",
+      "hold_url": "https://firebirdsql.org/en/firebird-3-0",
+      "hold_slug": "firebird-17de1bc3",
+      "action": "Move the newer identity-only listing to review; retain its underlying data and the older public listing."
+    }
+  ]
+}

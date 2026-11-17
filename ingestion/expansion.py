@@ -15,7 +15,7 @@ from .client import InternalClient,InternalAPIError
 from .extraction import ROOT,now
 from .offline_discovery import save_private,journal_lock,product_urls
 from .expansion_artifacts import JOURNAL
-from .expansion_sources import collect_sources
+from .expansion_sources import collect_sources,third_party_homepage
 
 CONFIG=ROOT/'data/expansion-campaign.json'
 HEALTH=ROOT/'data/expansion-health.json'
@@ -63,13 +63,17 @@ def run(audit=False,limit=1000):
 
 def verify_candidate(candidate,web=None):
     web=web or SafeWeb(delay=.75,max_pages=1,max_bytes=1024*1024)
+    if third_party_homepage(urlsplit(candidate['canonical_url']).hostname):raise ValueError('Directory is not an official publisher homepage')
     page=web.fetch(candidate['canonical_url'])
     if page['status']!=200 or 'html' not in page.get('content_type','').lower(): raise ValueError('Official website unavailable')
+    if third_party_homepage(urlsplit(page['url']).hostname):raise ValueError('Redirected to a third-party download directory')
     if urlsplit(canonicalize(page['url'])).hostname != urlsplit(candidate['canonical_url']).hostname: raise ValueError('Cross-host identity needs review')
     parser=Metadata();parser.feed(page['text'])
     title=' '.join([parser.title,parser.meta.get('og:title',''),parser.meta.get('og:site_name','')])
     compact=lambda v: re.sub(r'[^a-z0-9]','',v.casefold())
-    matched=any((len(compact(alias))>=4 and compact(alias) in compact(title)) or (len(compact(alias))>=2 and re.search(r'(?<!\w)'+re.escape(alias)+r'(?!\w)',title,re.I)) for alias in candidate['aliases'])
+    generic={'app','client','desktop','portable','install','installer','setup','windows','macos','linux','win32','win64','x64','x86','arm64','stable','community','enterprise','professional','pro','free','trial'}
+    aliases=[alias for alias in candidate['aliases'] if compact(alias) not in generic and not compact(alias).isdigit()]
+    matched=any((len(compact(alias))>=4 and compact(alias) in compact(title)) or (len(compact(alias))>=2 and re.search(r'(?<!\w)'+re.escape(alias)+r'(?!\w)',title,re.I)) for alias in aliases)
     if not matched or re.search(r'\b(domain for sale|buy this domain|page not found|just a moment|access denied|attention required|verify you are human)\b',title,re.I): raise ValueError('Official title did not establish product identity')
     resolved_url=canonicalize(page['url'])
     hint=parser.canonical or parser.meta.get('og:url')
