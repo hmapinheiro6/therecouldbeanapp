@@ -10,7 +10,9 @@ export async function recoveryResponse(
     ? (caches as CacheStorage & { default: Cache }).default
     : undefined,
 ) {
-  const key = new Request(new URL("/catalog-backup.json", request.url));
+  const key = new Request(
+    new URL("/catalog-backup.json?recovery=1", request.url),
+  );
   try {
     const hit = await cache?.match(key);
     if (hit) return hit;

@@ -88,9 +88,35 @@ def verify_candidate(candidate,web=None):
     return product
 
 
+def identity_key(name):
+    return re.sub(r'[^a-z0-9]','',name.casefold())
+
+
+def refresh_identities(state,client):
+    identities=state.setdefault('identity_index',[]);after=state.get('identity_after',0)
+    for _ in range(25):
+        page=client.request('/api/internal/identity-index?after='+str(after))
+        for product in page['products']:
+            identities.append(product);after=max(after,product['id'])
+        following=page['next_after']
+        if following is None:break
+        if following<=state.get('identity_after',0):raise ValueError('Identity cursor did not advance')
+        state['identity_after']=after
+    else:raise ValueError('Identity index exceeds campaign bound')
+    state['identity_after']=after
+    # Conservative check for NEW candidates only. Existing published identities
+    # remain unchanged; matching names across URLs can also be distinct products.
+    names={}
+    for product in identities:
+        key=identity_key(product['name'])
+        if len(key)>=2:names.setdefault(key,set()).add(product['canonical_url'])
+    return names
+
+
 def publish(state,limit,client=None,verify=verify_candidate):
     client=client or InternalClient()
     client.request('/api/internal/maintenance',{})
+    identities=refresh_identities(state,client)
     status=client.request('/api/internal/expansion-status');published=int(status['published'])
     config=json.loads(CONFIG.read_text());target=config['target']
     if published>=target: return health(state,'target_reached',published)
@@ -114,7 +140,9 @@ def publish(state,limit,client=None,verify=verify_candidate):
         if not 0<=accepted<=len(batch): raise ValueError('Invalid publication acknowledgement')
         state['published_by_campaign']=state.get('published_by_campaign',0)+accepted
         published=int(result.get('catalog_total',published+accepted))
-        for record in batch: record['status']='published'
+        for record in batch:
+            record['status']='published'
+            if record['product'].get('name'):identities.setdefault(identity_key(record['product']['name']),set()).add(record['product']['canonical_url'])
         accounting=result.get('accounting',{})
         state['observed_rows_written']=state.get('observed_rows_written',0)+accounting.get('rows_written',0)
         state['observed_rows_read']=state.get('observed_rows_read',0)+accounting.get('rows_read',0)
@@ -128,11 +156,17 @@ def publish(state,limit,client=None,verify=verify_candidate):
         ready=[r for r in state['records'] if r['status']=='ready'][:20]
         if not ready: return
         known=set(client.request('/api/internal/known',{'urls':[r['product']['canonical_url'] for r in ready]})['known'])
-        unique={}
+        unique={};batch_names={}
         for record in ready:
             url=record['product']['canonical_url']
+            names=[record['product'].get('name',''),*record.get('candidate',{}).get('aliases',[])]
+            if any((identities.get(identity_key(name),set()) | batch_names.get(identity_key(name),set()))-{url} for name in names if len(identity_key(name))>=2):
+                record.update(status='held',reason='name_identity_needs_review');continue
             if url in known or url in unique: record['status']='duplicate'
-            else: unique[url]=record
+            else:
+                unique[url]=record
+                for name in names:
+                    if len(identity_key(name))>=2:batch_names.setdefault(identity_key(name),set()).add(url)
         batch=list(unique.values())[:max(0,target-published)]
         if batch and active(): deliver(batch)
         state['records']=[r for r in state['records'] if r['status'] not in ('published','duplicate')]

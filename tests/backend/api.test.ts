@@ -1079,6 +1079,15 @@ it("campaign reservations stop at their own ceiling and expiry without changing 
 });
 
 it("exports published recovery records by advancing id with provenance and aliases", async () => {
+  const plan = await env.DB.prepare(
+    "EXPLAIN QUERY PLAN SELECT p.id FROM products p NOT INDEXED JOIN categories c ON c.id=p.category_id WHERE p.status='published' AND p.id>0 ORDER BY p.id LIMIT 50",
+  ).all<{ detail: string }>();
+  expect(
+    plan.results.some((r) => r.detail.includes("INTEGER PRIMARY KEY")),
+  ).toBe(true);
+  expect(plan.results.some((r) => r.detail.includes("TEMP B-TREE"))).toBe(
+    false,
+  );
   const first = await app.request(
     await signed("/api/internal/snapshot?after=0"),
     {},

@@ -225,7 +225,7 @@ app.get("/api/preview-products", async (c) => {
   const rows =
     ceiling > after
       ? await c.env.DB.prepare(
-          "SELECT id,slug,name,canonical_url,verification_scope,first_seen_at FROM products WHERE id>? AND id<=? AND status='published' ORDER BY id LIMIT 100",
+          "SELECT id,slug,name,canonical_url,verification_scope,first_seen_at FROM products NOT INDEXED WHERE id>? AND id<=? AND status='published' ORDER BY id LIMIT 100",
         )
           .bind(after, ceiling)
           .all()

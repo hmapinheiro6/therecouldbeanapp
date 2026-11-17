@@ -128,6 +128,28 @@ internal.post("/known", async (c) => {
     known: results.flatMap((r) => r.results.map((row) => row.canonical_url)),
   });
 });
+internal.get("/identity-index", async (c) => {
+  const after = Number(c.req.query("after") ?? 0);
+  if (!Number.isSafeInteger(after) || after < 0)
+    return c.json(
+      {
+        error: { code: "invalid_cursor", message: "Invalid identity cursor." },
+      },
+      400,
+    );
+  const rows = await c.env.DB.prepare(
+    "SELECT id,slug,name,canonical_url FROM products NOT INDEXED WHERE status='published' AND id>? ORDER BY id LIMIT 500",
+  )
+    .bind(after)
+    .all();
+  return c.json({
+    products: rows.results,
+    next_after:
+      rows.results.length === 500
+        ? (rows.results.at(-1) as { id: number }).id
+        : null,
+  });
+});
 internal.get("/snapshot", async (c) => {
   const after = c.req.query("after");
   const offset = Number(after ?? c.req.query("offset") ?? 0);
@@ -141,7 +163,7 @@ internal.get("/snapshot", async (c) => {
       400,
     );
   const r = await c.env.DB.prepare(
-    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.status='published' ${after === undefined ? "" : "AND p.id>?"} ORDER BY p.id LIMIT 50 ${after === undefined ? "OFFSET ?" : ""}`,
+    `${PRODUCT_SELECT},0 bm25 FROM products p NOT INDEXED JOIN categories c ON c.id=p.category_id WHERE p.status='published' ${after === undefined ? "" : "AND p.id>?"} ORDER BY p.id LIMIT 50 ${after === undefined ? "OFFSET ?" : ""}`,
   )
     .bind(offset)
     .all<ProductRow>();

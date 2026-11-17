@@ -18,6 +18,7 @@ def setup(tmp_path,monkeypatch):
         if path.endswith('/maintenance'):return {'status':'ready'}
         if path.endswith('/expansion-status'):return {'published':2868}
         if path.endswith('/known'):return {'known':[]}
+        if '/identity-index?' in path:return {'products':[],'next_after':None}
         if path.endswith('/ingest'):return {'status':'accepted','products':len(body['products']),'catalog_total':2888,'accounting':{'rows_written':len(body['products'])*10}}
         raise AssertionError(path)
     client.request.side_effect=request
@@ -77,3 +78,21 @@ def test_campaign_priority_expires_without_a_local_scheduler(monkeypatch,tmp_pat
     (tmp_path/'data/expansion-campaign.json').write_text(json.dumps({'enabled':True,'deadline':'2026-11-17T23:50:00Z'}))
     assert campaign.expansion_priority(datetime(2026,11,17,12,tzinfo=timezone.utc))
     assert campaign.expansion_priority(datetime(2026,11,18,tzinfo=timezone.utc)) is None
+
+
+def test_existing_name_at_another_url_holds_only_new_candidates(setup):
+    state,client,request=setup
+    existing={'id':1,'slug':'existing','name':'Actual','canonical_url':'https://actual.dev'}
+    def indexed(path,body=None):
+        if '/identity-index?' in path:return {'products':[existing],'next_after':None}
+        return request(path,body)
+    client.request.side_effect=indexed
+    result=ex.publish(state,20,client,verify=lambda c:{**c,'name':'Actual'})
+    assert result['held']==20 and result['published_by_campaign']==0
+    assert not any(call.args[0].endswith('/ingest') or call.args[0].endswith('/moderate') for call in client.request.call_args_list)
+
+
+def test_same_name_variants_in_one_batch_do_not_inflate_the_count(setup):
+    state,client,_=setup
+    result=ex.publish(state,20,client,verify=lambda c:{**c,'name':'Actual'})
+    assert result['held']==19 and result['published_by_campaign']==1
