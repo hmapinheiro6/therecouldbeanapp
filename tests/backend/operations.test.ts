@@ -94,3 +94,54 @@ it("accounts first/all/run/batch provider rows without logging private SQL value
   expect(JSON.stringify(logs.mock.calls)).not.toContain("private@example.dev");
   logs.mockRestore();
 });
+
+it("keeps independent issue alerts working when D1 is unavailable", async () => {
+  const { watchdog } = await import("../../worker/operations");
+  const now = new Date("2026-11-17T12:00:00Z");
+  const remote = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = String(input);
+    if (url.includes("/runs?"))
+      return Response.json({
+        workflow_runs: [
+          {
+            status: "completed",
+            conclusion: "success",
+            created_at: now.toISOString(),
+            updated_at: now.toISOString(),
+            html_url: "https://github.com/example/run",
+          },
+        ],
+      });
+    if (url.includes("provenance.json"))
+      return Response.json({
+        content: btoa(JSON.stringify({ saved_at: now.toISOString() })),
+      });
+    if (url.includes("backup-health.json"))
+      return Response.json({
+        content: btoa(JSON.stringify({ last_success_at: now.toISOString() })),
+      });
+    if (init?.method === "POST") return Response.json({ number: 1 });
+    return Response.json([]);
+  });
+  vi.stubGlobal("fetch", remote);
+  try {
+    await watchdog(
+      {
+        WATCHDOG_GITHUB_TOKEN: "isolated-test-token",
+        DB: {
+          prepare() {
+            throw new Error("D1 daily limit");
+          },
+        },
+      } as never,
+      now,
+    );
+    const creation = remote.mock.calls.find(
+      (call) => call[1]?.method === "POST",
+    );
+    expect(creation).toBeDefined();
+    expect(String(creation?.[1]?.body)).toContain("D1 usage cannot be read");
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});

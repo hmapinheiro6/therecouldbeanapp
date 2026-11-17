@@ -105,11 +105,16 @@ export async function watchdog(env: Bindings, now = new Date()) {
       "Verified encrypted full database backup is missing or unreadable",
     );
   }
-  const budget = await currentBudget(env);
-  if (!budget.allowed && budget.reason === "usage_unavailable")
-    problems.push(
-      "Account D1 usage telemetry is unavailable; bulk jobs are paused",
-    );
+  try {
+    const budget = await currentBudget(env);
+    if (!budget.allowed && budget.reason === "usage_unavailable")
+      problems.push(
+        "Account D1 usage telemetry is unavailable; bulk jobs are paused",
+      );
+  } catch {
+    // An exhausted database must not suppress alerts about missed hosted jobs.
+    problems.push("D1 usage cannot be read; check the account allowance");
+  }
   if (!env.WATCHDOG_GITHUB_TOKEN)
     throw new Error("Independent issue alerts need WATCHDOG_GITHUB_TOKEN");
   const title = "[Watchdog] Autonomous catalog jobs need attention";
