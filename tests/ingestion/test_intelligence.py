@@ -133,3 +133,25 @@ def test_preview_reuses_html_and_storage_budget_prevents_a_write(tmp_path,monkey
     monkeypatch.setattr(intel,'MAX_TOTAL',10)
     intel.observe_preview(PRODUCT,page(),metadata('<title>Actual</title>'))
     assert not list(tmp_path.glob('*.json'))
+
+
+def test_new_forward_index_counts_toward_the_storage_file_budget(tmp_path,monkeypatch):
+    monkeypatch.setattr(intel,'MAX_RECORDS',1)
+    monkeypatch.setattr(intel,'snapshot_products',lambda: [])
+    def indexed(*args):
+        (tmp_path/'.catalog-index.json').write_text('{}')
+        return [PRODUCT]
+    monkeypatch.setattr(intel,'published_products',indexed)
+    web=Mock()
+    assert intel.run(1,tmp_path,web_factory=lambda **_:web)['checked']==0
+    web.fetch.assert_not_called()
+    assert not (tmp_path/'actual.json').exists()
+
+
+def test_large_source_history_trims_to_the_record_byte_budget():
+    old=None
+    for n in range(32):
+        site={**observation('reachable' if n%2 else 'unreachable'),'source_url':'https://actual.dev/'+('a'*1900)}
+        old=intel.update_record(PRODUCT,old,site,stamp=STAMP)
+    assert len(old['history']) < 32
+    assert len(json.dumps(old,ensure_ascii=True,separators=(',',':')).encode())+1 <= intel.MAX_BYTES

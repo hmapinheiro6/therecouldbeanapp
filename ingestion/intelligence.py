@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import time
+from threading import Lock
 from urllib.parse import urlsplit, urljoin
 from .extraction import Metadata, ROOT, now
 from .preview_metadata import plain
@@ -20,6 +21,7 @@ MAX_TOTAL = 64 * 1024 * 1024
 MAX_RECORDS = 4000
 REPO = re.compile(r'https://github.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)(?:/)?\Z')
 APP_TYPES = {'SoftwareApplication', 'WebApplication', 'MobileApplication', 'DesktopApplication'}
+PREVIEW_LOCK = Lock()
 
 
 def day(value, stamp):
@@ -133,6 +135,8 @@ def update_record(product, previous, website, facts=None, stamp=None, enriched=F
         record['history'].append({'observed_at': stamp, 'kind': kind, 'value': value, 'source_url': source})
     record['history'] = record['history'][-32:]
     if enriched: record['enriched_at'] = stamp
+    while len(record['history']) > 1 and len(json.dumps(record, ensure_ascii=True, separators=(',', ':')).encode()) + 1 > MAX_BYTES:
+        record['history'].pop(0)
     return record
 
 
@@ -154,14 +158,15 @@ def observe_preview(product, page, parser):
     # prevents two hosted enrichment writers from editing this directory concurrently.
     slug = product.get('slug', '')
     if not isinstance(slug, str) or len(slug) > 100 or not SLUG.fullmatch(slug): return
-    DIRECTORY.mkdir(parents=True, exist_ok=True)
-    path = DIRECTORY / (slug + '.json')
-    if not path.exists() and len(list(DIRECTORY.glob('*.json'))) >= MAX_RECORDS: return
-    previous = read_record(path); stamp = now()
-    record = update_record(product, previous, website_observation(product, page, parser), software_facts(product, parser, page['url'], stamp), stamp)
-    size = sum(p.stat().st_size for p in DIRECTORY.glob('*.json')) - (path.stat().st_size if path.exists() else 0)
-    if size + len(json.dumps(record, ensure_ascii=True, separators=(',', ':')).encode()) + 1 <= MAX_TOTAL:
-        save_record(path, record)
+    with PREVIEW_LOCK:
+        DIRECTORY.mkdir(parents=True, exist_ok=True)
+        path = DIRECTORY / (slug + '.json')
+        if not path.exists() and len(list(DIRECTORY.glob('*.json'))) >= MAX_RECORDS: return
+        previous = read_record(path); stamp = now()
+        record = update_record(product, previous, website_observation(product, page, parser), software_facts(product, parser, page['url'], stamp), stamp)
+        size = sum(p.stat().st_size for p in DIRECTORY.glob('*.json')) - (path.stat().st_size if path.exists() else 0)
+        if size + len(json.dumps(record, ensure_ascii=True, separators=(',', ':')).encode()) + 1 <= MAX_TOTAL:
+            save_record(path, record)
 
 
 def repository(product, links):
@@ -235,6 +240,9 @@ def run(limit=100, directory=DIRECTORY, products=None, web_factory=SafeWeb):
     files = list(directory.glob('*.json'))
     if len(files) > MAX_RECORDS or sum(p.stat().st_size for p in files) > MAX_TOTAL: raise ValueError('Observation storage budget reached')
     products = products if products is not None else published_products(web_factory(delay=1, max_pages=3), snapshot_products(), directory)
+    # The forward index may have been created or grown by published_products.
+    files = list(directory.glob('*.json'))
+    if len(files) > MAX_RECORDS or sum(p.stat().st_size for p in files) > MAX_TOTAL: raise ValueError('Observation storage budget reached')
     eligible = []; stamp = now(); moment = datetime.fromisoformat(stamp.replace('Z', '+00:00'))
     for product in products:
         slug = product.get('slug', '')
