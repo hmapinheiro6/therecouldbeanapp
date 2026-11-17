@@ -8,7 +8,14 @@ export class ApiError extends Error {
 }
 export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const isRead = !options?.method || options.method === "GET";
-  if (isRead && /^\/(search|products)(?:[/?]|$)/.test(path)) {
+  const url = new URL(path, "https://catalog.invalid");
+  const recentPage =
+    isRead &&
+    url.pathname === "/products" &&
+    url.searchParams.get("sort") === "recent" &&
+    !(url.searchParams.get("category") ?? "") &&
+    (url.searchParams.get("offset") ?? "0") === "0";
+  if (isRead && !recentPage && /^\/(search|products)(?:[/?]|$)/.test(path)) {
     // A product page includes its own public record for a small first load.
     const embedded = document.getElementById("catalog-product");
     if (embedded && path.startsWith("/products/")) {
@@ -22,7 +29,11 @@ export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const staticPath =
     isRead && ["/stats", "/categories", "/config"].includes(path);
   const response = await fetch(
-    staticPath ? "/catalog" + path + ".json" : "/api" + path,
+    recentPage
+      ? "/catalog/recent.json"
+      : staticPath
+        ? "/catalog" + path + ".json"
+        : "/api" + path,
     options,
   );
   let data: { error?: { message?: string; code?: string } };

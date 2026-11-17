@@ -150,6 +150,16 @@ json("catalog/products.json", {
   products,
   categories: enrichedCategories,
 });
+json("catalog/recent.json", {
+  products: [...products]
+    .sort(
+      (a, b) => b.first_seen_at.localeCompare(a.first_seen_at) || b.id - a.id,
+    )
+    .slice(0, 24),
+  offset: 0,
+  limit: 24,
+  catalog_updated_at: snapshot.exported_at,
+});
 json("catalog/search.json", {
   exported_at: snapshot.exported_at,
   index: buildSearchIndex(products),
@@ -298,4 +308,9 @@ console.log(
     assets,
     public_worker_calls: 0,
   }),
+);
+
+writeFileSync(
+  "dist/robots.txt",
+  `User-agent: *\nDisallow: /api/\nDisallow: /search\nSitemap: ${base}/sitemap.xml\n`,
 );

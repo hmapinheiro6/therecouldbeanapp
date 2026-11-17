@@ -1,6 +1,6 @@
 # Static catalog operations
 
-Public HTML, search, product records, previews, observations and sitemap are Cloudflare static assets. Ordinary browsing and searching call no Worker endpoint and read no D1 rows. MiniSearch runs in the browser; the same evidence-aware ranking keeps website identity checks separate from documented features. Every published product gets an HTML page, embedded public record and structured metadata. Observation JSON is bundled into 256 small shards; product HTML is flat to keep local development practical. The build reserves headroom below the Free plan's asset limit.
+Public HTML, search, product records, previews, observations and sitemap are Cloudflare static assets. Ordinary browsing and searching call no Worker endpoint and read no D1 rows. MiniSearch runs in the browser; the same evidence-aware ranking keeps website identity checks separate from documented features. Every published product gets an HTML page, embedded public record and structured metadata. Observation JSON is bundled into 256 small shards; product HTML is flat to keep local development practical. The homepage and initial recent listings use a small prebuilt page, loading the complete catalog and search index only when needed. The build reserves headroom below the Free plan's asset limit.
 
 The only permanent Worker routes are `/api/admin/*`, `/api/internal/*` and `/api/submit`. The old public SQL endpoints, D1 FTS index and separate recovery catalog have been retired. D1 remains authoritative for private review, submissions and ingestion.
 

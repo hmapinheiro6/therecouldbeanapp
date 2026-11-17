@@ -455,7 +455,7 @@ test("preview failure leaves cards usable and publisher text never becomes verif
   page,
 }) => {
   const preview = previewFixture;
-  await page.route("**/catalog/products.json", async (route) => {
+  await page.route("**/catalog/{products,recent}.json", async (route) => {
     const response = await route.fetch();
     const data = await response.json();
     data.products = [

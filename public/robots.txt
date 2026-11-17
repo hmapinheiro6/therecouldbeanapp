@@ -1,4 +1,3 @@
 User-agent: *
-Allow: /api/preview-products
 Disallow: /api/
 Disallow: /search
