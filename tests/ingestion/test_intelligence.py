@@ -165,3 +165,13 @@ def test_numeric_github_pagination_is_verified_then_rewritten_to_fixed_repositor
     assert f['earliest_release']['date']==earliest
     assert web._raw.call_count==requests
     if requests==3: assert web._raw.call_args.args[0]==api+'/releases?per_page=10&page=7'
+
+
+def test_own_public_identity_feed_is_allowed_without_opening_private_routes():
+    from urllib.robotparser import RobotFileParser
+    from ingestion.safe_web import USER_AGENT
+    parser=RobotFileParser();parser.parse((intel.ROOT/'public/robots.txt').read_text().splitlines())
+    site='https://therecouldbeanapp.henriquepinheiro.workers.dev'
+    assert parser.can_fetch(USER_AGENT,site+'/api/preview-products?after=300')
+    assert not parser.can_fetch(USER_AGENT,site+'/api/admin/candidates')
+    assert not parser.can_fetch(USER_AGENT,site+'/api/search?q=test')

@@ -230,7 +230,7 @@ app.get("/api/preview-products", async (c) => {
       has_more: next < (latest?.latest ?? 0),
     },
     200,
-    { "Cache-Control": "public, max-age=60" },
+    { "Cache-Control": "public, max-age=60", "X-Robots-Tag": "noindex" },
   );
 });
 app.get("/api/previews/:slug", (c) =>
