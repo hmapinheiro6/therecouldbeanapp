@@ -4,9 +4,9 @@ An evidence-backed software discovery engine, disguised as an 8-bit blueprint ar
 
 Live: [There Could Be An App](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public repository](https://github.com/hmapinheiro6/therecouldbeanapp)
 
-2,785 real published products, 39 categories, and 69 capability definitions as of 16 November 2026. 2,732 listings have checked official identities; 53 also have verified feature evidence (73 claims). [Catalog expansion and approval instructions](docs/CATALOG-EXPANSION.md).
+The live API reported **2,865 published products at 08:40 UTC on 17 November 2026**. The saved public recovery snapshot has 2,785 products, 39 categories and 69 capability definitions, including 53 products with 73 documented feature claims as of 16 November. Live feature-scope totals were not re-counted during this status check. [Catalog expansion and approval instructions](docs/CATALOG-EXPANSION.md).
 
-Current availability: the account reached D1’s daily read quota on 16 November. Public browsing/search use a labelled saved catalog; sign-in/publishing await the 17 November 00:00 UTC reset. The inefficient export is corrected, and index maintenance is queued through existing cloud jobs. See the [incident and recovery report](docs/DATABASE-QUOTA-INCIDENT.md).
+Current availability: D1 recovered after the 16 November read-quota incident. On 17 November, hosted jobs completed maintenance, delivered review records and published 80 additional listings; the live stats API returned HTTP 200. Admin sign-in was not manually re-tested in this status check. The 00:45 alert does not by itself establish a new daily block. See the [incident and recovery report](docs/DATABASE-QUOTA-INCIDENT.md) and [database/hosting assessment](docs/PLATFORM-REVIEW-2026-11-17.md).
 
 ## Run it
 

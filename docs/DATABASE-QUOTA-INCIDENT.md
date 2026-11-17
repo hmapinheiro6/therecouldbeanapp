@@ -29,3 +29,9 @@ Production verified the precise login quota error, absence of a session cookie, 
 ## Work completed during the block
 
 The follow-up implementation adds offline official-feature auditing, private HN/GitHub discovery journals, a 40-query regression suite against the real 2,785-product export, and a shared daily ingestion reservation guard. See [offline evidence](OFFLINE-EVIDENCE-AUDIT.md), [offline discovery](OFFLINE-DISCOVERY.md), [search results](FULL-CATALOG-SEARCH.md), and [budget safeguards](INGESTION-BUDGET.md). Migration **0011_ingestion_budget.sql** is also pending until the next successful signed maintenance call after reset. The 128-case figure above records the original incident release; the expanded suites are reported in the follow-up work report. No prepared private draft has been published during the block.
+
+## Observed recovery on 17 November
+
+The 01:53 hosted discovery run delivered 26 review records at 01:54 UTC. The 07:52 queue processor and 08:24 directory backfill both completed signed maintenance successfully. The backfill processed 100 candidates and recorded 80 accepted writes and 20 pending results. At 08:40:56 UTC, the public stats API returned HTTP 200 with 2,865 products and catalog update time 08:25:41 UTC. This verifies database recovery at those times; admin sign-in was not manually re-tested.
+
+An alert delivered at 00:45 lists a 00:00 reset timestamp the same day. Its usage interval and delivery delay are unconfirmed, so it is not sufficient evidence that a fresh day's quota was exhausted. See the [evidence and provider comparison](PLATFORM-REVIEW-2026-11-17.md) for run links, current free-tier constraints and the proposed migration scope. Earlier sections retain the original incident timeline and then-outstanding work.
