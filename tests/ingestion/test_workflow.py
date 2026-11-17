@@ -17,9 +17,10 @@ def files(tmp_path, monkeypatch):
 
 def test_ready_prepares_database_before_enabling_source_work(files):
     with patch('ingestion.workflow.InternalClient') as client:
-        client.return_value.request.return_value = {'status': 'ready'}
+        client.return_value.request.side_effect = [{'allowed':True}, {'status': 'ready'}]
         assert execute('prepare') == 0
-        client.return_value.request.assert_called_once_with('/api/internal/maintenance', {})
+        assert client.return_value.request.call_args_list[0].args == ('/api/internal/budget',)
+        client.return_value.request.assert_called_with('/api/internal/maintenance', {})
     assert 'ready=true' in files[0].read_text()
     assert 'READY' in files[1].read_text()
 

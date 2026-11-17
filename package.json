@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "dev:api": "wrangler dev --port 8787",
-    "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
+    "build": "tsc --noEmit && vite build && node --import tsx scripts/prerender.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
@@ -14,7 +14,6 @@
     "test:python": "python3 -m pytest tests/ingestion -q",
     "db:migrate": "wrangler d1 migrations apply DB --local",
     "db:seed": "wrangler d1 execute DB --local --file=data/seeds/catalog.sql",
-    "db:rebuild": "wrangler d1 execute DB --local --file=scripts/rebuild-fts.sql",
     "benchmark": "tsx scripts/benchmark.ts",
     "benchmark:catalog": "node --import tsx scripts/benchmark-full-catalog.ts",
     "benchmark:budget": "python3 scripts/benchmark-query-cost.py",
@@ -23,6 +22,7 @@
   },
   "dependencies": {
     "hono": "^4.10.6",
+    "minisearch": "^7.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",

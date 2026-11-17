@@ -5,18 +5,16 @@ import type { SearchResponse } from "../lib/types";
 import { SearchForm } from "../components/SearchForm";
 import { PixelArt } from "../components/PixelArt";
 import { ProductCard } from "../components/ProductCard";
-import { SnapshotNotice } from "../components/SnapshotNotice";
 export function Search() {
   const [params] = useSearchParams();
   const q = params.get("q") ?? "";
   const offset = Number(params.get("offset") ?? 0);
-  const { data, error, loading, snapshotAt } = useApi<SearchResponse>(
+  const { data, error, loading } = useApi<SearchResponse>(
     "/search?q=" + encodeURIComponent(q) + "&offset=" + offset,
   );
   const [shared, setShared] = useState("");
   return (
     <div className="page search-page">
-      <SnapshotNotice at={snapshotAt} />
       <Link className="back-link" to="/">
         ← A different brilliant idea
       </Link>
@@ -31,7 +29,7 @@ export function Search() {
       {loading && (
         <div className="loading-state" role="status">
           <span className="loading-bar" />
-          Searching verified product descriptions and capabilities…
+          Searching published products and documented features…
         </div>
       )}
       {error && (

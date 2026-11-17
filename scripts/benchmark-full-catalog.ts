@@ -1,7 +1,10 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fullCatalogDatabase } from "../tests/full-catalog";
 import { search } from "../tests/db";
-import { snapshotResponse, type CatalogSnapshot } from "../src/lib/snapshot";
+import {
+  catalogResponse,
+  type PublishedCatalog,
+} from "../src/lib/static-catalog";
 import type { Product, SearchResponse, SearchResult } from "../src/lib/types";
 import suite from "../data/full-catalog-search.json";
 import categories from "../data/categories.json";
@@ -10,7 +13,7 @@ const db = fullCatalogDatabase();
 const data = JSON.parse(
   readFileSync("data/seeds/published-snapshot.json", "utf8"),
 );
-const snapshot: CatalogSnapshot = {
+const snapshot: PublishedCatalog = {
   exported_at: data.exported_at,
   categories: [],
   products: data.products.map((p: Product, id: number) => ({
@@ -79,7 +82,7 @@ const runs = {
   browser_snapshot: measure(
     (query) =>
       (
-        snapshotResponse(
+        catalogResponse(
           snapshot,
           "/search?q=" + encodeURIComponent(query),
         ) as SearchResponse
@@ -124,7 +127,7 @@ const report = {
     "Single-author regression judgments; neither a blind relevance assessment nor comprehensive precision/recall.",
     "Lexical matches reflect saved directory wording and are not feature evidence.",
     "Local Node timings do not measure deployed Worker CPU, D1 billed reads, or browser-device performance.",
-    "SQLite uses the deployed bounded FTS5 retrieval SQL; the browser snapshot has different lexical retrieval and is evaluated separately.",
+    "SQLite is an offline legacy FTS5 comparison; production uses the independently evaluated MiniSearch browser index.",
   ],
   summary,
   runs,

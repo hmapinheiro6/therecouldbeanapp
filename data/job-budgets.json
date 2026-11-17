@@ -1,0 +1,11 @@
+{
+  "default": 100000,
+  "Expand catalog to 10000": 100000,
+  "Autonomous web and SaaS discovery": 100000,
+  "Build the verified software catalog": 150000,
+  "Process submissions and verification retries": 50000,
+  "Product intelligence": 100,
+  "Publisher metadata previews": 100,
+  "Publish static catalog": 100000,
+  "Independent watchdog": 100
+}

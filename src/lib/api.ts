@@ -7,7 +7,24 @@ export class ApiError extends Error {
   }
 }
 export async function api<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch("/api" + path, options);
+  const isRead = !options?.method || options.method === "GET";
+  if (isRead && /^\/(search|products)(?:[/?]|$)/.test(path)) {
+    // A product page includes its own public record for a small first load.
+    const embedded = document.getElementById("catalog-product");
+    if (embedded && path.startsWith("/products/")) {
+      const product = JSON.parse(embedded.textContent ?? "null");
+      if (product?.slug === decodeURIComponent(path.slice(10)))
+        return product as T;
+    }
+    const { catalogApi } = await import("./static-catalog");
+    return (await catalogApi(path, options?.signal ?? undefined)) as T;
+  }
+  const staticPath =
+    isRead && ["/stats", "/categories", "/config"].includes(path);
+  const response = await fetch(
+    staticPath ? "/catalog" + path + ".json" : "/api" + path,
+    options,
+  );
   let data: { error?: { message?: string; code?: string } };
   try {
     data = (await response.json()) as typeof data;
@@ -16,14 +33,6 @@ export async function api<T>(path: string, options?: RequestInit): Promise<T> {
       "The catalog is temporarily unavailable. Please try again later.",
       response.status,
     );
-  }
-  if (
-    !response.ok &&
-    data.error?.code === "database_daily_limit" &&
-    (!options?.method || options.method === "GET")
-  ) {
-    const { snapshotApi } = await import("./snapshot");
-    return (await snapshotApi(path, options?.signal ?? undefined)) as T;
   }
   if (!response.ok)
     throw new ApiError(

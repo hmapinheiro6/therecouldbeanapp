@@ -37,6 +37,8 @@ class InternalClient:
                 with urllib.request.build_opener(NoRedirect()).open(req,timeout=30) as r:
                     data=r.read(1048577)
                     if len(data)>1048576:raise RuntimeError('Internal response too large')
+                    from .query_usage import record
+                    record(r.headers)
                     return json.loads(data)
             except urllib.error.HTTPError as e:
                 try:error=json.loads(e.read(8192)).get('error',{});message=error.get('message','Request failed')

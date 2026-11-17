@@ -1,4 +1,5 @@
 // Node 24. Default is an offline plan; only --remote contacts production.
+import { recordQueries } from "./query-usage.mjs";
 import { spawnSync } from "node:child_process";
 import {
   openSync,
@@ -11,6 +12,7 @@ import {
 import { EXPORT_QUERIES, assembleExport } from "./published-export.ts";
 const args = process.argv.slice(2);
 const remote = args.includes("--remote");
+const release = args.includes("--release");
 const maxRows = args.includes("--max-rows")
   ? Number(args[args.indexOf("--max-rows") + 1])
   : 100_000;
@@ -20,7 +22,10 @@ if (
   maxRows > 200_000 ||
   args.some(
     (a, i) =>
-      a !== "--remote" && a !== "--max-rows" && args[i - 1] !== "--max-rows",
+      a !== "--remote" &&
+      a !== "--release" &&
+      a !== "--max-rows" &&
+      args[i - 1] !== "--max-rows",
   )
 ) {
   console.error(
@@ -60,17 +65,42 @@ try {
       "DB",
       "--remote",
       "--command",
-      EXPORT_QUERIES.join(";\n") + ";",
+      [
+        "SELECT value revision FROM catalog_counters WHERE key='revision'",
+        ...EXPORT_QUERIES,
+        "SELECT value revision FROM catalog_counters WHERE key='revision'",
+      ].join(";\n") + ";",
       "--json",
     ],
     { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 },
   );
   if (result.error || result.status !== 0)
     throw new Error("Published export failed; existing snapshot preserved.");
-  const { products, rowsRead, claims } = assembleExport(
-    JSON.parse(result.stdout),
+  const records = JSON.parse(result.stdout);
+  if (
+    !Array.isArray(records) ||
+    records.length !== 6 ||
+    records.some((r) => !r.success)
+  )
+    throw new Error("Incomplete revision-marked export");
+  const revision = records[0].results[0]?.revision;
+  if (
+    !Number.isSafeInteger(revision) ||
+    revision !== records[5].results[0]?.revision
+  )
+    throw new Error("Catalog changed during export; release must retry");
+  const totalRows = records.reduce(
+    (n, r) => n + (r.meta?.rows_read ?? maxRows + 1),
+    0,
+  );
+  if (totalRows > maxRows)
+    throw new Error("Revision-marked export exceeded its read budget");
+  recordQueries(records, "static_export");
+  const { products, claims } = assembleExport(
+    records.slice(1, 5),
     previous.products.length,
     maxRows,
+    release,
   );
   writeFileSync(
     temporary,
@@ -78,6 +108,7 @@ try {
       {
         exported_at: new Date().toISOString(),
         environment: "production",
+        publication_revision: revision,
         products,
       },
       null,
@@ -91,7 +122,7 @@ try {
       {
         exported_products: products.length,
         verified_claims: claims,
-        rows_read: rowsRead,
+        rows_read: totalRows,
       },
       null,
       2,

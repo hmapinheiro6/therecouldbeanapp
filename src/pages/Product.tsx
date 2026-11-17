@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { useApi } from "../useApi";
 import type { Product as ProductType } from "../lib/types";
 import { ProductIntelligence } from "../components/ProductIntelligence";
-import { SnapshotNotice } from "../components/SnapshotNotice";
 const date = (v: string) =>
   new Date(v).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -16,7 +15,6 @@ export function Product() {
     data: p,
     error,
     loading,
-    snapshotAt,
   } = useApi<ProductType>("/products/" + encodeURIComponent(slug ?? ""));
   useEffect(() => {
     if (p) {
@@ -41,7 +39,6 @@ export function Product() {
     );
   return (
     <div className="page product-detail">
-      <SnapshotNotice at={snapshotAt} />
       <Link className="back-link" to="/explore">
         ← The invention archive
       </Link>

@@ -1,3 +1,7 @@
+import { staticOperations } from "./operations-schema";
+import { currentBudget } from "./budget";
+import { acquirePublication, releasePublication } from "./publication-lease";
+import { requestStaticPublish } from "./operations";
 import { Hono } from "hono";
 import { ingestionUnits, reserveIngestion } from "./ingestion-budget";
 import {
@@ -12,6 +16,61 @@ import type { AppEnv } from "./security";
 import { ingestSchema, moderationSchema } from "./validation";
 import { hydrate, PRODUCT_SELECT, type ProductRow } from "./catalog";
 const internal = new Hono<AppEnv>();
+internal.get("/budget", async (c) => c.json(await currentBudget(c.env)));
+internal.use("/ingest", async (c, next) => {
+  const budget = await currentBudget(c.env);
+  if (!c.env.OPERATOR_PUBLICATION && !budget.allowed)
+    return c.json(
+      {
+        error: {
+          code: "ingestion_daily_budget",
+          message:
+            "Bulk jobs are paused to preserve the daily database allowance.",
+          reset_at: budget.reset_at,
+          reason: budget.reason,
+        },
+      },
+      429,
+    );
+  await next();
+});
+internal.post("/publication-lease", async (c) => {
+  const body = (await c.req.json()) as {
+    action?: string;
+    revision?: number;
+    token?: string;
+  };
+  if (
+    body.action === "release" &&
+    typeof body.token === "string" &&
+    /^[a-f0-9-]{36}$/.test(body.token)
+  ) {
+    await releasePublication(c.env.DB, body.token);
+    return c.json({ released: true });
+  }
+  if (
+    body.action !== "acquire" ||
+    !Number.isSafeInteger(body.revision) ||
+    body.revision! < 0
+  )
+    return c.json(
+      { error: { message: "Invalid publication lease request." } },
+      400,
+    );
+  const token = await acquirePublication(c.env.DB, body.revision);
+  return token
+    ? c.json({ token })
+    : c.json(
+        {
+          error: {
+            code: "publication_changed",
+            message:
+              "The catalog changed or a release is active. Retry with a fresh export.",
+          },
+        },
+        409,
+      );
+});
 internal.post("/maintenance", async (c) => {
   // Existing signed cloud jobs apply this tracked, idempotent migration after quota reset.
   const name = "0010_read_budget_indexes.sql";
@@ -63,12 +122,32 @@ internal.post("/maintenance", async (c) => {
       ).bind(expansionMigration),
     ]);
   }
+  const staticMigration = "0013_static_operations.sql";
+  if (
+    !(await c.env.DB.prepare("SELECT name FROM d1_migrations WHERE name=?")
+      .bind(staticMigration)
+      .first())
+  ) {
+    const legacy = await c.env.DB.prepare(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='product_fts'",
+    ).first();
+    await c.env.DB.batch(
+      staticOperations
+        .filter((sql) => legacy || !/product_update/.test(sql))
+        .map((sql) => c.env.DB.prepare(sql)),
+    );
+    await c.env.DB.prepare(
+      "INSERT OR IGNORE INTO d1_migrations(name) VALUES(?)",
+    )
+      .bind(staticMigration)
+      .run();
+  }
   return c.json({ status: "ready" });
 });
 internal.get("/expansion-status", async (c) => {
   const rows = await c.env.DB.batch<Record<string, number>>([
     c.env.DB.prepare(
-      "SELECT COUNT(*) published FROM products WHERE status='published'",
+      "SELECT value published FROM catalog_counters WHERE key='published'",
     ),
     c.env.DB.prepare(
       "SELECT reserved_units,rows_written,rows_read FROM expansion_daily_budget WHERE day=?",
@@ -118,7 +197,7 @@ internal.post("/known", async (c) => {
   const q = b.urls.map(() => "?").join(",");
   const results = await c.env.DB.batch<{ canonical_url: string }>([
     c.env.DB.prepare(
-      `SELECT canonical_url FROM products WHERE status='published' AND canonical_url IN (${q}) UNION SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${q}) UNION SELECT canonical_url FROM ingestion_candidates WHERE (status IN ('published','needs_review','rejected') OR (status='pending_verification' AND next_retry_at>strftime('%Y-%m-%dT%H:%M:%SZ','now'))) AND canonical_url IN (${q})`,
+      `SELECT canonical_url FROM products INDEXED BY sqlite_autoindex_products_2 WHERE status='published' AND canonical_url IN (${q}) UNION SELECT canonical_url FROM publication_blocks WHERE canonical_url IN (${q}) UNION SELECT canonical_url FROM ingestion_candidates WHERE (status IN ('published','needs_review','rejected') OR (status='pending_verification' AND next_retry_at>strftime('%Y-%m-%dT%H:%M:%SZ','now'))) AND canonical_url IN (${q})`,
     ).bind(...b.urls, ...b.urls, ...b.urls),
     c.env.DB.prepare(
       `SELECT alias canonical_url FROM product_url_aliases WHERE alias IN (${q})`,
@@ -240,7 +319,7 @@ internal.post("/ingest", async (c) => {
   let publishedBefore = 0;
   if (b.expansion) {
     const count = await db
-      .prepare("SELECT COUNT(*) n FROM products WHERE status='published'")
+      .prepare("SELECT value n FROM catalog_counters WHERE key='published'")
       .first<{ n: number }>();
     publishedBefore = count?.n ?? 0;
     if (publishedBefore >= EXPANSION_TARGET)
@@ -555,6 +634,7 @@ internal.post("/ingest", async (c) => {
   if (b.expansion && !acceptedProducts)
     return c.json({ status: "accepted", products: 0, candidates: 0 });
   if (
+    !c.env.OPERATOR_PUBLICATION &&
     !(b.expansion
       ? await reserveExpansion(db, acceptedProducts)
       : await reserveIngestion(db, ingestionUnits(b)))
@@ -585,8 +665,11 @@ internal.post("/ingest", async (c) => {
       )
       .bind(accounting.rows_written, accounting.rows_read, EXPANSION_DAY)
       .run();
+  const publication =
+    acceptedProducts > 0 ? await requestStaticPublish(c.env) : "unchanged";
   return c.json({
     status: "accepted",
+    publication,
     accounting,
     catalog_total: b.expansion ? publishedBefore + acceptedProducts : undefined,
     products: acceptedProducts,
@@ -626,15 +709,34 @@ internal.post("/moderate", async (c) => {
         { error: { code: "not_found", message: "Record not found." } },
         404,
       );
-    await c.env.DB.batch([
-      c.env.DB.prepare(
-        "UPDATE products SET status='needs_review',updated_at=? WHERE slug=?",
-      ).bind(new Date().toISOString(), id),
-      c.env.DB.prepare(
-        "INSERT INTO publication_blocks(canonical_url,reason,created_at) VALUES(?,?,?) ON CONFLICT(canonical_url) DO UPDATE SET reason=excluded.reason",
-      ).bind(p.canonical_url, reason, new Date().toISOString()),
-    ]);
-    return c.json({ status: "removed" });
+    const lease = await acquirePublication(c.env.DB);
+    if (!lease)
+      return c.json(
+        {
+          error: {
+            code: "publication_busy",
+            message:
+              "A public release is deploying. Retry this removal shortly; the listing has not changed.",
+          },
+        },
+        409,
+      );
+    try {
+      await c.env.DB.batch([
+        c.env.DB.prepare(
+          "UPDATE products SET status='needs_review',updated_at=? WHERE slug=?",
+        ).bind(new Date().toISOString(), id),
+        c.env.DB.prepare(
+          "INSERT INTO publication_blocks(canonical_url,reason,created_at) VALUES(?,?,?) ON CONFLICT(canonical_url) DO UPDATE SET reason=excluded.reason",
+        ).bind(p.canonical_url, reason, new Date().toISOString()),
+      ]);
+      // The database is authoritative. Dispatch before reporting the public removal as complete.
+      const publication = await requestStaticPublish(c.env, id);
+      const immediate = publication === "queued" ? "queued" : "not_active";
+      return c.json({ status: "removed", publication, immediate });
+    } finally {
+      await releasePublication(c.env.DB, lease);
+    }
   }
   if (kind === "submission" && ["approve", "reject", "retry"].includes(action))
     statement = c.env.DB.prepare(

@@ -97,6 +97,11 @@ def restore(github):
     directory = private_path(JOURNAL).parent
     directory.mkdir(mode=0o700, parents=True, exist_ok=True)
     os.chmod(directory, 0o700)
+    if os.environ.get('DURABLE_STATE_BRANCH') == 'true':
+        import sys
+        from .durable_state import restore_branch
+        if restore_branch('expansion', sys.modules[__name__]):
+            return
     artifacts = github.artifacts()
     if not artifacts:
         # Only bootstrap if this new workflow has never completed successfully.
@@ -137,6 +142,9 @@ def seal_state():
                       'saved_at': datetime.now(timezone.utc).isoformat()}
     save_private(JOURNAL, state)
     crypt('seal', JOURNAL, ENCRYPTED)
+    if os.environ.get('DURABLE_STATE_BRANCH') == 'true':
+        from .durable_state import StateBranch
+        StateBranch('expansion').write(ENCRYPTED.read_bytes())
     output = os.environ.get('GITHUB_OUTPUT')
     if output:
         with Path(output).open('a') as handle:

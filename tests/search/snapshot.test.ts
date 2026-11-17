@@ -1,6 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
-import { snapshotResponse, type CatalogSnapshot } from "../../src/lib/snapshot";
+import {
+  catalogResponse,
+  type PublishedCatalog,
+} from "../../src/lib/static-catalog";
 import type { Product, SearchResponse } from "../../src/lib/types";
 const data = JSON.parse(
   readFileSync("data/seeds/published-snapshot.json", "utf8"),
@@ -9,7 +12,7 @@ const categories = JSON.parse(readFileSync("data/categories.json", "utf8")) as {
   slug: string;
   name: string;
 }[];
-const snapshot: CatalogSnapshot = {
+const snapshot: PublishedCatalog = {
   exported_at: data.exported_at,
   categories: [],
   products: data.products.map((p: Product, id: number) => ({
@@ -19,26 +22,25 @@ const snapshot: CatalogSnapshot = {
     normalized_domain: new URL(p.canonical_url).hostname,
   })),
 };
-describe("public catalog recovery", () => {
+describe("static public catalog", () => {
   it("uses the same 160-character boundary as the live API", () => {
     expect(() =>
-      snapshotResponse(snapshot, "/search?q=" + "a".repeat(160)),
+      catalogResponse(snapshot, "/search?q=" + "a".repeat(160)),
     ).not.toThrow();
     expect(() =>
-      snapshotResponse(snapshot, "/search?q=" + "a".repeat(161)),
+      catalogResponse(snapshot, "/search?q=" + "a".repeat(161)),
     ).toThrow("2–160 characters");
   });
-  it("retains exact name and verified evidence while marking snapshot results", () => {
-    const r = snapshotResponse(
-      snapshot,
-      "/search?q=Otter",
-    ) as SearchResponse & { snapshot_at: string };
+  it("retains exact name and verified evidence with publication dates", () => {
+    const r = catalogResponse(snapshot, "/search?q=Otter") as SearchResponse & {
+      catalog_updated_at: string;
+    };
     expect(r.results[0].slug).toBe("otter");
     expect(r.results[0].capabilities.length).toBeGreaterThan(0);
-    expect(r.snapshot_at).toBe(data.exported_at);
+    expect(r.catalog_updated_at).toBe(data.exported_at);
   });
   it("keeps identity-only wording matches related and preserves missing coverage", () => {
-    const r = snapshotResponse(
+    const r = catalogResponse(
       snapshot,
       "/search?q=focus%20timer%20kanban",
     ) as SearchResponse;
@@ -48,7 +50,7 @@ describe("public catalog recovery", () => {
     expect(product?.match_class).toBe("Related product");
     expect(
       (
-        snapshotResponse(
+        catalogResponse(
           snapshot,
           "/search?q=zzqvzxwqnonexistent",
         ) as SearchResponse
@@ -56,16 +58,16 @@ describe("public catalog recovery", () => {
     ).toBe(0);
   });
   it("only provides published reads, with bounded pagination and useful details", () => {
-    const page = snapshotResponse(snapshot, "/products?sort=recent") as {
+    const page = catalogResponse(snapshot, "/products?sort=recent") as {
       products: Product[];
     };
     expect(page.products).toHaveLength(24);
     expect(
-      (snapshotResponse(snapshot, "/products/otter") as Product).canonical_url,
+      (catalogResponse(snapshot, "/products/otter") as Product).canonical_url,
     ).toBe("https://otter.ai");
-    expect(() => snapshotResponse(snapshot, "/admin/queue")).toThrow(
-      "live database",
+    expect(() => catalogResponse(snapshot, "/admin/queue")).toThrow(
+      "private operator access",
     );
-    expect(() => snapshotResponse(snapshot, "/products?offset=-1")).toThrow();
+    expect(() => catalogResponse(snapshot, "/products?offset=-1")).toThrow();
   });
 });

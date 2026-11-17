@@ -5,11 +5,19 @@ import type { Capability } from "../src/lib/types";
 import { parseQuery } from "../src/lib/search/query";
 import { rank } from "../src/lib/search/rank";
 import { RETRIEVAL_SQL } from "../worker/catalog";
+export function installLegacySearch(db: DatabaseSync) {
+  const initial = readFileSync("migrations/0001_catalog.sql", "utf8");
+  db.exec(initial.slice(initial.indexOf("CREATE VIEW search_documents")));
+  db.exec(
+    "INSERT INTO product_fts(rowid,name,description,category,capabilities,audience,aliases) SELECT id,name,description,category,capabilities,audience,aliases FROM search_documents",
+  );
+}
 export function database() {
   const db = new DatabaseSync(":memory:");
   for (const file of readdirSync("migrations").sort())
     db.exec(readFileSync("migrations/" + file, "utf8"));
   db.exec(readFileSync("data/seeds/catalog.sql", "utf8"));
+  installLegacySearch(db);
   return db;
 }
 export function search(db: DatabaseSync, q: string) {

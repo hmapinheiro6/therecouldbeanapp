@@ -3,6 +3,11 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server: { proxy: { "/api": "http://127.0.0.1:8787" } },
+  server: {
+    proxy: {
+      "/api": "http://127.0.0.1:8787",
+      "/catalog": "http://127.0.0.1:8787",
+    },
+  },
   build: { outDir: "dist", sourcemap: false },
 });

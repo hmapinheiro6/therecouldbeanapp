@@ -2,7 +2,6 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useApi } from "../useApi";
 import type { Product } from "../lib/types";
 import { ProductCard } from "../components/ProductCard";
-import { SnapshotNotice } from "../components/SnapshotNotice";
 export function Explore() {
   const [params] = useSearchParams();
   const category = params.get("category") ?? "";
@@ -32,7 +31,6 @@ export function Explore() {
   }>("/categories");
   return (
     <div className="page">
-      <SnapshotNotice at={catalog.snapshotAt} />
       <h1 className="page-title">The invention archive.</h1>
       <p className="page-intro">
         Real products with sources and verification details. A head start on

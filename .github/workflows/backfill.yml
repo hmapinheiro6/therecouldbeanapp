@@ -42,3 +42,6 @@ jobs:
       - name: Verify official websites and publish identity-checked listings
         if: steps.database.outputs.ready == 'true'
         run: python -m ingestion.workflow backfill --max-candidates "$CANDIDATE_LIMIT" --workers 8 --source "$DIRECTORY_SOURCE"
+      - name: Enforce provider rows-read job budget
+        if: always()
+        run: python -m ingestion.query_usage

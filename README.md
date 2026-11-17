@@ -1,12 +1,12 @@
 # There Could Be An App
 
-An evidence-backed software discovery engine, disguised as an 8-bit blueprint archive. React + TypeScript + Vite + Tailwind, a Hono Worker, Cloudflare D1 FTS5, and deterministic Python discovery. No AI inference, paid search, separate server, or paid datasets.
+An evidence-backed software discovery engine, disguised as an 8-bit blueprint archive. React + TypeScript + Vite + Tailwind, static HTML and MiniSearch browser search, a Hono Worker for private operations, Cloudflare D1, and deterministic Python discovery. No AI inference, paid search, separate server, or paid datasets.
 
 Live: [There Could Be An App](https://therecouldbeanapp.henriquepinheiro.workers.dev) · [Public repository](https://github.com/hmapinheiro6/therecouldbeanapp)
 
-The live API reported **2,865 published products at 08:40 UTC on 17 November 2026**. The saved public recovery snapshot has 2,785 products, 39 categories and 69 capability definitions, including 53 products with 73 documented feature claims as of 16 November. Live feature-scope totals were not re-counted during this status check. [Catalog expansion and approval instructions](docs/CATALOG-EXPANSION.md).
+The published export contains **6,001 products and 73 documented feature claims** on 17 November 2026. Identity-only listings retain explicit feature disclaimers. Public browsing and search use static assets and remain independent of D1's daily quota. Bulk jobs are paused when account-wide usage reaches the configured 70% guard.
 
-Current availability: D1 recovered after the 16 November read-quota incident. On 17 November, hosted jobs completed maintenance, delivered review records and published 80 additional listings; the live stats API returned HTTP 200. Admin sign-in was not manually re-tested in this status check. The 00:45 alert does not by itself establish a new daily block. See the [incident and recovery report](docs/DATABASE-QUOTA-INCIDENT.md) and [database/hosting assessment](docs/PLATFORM-REVIEW-2026-11-17.md).
+See [Static catalog operations](docs/STATIC-OPERATIONS.md) for publication, urgent removals, the Cloudflare Cron watchdog, encrypted state branches, backup recovery and the remaining account setup.
 
 ## Run it
 
@@ -39,7 +39,7 @@ npm run test:e2e
 npm run benchmark
 ```
 
-The API suite uses actual local D1 in workerd. The search benchmark uses SQLite FTS5. E2E uses the real Worker, database, and frontend. Turnstile is replaced only within isolated API tests, never in production.
+The API suite uses actual local D1 in workerd. The search regressions exercise MiniSearch and an offline legacy FTS baseline. E2E verifies the real static assets, private Worker routes and the zero-Worker public request boundary. Turnstile is replaced only within isolated API tests, never in production.
 
 ## Documentation
 

@@ -1,3 +1,4 @@
+import { installLegacySearch } from "./db";
 import { spawnSync } from "node:child_process";
 import {
   existsSync,
@@ -37,7 +38,7 @@ export function fullCatalogDatabase() {
     for (const file of readdirSync("migrations").sort())
       db.exec(readFileSync(join("migrations", file), "utf8"));
     db.exec(readFileSync(output, "utf8"));
-    db.exec(readFileSync("scripts/rebuild-fts.sql", "utf8"));
+    installLegacySearch(db);
     return db;
   } catch (error) {
     db.close();

@@ -1,11 +1,11 @@
-name: Autonomous discovery watchdog
+name: Scheduled repository heartbeat
 on:
   schedule:
-    - cron: "41 * * * *"
+    - cron: "41 6 * * 1"
   workflow_dispatch:
 permissions:
   contents: write
-  actions: write
+  actions: read
 concurrency:
   group: discovery-health
   cancel-in-progress: false
@@ -23,7 +23,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Recover a missed dated expansion continuation
-        run: python -m ingestion.expansion_continue --recover
-      - name: Check durable cloud collection and recover missed runs
-        run: python -m ingestion.cloud_health
+      - name: Commit weekly public heartbeat
+        run: python -m ingestion.repository_heartbeat

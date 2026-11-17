@@ -2,7 +2,7 @@ import type { z } from "zod";
 import type { ingestSchema } from "./validation";
 export const EXPANSION_DAY = "2026-11-17";
 export const EXPANSION_DEADLINE = "2026-11-17T23:50:00Z";
-export const EXPANSION_UNITS = 80_000;
+export const EXPANSION_UNITS = 50_000;
 export const EXPANSION_TARGET = 10_000;
 export const expansionStatements = [
   "CREATE TABLE IF NOT EXISTS expansion_daily_budget(day TEXT PRIMARY KEY,reserved_units INTEGER NOT NULL CHECK(reserved_units>=0),rows_written INTEGER NOT NULL DEFAULT 0,rows_read INTEGER NOT NULL DEFAULT 0)",
@@ -57,9 +57,9 @@ export async function reserveExpansion(
     moment.toISOString() >= EXPANSION_DEADLINE
   )
     return false;
-  // Eleven estimated row writes per new product, including amortized request
+  // Seventeen estimated row writes per new product, including amortized request
   // bookkeeping. Reservations survive failures and never reopen spent allowance.
-  const units = count * 11;
+  const units = count * 17;
   const row = await db
     .prepare(
       `INSERT INTO expansion_daily_budget(day,reserved_units) SELECT ?,? WHERE ?<=?

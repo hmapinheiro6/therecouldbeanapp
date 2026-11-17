@@ -124,21 +124,17 @@ def test_new_catalog_preview_is_presentation_only_and_batch_limit_is_hard(tmp_pa
     assert web.fetch.call_count == 1
 
 
-def test_forward_published_cursor_retains_backlog_without_relying_on_local_research(tmp_path):
+def test_public_catalog_uses_the_build_export_without_worker_requests(tmp_path):
     from ingestion.previews import published_products
     web = Mock()
-    web.fetch.return_value = {'status': 200, 'text': json.dumps({'products': [{**PRODUCT, 'id': 10, 'name': 'Actual'}], 'next_after': 10, 'has_more': False})}
-    assert published_products(web, [], tmp_path)[0]['slug'] == 'actual'
-    assert json.loads((tmp_path / '.catalog-index.json').read_text())['after'] == 10
-    web.fetch.side_effect = FetchError('D1 allowance paused')
-    assert published_products(web, [], tmp_path)[0]['slug'] == 'actual'
-    assert web.fetch.call_args.args[0].endswith('after=10')
+    assert published_products(web, [PRODUCT], tmp_path)[0]['slug'] == 'actual'
+    web.fetch.assert_not_called()
+    assert not list(tmp_path.glob('*.json'))
 
 
-def test_forward_index_limits_pages_and_drops_non_public_fields(tmp_path):
+def test_unpublished_products_in_an_old_job_index_cannot_return(tmp_path):
     from ingestion.previews import published_products
+    (tmp_path / '.catalog-index.json').write_text(json.dumps({'products':[PRODUCT], 'after':100}))
     web = Mock()
-    web.fetch.return_value = {'status': 200, 'text': json.dumps({'products': [{**PRODUCT, 'contact_email': 'must-not-be-stored'}], 'next_after': 100, 'has_more': True})}
-    published_products(web, [], tmp_path)
-    assert web.fetch.call_count == 3
-    assert 'contact_email' not in (tmp_path / '.catalog-index.json').read_text()
+    assert published_products(web, [], tmp_path) == []
+    web.fetch.assert_not_called()

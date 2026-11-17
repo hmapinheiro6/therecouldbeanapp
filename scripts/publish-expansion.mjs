@@ -4,7 +4,6 @@ import { spawnSync } from "node:child_process";
 const paths = [
   "data/expansion-health.json",
   "data/seeds/published-snapshot.json",
-  "public/catalog-backup.json",
 ];
 if (
   process.env.GITHUB_ACTIONS !== "true" ||

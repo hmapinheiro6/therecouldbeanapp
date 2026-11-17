@@ -152,8 +152,8 @@ def publish(state,limit,client=None,verify=verify_candidate):
         state['observed_rows_read']=state.get('observed_rows_read',0)+accounting.get('rows_read',0)
         persist()
         # Provider statement accounting excludes nonce/reservation overhead. Stop
-        # automatically if product writes exceed the measured ten-row allowance.
-        if accepted and accounting.get('rows_written',0)>accepted*10:
+        # automatically if product writes exceed the measured sixteen-row allowance.
+        if accepted and accounting.get('rows_written',0)>accepted*16:
             raise RuntimeError('Measured publication cost exceeds campaign allowance')
     def flush():
         nonlocal published

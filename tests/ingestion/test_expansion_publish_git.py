@@ -16,7 +16,6 @@ def test_publication_refreshes_a_stale_checkout_before_committing_generated_json
     git(tmp_path,'clone','--branch','main',str(origin),str(queued))
     (writer/'data/expansion-health.json').write_text('{"published":2}\n');(writer/'source.txt').write_text('new source revision\n')
     git(writer,'add','.');git(writer,'commit','-m','another batch and source update');git(writer,'push','origin','main')
-    (queued/'public').mkdir(exist_ok=True);(queued/'public/catalog-backup.json').write_text('{"products":["fresh"]}\n')
     (queued/'data/expansion-health.json').write_text('{"published":3}\n')
     env={**os.environ,'GITHUB_ACTIONS':'true','GITHUB_REPOSITORY':'hmapinheiro6/therecouldbeanapp','GH_TOKEN':'isolated-dummy-token-not-a-credential'}
     result=subprocess.run(['node',str(script)],cwd=queued,env=env,capture_output=True,text=True)
@@ -24,6 +23,5 @@ def test_publication_refreshes_a_stale_checkout_before_committing_generated_json
     git(writer,'fetch','origin','main')
     assert json.loads(git(writer,'show','origin/main:data/expansion-health.json'))['published']==3
     assert git(writer,'show','origin/main:source.txt')=='new source revision\n'
-    assert json.loads(git(writer,'show','origin/main:public/catalog-backup.json'))['products']==['fresh']
     assert 'isolated-dummy-token' not in result.stdout+result.stderr
     assert subprocess.run(['node',str(script)],cwd=queued,env=env,capture_output=True).returncode==0

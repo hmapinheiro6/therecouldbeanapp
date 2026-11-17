@@ -95,30 +95,46 @@ export function Admin() {
   useEffect(() => {
     if (!signed) return;
     let active = true;
-    Promise.all([
-      request<Overview>("/overview"),
-      request<{ records: Row[]; has_more: boolean }>(
-        "/queue?" +
-          new URLSearchParams({
-            kind,
-            status,
-            offset: String(offset),
-            q: search,
-          }),
-      ),
-    ])
-      .then(([o, q]) => {
-        if (active) {
-          setOverview(o);
-          setRows(q.records);
-          setMore(q.has_more);
-        }
+    request<Overview>("/overview")
+      .then((value) => {
+        if (active) setOverview(value);
       })
       .catch((e) => {
         if (active) setError(e.message);
       });
     return () => {
       active = false;
+    };
+  }, [signed, message]);
+  useEffect(() => {
+    if (!signed) return;
+    let active = true;
+    const timer = setTimeout(
+      () => {
+        request<{ records: Row[]; has_more: boolean }>(
+          "/queue?" +
+            new URLSearchParams({
+              kind,
+              status,
+              offset: String(offset),
+              q: search,
+            }),
+        )
+          .then((q) => {
+            if (active) {
+              setRows(q.records);
+              setMore(q.has_more);
+            }
+          })
+          .catch((e) => {
+            if (active) setError(e.message);
+          });
+      },
+      search ? 250 : 0,
+    );
+    return () => {
+      active = false;
+      clearTimeout(timer);
     };
   }, [signed, kind, status, offset, search, message]);
   function open(row: Row) {
@@ -178,7 +194,10 @@ export function Admin() {
     setBusy(true);
     setError("");
     try {
-      await request("/review", {
+      const outcome = await request<{
+        publication?: string;
+        immediate?: string;
+      }>("/review", {
         kind,
         id: selected.id,
         action,
@@ -192,7 +211,17 @@ export function Admin() {
           })),
         },
       });
-      setMessage(action + " completed at " + new Date().toLocaleTimeString());
+      setMessage(
+        action === "save"
+          ? "Draft saved."
+          : outcome.publication === "queued"
+            ? (outcome.immediate === "active"
+                ? "Listing blocked. "
+                : "Catalog change saved. ") + "Static site rebuild queued."
+            : "Catalog change saved. Public deployment needs attention (" +
+              (outcome.publication ?? "not queued") +
+              ").",
+      );
       if (action !== "save") {
         setSelected(null);
         setDraft(null);

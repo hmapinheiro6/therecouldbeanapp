@@ -12,7 +12,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "node scripts/e2e-server.mjs",
-    url: "http://127.0.0.1:8787/api/health",
+    url: "http://127.0.0.1:8787/catalog/build.json",
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },

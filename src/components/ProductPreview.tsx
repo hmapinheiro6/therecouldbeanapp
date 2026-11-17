@@ -6,6 +6,20 @@ import {
   type ProductPreview as Preview,
 } from "../lib/previews";
 import type { Product } from "../lib/types";
+let knownPreviews: Promise<Set<string>> | undefined;
+function previewCatalog() {
+  knownPreviews ??= fetch("/catalog/previews.json")
+    .then(async (r) => {
+      if (!r.ok) throw new Error("Preview manifest unavailable");
+      const value = (await r.json()) as { slugs: string[] };
+      return new Set(value.slugs);
+    })
+    .catch((e) => {
+      knownPreviews = undefined;
+      throw e;
+    });
+  return knownPreviews;
+}
 const requests = new Map<string, Promise<Preview | null>>();
 async function read(url: string, slug: string) {
   try {
@@ -30,23 +44,16 @@ function load(slug: string) {
     if (requests.size >= 128) requests.delete(requests.keys().next().value!);
     requests.set(
       slug,
-      (async () => {
-        // Bundled files are served by Cloudflare Assets without a Worker invocation.
-        const bundled = await read(
-          "/catalog-previews/" + encodeURIComponent(slug) + ".json",
-          slug,
-        );
-        if (
-          bundled &&
-          Date.now() - Date.parse(bundled.checked_at) < 30 * 86400_000
+      previewCatalog()
+        .then((known) =>
+          known.has(slug)
+            ? read(
+                "/catalog-previews/" + encodeURIComponent(slug) + ".json",
+                slug,
+              )
+            : null,
         )
-          return bundled;
-        // New or stale previews can update from hosted collection without a redeploy.
-        return (
-          (await read("/api/previews/" + encodeURIComponent(slug), slug)) ??
-          bundled
-        );
-      })(),
+        .catch(() => null),
     );
   }
   return requests.get(slug)!;

@@ -60,6 +60,10 @@ def report(stage, outcome, code=None, reset=None, kind=None, status=None):
 def execute(stage, max_candidates=100, workers=8, source='homebrew', queue_only=False):
     try:
         if stage == 'prepare':
+            from .budget import ready
+            if not ready(InternalClient()):
+                report(stage,'deferred',code='ingestion_daily_budget')
+                return 0
             from .campaign import expansion_priority
             priority=expansion_priority()
             if priority:

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  parseIntelligence,
   websiteLabel,
   observationDate,
   isStale,
@@ -8,58 +7,8 @@ import {
   type IntelligenceFact,
 } from "../lib/intelligence";
 import type { Product } from "../lib/types";
-const requests = new Map<string, Promise<Intel | null>>();
-async function read(url: string, slug: string) {
-  try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(5000) });
-    if (
-      !response.ok ||
-      !response.body ||
-      Number(response.headers.get("Content-Length") ?? 0) > 32768
-    )
-      return null;
-    const reader = response.body.getReader();
-    const chunks: Uint8Array[] = [];
-    let size = 0;
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      size += value.length;
-      if (size > 32768) {
-        await reader.cancel();
-        return null;
-      }
-      chunks.push(value);
-    }
-    const data = new Uint8Array(size);
-    let offset = 0;
-    for (const chunk of chunks) {
-      data.set(chunk, offset);
-      offset += chunk.length;
-    }
-    return parseIntelligence(JSON.parse(new TextDecoder().decode(data)), slug);
-  } catch {
-    return null;
-  }
-}
-function load(slug: string) {
-  if (!requests.has(slug)) {
-    if (requests.size >= 128) requests.delete(requests.keys().next().value!);
-    requests.set(
-      slug,
-      (async () => {
-        const bundled = await read(
-          "/catalog-intelligence/" + slug + ".json",
-          slug,
-        );
-        if (bundled && Date.now() - Date.parse(bundled.checked_at) < 86400_000)
-          return bundled;
-        return (await read("/api/intelligence/" + slug, slug)) ?? bundled;
-      })(),
-    );
-  }
-  return requests.get(slug)!;
-}
+import { loadIntelligence } from "../lib/static-intelligence";
+const load = loadIntelligence;
 function useObservation(product: Product, compact: boolean) {
   const ref = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState<{

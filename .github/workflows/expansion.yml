@@ -24,6 +24,7 @@ jobs:
       INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
       INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
       GITHUB_TOKEN: ${{ github.token }}
+      DURABLE_STATE_BRANCH: "true"
       AUDIT_ONLY: ${{ inputs.audit == true }}
       CHECK_LIMIT: ${{ inputs.checks || '1000' }}
     steps:
@@ -41,35 +42,36 @@ jobs:
       - name: Restore encrypted hosted checkpoint
         id: restore
         run: python -m ingestion.expansion_artifacts restore
+      - name: Check account-wide 70 percent database budget
+        id: budget
+        if: inputs.audit != true
+        run: python -m ingestion.budget
       - name: Collect permitted metadata and verify products
+        if: inputs.audit == true || steps.budget.outputs.ready == 'true'
         run: |
           if [ "$AUDIT_ONLY" = "true" ]; then
             python -m ingestion.expansion --audit --limit "$CHECK_LIMIT"
           else
             python -m ingestion.expansion --limit "$CHECK_LIMIT"
           fi
-      - name: Refresh public recovery data at milestones
-        if: success() && inputs.audit != true
+      - name: Record an intentional budget pause
+        if: inputs.audit != true && steps.budget.outputs.ready != 'true'
+        run: python -m ingestion.expansion_deferred
+      - name: Refresh published build input at milestones
+        if: success() && inputs.audit != true && steps.budget.outputs.ready == 'true'
         run: python -m ingestion.expansion_snapshot
       - name: Seal durable progress even after a partial run
         id: seal
         if: always() && steps.restore.outcome == 'success'
         run: python -m ingestion.expansion_artifacts seal
-      - name: Save encrypted checkpoint
-        if: always() && steps.seal.outputs.ready == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: catalog-expansion-state-v1
-          path: .ingestion-state/expansion/expansion-state.enc
-          include-hidden-files: true
-          if-no-files-found: error
-          compression-level: 0
-          retention-days: 7
       - name: Publish aggregate progress only
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/publish-expansion.mjs
       - name: Continue the dated campaign after its checkpoint is saved
-        if: success() && inputs.audit != true && env.CHECK_LIMIT == '1000'
+        if: success() && inputs.audit != true && steps.budget.outputs.ready == 'true' && env.CHECK_LIMIT == '1000'
         run: python -m ingestion.expansion_continue
+      - name: Enforce provider rows-read job budget
+        if: always()
+        run: python -m ingestion.query_usage

@@ -15,7 +15,7 @@ on:
         type: boolean
         default: false
 permissions:
-  contents: read
+  contents: write
   actions: write
 concurrency:
   group: catalog-writes
@@ -29,6 +29,7 @@ jobs:
       INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
       INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
       GITHUB_TOKEN: ${{ github.token }}
+      DURABLE_STATE_BRANCH: "true"
       CANDIDATE_LIMIT: ${{ inputs.candidates || '100' }}
       VERIFY_LIMIT: ${{ inputs.verify || '80' }}
       VERIFY_ONLY: ${{ inputs.verify_only || false }}
@@ -56,14 +57,7 @@ jobs:
         id: seal
         if: always() && steps.restore.outcome == 'success'
         run: python -m ingestion.cloud_artifacts seal
-      - name: Save encrypted state for the next hosted runner
-        if: always() && steps.seal.outputs.ready == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: cloud-discovery-state-v1
-          path: .ingestion-state/cloud/cloud-state.enc
-          include-hidden-files: true
-          if-no-files-found: error
-          compression-level: 0
-          retention-days: 90
-      # Exactly one bounded ciphertext file. Never upload a directory or plaintext.
+      # Current and previous AES-GCM ciphertext live on the isolated state branch.
+      - name: Enforce provider rows-read job budget
+        if: always()
+        run: python -m ingestion.query_usage

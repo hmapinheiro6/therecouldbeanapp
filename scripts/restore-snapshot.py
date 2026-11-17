@@ -15,4 +15,4 @@ for product in products:
         record['source']=record['sources'][0]
     normalized.append(record)
 emit(normalized,args.output)
-print('Wrote canonical public records. Apply to a migrated database and run scripts/rebuild-fts.sql.')
+print('Wrote canonical public records. Apply to a migrated database and rebuild the public static catalog.')

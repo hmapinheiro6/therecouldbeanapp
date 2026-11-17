@@ -261,6 +261,7 @@ admin.post("/review", async (c) => {
       400,
     );
   const b = input.data;
+  let publication: string | undefined, immediate: string | undefined;
   const table =
     b.kind === "product"
       ? "products"
@@ -379,9 +380,15 @@ admin.post("/review", async (c) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ products: [p.data] }),
       },
-      c.env,
+      { ...c.env, OPERATOR_PUBLICATION: true },
     );
     if (!response.ok) return response;
+    const publicationResult = (await response.json()) as {
+      publication?: string;
+      immediate?: string;
+    };
+    publication = publicationResult.publication;
+    immediate = publicationResult.immediate;
     if (b.kind === "submission")
       await c.env.DB.prepare(
         "UPDATE submissions SET status='published',reviewed_at=? WHERE id=?",
@@ -425,12 +432,22 @@ admin.post("/review", async (c) => {
       c.env,
     );
     if (!response.ok) return response;
+    const publicationResult = (await response.json()) as {
+      publication?: string;
+      immediate?: string;
+    };
+    publication = publicationResult.publication;
+    immediate = publicationResult.immediate;
   }
   await c.env.DB.prepare(
     "INSERT INTO review_audit(kind,record_id,action,reason) VALUES(?,?,?,?)",
   )
     .bind(b.kind, b.id, b.action, b.reason)
     .run();
-  return c.json({ status: b.action === "publish" ? "published" : "updated" });
+  return c.json({
+    status: b.action === "publish" ? "published" : "updated",
+    publication,
+    immediate,
+  });
 });
 export { admin };

@@ -23,8 +23,7 @@ describe("dated public observations without D1", () => {
         DB: database,
         ASSETS: assets,
       } as unknown as Bindings);
-      expect(response.status).toBe(200);
-      expect(await response.json()).toEqual(fixture);
+      expect(response.status).toBe(404);
       expect(database.prepare).not.toHaveBeenCalled();
     } finally {
       vi.unstubAllGlobals();

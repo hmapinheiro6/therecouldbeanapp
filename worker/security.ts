@@ -6,6 +6,12 @@ export type Bindings = {
   RATE_LIMIT_SALT?: string;
   TURNSTILE_SECRET_KEY?: string;
   ADMIN_SECRET?: string;
+  CLOUDFLARE_API_TOKEN?: string;
+  WATCHDOG_GITHUB_TOKEN?: string;
+  D1_BUDGET_BLOCKED_DAY?: string;
+  STATIC_BLOCKED_SLUGS?: string;
+  OPERATOR_PUBLICATION?: boolean;
+  OPERATIONS_R2?: R2Bucket;
 };
 export type AppEnv = { Bindings: Bindings };
 export const digest = async (value: string) =>

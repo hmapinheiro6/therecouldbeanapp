@@ -11,6 +11,7 @@ export function assembleExport(
   value: unknown,
   previousCount: number,
   maxRows = 100_000,
+  authoritativeRelease = false,
 ) {
   if (
     !Array.isArray(value) ||
@@ -31,7 +32,10 @@ export function assembleExport(
       "Export exceeded the declared read budget; snapshot preserved.",
     );
   const [rows, claims, sources, aliases] = results.map((r) => r.results);
-  if (!rows.length || rows.length < previousCount * 0.9)
+  if (
+    !authoritativeRelease &&
+    (!rows.length || rows.length < previousCount * 0.9)
+  )
     throw new Error(
       "Empty or unexpectedly smaller export; snapshot preserved for review.",
     );

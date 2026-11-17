@@ -1,4 +1,4 @@
-"""Refresh the public recovery snapshot from authenticated, keyset-paged published data."""
+"""Refresh the public build input from authenticated, keyset-paged published data."""
 import json
 from .client import InternalClient
 from .extraction import ROOT,now
@@ -28,14 +28,9 @@ def refresh(client=None):
         if not isinstance(following,int) or following<=after:raise ValueError('Snapshot cursor did not advance')
         after=following
     else:raise ValueError('Snapshot exceeds 12000-product bound')
-    if len(products)<reported or len(products)<len(previous['products'])*.9:raise ValueError('Incomplete recovery export; previous snapshot preserved')
+    if len(products)<reported or len(products)<len(previous['products'])*.9:raise ValueError('Incomplete published export; previous snapshot preserved')
     value=json.dumps({'exported_at':now(),'environment':'production','products':products},indent=2)+'\n'
     if len(value.encode())>24*1024*1024:raise ValueError('Snapshot exceeds free asset size allowance')
-    categories=json.loads((ROOT/'data/categories.json').read_text())
-    recovery=json.dumps({'exported_at':now(),'products':public,'categories':[{**c,'product_count':sum(p['category_slug']==c['slug'] for p in products)} for c in categories]},separators=(',',':'))+'\n'
-    if len(recovery.encode())>24*1024*1024:raise ValueError('Recovery artifact exceeds size allowance')
-    recovery_path=ROOT/'public/catalog-backup.json'
-    temp_recovery=recovery_path.with_suffix('.pending.local');temp_recovery.write_text(recovery);temp_recovery.replace(recovery_path)
     temporary=TARGET.with_suffix('.pending.local');temporary.write_text(value);temporary.replace(TARGET)
     print(json.dumps({'public_snapshot_products':len(products),'method':'authenticated_keyset_export'}))
 

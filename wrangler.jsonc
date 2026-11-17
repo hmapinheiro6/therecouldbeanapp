@@ -10,13 +10,10 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "run_worker_first": [
-      "/api/*",
-      "/apps/*",
-      "/sitemap.xml",
-      "/catalog-backup.json",
-    ],
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": ["/api/admin/*", "/api/internal/*", "/api/submit"],
   },
+  "triggers": { "crons": ["*/15 * * * *"] },
   "d1_databases": [
     {
       "binding": "DB",
@@ -26,6 +23,7 @@
     },
   ],
   "vars": {
+    "D1_BUDGET_BLOCKED_DAY": "2026-11-17",
     "SITE_URL": "https://therecouldbeanapp.henriquepinheiro.workers.dev",
     "TURNSTILE_SITE_KEY": "0x4AAAAAAGCZ4047ac7iauOi",
     "TURNSTILE_HOSTNAME": "therecouldbeanapp.henriquepinheiro.workers.dev",
@@ -37,7 +35,7 @@
     "logs": {
       "enabled": true,
       "invocation_logs": false,
-      "head_sampling_rate": 0.1,
+      "head_sampling_rate": 1,
     },
     "traces": {
       "enabled": true,

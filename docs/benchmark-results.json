@@ -1,5 +1,5 @@
 {
-  "measured_at": "2026-11-16T14:06:44.316Z",
+  "measured_at": "2026-11-17T14:40:59.771Z",
   "environment": "Node 24 SQLite FTS5, local process. NOT deployed Worker CPU or D1 billing measurements.",
   "catalog_products": 45,
   "case_count": 60,
@@ -12,8 +12,8 @@
     "mrr": 1,
     "mean_top_result_capability_coverage": 1,
     "unsupported_strong": 0,
-    "latency_p50_ms": 0.25679200000000435,
-    "latency_p95_ms": 0.8243750000000034
+    "latency_p50_ms": 0.1692910000000012,
+    "latency_p95_ms": 0.5497499999999889
   },
   "targets": {
     "precision_at_5": 0.8,
@@ -31,16 +31,16 @@
     {
       "synthetic_products": 1000,
       "description": "Synthetic lexical load only. Not published catalog records. Capability join work remains bounded to 80 candidates.",
-      "latency_p50_ms": 1.1658749999999998,
-      "latency_p95_ms": 1.9544170000000065,
-      "node_cpu_p95_ms": 2.234
+      "latency_p50_ms": 1.131750000000011,
+      "latency_p95_ms": 1.8329999999999984,
+      "node_cpu_p95_ms": 2.096
     },
     {
       "synthetic_products": 10000,
       "description": "Synthetic lexical load only. Not published catalog records. Capability join work remains bounded to 80 candidates.",
-      "latency_p50_ms": 1.9467089999999985,
-      "latency_p95_ms": 4.736041,
-      "node_cpu_p95_ms": 4.91
+      "latency_p50_ms": 1.8955420000000345,
+      "latency_p95_ms": 4.128083000000004,
+      "node_cpu_p95_ms": 4.417
     }
   ],
   "cases": [
@@ -57,8 +57,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 1.6654160000000076,
-      "cpu_ms": 1.882,
+      "latency_ms": 1.1121669999999995,
+      "cpu_ms": 1.227,
       "top_5": [
         {
           "slug": "pipedrive",
@@ -91,8 +91,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.689667,
-      "cpu_ms": 0.797,
+      "latency_ms": 0.5497499999999889,
+      "cpu_ms": 0.601,
       "top_5": [
         {
           "slug": "clickup",
@@ -129,8 +129,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.27908299999999997,
-      "cpu_ms": 0.279,
+      "latency_ms": 0.23233299999999701,
+      "cpu_ms": 0.232,
       "top_5": [
         {
           "slug": "freshbooks",
@@ -167,8 +167,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.2590840000000014,
-      "cpu_ms": 0.451,
+      "latency_ms": 0.2150000000000034,
+      "cpu_ms": 0.369,
       "top_5": [
         {
           "slug": "tl-dv",
@@ -193,8 +193,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.30829200000000867,
-      "cpu_ms": 0.383,
+      "latency_ms": 0.1995420000000081,
+      "cpu_ms": 0.261,
       "top_5": [
         {
           "slug": "otter",
@@ -227,8 +227,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.19762499999998795,
-      "cpu_ms": 0.198,
+      "latency_ms": 0.1631670000000014,
+      "cpu_ms": 0.163,
       "top_5": [
         {
           "slug": "calendly",
@@ -257,8 +257,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.4662919999999957,
-      "cpu_ms": 0.52,
+      "latency_ms": 0.33387499999999193,
+      "cpu_ms": 0.382,
       "top_5": [
         {
           "slug": "buffer",
@@ -283,8 +283,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.8243750000000034,
-      "cpu_ms": 0.757,
+      "latency_ms": 0.15737500000000182,
+      "cpu_ms": 0.158,
       "top_5": [
         {
           "slug": "veed",
@@ -313,8 +313,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.30333299999999497,
-      "cpu_ms": 0.295,
+      "latency_ms": 0.11750000000000682,
+      "cpu_ms": 0.117,
       "top_5": [
         {
           "slug": "descript",
@@ -335,8 +335,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.21716600000000597,
-      "cpu_ms": 0.308,
+      "latency_ms": 0.17191700000000765,
+      "cpu_ms": 0.235,
       "top_5": [
         {
           "slug": "figma",
@@ -357,8 +357,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.2098749999999967,
-      "cpu_ms": 0.211,
+      "latency_ms": 0.15258300000000702,
+      "cpu_ms": 0.153,
       "top_5": [
         {
           "slug": "miro",
@@ -383,8 +383,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.2873329999999896,
-      "cpu_ms": 0.287,
+      "latency_ms": 0.1692910000000012,
+      "cpu_ms": 0.17,
       "top_5": [
         {
           "slug": "github",
@@ -405,8 +405,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.28924999999999557,
-      "cpu_ms": 0.244,
+      "latency_ms": 0.09370800000000656,
+      "cpu_ms": 0.093,
       "top_5": [
         {
           "slug": "sentry",
@@ -427,8 +427,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.21545899999999563,
-      "cpu_ms": 0.215,
+      "latency_ms": 0.11645900000000609,
+      "cpu_ms": 0.116,
       "top_5": [
         {
           "slug": "plausible",
@@ -453,8 +453,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.234375,
-      "cpu_ms": 0.235,
+      "latency_ms": 0.1461659999999938,
+      "cpu_ms": 0.146,
       "top_5": [
         {
           "slug": "intercom",
@@ -479,8 +479,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.29266699999999446,
-      "cpu_ms": 0.293,
+      "latency_ms": 0.1996249999999975,
+      "cpu_ms": 0.2,
       "top_5": [
         {
           "slug": "shopify",
@@ -501,8 +501,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.4023339999999962,
-      "cpu_ms": 0.402,
+      "latency_ms": 0.3112919999999946,
+      "cpu_ms": 0.311,
       "top_5": [
         {
           "slug": "greenhouse",
@@ -523,8 +523,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.30529200000000856,
-      "cpu_ms": 0.306,
+      "latency_ms": 0.20199999999999818,
+      "cpu_ms": 0.202,
       "top_5": [
         {
           "slug": "notion",
@@ -549,8 +549,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.1991249999999951,
-      "cpu_ms": 0.199,
+      "latency_ms": 0.12354100000000301,
+      "cpu_ms": 0.124,
       "top_5": [
         {
           "slug": "grammarly",
@@ -571,8 +571,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.32125000000000625,
-      "cpu_ms": 0.6,
+      "latency_ms": 0.2124589999999955,
+      "cpu_ms": 0.4,
       "top_5": [
         {
           "slug": "n8n",
@@ -601,8 +601,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.4045409999999947,
-      "cpu_ms": 0.745,
+      "latency_ms": 0.3248750000000058,
+      "cpu_ms": 0.533,
       "top_5": [
         {
           "slug": "bitwarden",
@@ -627,8 +627,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.2507920000000041,
-      "cpu_ms": 0.251,
+      "latency_ms": 0.1688749999999999,
+      "cpu_ms": 0.169,
       "top_5": [
         {
           "slug": "dropbox",
@@ -649,8 +649,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.2490839999999963,
-      "cpu_ms": 0.243,
+      "latency_ms": 0.12933300000000258,
+      "cpu_ms": 0.13,
       "top_5": [
         {
           "slug": "tally",
@@ -675,8 +675,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.25679200000000435,
-      "cpu_ms": 0.258,
+      "latency_ms": 0.13016700000000014,
+      "cpu_ms": 0.131,
       "top_5": [
         {
           "slug": "docusign",
@@ -697,8 +697,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.1935840000000013,
-      "cpu_ms": 0.232,
+      "latency_ms": 0.12570900000000051,
+      "cpu_ms": 0.178,
       "top_5": [
         {
           "slug": "freshbooks",
@@ -723,8 +723,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.3642499999999984,
-      "cpu_ms": 0.355,
+      "latency_ms": 0.21274999999999977,
+      "cpu_ms": 0.213,
       "top_5": [
         {
           "slug": "harvest",
@@ -753,8 +753,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.2289999999999992,
-      "cpu_ms": 0.229,
+      "latency_ms": 0.12229200000000162,
+      "cpu_ms": 0.123,
       "top_5": [
         {
           "slug": "obsidian",
@@ -775,8 +775,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.7023750000000035,
-      "cpu_ms": 0.702,
+      "latency_ms": 0.46075000000000443,
+      "cpu_ms": 0.461,
       "top_5": [
         {
           "slug": "pipedrive",
@@ -813,8 +813,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.4001249999999885,
-      "cpu_ms": 0.401,
+      "latency_ms": 0.24245799999999917,
+      "cpu_ms": 0.242,
       "top_5": [
         {
           "slug": "otter",
@@ -847,8 +847,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.39579099999998846,
-      "cpu_ms": 0.397,
+      "latency_ms": 0.3144580000000019,
+      "cpu_ms": 0.346,
       "top_5": [
         {
           "slug": "harvest",
@@ -885,8 +885,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.4820830000000029,
-      "cpu_ms": 0.482,
+      "latency_ms": 0.4739589999999936,
+      "cpu_ms": 0.474,
       "top_5": [
         {
           "slug": "honeybook",
@@ -923,8 +923,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.43233399999999733,
-      "cpu_ms": 0.433,
+      "latency_ms": 0.38529199999999264,
+      "cpu_ms": 0.385,
       "top_5": [
         {
           "slug": "honeybook",
@@ -961,8 +961,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.2361670000000089,
-      "cpu_ms": 0.236,
+      "latency_ms": 0.1731670000000065,
+      "cpu_ms": 0.173,
       "top_5": [
         {
           "slug": "descript",
@@ -991,8 +991,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.23008400000000506,
-      "cpu_ms": 0.23,
+      "latency_ms": 0.14141600000000665,
+      "cpu_ms": 0.141,
       "top_5": [
         {
           "slug": "docusign",
@@ -1013,8 +1013,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.37820899999999824,
-      "cpu_ms": 0.404,
+      "latency_ms": 0.33408399999999006,
+      "cpu_ms": 0.366,
       "top_5": [
         {
           "slug": "1password",
@@ -1039,8 +1039,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.1526670000000081,
-      "cpu_ms": 0.153,
+      "latency_ms": 0.132165999999998,
+      "cpu_ms": 0.132,
       "top_5": [
         {
           "slug": "dubsado",
@@ -1077,8 +1077,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.22016700000000355,
-      "cpu_ms": 0.22,
+      "latency_ms": 0.1390829999999994,
+      "cpu_ms": 0.14,
       "top_5": [
         {
           "slug": "calendly",
@@ -1107,8 +1107,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.3995000000000033,
-      "cpu_ms": 0.4,
+      "latency_ms": 0.35533399999999915,
+      "cpu_ms": 0.355,
       "top_5": [
         {
           "slug": "clickup",
@@ -1145,8 +1145,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.21987500000000182,
-      "cpu_ms": 0.221,
+      "latency_ms": 0.17683300000000202,
+      "cpu_ms": 0.178,
       "top_5": [
         {
           "slug": "make",
@@ -1175,8 +1175,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.3708329999999904,
-      "cpu_ms": 0.373,
+      "latency_ms": 0.33262499999999307,
+      "cpu_ms": 0.335,
       "top_5": [
         {
           "slug": "honeybook",
@@ -1209,8 +1209,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.22750000000000625,
-      "cpu_ms": 0.243,
+      "latency_ms": 0.14658400000000427,
+      "cpu_ms": 0.147,
       "top_5": [
         {
           "slug": "fathom",
@@ -1243,8 +1243,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.11337499999999068,
-      "cpu_ms": 0.113,
+      "latency_ms": 0.09204099999999471,
+      "cpu_ms": 0.092,
       "top_5": [
         {
           "slug": "otter",
@@ -1265,8 +1265,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.0870829999999927,
-      "cpu_ms": 0.087,
+      "latency_ms": 0.0660829999999919,
+      "cpu_ms": 0.066,
       "top_5": [
         {
           "slug": "bitwarden",
@@ -1287,8 +1287,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.08416700000000787,
-      "cpu_ms": 0.084,
+      "latency_ms": 0.06708299999999667,
+      "cpu_ms": 0.067,
       "top_5": [
         {
           "slug": "calendly",
@@ -1309,8 +1309,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.07845899999999517,
-      "cpu_ms": 0.079,
+      "latency_ms": 0.06429099999999721,
+      "cpu_ms": 0.064,
       "top_5": [
         {
           "slug": "tally",
@@ -1331,8 +1331,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.09420800000000895,
-      "cpu_ms": 0.116,
+      "latency_ms": 0.07774999999999466,
+      "cpu_ms": 0.102,
       "top_5": [
         {
           "slug": "pipedrive",
@@ -1353,8 +1353,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.4333340000000021,
-      "cpu_ms": 0.434,
+      "latency_ms": 0.38979100000000244,
+      "cpu_ms": 0.39,
       "top_5": [
         {
           "slug": "clickup",
@@ -1391,8 +1391,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.15416600000000358,
-      "cpu_ms": 0.154,
+      "latency_ms": 0.1254160000000013,
+      "cpu_ms": 0.125,
       "top_5": [
         {
           "slug": "capcut",
@@ -1417,8 +1417,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.4195840000000004,
-      "cpu_ms": 0.421,
+      "latency_ms": 0.3585000000000065,
+      "cpu_ms": 0.359,
       "top_5": [
         {
           "slug": "hubspot",
@@ -1451,8 +1451,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.22425000000001205,
-      "cpu_ms": 0.281,
+      "latency_ms": 0.17170899999999278,
+      "cpu_ms": 0.222,
       "top_5": [
         {
           "slug": "tl-dv",
@@ -1477,8 +1477,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 1.0917090000000087,
-      "cpu_ms": 1.262,
+      "latency_ms": 0.8537079999999975,
+      "cpu_ms": 1.003,
       "top_5": [
         {
           "slug": "bitwarden",
@@ -1503,8 +1503,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.6992089999999962,
-      "cpu_ms": 0.719,
+      "latency_ms": 0.49929199999999696,
+      "cpu_ms": 0.503,
       "top_5": [
         {
           "slug": "honeybook",
@@ -1541,8 +1541,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.41499999999999204,
-      "cpu_ms": 0.415,
+      "latency_ms": 0.34770800000001145,
+      "cpu_ms": 0.344,
       "top_5": [
         {
           "slug": "hubspot",
@@ -1575,8 +1575,8 @@
       "capability_coverage": 1,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.1575419999999923,
-      "cpu_ms": 0.158,
+      "latency_ms": 0.12295799999999701,
+      "cpu_ms": 0.116,
       "top_5": [
         {
           "slug": "github",
@@ -1597,8 +1597,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.08599999999999852,
-      "cpu_ms": 0.086,
+      "latency_ms": 0.06891600000000153,
+      "cpu_ms": 0.069,
       "top_5": [
         {
           "slug": "hubspot",
@@ -1619,8 +1619,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.07954200000000355,
-      "cpu_ms": 0.079,
+      "latency_ms": 0.06695799999999963,
+      "cpu_ms": 0.067,
       "top_5": []
     },
     {
@@ -1636,8 +1636,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.07891699999998991,
-      "cpu_ms": 0.079,
+      "latency_ms": 0.055542000000002645,
+      "cpu_ms": 0.057,
       "top_5": []
     },
     {
@@ -1653,8 +1653,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.18262499999998738,
-      "cpu_ms": 0.18,
+      "latency_ms": 0.09245799999999349,
+      "cpu_ms": 0.093,
       "top_5": []
     },
     {
@@ -1670,8 +1670,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.1722910000000013,
-      "cpu_ms": 0.172,
+      "latency_ms": 0.09779199999999832,
+      "cpu_ms": 0.097,
       "top_5": []
     },
     {
@@ -1687,8 +1687,8 @@
       "capability_coverage": null,
       "unsupported_strong": 0,
       "irrelevant_hits": [],
-      "latency_ms": 0.15016699999999616,
-      "cpu_ms": 0.15,
+      "latency_ms": 0.07820800000000361,
+      "cpu_ms": 0.079,
       "top_5": []
     }
   ]

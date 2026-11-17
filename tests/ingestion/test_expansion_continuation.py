@@ -46,8 +46,7 @@ def test_snapshot_milestone_publishes_only_public_fields(monkeypatch,tmp_path):
     row={k:None for k in snap.FIELDS};row.update(id=1,slug='actual',name='Actual',canonical_url='https://actual.dev',category_slug='desktop-apps',category='Desktop apps',normalized_domain='actual.dev',verification_scope='identity',capabilities=[],sources=[{'source_name':'WinGet','source_url':'https://github.com/example/manifest'}],private_future_field='must not leak')
     client=Mock();client.request.return_value={'products':[row],'next_after':None}
     snap.refresh(client)
-    recovery=json.loads((tmp_path/'public/catalog-backup.json').read_text())
     assert len(json.loads(path.read_text())['products'])==1
-    assert recovery['categories'][0]['product_count']==1
-    assert 'private_future_field' not in recovery['products'][0]
+    assert 'private_future_field' not in path.read_text()
+    assert not (tmp_path/'public/catalog-backup.json').exists()
     client.request.assert_called_once_with('/api/internal/snapshot?after=0')

@@ -11,6 +11,7 @@ import {
 import { splitSql } from "../../scripts/sql";
 import { Miniflare } from "miniflare";
 import { readFileSync, readdirSync } from "node:fs";
+import { getProduct } from "../../worker/catalog";
 import { app } from "../../worker/index";
 import { digest, hmac, type Bindings } from "../../worker/security";
 import {
@@ -124,62 +125,30 @@ afterAll(async () => {
   await mf?.dispose();
 });
 beforeEach(async () => {
+  const today = new Date().toISOString();
+  await env.DB.prepare(
+    "INSERT OR REPLACE INTO d1_usage_observations(day,rows_read,rows_written,observed_at) VALUES(?,0,0,?)",
+  )
+    .bind(today.slice(0, 10), today)
+    .run();
   await env.DB.prepare("DELETE FROM submission_rate_limits").run();
   await env.DB.prepare("DELETE FROM submissions").run();
 });
 afterEach(() => vi.unstubAllGlobals());
 describe("public API", () => {
-  it("searches real D1 FTS and returns evidence", async () => {
-    const r = await app.request("/api/search?q=meeting%20notes", {}, env);
-    expect(r.status).toBe(200);
-    const b = (await r.json()) as { results: { matched: unknown[] }[] };
-    expect(b.results[0].matched.length).toBeGreaterThan(0);
-  });
-  it("rejects empty and oversized queries", async () => {
-    expect((await app.request("/api/search?q=", {}, env)).status).toBe(400);
-    expect(
-      (await app.request("/api/search?q=" + "a".repeat(160), {}, env)).status,
-    ).toBe(200);
-    expect(
-      (await app.request("/api/search?q=" + "a".repeat(161), {}, env)).status,
-    ).toBe(400);
-  });
-  it("provides a published product and no private fields", async () => {
-    const r = await app.request("/api/products/otter", {}, env);
-    expect(r.status).toBe(200);
-    expect(await r.text()).not.toContain("contact_email");
-    expect((await app.request("/api/products/unknown", {}, env)).status).toBe(
-      404,
-    );
-  });
-  it("orders recent additions by catalog entry date, with stable pagination", async () => {
-    const original = await env.DB.prepare(
-      "SELECT first_seen_at FROM products WHERE slug='otter'",
-    ).first<{ first_seen_at: string }>();
-    try {
-      await env.DB.prepare(
-        "UPDATE products SET first_seen_at='2099-01-01T00:00:00Z' WHERE slug='otter'",
-      ).run();
-      const r = await app.request("/api/products?sort=recent", {}, env);
-      expect(r.status).toBe(200);
-      const b = (await r.json()) as {
-        products: { slug: string; first_seen_at: string }[];
-      };
-      expect(b.products[0].slug).toBe("otter");
-      expect(
-        b.products.every(
-          (p, i) => !i || b.products[i - 1].first_seen_at >= p.first_seen_at,
-        ),
-      ).toBe(true);
-      expect(
-        (await app.request("/api/products?sort=arbitrary-sql", {}, env)).status,
-      ).toBe(400);
-    } finally {
-      await env.DB.prepare(
-        "UPDATE products SET first_seen_at=? WHERE slug='otter'",
-      )
-        .bind(original!.first_seen_at)
-        .run();
+  it("has no public database read endpoints", async () => {
+    for (const path of [
+      "/api/search?q=meeting",
+      "/api/products/otter",
+      "/api/products",
+      "/api/stats",
+      "/api/categories",
+      "/api/config",
+      "/api/health",
+    ]) {
+      const response = await app.request(path, {}, env);
+      expect(response.status).toBe(404);
+      expect(response.headers.get("X-D1-Rows-Read")).toBe("0");
     }
   });
   it("rejects malicious URLs and XSS submissions before verification", async () => {
@@ -578,21 +547,12 @@ describe("private review dashboard", () => {
       env,
     );
     expect(response.status, await response.clone().text()).toBe(200);
-    const publicResult = await app.request(
-      "/api/products/admin-example-reviewed",
-      {},
-      env,
-    );
-    expect(publicResult.status).toBe(200);
-    const p = (await publicResult.json()) as {
-      verification_scope: string;
-      capabilities: unknown[];
-    };
+    const p = (await getProduct(env.DB, "admin-example-reviewed"))!;
     expect(p.verification_scope).toBe("identity");
     expect(p.capabilities).toHaveLength(0);
     expect(
       (await app.request("/api/search?q=Admin%20Example", {}, env)).status,
-    ).toBe(200);
+    ).toBe(404);
     expect(
       (
         await env.DB.prepare(
@@ -691,14 +651,8 @@ it("edits and unpublishes the existing catalog while preserving slugs and URL al
     env,
   );
   expect(publish.status, await publish.clone().text()).toBe(200);
-  const publicResult = await app.request(
-    "/api/products/admin-example-reviewed",
-    {},
-    env,
-  );
-  expect(publicResult.status).toBe(200);
   expect(
-    ((await publicResult.json()) as { canonical_url: string }).canonical_url,
+    (await getProduct(env.DB, "admin-example-reviewed"))?.canonical_url,
   ).toBe(updated.canonical_url);
   const known = await app.request(
     await signed("/api/internal/known", {
@@ -820,15 +774,15 @@ it("explains the daily database limit without accepting a login or leaking crede
       ...blockedEnv,
       ASSETS: {
         fetch: async (req: Request) =>
-          new URL(req.url).pathname === "/catalog-pages/otter.html"
-            ? new Response("<h1>Saved Otter catalog</h1>")
+          new URL(req.url).pathname === "/apps/otter"
+            ? new Response("<h1>Static Otter catalog</h1>")
             : new Response("missing", { status: 404 }),
       } as Fetcher,
     },
   );
   expect(detail.status).toBe(200);
-  expect(detail.headers.get("X-Catalog-Mode")).toBe("snapshot");
-  expect(await detail.text()).toContain("Saved Otter");
+  expect(detail.headers.get("X-Catalog-Mode")).toBeNull();
+  expect(await detail.text()).not.toContain("Saved Otter");
 });
 
 it("lets signed scheduled maintenance install the read-budget indexes exactly once", async () => {
@@ -933,26 +887,12 @@ it("shares an atomic ingestion allowance across jobs and resumes in a new UTC da
   ).toEqual({ n: 0 });
 });
 
-it("provides a bounded forward-only public identity cursor for preview collection", async () => {
-  const response = await app.request("/api/preview-products?after=0", {}, env);
-  expect(response.status).toBe(200);
-  const data = (await response.json()) as {
-    products: { id: number; slug: string }[];
-    next_after: number;
-    has_more: boolean;
-  };
-  expect(data.products.length).toBeGreaterThan(0);
-  expect(data.products.length).toBeLessThanOrEqual(100);
-  expect(data.next_after).toBeGreaterThanOrEqual(data.products.at(-1)!.id);
-  expect(JSON.stringify(data)).not.toContain("contact_email");
-  expect(
-    (await app.request("/api/preview-products?after=-1", {}, env)).status,
-  ).toBe(400);
-});
-
 it("publishes a dated identity-only campaign batch once, with provenance and searchable names", async () => {
   vi.useFakeTimers({ toFake: ["Date"] });
   vi.setSystemTime(new Date("2026-11-17T12:30:00Z"));
+  await env.DB.prepare(
+    "UPDATE d1_usage_observations SET observed_at='2026-11-17T12:30:00Z' WHERE day='2026-11-17'",
+  ).run();
   try {
     const stamp = new Date().toISOString();
     const products = Array.from({ length: 20 }, (_, i) => ({
@@ -992,24 +932,14 @@ it("publishes a dated identity-only campaign batch once, with provenance and sea
     };
     expect(data.products).toBe(20);
     expect(data.accounting.rows_written).toBeGreaterThan(0);
-    const product = await app.request(
-      "/api/products/campaign-fixture-0",
-      {},
-      env,
-    );
-    expect(product.status).toBe(200);
-    const visible = (await product.json()) as {
-      verification_scope: string;
-      capabilities: unknown[];
-      sources: unknown[];
-    };
+    const visible = (await getProduct(env.DB, products[0].slug))!;
     expect(visible.verification_scope).toBe("identity");
     expect(visible.capabilities).toEqual([]);
     expect(visible.sources).toHaveLength(1);
     expect(
       (
         await env.DB.prepare(
-          "SELECT count(*) n FROM product_fts WHERE product_fts MATCH 'Campaign'",
+          "SELECT count(*) n FROM products WHERE name LIKE 'Campaign %'",
         ).first()
       )?.n,
     ).toBe(20);
@@ -1125,28 +1055,178 @@ it("exports published recovery records by advancing id with provenance and alias
   expect(bad.status).toBe(400);
 });
 
-it("serves the recovery shell when a product has no dedicated backup HTML", async () => {
-  const response = await app.request(
-    "/apps/a-product-without-backup-html",
+it("keeps collector status and URL batches within read budgets at 5000 extra products", async () => {
+  const stamp = new Date().toISOString();
+  await env.DB.prepare(
+    `WITH RECURSIVE seq(n) AS (SELECT 1 UNION ALL SELECT n+1 FROM seq WHERE n<5000)
+    INSERT INTO products(slug,name,canonical_url,normalized_domain,short_description,category_id,status,first_seen_at,last_verified_at,verification_scope,identity_evidence_url,identity_evidence_text)
+    SELECT 'cost-fixture-'||n,'Cost fixture '||n,'https://cost-fixture.dev/'||n,'cost-fixture.dev','An isolated synthetic performance test application.',1,'published',?,?,'identity','https://cost-fixture.dev','Official fixture identity checked for the isolated cost regression.' FROM seq`,
+  )
+    .bind(stamp, stamp)
+    .run();
+  try {
+    const status = await app.request(
+      await signed("/api/internal/expansion-status"),
+      {},
+      env,
+    );
+    expect(status.status).toBe(200);
+    expect(Number(status.headers.get("X-D1-Rows-Read"))).toBeLessThan(50);
+    const known = await app.request(
+      await signed("/api/internal/known", {
+        urls: Array.from(
+          { length: 30 },
+          (_, i) => "https://cost-fixture.dev/" + (i + 1),
+        ),
+      }),
+      {},
+      env,
+    );
+    expect(known.status).toBe(200);
+    expect(Number(known.headers.get("X-D1-Rows-Read"))).toBeLessThan(300);
+    const page = await app.request(
+      await signed("/api/internal/identity-index?after=0"),
+      {},
+      env,
+    );
+    expect(page.status).toBe(200);
+    expect(Number(page.headers.get("X-D1-Rows-Read"))).toBeLessThan(1100);
+  } finally {
+    await env.DB.prepare(
+      "DELETE FROM products WHERE slug LIKE 'cost-fixture-%'",
+    ).run();
+  }
+});
+it("serializes removal against deployment and refuses an outdated catalog revision", async () => {
+  const revision = (await env.DB.prepare(
+    "SELECT value FROM catalog_counters WHERE key='revision'",
+  ).first<{ value: number }>())!.value;
+  const first = await app.request(
+    await signed("/api/internal/publication-lease", {
+      action: "acquire",
+      revision,
+    }),
     {},
-    {
-      ...env,
-      DB: {
-        prepare: () => {
-          throw new Error(
-            "D1_ERROR: Your account has exceeded D1's maximum daily number of rows read. Please try again after the daily limit resets.",
-          );
-        },
-      } as unknown as D1Database,
-      ASSETS: {
-        fetch: async (request: Request) =>
-          new URL(request.url).pathname === "/index.html"
-            ? new Response('<div id="root"></div>')
-            : new Response(null, { status: 404 }),
-      } as Fetcher,
-    },
+    env,
   );
-  expect(response.status).toBe(200);
-  expect(response.headers.get("X-Catalog-Mode")).toBe("snapshot");
-  expect(response.headers.get("X-Robots-Tag")).toBe("noindex");
+  expect(first.status).toBe(200);
+  const { token } = (await first.json()) as { token: string };
+  try {
+    const second = await app.request(
+      await signed("/api/internal/publication-lease", {
+        action: "acquire",
+        revision,
+      }),
+      {},
+      env,
+    );
+    expect(second.status).toBe(409);
+    const p = await env.DB.prepare(
+      "SELECT slug,status FROM products WHERE status='published' LIMIT 1",
+    ).first<{ slug: string; status: string }>();
+    const remove = await app.request(
+      await signed("/api/internal/moderate", {
+        kind: "product",
+        id: p!.slug,
+        action: "remove",
+        reason: "Isolated lock regression",
+      }),
+      {},
+      env,
+    );
+    expect(remove.status).toBe(409);
+    expect(
+      (
+        await env.DB.prepare("SELECT status FROM products WHERE slug=?")
+          .bind(p!.slug)
+          .first<{ status: string }>()
+      )?.status,
+    ).toBe(p!.status);
+  } finally {
+    await app.request(
+      await signed("/api/internal/publication-lease", {
+        action: "release",
+        token,
+      }),
+      {},
+      env,
+    );
+  }
+  await env.DB.prepare(
+    "UPDATE catalog_counters SET value=value+1 WHERE key='revision'",
+  ).run();
+  const stale = await app.request(
+    await signed("/api/internal/publication-lease", {
+      action: "acquire",
+      revision,
+    }),
+    {},
+    env,
+  );
+  expect(stale.status).toBe(409);
+});
+
+it("dispatches a static release without requiring an inherited ExecutionContext", async () => {
+  const stamp = new Date().toISOString(),
+    url = "https://dispatch-fixture.dev";
+  const remote = vi.fn(async () => new Response(null, { status: 204 }));
+  vi.stubGlobal("fetch", remote);
+  const product = {
+    slug: "dispatch-fixture",
+    name: "Dispatch Fixture",
+    canonical_url: url,
+    short_description:
+      "An isolated fixture for testing autonomous static publication.",
+    category_slug: "desktop-apps",
+    audience: "Developers",
+    first_seen_at: stamp,
+    announced_at: null,
+    last_verified_at: stamp,
+    verification_scope: "identity",
+    identity_evidence_url: url,
+    identity_evidence_text:
+      "Dispatch Fixture is the official application website.",
+    capabilities: [],
+    source: {
+      source_type: "feed",
+      source_name: "Isolated test",
+      source_url: "https://source-fixture.dev/catalog",
+      external_id: "dispatch-fixture",
+      discovered_at: stamp,
+    },
+  };
+  try {
+    const response = await app.request(
+      await signed("/api/internal/ingest", { products: [product] }),
+      {},
+      {
+        ...env,
+        OPERATOR_PUBLICATION: true,
+        WATCHDOG_GITHUB_TOKEN: "isolated-repository-token",
+      },
+    );
+    expect(response.status, await response.clone().text()).toBe(200);
+    expect(
+      ((await response.json()) as { publication: string }).publication,
+    ).toBe("queued");
+    expect(remote).toHaveBeenCalledTimes(1);
+  } finally {
+    await env.DB.prepare("DELETE FROM products WHERE canonical_url=?")
+      .bind(url)
+      .run();
+  }
+});
+it("returns 410 for a configured removed path without accessing D1", async () => {
+  const database = {
+    prepare: vi.fn(() => {
+      throw new Error("D1 unavailable");
+    }),
+  } as unknown as D1Database;
+  const response = await app.request(
+    "/apps/removed-fixture",
+    {},
+    { ...env, DB: database, STATIC_BLOCKED_SLUGS: '["removed-fixture"]' },
+  );
+  expect(response.status).toBe(410);
+  expect(database.prepare).not.toHaveBeenCalled();
 });

@@ -5,7 +5,6 @@ import { Monitor } from "../components/Monitor";
 import { PixelArt } from "../components/PixelArt";
 import { useApi } from "../useApi";
 import type { Product } from "../lib/types";
-import { SnapshotNotice } from "../components/SnapshotNotice";
 const examples = [
   "A CRM for freelancers that handles invoicing",
   "An app that automatically edits short videos",
@@ -19,7 +18,6 @@ export function Home() {
   const catalog = useApi<{ products: Product[] }>("/products?sort=recent");
   return (
     <>
-      <SnapshotNotice at={catalog.snapshotAt} />
       <section className="hero monitor-hero" aria-label="Search the catalog">
         <Monitor>
           <div className="hero-title">

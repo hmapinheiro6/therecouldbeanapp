@@ -1,12 +1,16 @@
 import { test, expect } from "@playwright/test";
+import { intelligenceBucket } from "../../src/lib/static-intelligence";
 import { readFileSync } from "node:fs";
 const previewFixture = JSON.parse(
   readFileSync(new URL("../preview-fixture.json", import.meta.url), "utf8"),
 );
 // Preview enrichment is tested with fixtures; the test suite never fans out to GitHub.
 test.beforeEach(async ({ page }) => {
-  await page.route("**/catalog-intelligence/*.json", (route) =>
-    route.fulfill({ status: 404 }),
+  await page.route("**/catalog/previews.json", (route) =>
+    route.fulfill({ json: { slugs: ["otter", "identity-preview-fixture"] } }),
+  );
+  await page.route("**/catalog/intelligence/*.json", (route) =>
+    route.fulfill({ json: {} }),
   );
   await page.route("**/api/intelligence/*", (route) =>
     route.fulfill({ json: null }),
@@ -128,7 +132,7 @@ test("shareable URLs work directly and queries are not indexable", async ({
   expect(html.match(/rel="canonical"/g)).toHaveLength(1);
   expect(html).toMatch(/rel="canonical" href="[^"]+\/apps\/otter"/);
   const result = await request.get("/api/search?q=crm%20%22%20OR%20%2A%20--");
-  expect(result.status()).toBe(200);
+  expect(result.status()).toBe(404);
 });
 
 test("operator can sign in, review, and publish an app without the CLI", async ({
@@ -220,22 +224,32 @@ test("operator can sign in, review, and publish an app without the CLI", async (
     })
     .check();
   await page.getByRole("button", { name: "Approve and publish" }).click();
-  await expect(page.getByRole("status")).toContainText("publish completed");
-  await page.goto("/apps/review-fixture-" + suffix);
-  await expect(
-    page.getByRole("heading", {
-      name: "Review Fixture " + suffix,
-      exact: true,
-    }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Official website checked" }),
-  ).toBeVisible();
+  await expect(page.getByRole("status")).toContainText(
+    "Public deployment needs attention",
+  );
+  const stored = await page.request.get(
+    "/api/admin/draft?" +
+      new URLSearchParams({ kind: "product", id: "review-fixture-" + suffix }),
+  );
+  expect(stored.status()).toBe(200);
+  expect((await stored.json()).product.verification_scope).toBe("identity");
+  expect((await request.get("/apps/review-fixture-" + suffix)).status()).toBe(
+    404,
+  );
 });
 
-test("public browsing and search recover transparently when D1's daily allowance is exhausted", async ({
+test("ordinary browsing and search make zero Worker requests while D1 is unavailable", async ({
   page,
 }) => {
+  let workerRequests = 0;
+  const workerResponses: string[] = [];
+  page.on("response", (response) => {
+    if (response.headers()["x-worker-invocation"])
+      workerResponses.push(response.url());
+  });
+  page.on("request", (request) => {
+    if (new URL(request.url()).pathname.startsWith("/api/")) workerRequests++;
+  });
   await page.route("**/api/**", (route) =>
     route.fulfill({
       status: 503,
@@ -249,14 +263,10 @@ test("public browsing and search recover transparently when D1's daily allowance
     }),
   );
   await page.goto("/explore");
-  await expect(
-    page.getByRole("status").filter({ hasText: "saved catalog" }),
-  ).toBeVisible();
+
   await expect(page.locator(".product-card").first()).toBeVisible();
   await page.goto("/search?q=Otter");
-  await expect(
-    page.getByRole("status").filter({ hasText: "saved catalog" }),
-  ).toBeVisible();
+
   await page
     .getByRole("heading", { name: "Otter", exact: true })
     .getByRole("link")
@@ -265,9 +275,9 @@ test("public browsing and search recover transparently when D1's daily allowance
   await expect(
     page.getByRole("heading", { name: "Otter", exact: true }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("status").filter({ hasText: "saved catalog" }),
-  ).toBeVisible();
+
+  expect(workerRequests).toBe(0);
+  expect(workerResponses).toEqual([]);
 });
 
 test("search helpers assist without submitting or taking over typing", async ({
@@ -401,7 +411,7 @@ test("search entry is smaller, enforces 160 characters, and offers a static redu
   await input.press("b");
   await expect(input).toHaveValue("a".repeat(160));
   expect((await request.get("/api/search?q=" + "a".repeat(161))).status()).toBe(
-    400,
+    404,
   );
 });
 
@@ -409,7 +419,7 @@ test("cards show lazy cached previews and keep evidence behind a clear disclosur
   page,
 }) => {
   const preview = previewFixture;
-  await page.route("**/api/previews/otter", (route) =>
+  await page.route("**/catalog-previews/otter.json", (route) =>
     route.fulfill({ json: preview }),
   );
   await page.goto("/search?q=meeting%20notes");
@@ -445,7 +455,7 @@ test("preview failure leaves cards usable and publisher text never becomes verif
   page,
 }) => {
   const preview = previewFixture;
-  await page.route("**/api/products?*", async (route) => {
+  await page.route("**/catalog/products.json", async (route) => {
     const response = await route.fetch();
     const data = await response.json();
     data.products = [
@@ -463,20 +473,22 @@ test("preview failure leaves cards usable and publisher text never becomes verif
     ];
     await route.fulfill({ json: data });
   });
-  await page.route("**/api/previews/identity-preview-fixture", (route) =>
-    route.fulfill({
-      json: {
-        ...preview,
-        slug: "identity-preview-fixture",
-        canonical_url: "https://identity-preview.dev",
-        source_url: "https://identity-preview.dev",
-        description: "Publisher says it can do absolutely everything.",
-        image: {
-          ...preview.image,
-          data: "data:image/webp;base64,UklGRinvalid",
+  await page.route(
+    "**/catalog-previews/identity-preview-fixture.json",
+    (route) =>
+      route.fulfill({
+        json: {
+          ...preview,
+          slug: "identity-preview-fixture",
+          canonical_url: "https://identity-preview.dev",
+          source_url: "https://identity-preview.dev",
+          description: "Publisher says it can do absolutely everything.",
+          image: {
+            ...preview.image,
+            data: "data:image/webp;base64,UklGRinvalid",
+          },
         },
-      },
-    }),
+      }),
   );
   await page.goto("/explore");
   const card = page.getByRole("article").filter({
@@ -515,6 +527,8 @@ test("fresh bundled previews use static assets and avoid a Worker request", asyn
 });
 
 // Entirely synthetic dates; these are never published as real Otter intelligence.
+const intelPattern =
+  "**/catalog/intelligence/" + intelligenceBucket("otter") + ".json";
 const intelligenceFixture = JSON.parse(
   readFileSync(
     new URL("../intelligence-fixture.json", import.meta.url),
@@ -524,9 +538,11 @@ const intelligenceFixture = JSON.parse(
 test("product intelligence separates publication, repository age and dated updates with sources", async ({
   page,
 }) => {
-  await page.route("**/api/intelligence/otter", (route) =>
+  await page.route(intelPattern, (route) =>
     route.fulfill({
-      json: { ...intelligenceFixture, checked_at: new Date().toISOString() },
+      json: {
+        otter: { ...intelligenceFixture, checked_at: new Date().toISOString() },
+      },
     }),
   );
   await page.goto("/apps/otter");
@@ -559,13 +575,15 @@ test("product intelligence separates publication, repository age and dated updat
 test("restricted, old and missing website observations never claim a dead app or known launch", async ({
   page,
 }) => {
-  await page.route("**/api/intelligence/otter", (route) =>
+  await page.route(intelPattern, (route) =>
     route.fulfill({
       json: {
-        ...intelligenceFixture,
-        checked_at: "2020-01-01T12:00:00Z",
-        website: { ...intelligenceFixture.website, state: "restricted" },
-        facts: {},
+        otter: {
+          ...intelligenceFixture,
+          checked_at: "2020-01-01T12:00:00Z",
+          website: { ...intelligenceFixture.website, state: "restricted" },
+          facts: {},
+        },
       },
     }),
   );
@@ -582,7 +600,7 @@ test("restricted, old and missing website observations never claim a dead app or
       "This website observation is over 14 days old. Current availability is unknown.",
     ),
   ).toBeVisible();
-  await page.unroute("**/api/intelligence/otter");
+  await page.unroute(intelPattern);
   await page.reload();
   await expect(
     page.getByText("Not yet checked by our scheduled observation job.", {
@@ -595,9 +613,11 @@ test("visible cards use fresh static observations without a Worker request", asy
   page,
 }) => {
   let dynamicRequests = 0;
-  await page.route("**/catalog-intelligence/otter.json", (route) =>
+  await page.route(intelPattern, (route) =>
     route.fulfill({
-      json: { ...intelligenceFixture, checked_at: new Date().toISOString() },
+      json: {
+        otter: { ...intelligenceFixture, checked_at: new Date().toISOString() },
+      },
     }),
   );
   await page.route("**/api/intelligence/otter", (route) => {

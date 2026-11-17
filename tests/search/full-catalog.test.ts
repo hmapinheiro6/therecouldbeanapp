@@ -2,7 +2,10 @@ import { afterAll, describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { fullCatalogDatabase } from "../full-catalog";
 import { search } from "../db";
-import { snapshotResponse, type CatalogSnapshot } from "../../src/lib/snapshot";
+import {
+  catalogResponse,
+  type PublishedCatalog,
+} from "../../src/lib/static-catalog";
 import type { Product, SearchResponse } from "../../src/lib/types";
 import cases from "../../data/full-catalog-search.json";
 import categories from "../../data/categories.json";
@@ -12,7 +15,7 @@ afterAll(() => db.close());
 const data = JSON.parse(
   readFileSync("data/seeds/published-snapshot.json", "utf8"),
 );
-const snapshot: CatalogSnapshot = {
+const snapshot: PublishedCatalog = {
   exported_at: data.exported_at,
   categories: [],
   products: data.products.map((p: Product, id: number) => ({
@@ -53,7 +56,7 @@ for (const [name, run] of [
     "saved public catalog",
     (query: string) =>
       (
-        snapshotResponse(
+        catalogResponse(
           snapshot,
           "/search?q=" + encodeURIComponent(query),
         ) as SearchResponse

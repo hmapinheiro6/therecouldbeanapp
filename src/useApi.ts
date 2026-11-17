@@ -17,12 +17,5 @@ export function useApi<T>(path: string) {
       });
     return () => controller.abort();
   }, [path]);
-  const snapshotAt =
-    state.data &&
-    typeof state.data === "object" &&
-    "snapshot_at" in state.data &&
-    typeof state.data.snapshot_at === "string"
-      ? state.data.snapshot_at
-      : null;
-  return { ...state, snapshotAt };
+  return state;
 }

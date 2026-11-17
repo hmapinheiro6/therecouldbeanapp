@@ -1,4 +1,2 @@
-DELETE FROM product_fts;
-INSERT INTO product_fts(rowid,name,description,category,capabilities,audience,aliases)
-SELECT id,name,description,category,capabilities,audience,aliases FROM search_documents;
+-- Compatibility command: triggers maintain FTS incrementally. No catalog rewrite.
 INSERT INTO product_fts(product_fts) VALUES('integrity-check');
