@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: npm ci
-      - run: python -m pip install -r ingestion/requirements.txt -r ingestion/preview-requirements.txt
+      - run: python -m pip install -r ingestion/requirements.txt -r ingestion/preview-requirements.txt -r ingestion/expansion-requirements.txt
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test

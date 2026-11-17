@@ -1,0 +1,2 @@
+# Source archives are data only; SafeLoader is used for WinGet metadata.
+PyYAML==6.0.3

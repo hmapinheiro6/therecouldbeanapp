@@ -1,0 +1,79 @@
+name: Expand catalog to 10000
+on:
+  workflow_dispatch:
+    inputs:
+      audit:
+        description: Audit sources without publishing
+        type: boolean
+        default: true
+      checks:
+        description: Maximum official websites to check (1–1000)
+        default: "1000"
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: catalog-writes
+  cancel-in-progress: false
+jobs:
+  expand:
+    if: github.event.repository.private == false && github.repository == 'hmapinheiro6/therecouldbeanapp' && vars.DISCOVERY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      INTERNAL_SECRET: ${{ secrets.INTERNAL_SECRET }}
+      INGESTION_API_URL: ${{ vars.INGESTION_API_URL }}
+      GITHUB_TOKEN: ${{ github.token }}
+      AUDIT_ONLY: ${{ inputs.audit == true }}
+      CHECK_LIMIT: ${{ inputs.checks || '1000' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: python -m pip install -r ingestion/expansion-requirements.txt
+      - name: Restore encrypted hosted checkpoint
+        id: restore
+        run: python -m ingestion.expansion_artifacts restore
+      - name: Collect permitted metadata and verify products
+        run: |
+          if [ "$AUDIT_ONLY" = "true" ]; then
+            python -m ingestion.expansion --audit --limit "$CHECK_LIMIT"
+          else
+            python -m ingestion.expansion --limit "$CHECK_LIMIT"
+          fi
+      - name: Seal durable progress even after a partial run
+        id: seal
+        if: always() && steps.restore.outcome == 'success'
+        run: python -m ingestion.expansion_artifacts seal
+      - name: Save encrypted checkpoint
+        if: always() && steps.seal.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-expansion-state-v1
+          path: .ingestion-state/expansion/expansion-state.enc
+          include-hidden-files: true
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+      - name: Publish aggregate progress only
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f data/expansion-health.json ]; then exit 0; fi
+          git add -- data/expansion-health.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Update hosted catalog expansion progress'
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)
+          git -c http.extraheader="AUTHORIZATION: basic $AUTH" pull --rebase origin main
+          git -c http.extraheader="AUTHORIZATION: basic $AUTH" push origin HEAD:main
