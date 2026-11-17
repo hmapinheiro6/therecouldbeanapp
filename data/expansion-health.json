@@ -2,8 +2,8 @@
   "campaign": "catalog-10k-2026-11-17",
   "target": 10000,
   "deadline": "2026-11-17T23:50:00Z",
-  "checked_at": "2026-11-17T13:33:47Z",
-  "status": "running",
+  "checked_at": "2026-11-17T14:51:19Z",
+  "status": "quota_deferred",
   "published_products": 5743,
   "source_candidates": {
     "winget": 13397,
@@ -12,11 +12,11 @@
     "flathub": 0
   },
   "source_errors": {},
-  "remaining_candidates": 9613,
-  "held": 1104,
-  "published_by_campaign": 2875,
+  "remaining_candidates": 9172,
+  "held": 1276,
+  "published_by_campaign": 3133,
   "checked_total": 3917,
-  "publication_rows_written": 28750,
+  "publication_rows_written": 31350,
   "execution": "github-hosted",
-  "workflow_url": "https://github.com/hmapinheiro6/therecouldbeanapp/actions/runs/44091518954"
+  "workflow_url": "https://github.com/hmapinheiro6/therecouldbeanapp/actions/runs/44107639531"
 }
