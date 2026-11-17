@@ -61,7 +61,8 @@ export async function previewResponse(
   try {
     preview = await readPreview(
       await fetcher(ORIGIN + slug + ".json", {
-        redirect: "error",
+        // Workers supports manual/follow only. Non-2xx responses are rejected below.
+        redirect: "manual",
         signal: AbortSignal.timeout(2500),
         headers: { Accept: "application/json" },
       }),

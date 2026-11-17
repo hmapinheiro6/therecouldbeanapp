@@ -47,7 +47,9 @@ export async function intelligenceResponse(
 ) {
   if (slug.length > 100 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))
     return new Response(null, { status: 404 });
-  const key = new Request(new URL("/api/intelligence/" + slug, request.url));
+  const key = new Request(
+    new URL("/api/intelligence/" + slug + "?schema=1", request.url),
+  );
   try {
     const hit = await cache?.match(key);
     if (hit) return hit;
@@ -55,16 +57,24 @@ export async function intelligenceResponse(
     /* Optional edge cache. */
   }
   let preview = null;
+  let source = "missing";
+  let upstreamStatus = "unavailable";
   try {
-    preview = await readIntelligence(
-      await fetcher(ORIGIN + slug + ".json", {
-        redirect: "error",
-        signal: AbortSignal.timeout(2500),
-        headers: { Accept: "application/json" },
-      }),
-      slug,
-    );
-  } catch {
+    const upstream = await fetcher(ORIGIN + slug + ".json", {
+      // Workers supports manual/follow only. Non-2xx responses are rejected below.
+      redirect: "manual",
+      signal: AbortSignal.timeout(2500),
+      headers: {
+        Accept: "application/json",
+        "User-Agent": "ThereCouldBeAnApp/1.0",
+      },
+    });
+    upstreamStatus = String(upstream.status);
+    preview = await readIntelligence(upstream, slug);
+    if (preview) source = "repository";
+    else if (upstream.ok) upstreamStatus = "invalid-record";
+  } catch (error) {
+    upstreamStatus = error instanceof Error ? error.name : "unavailable";
     /* A cached build copy remains usable when GitHub is unreachable. */
   }
   if (!preview) {
@@ -81,6 +91,7 @@ export async function intelligenceResponse(
       /* Previews are optional. */
     }
   }
+  if (preview && source === "missing") source = "bundle";
   const response = preview
     ? Response.json(preview, {
         headers: {
@@ -91,6 +102,8 @@ export async function intelligenceResponse(
     : Response.json(null, {
         headers: { "Cache-Control": "public, max-age=3600" },
       });
+  response.headers.set("X-Observation-Source", source);
+  response.headers.set("X-Observation-Upstream", upstreamStatus);
   try {
     await cache?.put(key, response.clone());
   } catch {

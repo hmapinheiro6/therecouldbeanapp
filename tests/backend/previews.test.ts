@@ -39,6 +39,27 @@ describe("optional public previews", () => {
     );
     expect(response.headers.get("Cache-Control")).toContain("s-maxage=86400");
     expect(cache.put).toHaveBeenCalledOnce();
+    expect(
+      (remote.mock.calls as unknown as [string, RequestInit][])[0][1].redirect,
+    ).toBe("manual");
+  });
+  it("rejects an upstream redirect without following an arbitrary destination", async () => {
+    const remote = vi.fn(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { Location: "https://unrelated.dev" },
+        }),
+    );
+    const response = await previewResponse(
+      request,
+      "actual",
+      assets,
+      remote as typeof fetch,
+      undefined,
+    );
+    expect(await response.json()).toBeNull();
+    expect(remote).toHaveBeenCalledOnce();
   });
   it("serves cached previews without upstream work", async () => {
     const cached = Response.json(preview);

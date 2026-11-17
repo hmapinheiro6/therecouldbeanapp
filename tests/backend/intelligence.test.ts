@@ -56,6 +56,10 @@ describe("dated public observations without D1", () => {
     );
     expect(response.headers.get("Cache-Control")).toContain("s-maxage=21600");
     expect(cache.put).toHaveBeenCalledOnce();
+    expect(response.headers.get("X-Observation-Source")).toBe("repository");
+    expect(
+      (remote.mock.calls as unknown as [string, RequestInit][])[0][1].redirect,
+    ).toBe("manual");
   });
   it("serves the edge cache before any upstream work and falls back to bundled records", async () => {
     const hit = Response.json(fixture);
@@ -76,6 +80,26 @@ describe("dated public observations without D1", () => {
       undefined,
     );
     expect(await response.json()).toEqual(fixture);
+    expect(response.headers.get("X-Observation-Source")).toBe("bundle");
+  });
+  it("rejects upstream redirect responses without following their destination", async () => {
+    const remote = vi.fn(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { Location: "https://unrelated.dev" },
+        }),
+    );
+    const response = await intelligenceResponse(
+      request,
+      "otter",
+      assets,
+      remote as typeof fetch,
+      undefined,
+    );
+    expect(await response.json()).toBeNull();
+    expect(remote).toHaveBeenCalledOnce();
+    expect(response.headers.get("X-Observation-Upstream")).toBe("302");
   });
   it("fails closed for oversized and invalid records; missing observations cache as JSON null", async () => {
     for (const body of [
