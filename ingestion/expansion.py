@@ -83,7 +83,9 @@ def verify_candidate(candidate,web=None):
         if len(parts)<2 or len(parts)>2 and parts[2] not in ('releases','tree','wiki'): raise ValueError('Not a repository product page')
         resolved_url='https://github.com/'+'/'.join(parts[:2])
     resolved={**candidate,'canonical_url':resolved_url}
-    return verify_identity(resolved,page)
+    product=verify_identity(resolved,page)
+    product['identity_evidence_url']=canonicalize(page['url'])
+    return product
 
 
 def publish(state,limit,client=None,verify=verify_candidate):

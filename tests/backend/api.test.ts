@@ -1077,3 +1077,67 @@ it("campaign reservations stop at their own ceiling and expiry without changing 
     false,
   );
 });
+
+it("exports published recovery records by advancing id with provenance and aliases", async () => {
+  const first = await app.request(
+    await signed("/api/internal/snapshot?after=0"),
+    {},
+    env,
+  );
+  expect(first.status).toBe(200);
+  const page = (await first.json()) as {
+    products: {
+      id: number;
+      canonical_url: string;
+      sources: unknown[];
+      url_aliases: string[];
+    }[];
+    next_after: number | null;
+  };
+  expect(page.products.length).toBeGreaterThan(0);
+  expect(
+    page.products.every(
+      (p) => p.sources.length > 0 && Array.isArray(p.url_aliases),
+    ),
+  ).toBe(true);
+  const last = page.products[page.products.length - 1].id;
+  const following = await app.request(
+    await signed("/api/internal/snapshot?after=" + last),
+    {},
+    env,
+  );
+  const next = (await following.json()) as typeof page;
+  expect(next.products.every((p) => p.id > last)).toBe(true);
+  const bad = await app.request(
+    await signed("/api/internal/snapshot?after=-1"),
+    {},
+    env,
+  );
+  expect(bad.status).toBe(400);
+});
+
+it("serves the recovery shell when a product has no dedicated backup HTML", async () => {
+  const response = await app.request(
+    "/apps/a-product-without-backup-html",
+    {},
+    {
+      ...env,
+      DB: {
+        prepare: () => {
+          throw new Error(
+            "D1_ERROR: Your account has exceeded D1's maximum daily number of rows read. Please try again after the daily limit resets.",
+          );
+        },
+      } as unknown as D1Database,
+      ASSETS: {
+        fetch: async (request: Request) =>
+          new URL(request.url).pathname === "/index.html"
+            ? new Response('<div id="root"></div>')
+            : new Response(null, { status: 404 }),
+      } as Fetcher,
+    },
+  );
+  expect(response.status).toBe(200);
+  expect(response.headers.get("X-Catalog-Mode")).toBe("snapshot");
+  expect(response.headers.get("X-Robots-Tag")).toBe("noindex");
+});

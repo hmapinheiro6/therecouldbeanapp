@@ -154,10 +154,20 @@ internal.get("/snapshot", async (c) => {
         .bind(...ids)
         .all<{ product_id: number }>()
     : { results: [] };
+  const aliases = ids.length
+    ? await c.env.DB.prepare(
+        `SELECT alias,canonical_url FROM product_url_aliases WHERE canonical_url IN (${products.map(() => "?").join(",")})`,
+      )
+        .bind(...products.map((p) => p.canonical_url))
+        .all<{ alias: string; canonical_url: string }>()
+    : { results: [] };
   return c.json({
     products: products.map((p) => ({
       ...p,
       sources: sources.results.filter((s) => s.product_id === p.id),
+      url_aliases: aliases.results
+        .filter((a) => a.canonical_url === p.canonical_url)
+        .map((a) => a.alias),
     })),
     offset,
     next_offset: products.length === 50 ? offset + 50 : null,

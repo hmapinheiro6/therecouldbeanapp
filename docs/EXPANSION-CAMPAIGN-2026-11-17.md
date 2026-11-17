@@ -1,0 +1,23 @@
+# Dated 10,000-product expansion
+
+The 17 November campaign targets **10,000 published products by 23:50 UTC**. Baseline: 2,868. Leads are never counted as published products. The initial hosted audit found 13,634 remaining canonical URLs after cross-source deduplication and exclusion of the saved catalog: WinGet, Scoop Main and Scoop Extras. Flathub returned no eligible explicitly licensed metadata. These sources substantially broaden desktop coverage; they do not imply equivalent SaaS coverage.
+
+The 20-site canary published 16 distinct products, held three identities and skipped one previously known URL. The live count became 2,884. Provider statement accounting measured 160 row writes for the 16 publications. This establishes the initial cost, not a guaranteed yield for later batches.
+
+## Hosted execution and stopping rules
+
+`expansion.yml` restores an authenticated encrypted checkpoint, checks up to 1,000 official sites with eight workers and per-host serialization, and publishes batches of at most 20. A successful full-sized run dispatches its continuation only after saving its encrypted checkpoint and public aggregate health. The existing hourly discovery watchdog recovers a missed continuation when no expansion job is active or queued. It flags failed jobs for attention instead of repeatedly rerunning failures. No Codex wakeup or local journal is required.
+
+Continuation stops on target, source exhaustion, quota pause or the dated deadline. The server separately enforces the date, target, identity-only policy, source allowlist and 80,000-unit campaign reservation. Routine automatic imports yield during the campaign and resume automatically after it ends. Their normal 20,000-unit daily allowance remains intact.
+
+A campaign unit is an estimate, not Cloudflare billing. New products reserve eleven units each; measured publication statements must stay at or below ten row writes per product. Request nonces, reservation/accounting and prechecks add overhead. Reservations survive failures; retries never recover spent reservations. All indexes except the unused normalized-domain index remain. No paid plan or external paid service is enabled. Account-wide usage must still be monitored because other applications and traffic can consume the shared limits.
+
+## Publication policy and recovery
+
+Metadata readers execute no installers, scripts or YAML tags. Eligible records require an attributable software description, an HTTPS official homepage, an available HTML page, a matching product title and sufficient official identity evidence. Cross-host redirects, ambiguous names, blocked sites and failed identity checks are held. Features remain unverified. Product versions are merged; same-host canonical hints and repository roots help consolidate duplicate homepages. Blocks, URL aliases and existing published products are checked before publication. Only acknowledged new database products increase the campaign total.
+
+The checkpoint retains ready results across failures. A rejected record is isolated without poisoning the valid batch. Public health exposes only aggregate counts and workflow links; unpublished candidates stay encrypted in Actions artifacts.
+
+At milestones of 2,000 additional products, and at completion, an authenticated keyset export refreshes the recovery snapshot. Incomplete, unexpectedly smaller or oversized exports preserve the previous snapshot. The Worker serves the fixed public recovery artifact from GitHub with a five-minute cache and falls back to its bundled copy. This keeps recovery data current without local deployment credentials. Official-site enrichment continues on its existing two-hour schedule. Its bounded public index and observation capacity are 12,000 products. Optional previews retain a 4,000-file cap; generated recovery HTML retains a 2,000-file cap, keeping the combined static file ceiling below Cloudflare Free's 20,000 files.
+
+Track actual results in [`data/expansion-health.json`](../data/expansion-health.json), not source totals. Source notices are distributed under `public/licenses/`; see [`data/LICENSE.md`](../data/LICENSE.md).

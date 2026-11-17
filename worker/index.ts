@@ -33,6 +33,7 @@ import {
   cachePublicAggregate,
 } from "./availability";
 import { previewResponse } from "./previews";
+import { recoveryResponse } from "./recovery";
 import { intelligenceResponse } from "./intelligence";
 const app = new Hono<AppEnv>();
 app.use("*", async (c, next) => {
@@ -131,6 +132,9 @@ app.onError(async (err, c) => {
     { "Retry-After": "3600" },
   );
 });
+app.get("/catalog-backup.json", (c) =>
+  recoveryResponse(c.req.raw, c.env.ASSETS),
+);
 app.get("/api/config", (c) =>
   c.json({
     turnstile_site_key: c.env.TURNSTILE_SITE_KEY,

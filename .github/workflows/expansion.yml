@@ -47,6 +47,9 @@ jobs:
           else
             python -m ingestion.expansion --limit "$CHECK_LIMIT"
           fi
+      - name: Refresh public recovery data at milestones
+        if: success() && inputs.audit != true
+        run: python -m ingestion.expansion_snapshot
       - name: Seal durable progress even after a partial run
         id: seal
         if: always() && steps.restore.outcome == 'success'
@@ -69,7 +72,8 @@ jobs:
         run: |
           set -euo pipefail
           if [ ! -f data/expansion-health.json ]; then exit 0; fi
-          git add -- data/expansion-health.json
+          git add -- data/expansion-health.json data/seeds/published-snapshot.json
+          if [ -f public/catalog-backup.json ]; then git add -- public/catalog-backup.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -77,3 +81,6 @@ jobs:
           AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)
           git -c http.extraheader="AUTHORIZATION: basic $AUTH" pull --rebase origin main
           git -c http.extraheader="AUTHORIZATION: basic $AUTH" push origin HEAD:main
+      - name: Continue the dated campaign after its checkpoint is saved
+        if: success() && inputs.audit != true && env.CHECK_LIMIT == '1000'
+        run: python -m ingestion.expansion_continue

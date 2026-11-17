@@ -10,7 +10,12 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "run_worker_first": ["/api/*", "/apps/*", "/sitemap.xml"],
+    "run_worker_first": [
+      "/api/*",
+      "/apps/*",
+      "/sitemap.xml",
+      "/catalog-backup.json",
+    ],
   },
   "d1_databases": [
     {
