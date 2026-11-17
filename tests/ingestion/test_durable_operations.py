@@ -58,3 +58,15 @@ def test_job_fails_when_provider_read_totals_exceed_its_budget(tmp_path,monkeypa
     query_usage.record({'X-D1-Rows-Read':'6','X-D1-Rows-Written':'2'})
     with pytest.raises(RuntimeError,match='exceeded'):query_usage.record({'X-D1-Rows-Read':'5','X-D1-Rows-Written':'0'})
     with pytest.raises(ValueError,match='missing'):query_usage.record({})
+
+
+def test_deferred_campaign_uses_current_public_export_not_a_stale_progress_count(tmp_path,monkeypatch):
+    from ingestion import expansion_deferred
+    directory=tmp_path/'data/seeds';directory.mkdir(parents=True)
+    (directory/'published-snapshot.json').write_text(json.dumps({'products':[{},{}]}))
+    journal=tmp_path/'journal.json';journal.write_text('{"records":[]}')
+    monkeypatch.setattr(expansion_deferred,'ROOT',tmp_path);monkeypatch.setattr(expansion_deferred,'JOURNAL',journal)
+    reporter=Mock(return_value={'status':'quota_deferred'})
+    monkeypatch.setattr(expansion_deferred,'health',reporter)
+    expansion_deferred.defer()
+    assert reporter.call_args.args[1:]==('quota_deferred',2)
