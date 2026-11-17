@@ -17,12 +17,12 @@ def main():
         from urllib.parse import quote
         print(json.dumps(client.request('/api/internal/pending?after='+quote(args.after)),indent=2))
     elif args.command=='snapshot':
-        products=[];offset=0
-        for _ in range(201):
-            page=client.request('/api/internal/snapshot?offset='+str(offset));products.extend(page['products'])
-            if page['next_offset'] is None:break
-            offset=page['next_offset']
-        else:raise RuntimeError('Snapshot exceeded 10000 products; use partitioned export')
+        products=[];after=0
+        for _ in range(241):
+            page=client.request('/api/internal/snapshot?after='+str(after));products.extend(page['products'])
+            if page['next_after'] is None:break
+            after=page['next_after']
+        else:raise RuntimeError('Snapshot exceeded 12000 products; use partitioned export')
         Path(args.output).write_text(json.dumps({'exported_at':now(),'products':products},indent=2)+'\n');print('Exported '+str(len(products))+' public products')
     elif args.command=='import-seed':
         products=json.loads((ROOT/'data/seeds/catalog.json').read_text())

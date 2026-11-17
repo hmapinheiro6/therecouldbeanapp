@@ -68,13 +68,19 @@ app.onError(async (err, c) => {
           new URL("/catalog-pages/" + c.req.path.slice(6) + ".html", c.req.url),
         ),
       );
-      if (asset.ok)
-        return new Response(asset.body, {
+      const recovery = asset.ok
+        ? asset
+        : await c.env.ASSETS.fetch(
+            new Request(new URL("/index.html", c.req.url)),
+          );
+      if (recovery.ok)
+        return new Response(recovery.body, {
           status: 200,
           headers: {
             "Content-Type": "text/html; charset=UTF-8",
             "Cache-Control": "no-store",
             "X-Catalog-Mode": "snapshot",
+            "X-Robots-Tag": "noindex",
           },
         });
     }

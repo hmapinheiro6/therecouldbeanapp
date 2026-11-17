@@ -3,7 +3,7 @@ import json
 from .extraction import ROOT
 from .safe_web import FetchError, canonicalize
 import re
-MAX_PRODUCTS = 4000
+MAX_PRODUCTS = 12000
 SITE = "https://therecouldbeanapp.henriquepinheiro.workers.dev"
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 
@@ -14,7 +14,7 @@ def snapshot_products():
 def published_products(web, snapshot, directory):
     """Durable, forward-only public IDs retain every approved entry across bounded runs."""
     index_file = directory / '.catalog-index.json'
-    state = json.loads(index_file.read_text()) if index_file.exists() and index_file.stat().st_size <= 2 * 1024 * 1024 else {'after': 0, 'products': []}
+    state = json.loads(index_file.read_text()) if index_file.exists() and index_file.stat().st_size <= 4 * 1024 * 1024 else {'after': 0, 'products': []}
     products = {p['slug']: p for p in [*snapshot, *state['products']]}
     after = int(state.get('after', 0))
     for _ in range(3):
@@ -43,7 +43,7 @@ def published_products(web, snapshot, directory):
     # Only minimal already-public identity fields; never review queues or secrets.
     indexed = [{key: product[key] for key in ('slug', 'name', 'canonical_url', 'verification_scope', 'first_seen_at') if key in product} for product in products.values()]
     encoded = json.dumps({'after': after, 'products': indexed}, ensure_ascii=True, separators=(',', ':')) + '\n'
-    if len(encoded.encode()) > 2 * 1024 * 1024:
+    if len(encoded.encode()) > 4 * 1024 * 1024:
         raise ValueError('Published index byte budget reached')
     temporary = index_file.with_suffix('.tmp')
     temporary.write_text(encoded)

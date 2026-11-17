@@ -15,7 +15,7 @@ Each product page is fetched once. The existing safe fetcher validates public ne
 - Four collection workers; 40 product pages per scheduled run, 100 maximum manually; eight-minute collection deadline and 15-minute workflow timeout.
 - Image downloads at most 1 MiB each; raster formats only, at most 12 million input pixels. Images are decoded and re-encoded as WebP, with metadata stripped. SVG is excluded.
 - Each thumbnail is at most 480×300 and 24 KiB. Each JSON preview is at most 48 KiB including inline image data. An over-budget image is dropped while useful text survives.
-- Public preview storage stops at 4,000 JSON files (including the public index) or 128 MiB. The index has its own 2 MiB limit. These are deliberate free-infrastructure ceilings, not unlimited growth promises.
+- Public preview storage stops at 4,000 JSON files (including the public index) or 128 MiB. The index has its own 4 MiB limit. These are deliberate free-infrastructure ceilings, not unlimited growth promises.
 - Successful records refresh after 30 days; failed fetches back off for seven days. Old usable metadata survives a failed refresh with its original collection date. Never-checked products receive priority over refreshes, with capability-verified products first.
 
 The workflow commits only `public/catalog-previews/`. Its summary reports checked pages, image previews, text-only results, failures and stored bytes. A failed publisher fetch does not fail discovery or remove catalog entries. To inspect or manually trigger a batch, use [the preview workflow](https://github.com/hmapinheiro6/therecouldbeanapp/actions/workflows/previews.yml). Set the existing discovery variable to false to pause hosted collection.

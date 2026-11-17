@@ -1,5 +1,12 @@
 import { Hono } from "hono";
 import { ingestionUnits, reserveIngestion } from "./ingestion-budget";
+import {
+  expansionBatch,
+  reserveExpansion,
+  expansionStatements,
+  EXPANSION_DAY,
+  EXPANSION_TARGET,
+} from "./expansion";
 import { quotaResponse } from "./availability";
 import type { AppEnv } from "./security";
 import { ingestSchema, moderationSchema } from "./validation";
@@ -43,7 +50,35 @@ internal.post("/maintenance", async (c) => {
         "INSERT OR IGNORE INTO d1_migrations(name) VALUES(?)",
       ).bind(budgetName),
     ]);
+  const expansionMigration = "0012_expansion_budget.sql";
+  if (
+    !(await c.env.DB.prepare("SELECT name FROM d1_migrations WHERE name=?")
+      .bind(expansionMigration)
+      .first())
+  ) {
+    await c.env.DB.batch([
+      ...expansionStatements.map((sql) => c.env.DB.prepare(sql)),
+      c.env.DB.prepare(
+        "INSERT OR IGNORE INTO d1_migrations(name) VALUES(?)",
+      ).bind(expansionMigration),
+    ]);
+  }
   return c.json({ status: "ready" });
+});
+internal.get("/expansion-status", async (c) => {
+  const rows = await c.env.DB.batch<Record<string, number>>([
+    c.env.DB.prepare(
+      "SELECT COUNT(*) published FROM products WHERE status='published'",
+    ),
+    c.env.DB.prepare(
+      "SELECT reserved_units,rows_written,rows_read FROM expansion_daily_budget WHERE day=?",
+    ).bind(EXPANSION_DAY),
+  ]);
+  return c.json({
+    published: rows[0].results[0]?.published ?? 0,
+    budget: rows[1].results[0] ?? null,
+    target: EXPANSION_TARGET,
+  });
 });
 internal.get("/pending", async (c) => {
   const after = c.req.query("after") ?? "";
@@ -94,14 +129,19 @@ internal.post("/known", async (c) => {
   });
 });
 internal.get("/snapshot", async (c) => {
-  const offset = Number(c.req.query("offset") ?? 0);
-  if (!Number.isInteger(offset) || offset < 0 || offset > 10000)
+  const after = c.req.query("after");
+  const offset = Number(after ?? c.req.query("offset") ?? 0);
+  if (
+    !Number.isInteger(offset) ||
+    offset < 0 ||
+    offset > (after === undefined ? 12000 : Number.MAX_SAFE_INTEGER)
+  )
     return c.json(
       { error: { code: "invalid_page", message: "Invalid snapshot page." } },
       400,
     );
   const r = await c.env.DB.prepare(
-    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.status='published' ORDER BY p.id LIMIT 50 OFFSET ?`,
+    `${PRODUCT_SELECT},0 bm25 FROM products p JOIN categories c ON c.id=p.category_id WHERE p.status='published' ${after === undefined ? "" : "AND p.id>?"} ORDER BY p.id LIMIT 50 ${after === undefined ? "OFFSET ?" : ""}`,
   )
     .bind(offset)
     .all<ProductRow>();
@@ -121,6 +161,8 @@ internal.get("/snapshot", async (c) => {
     })),
     offset,
     next_offset: products.length === 50 ? offset + 50 : null,
+    next_after:
+      products.length === 50 ? products[products.length - 1].id : null,
   });
 });
 internal.post("/ingest", async (c) => {
@@ -152,6 +194,42 @@ internal.post("/ingest", async (c) => {
     );
   const b = data.data;
   const db = c.env.DB;
+  if (b.expansion && !expansionBatch(b))
+    return c.json(
+      {
+        error: {
+          code: "invalid_expansion",
+          message:
+            "Only source-attributed, identity-only products are accepted during the dated campaign.",
+        },
+      },
+      400,
+    );
+  let publishedBefore = 0;
+  if (b.expansion) {
+    const count = await db
+      .prepare("SELECT COUNT(*) n FROM products WHERE status='published'")
+      .first<{ n: number }>();
+    publishedBefore = count?.n ?? 0;
+    if (publishedBefore >= EXPANSION_TARGET)
+      return c.json({ status: "target_reached", products: 0, candidates: 0 });
+  }
+  const existingCampaign = b.expansion
+    ? new Set(
+        (
+          await db
+            .prepare(
+              `SELECT canonical_url FROM products WHERE canonical_url IN (${b.products.map(() => "?").join(",")}) UNION SELECT alias canonical_url FROM product_url_aliases WHERE alias IN (${b.products.map(() => "?").join(",")})`,
+            )
+            .bind(
+              ...b.products.map((p) => p.canonical_url),
+              ...b.products.map((p) => p.canonical_url),
+            )
+            .all<{ canonical_url: string }>()
+        ).results.map((r) => r.canonical_url),
+      )
+    : new Set<string>();
+  let acceptedProducts = 0;
   const statements: D1PreparedStatement[] = [];
   // Validate all foreign vocabulary before the atomic write. Never silently omit claims.
   const [categories, capabilities] = await db.batch<{ slug: string }>([
@@ -209,12 +287,18 @@ internal.post("/ingest", async (c) => {
       )
     : new Set<string>();
   for (const p of b.products) {
+    if (existingCampaign.has(p.canonical_url)) continue;
+    if (b.expansion) {
+      if (publishedBefore + acceptedProducts >= EXPANSION_TARGET) break;
+      existingCampaign.add(p.canonical_url);
+    }
     if (
       p.verification_scope === "identity" &&
       !p.editorial_reviewed &&
       protectedUrls.has(p.canonical_url)
     )
       continue;
+    acceptedProducts++;
     const domain = new URL(p.canonical_url).hostname;
     if (p.editorial_reviewed)
       statements.push(
@@ -256,7 +340,7 @@ internal.post("/ingest", async (c) => {
     statements.push(
       db
         .prepare(
-          `INSERT INTO products(slug,name,canonical_url,normalized_domain,short_description,category_id,audience,search_aliases,status,first_seen_at,announced_at,last_verified_at) VALUES(?,?,?,?,?,(SELECT id FROM categories WHERE slug=?),?,?,'published',?,?,?) ON CONFLICT(canonical_url) DO UPDATE SET name=excluded.name,short_description=excluded.short_description,category_id=excluded.category_id,audience=excluded.audience,search_aliases=excluded.search_aliases,last_verified_at=excluded.last_verified_at,status='published',updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')`,
+          `INSERT INTO products(slug,name,canonical_url,normalized_domain,short_description,category_id,audience,search_aliases,status,first_seen_at,announced_at,last_verified_at,verification_scope,identity_evidence_url,identity_evidence_text) VALUES(?,?,?,?,?,(SELECT id FROM categories WHERE slug=?),?,?,'published',?,?,?,?,?,?) ON CONFLICT(canonical_url) DO UPDATE SET name=excluded.name,short_description=excluded.short_description,category_id=excluded.category_id,audience=excluded.audience,search_aliases=excluded.search_aliases,last_verified_at=excluded.last_verified_at,verification_scope=excluded.verification_scope,identity_evidence_url=excluded.identity_evidence_url,identity_evidence_text=excluded.identity_evidence_text,status='published',updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')`,
         )
         .bind(
           p.slug,
@@ -270,34 +354,27 @@ internal.post("/ingest", async (c) => {
           p.first_seen_at,
           p.announced_at,
           p.last_verified_at,
-        ),
-    );
-    statements.push(
-      db
-        .prepare(
-          "UPDATE products SET verification_scope=?,identity_evidence_url=?,identity_evidence_text=? WHERE canonical_url=?",
-        )
-        .bind(
           p.verification_scope,
           p.identity_evidence_url ?? null,
           p.identity_evidence_text ?? null,
-          p.canonical_url,
         ),
     );
-    statements.push(
-      db
-        .prepare(
-          "DELETE FROM product_capabilities WHERE product_id=(SELECT id FROM products WHERE canonical_url=?)",
-        )
-        .bind(p.canonical_url),
-    );
-    statements.push(
-      db
-        .prepare(
-          `INSERT INTO product_capabilities(product_id,capability_id,evidence_url,evidence_text,confidence_class,verified_at) SELECT (SELECT id FROM products WHERE canonical_url=?),k.id,json_extract(j.value,'$.evidence_url'),json_extract(j.value,'$.evidence_text'),'verified',json_extract(j.value,'$.verified_at') FROM json_each(?) j JOIN capabilities k ON k.slug=json_extract(j.value,'$.slug')`,
-        )
-        .bind(p.canonical_url, JSON.stringify(p.capabilities)),
-    );
+    if (!b.expansion) {
+      statements.push(
+        db
+          .prepare(
+            "DELETE FROM product_capabilities WHERE product_id=(SELECT id FROM products WHERE canonical_url=?)",
+          )
+          .bind(p.canonical_url),
+      );
+      statements.push(
+        db
+          .prepare(
+            `INSERT INTO product_capabilities(product_id,capability_id,evidence_url,evidence_text,confidence_class,verified_at) SELECT (SELECT id FROM products WHERE canonical_url=?),k.id,json_extract(j.value,'$.evidence_url'),json_extract(j.value,'$.evidence_text'),'verified',json_extract(j.value,'$.verified_at') FROM json_each(?) j JOIN capabilities k ON k.slug=json_extract(j.value,'$.slug')`,
+          )
+          .bind(p.canonical_url, JSON.stringify(p.capabilities)),
+      );
+    }
     statements.push(
       db
         .prepare(
@@ -443,7 +520,13 @@ internal.post("/ingest", async (c) => {
       },
       400,
     );
-  if (!(await reserveIngestion(db, ingestionUnits(b)))) {
+  if (b.expansion && !acceptedProducts)
+    return c.json({ status: "accepted", products: 0, candidates: 0 });
+  if (
+    !(b.expansion
+      ? await reserveExpansion(db, acceptedProducts)
+      : await reserveIngestion(db, ingestionUnits(b)))
+  ) {
     const { error, retry } = quotaResponse();
     c.header("Retry-After", String(retry));
     return c.json(
@@ -458,10 +541,23 @@ internal.post("/ingest", async (c) => {
       429,
     );
   }
-  if (statements.length) await db.batch(statements);
+  const results = statements.length ? await db.batch(statements) : [];
+  const accounting = {
+    rows_written: results.reduce((n, r) => n + (r.meta.rows_written ?? 0), 0),
+    rows_read: results.reduce((n, r) => n + (r.meta.rows_read ?? 0), 0),
+  };
+  if (b.expansion)
+    await db
+      .prepare(
+        "UPDATE expansion_daily_budget SET rows_written=rows_written+?,rows_read=rows_read+? WHERE day=?",
+      )
+      .bind(accounting.rows_written, accounting.rows_read, EXPANSION_DAY)
+      .run();
   return c.json({
     status: "accepted",
-    products: b.products.length,
+    accounting,
+    catalog_total: b.expansion ? publishedBefore + acceptedProducts : undefined,
+    products: acceptedProducts,
     candidates: b.candidates.length,
   });
 });

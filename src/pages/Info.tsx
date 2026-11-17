@@ -76,6 +76,16 @@ export function About() {
         remove directory formatting and prepend the product name; official-site
         identity checks and feature evidence are separate.
       </p>
+      <p>
+        WinGet and Scoop supply additional application names, homepage URLs and
+        descriptions. Each entry credits its individual manifest and passes an
+        official website identity check. Package versions are merged by product
+        homepage. WinGet metadata is covered by the{" "}
+        <a href="/licenses/winget.txt">MIT license</a>; Scoop metadata is
+        covered by the <a href="/licenses/scoop.txt">Unlicense</a>. These
+        sources include desktop software and developer tools, so catalog growth
+        does not imply equivalent growth in SaaS coverage.
+      </p>
       <h2>Someone else built it. Now what?</h2>
       <p>
         Use it. Study it. Build something better. Finding competition is useful

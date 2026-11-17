@@ -32,7 +32,7 @@ def now():
 class Metadata(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.skip=0;self.title='';self.in_title=False;self.parts=[];self.meta={};self.json_ld=[];self.ld=False;self.ld_parts=[];self.icons=[]
+        self.skip=0;self.title='';self.in_title=False;self.parts=[];self.meta={};self.json_ld=[];self.ld=False;self.ld_parts=[];self.icons=[];self.canonical=None
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if tag=='script' and a.get('type')=='application/ld+json':self.ld=True;self.ld_parts=[]
@@ -41,6 +41,7 @@ class Metadata(HTMLParser):
         if tag=='meta':
             key=(a.get('property') or a.get('name') or '').lower().strip()
             self.meta.setdefault(key, a.get('content') or '')
+        if tag=='link' and 'canonical' in (a.get('rel') or '').lower().split():self.canonical=a.get('href')
         if tag=='link' and 'icon' in (a.get('rel') or '').lower().split():self.icons.append(a.get('href') or '')
         if tag in ('h1','h2','h3','p','li','div','section'):self.parts.append('\n')
     def handle_endtag(self,tag):

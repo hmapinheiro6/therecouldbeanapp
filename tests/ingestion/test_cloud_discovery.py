@@ -151,3 +151,8 @@ def test_queue_only_prepares_evidence_for_operator_instead_of_publishing_claims(
     assert all('products' not in write for write in writes)
     drafted=[write['candidates'][0] for write in writes if write.get('candidates')][0]
     assert drafted['status']=='needs_review';assert json.loads(drafted['review_draft_json'])['capabilities']
+
+
+@pytest.fixture(autouse=True)
+def isolate_campaign_priority(monkeypatch):
+    monkeypatch.setattr("ingestion.campaign.expansion_priority", lambda: None)

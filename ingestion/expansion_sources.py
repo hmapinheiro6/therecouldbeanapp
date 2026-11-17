@@ -37,6 +37,10 @@ def candidate(name, homepage, description, source, source_url, external_id, alia
     try: homepage=canonicalize(homepage)
     except (ValueError, TypeError): return None
     parsed=urlsplit(homepage)
+    if parsed.hostname=='github.com':
+        parts=parsed.path.strip('/').split('/')
+        if len(parts)<2 or len(parts)>2 and parts[2] not in ('releases','tree','wiki'): return None
+        homepage='https://github.com/'+'/'.join(parts[:2]);parsed=urlsplit(homepage)
     if len(homepage)>1800 or parsed.hostname in EXCLUDED_HOSTS and parsed.path in ('','/'): return None
     if parsed.hostname and (parsed.hostname.endswith('.github.io') and parsed.path in ('','/')):
         pass  # A project's own GitHub Pages website can establish identity.
@@ -115,7 +119,7 @@ def directory(source, stream=None):
                     # tiny manifests from representing unbounded object graphs.
                     raw=body.decode('utf-8-sig')
                     if re.search(r'(^|\s)[&*][A-Za-z_]',raw): continue
-                    row=yaml.safe_load(raw);c=winget_row(row,path)
+                    row=yaml.load(raw,Loader=getattr(yaml,'CSafeLoader',yaml.SafeLoader));c=winget_row(row,path)
                     if not c: continue
                     key=c['external_id'];version=row.get('PackageVersion') if isinstance(row.get('PackageVersion'),str) else Path(path).parent.name
                     order=tuple((0,int(t)) if t.isdigit() else (1,t.casefold()) for t in re.findall(r'\d+|[A-Za-z]+',version))
@@ -141,7 +145,7 @@ def flathub():
     for app in ET.fromstring(raw).findall('component'):
         if app.get('type')!='desktop-application': continue
         license=app.findtext('metadata_license','').strip()
-        if license not in ('CC0-1.0','MIT','0BSD','Unlicense'): continue
+        if license not in ('CC0-1.0','0BSD','Unlicense'): continue
         names=app.findall('name');summaries=app.findall('summary')
         name=next((x.text for x in names if not x.get('{http://www.w3.org/XML/1998/namespace}lang')),None)
         summary=next((x.text for x in summaries if not x.get('{http://www.w3.org/XML/1998/namespace}lang')),None)

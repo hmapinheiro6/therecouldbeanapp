@@ -37,10 +37,10 @@ def selfhosted_candidates(text):
         out.append({'name':name[:100],'aliases':[name],'canonical_url':url,'source_name':'Awesome-Selfhosted (CC-BY-SA-3.0)','source_type':'feed','source_url':'https://github.com/awesome-selfhosted/awesome-selfhosted','external_id':hashlib.sha256(url.encode()).hexdigest(),'discovered_at':now(),'licensed_description':description,'category_slug':'web-apps','audience':'Self-hosted software users'})
     return sorted(out,key=lambda c:hashlib.sha256(c['external_id'].encode()).hexdigest())
 
-def verify_identity(c):
+def verify_identity(c, page=None):
     # Each worker gets its own fetcher. Robots, redirects, public DNS and TLS checks
     # are unchanged. Each canonical hostname is handled by only one worker below.
-    page=SafeWeb(delay=.5).fetch(c['canonical_url'])
+    page=page if page is not None else SafeWeb(delay=.5).fetch(c['canonical_url'])
     if page['status']!=200 or 'html' not in page['content_type']:raise FetchError('No usable official product page',False)
     p=Metadata();p.feed(page['text']);sentences=p.sentences();text=' '.join(sentences)
     if len(text)<80:raise FetchError('Insufficient official identity evidence',False)

@@ -116,7 +116,17 @@ writeFileSync(
   }),
 );
 mkdirSync("dist/catalog-pages", { recursive: true });
-for (const p of products) {
+// Keep the complete JSON recovery catalog, with bounded optional HTML copies.
+// 12000 intelligence + 4000 preview + 2000 HTML assets fit the Free file limit.
+const recoveryPages = [...products]
+  .sort(
+    (a, b) =>
+      Number(b.verification_scope === "capabilities") -
+        Number(a.verification_scope === "capabilities") ||
+      b.first_seen_at.localeCompare(a.first_seen_at),
+  )
+  .slice(0, 2000);
+for (const p of recoveryPages) {
   if (!/^[a-z0-9-]{1,100}$/.test(p.slug))
     throw new Error("Invalid public snapshot slug.");
   const canonical = base + "/apps/" + p.slug;

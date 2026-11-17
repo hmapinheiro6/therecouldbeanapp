@@ -41,6 +41,9 @@ def review_record(record):
 
 
 def deliver(state, persist, limit=100, client_factory=InternalClient):
+    from .campaign import expansion_priority
+    priority=expansion_priority()
+    if priority: return {'outcome':'deferred','reason':'expansion_priority','reset_at':priority,'queued_to_d1':0}
     delivery = state.setdefault('delivery', {})
     reset = reset_time(delivery.get('retry_at'))
     if reset and datetime.fromisoformat(reset.replace('Z', '+00:00')) > datetime.now(timezone.utc):

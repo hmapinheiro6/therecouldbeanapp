@@ -18,7 +18,7 @@ from .safe_web import SafeWeb, FetchError, canonicalize
 DIRECTORY = ROOT / 'public/catalog-intelligence'
 MAX_BYTES = 32 * 1024
 MAX_TOTAL = 64 * 1024 * 1024
-MAX_RECORDS = 4000
+MAX_RECORDS = 12000
 REPO = re.compile(r'https://github.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)(?:/)?\Z')
 APP_TYPES = {'SoftwareApplication', 'WebApplication', 'MobileApplication', 'DesktopApplication'}
 PREVIEW_LOCK = Lock()

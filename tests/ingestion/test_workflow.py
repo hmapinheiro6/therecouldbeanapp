@@ -108,3 +108,8 @@ def test_backfill_failure_reporting_cannot_replace_the_original_quota_error():
         with pytest.raises(InternalAPIError) as raised:
             run(1, 1)
     assert raised.value is error
+
+
+@pytest.fixture(autouse=True)
+def isolate_campaign_priority(monkeypatch):
+    monkeypatch.setattr("ingestion.campaign.expansion_priority", lambda: None)

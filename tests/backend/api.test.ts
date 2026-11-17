@@ -949,3 +949,131 @@ it("provides a bounded forward-only public identity cursor for preview collectio
     (await app.request("/api/preview-products?after=-1", {}, env)).status,
   ).toBe(400);
 });
+
+it("publishes a dated identity-only campaign batch once, with provenance and searchable names", async () => {
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(new Date("2026-11-17T12:30:00Z"));
+  try {
+    const stamp = new Date().toISOString();
+    const products = Array.from({ length: 20 }, (_, i) => ({
+      slug: `campaign-fixture-${i}`,
+      name: `Campaign Fixture ${i}`,
+      canonical_url: `https://campaign-fixture-${i}.dev`,
+      short_description:
+        "Synthetic software for the ingestion regression test.",
+      category_slug: "desktop-apps",
+      audience: "Test users",
+      search_aliases: "",
+      first_seen_at: stamp,
+      last_verified_at: stamp,
+      verification_scope: "identity",
+      identity_evidence_url: `https://campaign-fixture-${i}.dev`,
+      identity_evidence_text: `Campaign Fixture ${i} official website`,
+      capabilities: [],
+      source: {
+        source_type: "feed",
+        source_name: "WinGet manifests (MIT)",
+        source_url: `https://github.com/microsoft/winget-pkgs/blob/master/manifests/c/Fixture/${i}/Fixture.locale.en-US.yaml`,
+        external_id: `Fixture.${i}`,
+        discovered_at: stamp,
+      },
+    }));
+    const response = await app.fetch(
+      await signed("/api/internal/ingest", {
+        expansion: "2026-11-17",
+        products,
+      }),
+      env,
+    );
+    expect(response.status).toBe(200);
+    const data = (await response.json()) as {
+      products: number;
+      accounting: { rows_written: number };
+    };
+    expect(data.products).toBe(20);
+    expect(data.accounting.rows_written).toBeGreaterThan(0);
+    const product = await app.request(
+      "/api/products/campaign-fixture-0",
+      {},
+      env,
+    );
+    expect(product.status).toBe(200);
+    const visible = (await product.json()) as {
+      verification_scope: string;
+      capabilities: unknown[];
+      sources: unknown[];
+    };
+    expect(visible.verification_scope).toBe("identity");
+    expect(visible.capabilities).toEqual([]);
+    expect(visible.sources).toHaveLength(1);
+    expect(
+      (
+        await env.DB.prepare(
+          "SELECT count(*) n FROM product_fts WHERE product_fts MATCH 'Campaign'",
+        ).first()
+      )?.n,
+    ).toBe(20);
+    const before = await env.DB.prepare(
+      "SELECT reserved_units FROM expansion_daily_budget WHERE day='2026-11-17'",
+    ).first();
+    const duplicate = await app.fetch(
+      await signed("/api/internal/ingest", {
+        expansion: "2026-11-17",
+        products,
+      }),
+      env,
+    );
+    expect(((await duplicate.json()) as { products: number }).products).toBe(0);
+    expect(
+      await env.DB.prepare(
+        "SELECT reserved_units FROM expansion_daily_budget WHERE day='2026-11-17'",
+      ).first(),
+    ).toEqual(before);
+    const invented = {
+      ...products[0],
+      canonical_url: "https://other-fixture.dev",
+      editorial_reviewed: true,
+    };
+    expect(
+      (
+        await app.fetch(
+          await signed("/api/internal/ingest", {
+            expansion: "2026-11-17",
+            products: [invented],
+          }),
+          env,
+        )
+      ).status,
+    ).toBe(400);
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
+it("campaign reservations stop at their own ceiling and expiry without changing regular ingestion", async () => {
+  const { reserveExpansion } = await import("../../worker/expansion");
+  const day = "2026-11-17";
+  await env.DB.prepare(
+    "INSERT OR REPLACE INTO expansion_daily_budget(day,reserved_units) VALUES(?,79990)",
+  )
+    .bind(day)
+    .run();
+  expect(await reserveExpansion(env.DB, 1, new Date(day + "T15:00:00Z"))).toBe(
+    false,
+  );
+  expect(
+    (
+      await env.DB.prepare(
+        "SELECT reserved_units FROM expansion_daily_budget WHERE day=?",
+      )
+        .bind(day)
+        .first()
+    )?.reserved_units,
+  ).toBe(79990);
+  expect(
+    await reserveExpansion(env.DB, 1, new Date("2026-11-18T00:00:00Z")),
+  ).toBe(false);
+  expect(await reserveExpansion(env.DB, 21, new Date(day + "T15:00:00Z"))).toBe(
+    false,
+  );
+});

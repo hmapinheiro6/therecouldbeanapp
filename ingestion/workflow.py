@@ -41,7 +41,9 @@ def report(stage, outcome, code=None, reset=None, kind=None, status=None):
     if summary:
         with Path(summary).open('a') as stream:
             stream.write('\n### Catalog ' + stage + ': ' + outcome.upper() + '\n\n')
-            if outcome == 'deferred':
+            if outcome == 'deferred' and code == 'expansion_priority':
+                stream.write('Routine imports are yielding to the dated 10,000-product campaign. Pending work is retained. Resume by '+str(reset)+'.\n')
+            elif outcome == 'deferred':
                 stream.write('Expected daily allowance pause (`' + code + '`). This is **not a completed collection or publication**.\n\n')
                 stream.write('Reset: ' + (reset or 'see the private API response / next UTC day') + '. No immediate retry.\n\n')
                 stream.write('Preparation stops before source work. If an import was already running, earlier batches may have committed; inspect its persisted run before resuming. Existing records are retained.\n')
@@ -51,13 +53,18 @@ def report(stage, outcome, code=None, reset=None, kind=None, status=None):
                 stream.write('The requested import completed. Counts are in its run output. This does not imply that all discovered candidates were published.\n')
             else:
                 stream.write('The workflow failed; investigate the failing step. It was not converted into a quota pause.\n')
-    if outcome == 'deferred':
+    if outcome == 'deferred' and code != 'expansion_priority':
         print('::notice title=Catalog import deferred::Daily allowance pause; see the job summary. No completed import is claimed.')
 
 
 def execute(stage, max_candidates=100, workers=8, source='homebrew', queue_only=False):
     try:
         if stage == 'prepare':
+            from .campaign import expansion_priority
+            priority=expansion_priority()
+            if priority:
+                report(stage,'deferred',code='expansion_priority',reset=priority)
+                return 0
             result = InternalClient().request('/api/internal/maintenance', {})
             if not isinstance(result, dict) or result.get('status') != 'ready':
                 raise RuntimeError('Unexpected maintenance response')
