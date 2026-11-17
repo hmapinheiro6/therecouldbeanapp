@@ -29,6 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
@@ -68,19 +69,7 @@ jobs:
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ ! -f data/expansion-health.json ]; then exit 0; fi
-          git add -- data/expansion-health.json data/seeds/published-snapshot.json
-          if [ -f public/catalog-backup.json ]; then git add -- public/catalog-backup.json; fi
-          if git diff --cached --quiet; then exit 0; fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Update hosted catalog expansion progress'
-          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)
-          git -c http.extraheader="AUTHORIZATION: basic $AUTH" pull --rebase origin main
-          git -c http.extraheader="AUTHORIZATION: basic $AUTH" push origin HEAD:main
+        run: node scripts/publish-expansion.mjs
       - name: Continue the dated campaign after its checkpoint is saved
         if: success() && inputs.audit != true && env.CHECK_LIMIT == '1000'
         run: python -m ingestion.expansion_continue

@@ -191,7 +191,10 @@ def publish(state,limit,client=None,verify=verify_candidate):
             group=pending[offset:offset+30]
             known=set(client.request('/api/internal/known',{'urls':[r['candidate']['canonical_url'] for r in group]})['known'])
             for r in group:
-                if r['candidate']['canonical_url'] in known: r['status']='duplicate'
+                url=r['candidate']['canonical_url']
+                names=[r['candidate'].get('name',''),*r['candidate'].get('aliases',[])]
+                if url in known: r['status']='duplicate'
+                elif any(identities.get(identity_key(name),set())-{url} for name in names if len(identity_key(name))>=2):r.update(status='held',reason='name_identity_needs_review')
                 else: selected.append(r)
         state['records']=[r for r in state['records'] if r['status']!='duplicate'];persist()
         with ThreadPoolExecutor(max_workers=8) as pool:
