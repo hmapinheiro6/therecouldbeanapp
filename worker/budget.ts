@@ -7,6 +7,8 @@ export interface Usage {
   rows_written: number;
   observed_at: string;
 }
+export const USAGE_UPSERT = `INSERT INTO d1_usage_observations(day,rows_read,rows_written,observed_at) VALUES(?,?,?,?)
+    ON CONFLICT(day) DO UPDATE SET rows_read=MAX(rows_read,excluded.rows_read),rows_written=MAX(rows_written,excluded.rows_written),observed_at=excluded.observed_at`;
 export function budgetState(usage: Usage | null, now = new Date()) {
   const fresh =
     usage?.day === now.toISOString().slice(0, 10) &&
@@ -60,16 +62,14 @@ export async function readAccountUsage(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: `query($accountTag: string, $filter: ZoneWorkersRequestsFilter_InputObject) {viewer {accounts(filter:{accountTag:$accountTag}) {d1AnalyticsAdaptiveGroups(limit:10000,filter:$filter) {sum {rowsRead rowsWritten}}}}}`,
+      query: `query($accountTag: string!, $day: Date!) {viewer {accounts(filter:{accountTag:$accountTag}) {d1AnalyticsAdaptiveGroups(limit:10000,filter:{date_geq:$day,date_leq:$day}) {sum {rowsRead rowsWritten}}}}}`,
       variables: {
         accountTag: "272cf24b9368ff4a4c6833562cae0f0d",
-        filter: {
-          datetimeHour_geq: now.toISOString().slice(0, 10) + "T00:00:00Z",
-          datetimeHour_leq: now.toISOString(),
-        },
+        day: now.toISOString().slice(0, 10),
       },
     }),
     signal: AbortSignal.timeout(15000),
+    redirect: "error",
   });
   if (!response.ok) throw new Error("Account usage unavailable");
   const data = (await response.json()) as {
@@ -105,10 +105,7 @@ export async function readAccountUsage(
 }
 export async function refreshBudget(env: Bindings) {
   const usage = await readAccountUsage(env);
-  await env.DB.prepare(
-    `INSERT INTO d1_usage_observations(day,rows_read,rows_written,observed_at) VALUES(?,?,?,?)
-    ON CONFLICT(day) DO UPDATE SET rows_read=MAX(rows_read,excluded.rows_read),rows_written=MAX(rows_written,excluded.rows_written),observed_at=excluded.observed_at`,
-  )
+  await env.DB.prepare(USAGE_UPSERT)
     .bind(usage.day, usage.rows_read, usage.rows_written, usage.observed_at)
     .run();
   console.log(

@@ -107,6 +107,8 @@ jobs:
         run: python -m ingestion.publication acquire
       - name: Deploy a single atomic static release
         run: npx wrangler deploy
+      - name: Verify operations access and initialize fresh account usage
+        run: node scripts/verify-operations.mjs
       - name: Release the publication lock
         if: always() && steps.lease.outcome == 'success'
         run: python -m ingestion.publication release
