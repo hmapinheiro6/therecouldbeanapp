@@ -929,9 +929,11 @@ it("publishes a dated identity-only campaign batch once, with provenance and sea
     expect(response.status).toBe(200);
     const data = (await response.json()) as {
       products: number;
+      publication: string;
       accounting: { rows_written: number };
     };
     expect(data.products).toBe(20);
+    expect(data.publication).toBe("after_hosted_run");
     expect(data.accounting.rows_written).toBeGreaterThan(0);
     const visible = (await getProduct(env.DB, products[0].slug))!;
     expect(visible.verification_scope).toBe("identity");

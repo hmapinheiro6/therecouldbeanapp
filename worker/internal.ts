@@ -674,8 +674,14 @@ internal.post("/ingest", async (c) => {
         ingestionMoment.toISOString().slice(0, 10),
       )
       .run();
+  // A bulk run publishes through its workflow_run hook once its checkpoint is sealed.
+  // Rebuilding after each twenty-product batch causes redundant releases and revision races.
   const publication =
-    acceptedProducts > 0 ? await requestStaticPublish(c.env) : "unchanged";
+    acceptedProducts > 0
+      ? b.expansion
+        ? "after_hosted_run"
+        : await requestStaticPublish(c.env)
+      : "unchanged";
   return c.json({
     status: "accepted",
     publication,
