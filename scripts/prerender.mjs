@@ -12,78 +12,65 @@ import { intelligenceBucket } from "../src/lib/static-intelligence.ts";
 import { parseIntelligence } from "../src/lib/intelligence.ts";
 import { validPreview } from "../src/lib/previews.ts";
 import { parse } from "jsonc-parser";
-import { escapeHtml, productSummary } from "../worker/seo.ts";
+import { escapeHtml } from "../worker/seo.ts";
+import { renderPage } from "./render-page.tsx";
+import { catalogResponse } from "../src/lib/static-catalog.ts";
+import {
+  catalogPath,
+  pageMetadata,
+  pageStructuredData,
+  SITE_NAME,
+} from "../src/lib/seo.ts";
 const base = new URL(
   parse(readFileSync("wrangler.jsonc", "utf8")).vars.SITE_URL,
 ).origin;
-const html = readFileSync("dist/index.html", "utf8").replace(
-  'content="/social.png"',
-  'content="' + base + '/social.png"',
-);
-writeFileSync(
-  "dist/index.html",
-  html.replace(
-    "</head>",
-    '<link rel="canonical" href="' + base + '/"/></head>',
-  ),
-);
-const pages = {
-  admin: ["Catalog review — There Could Be An App", "Private catalog review."],
-  about: [
-    "About — There Could Be An App",
-    "Find existing apps and SaaS products, with evidence from their official websites.",
-  ],
-  privacy: [
-    "Privacy — There Could Be An App",
-    "What we process, what we keep, and how spam protection works.",
-  ],
-  terms: [
-    "Terms — There Could Be An App",
-    "Terms for researching software and submitting a product.",
-  ],
-  submit: [
-    "Submit your app — There Could Be An App",
-    "Submit your software for independent verification and inclusion in the catalog.",
-  ],
-  explore: [
-    "Explore the catalog — There Could Be An App",
-    "Browse software with checked official websites and clearly labelled feature evidence.",
-  ],
-  search: [
-    "The reality check — There Could Be An App",
-    "Find relevant software for your app idea.",
-  ],
-};
-for (const [path, [title, description]] of Object.entries(pages)) {
-  let page = html
-    .replace(/<title>.*?<\/title>/, `<title>${title}</title>`)
-    .replace(/(<meta name="description" content=")[^"]*/, `$1${description}`);
-  page = page
-    .replace(/(<meta property="og:title" content=")[^"]*/, `$1${title}`)
+// All routes receive one consistent metadata set, derived from the same content.
+const template = readFileSync("dist/index.html", "utf8")
+  .replace(/<title>[\s\S]*?<\/title>/g, "")
+  .replace(/<meta\s+(?:name="description"|property="og:[^"]+")[^>]*>/g, "");
+const safeJson = (value) => JSON.stringify(value).replace(/</g, "\\u003c");
+function makePage(path, product, category, items) {
+  const meta = pageMetadata(path, product, category);
+  const url = escapeHtml(base + (path === "/404" ? "/404.html" : path));
+  const tags = `<title>${escapeHtml(meta.title)}</title>
+    <meta name="description" content="${escapeHtml(meta.description)}"/>
+    <meta name="robots" content="${meta.robots}"/>
+    <link rel="canonical" href="${url}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="${SITE_NAME}"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:title" content="${escapeHtml(meta.title)}"/>
+    <meta property="og:description" content="${escapeHtml(meta.description)}"/>
+    <meta property="og:url" content="${url}"/>
+    <meta property="og:image" content="${base}/social.png"/>
+    <meta property="og:image:alt" content="There Could Be An App — discover existing software"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="${escapeHtml(meta.title)}"/>
+    <meta name="twitter:description" content="${escapeHtml(meta.description)}"/>
+    <meta name="twitter:image" content="${base}/social.png"/>
+    <meta name="twitter:image:alt" content="There Could Be An App — discover existing software"/>
+    <script type="application/ld+json" id="page-schema">${safeJson(pageStructuredData(base, path, meta, product, category, items))}</script>`;
+  const rendered = renderPage(path, publishedCatalog);
+  const embedded = product
+    ? `<script type="application/json" id="catalog-product">${safeJson(product)}</script>`
+    : `<script type="application/json" id="catalog-page">${rendered.data}</script>`;
+  return template
+    .replace("</head>", () => tags + "</head>")
     .replace(
-      /(<meta property="og:description" content=")[^"]*/,
-      `$1${description}`,
+      '<div id="root"></div>',
+      () => `<div id="root">${rendered.body}</div>${embedded}`,
     );
-  page = page.replace(
-    "</head>",
-    '<link rel="canonical" href="' + base + "/" + path + '"/></head>',
-  );
-  if (path === "search" || path === "admin")
-    page = page.replace(
-      "</head>",
-      '<meta name="robots" content="noindex,nofollow"/></head>',
-    );
-  mkdirSync(`dist/${path}`, { recursive: true });
-  writeFileSync(`dist/${path}/index.html`, page);
 }
-
-writeFileSync(
-  "dist/404.html",
-  html.replace(
-    "</head>",
-    '<meta name="robots" content="noindex,nofollow"/></head>',
-  ),
-);
+function savePage(path, product, category, items) {
+  const filename =
+    path === "/"
+      ? "dist/index.html"
+      : path === "/404"
+        ? "dist/404.html"
+        : "dist" + path + ".html";
+  mkdirSync(filename.slice(0, filename.lastIndexOf("/")), { recursive: true });
+  writeFileSync(filename, makePage(path, product, category, items));
+}
 
 const snapshot = JSON.parse(
   readFileSync("data/seeds/published-snapshot.json", "utf8"),
@@ -151,6 +138,7 @@ json("catalog/products.json", {
   categories: enrichedCategories,
 });
 json("catalog/recent.json", {
+  total: products.length,
   products: [...products]
     .sort(
       (a, b) => b.first_seen_at.localeCompare(a.first_seen_at) || b.id - a.id,
@@ -169,6 +157,11 @@ json("catalog/stats.json", {
   catalog_updated_at: snapshot.exported_at,
 });
 json("catalog/categories.json", { categories: enrichedCategories });
+const publishedCatalog = {
+  exported_at: snapshot.exported_at,
+  products,
+  categories: enrichedCategories,
+};
 const config = parse(readFileSync("wrangler.jsonc", "utf8"));
 json("catalog/config.json", {
   turnstile_site_key: config.vars.TURNSTILE_SITE_KEY,
@@ -220,44 +213,11 @@ for (const p of products) {
   } catch (e) {
     if (e.code !== "ENOENT") throw e;
   }
-  const canonical = base + "/apps/" + p.slug;
-  const description = escapeHtml(p.short_description),
-    title = escapeHtml(p.name + " — There Could Be An App");
-  const data = JSON.stringify(p).replace(/</g, "\\u003c");
-  const structured = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: p.name,
-    url: p.canonical_url,
-    description: p.short_description,
-    applicationCategory: p.category,
-  }).replace(/</g, "\\u003c");
-  const page = html
-    .replace(/<title>.*?<\/title>/, () => `<title>${title}</title>`)
-    .replace(
-      /(<meta name="description" content=")[^"]*/,
-      () => `<meta name="description" content="${description}`,
-    )
-    .replace(
-      /(<meta property="og:title" content=")[^"]*/,
-      () => `<meta property="og:title" content="${title}`,
-    )
-    .replace(
-      /(<meta property="og:description" content=")[^"]*/,
-      () => `<meta property="og:description" content="${description}`,
-    )
-    .replace(
-      '<div id="root"></div>',
-      () =>
-        `<div id="root">${productSummary(p)}</div><script type="application/json" id="catalog-product">${data}</script><script type="application/ld+json">${structured}</script>`,
-    )
-    .replace(
-      "</head>",
-      () =>
-        `<link rel="canonical" href="${escapeHtml(canonical)}"/><meta property="og:url" content="${escapeHtml(canonical)}"/></head>`,
-    );
-  mkdirSync("dist/apps", { recursive: true });
-  writeFileSync("dist/apps/" + p.slug + ".html", page);
+  savePage(
+    "/apps/" + p.slug,
+    p,
+    enrichedCategories.find((c) => c.slug === p.category_slug),
+  );
 }
 json("catalog/previews.json", { slugs: previewSlugs });
 // Retired recovery/proxy assets and per-product intelligence copies have no public role.
@@ -268,15 +228,25 @@ for (const path of [
   "catalog-intelligence",
 ])
   rmSync("dist/" + path, { recursive: true, force: true });
-const paths = [
-  "",
-  "/about",
-  "/explore",
-  "/submit",
-  "/privacy",
-  "/terms",
-  ...products.map((p) => "/apps/" + p.slug),
-];
+const paths = ["/", "/about", "/submit", "/privacy", "/terms"];
+for (const path of [...paths, "/search", "/admin", "/404"]) savePage(path);
+// Every listing is reachable through real HTML links, without JavaScript or query parameters.
+for (const category of [
+  undefined,
+  ...enrichedCategories.filter((c) => c.product_count > 0),
+]) {
+  const count = category?.product_count ?? products.length;
+  for (let page = 1; page <= Math.ceil(count / 24); page++) {
+    const path = catalogPath(category?.slug, page);
+    const items = catalogResponse(
+      publishedCatalog,
+      `/products?category=${category?.slug ?? ""}&offset=${(page - 1) * 24}&sort=recent`,
+    ).products;
+    savePage(path, undefined, category, items);
+    paths.push(path);
+  }
+}
+paths.push(...products.map((p) => "/apps/" + p.slug));
 writeFileSync(
   "dist/sitemap.xml",
   `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map((path) => `<url><loc>${escapeHtml(base + path)}</loc></url>`).join("")}</urlset>`,
@@ -312,5 +282,6 @@ console.log(
 
 writeFileSync(
   "dist/robots.txt",
-  `User-agent: *\nDisallow: /api/\nDisallow: /search\nSitemap: ${base}/sitemap.xml\n`,
+  readFileSync("public/robots.txt", "utf8").trim() +
+    `\nSitemap: ${base}/sitemap.xml\n`,
 );

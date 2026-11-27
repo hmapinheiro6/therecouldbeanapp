@@ -1,6 +1,100 @@
 import { test, expect } from "@playwright/test";
 import { intelligenceBucket } from "../../src/lib/static-intelligence";
 import { readFileSync } from "node:fs";
+test("catalog and evidence remain navigable without JavaScript", async ({
+  browser,
+  baseURL,
+  request,
+}) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    baseURL,
+  });
+  const page = await context.newPage();
+  try {
+    await page.goto("/");
+    await expect(
+      page.getByRole("heading", { name: "Find software before you build it." }),
+    ).toBeVisible();
+    await page.getByRole("link", { name: "Explore all apps" }).click();
+    await expect(page.locator(".product-card")).toHaveCount(24);
+    await page.getByRole("link", { name: "Next" }).click();
+    await expect(page).toHaveURL(/\/explore\/page\/2$/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      /\/explore\/page\/2$/,
+    );
+    await page
+      .locator('.category-filter a[href="/categories/meetings"]')
+      .click();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      "Meetings apps and software",
+    );
+    await page
+      .getByRole("heading", { name: "Otter", exact: true })
+      .getByRole("link")
+      .click();
+    await expect(
+      page.getByRole("heading", { name: "Features documented" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Official evidence ↗" }).first(),
+    ).toHaveAttribute("href", /^https:\/\/otter.ai/);
+    expect((await request.get("/categories/does-not-exist")).status()).toBe(
+      404,
+    );
+    expect((await request.get("/explore/page/99999")).status()).toBe(404);
+    const search = await request.get("/search?q=Otter");
+    expect(search.headers()["x-robots-tag"]).toContain("noindex");
+    expect(await search.text()).toContain(
+      'name="robots" content="noindex,nofollow"',
+    );
+  } finally {
+    await context.close();
+  }
+});
+
+test("metadata follows navigation between products and information pages", async ({
+  page,
+}) => {
+  await page.goto("/apps/otter");
+  await expect(page).toHaveTitle(/Otter: Meetings Software/);
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+    "content",
+    /\/apps\/otter$/,
+  );
+  await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
+    "content",
+    /Otter/,
+  );
+  await page.locator('.site-footer a[href="/about"]').click();
+  await expect(page).toHaveTitle(/How We Find and Verify Software/);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    /Learn how/,
+  );
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+    "content",
+    /\/about$/,
+  );
+  expect(await page.locator("#page-schema").textContent()).not.toContain(
+    '"@type":"SoftwareApplication"',
+  );
+  await page.locator('.site-footer a[href="/explore"]').click();
+  // This also checks that refreshing the preloaded recent page preserves pagination.
+  await expect(page.getByRole("link", { name: "Next" })).toBeVisible();
+  await page.locator('.category-filter a[href="/categories/meetings"]').click();
+  await expect(page).toHaveTitle(/Meetings Apps & Software/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    /\/categories\/meetings$/,
+  );
+  await page.goto("/missing");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    "noindex,nofollow",
+  );
+});
 const previewFixture = JSON.parse(
   readFileSync(new URL("../preview-fixture.json", import.meta.url), "utf8"),
 );

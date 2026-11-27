@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useApi } from "../useApi";
 import type { Product as ProductType } from "../lib/types";
+import { canonicalOrigin, updatePageMetadata } from "../lib/seo";
 import { ProductIntelligence } from "../components/ProductIntelligence";
 const date = (v: string) =>
   new Date(v).toLocaleDateString("en-GB", {
@@ -17,12 +18,9 @@ export function Product() {
     loading,
   } = useApi<ProductType>("/products/" + encodeURIComponent(slug ?? ""));
   useEffect(() => {
-    if (p) {
-      document.title = p.name + " — There Could Be An App";
-      const description = document.querySelector('meta[name="description"]');
-      description?.setAttribute("content", p.short_description);
-    }
-  }, [p]);
+    if (p) updatePageMetadata(canonicalOrigin(), "/apps/" + p.slug, p);
+    else if (error) updatePageMetadata(canonicalOrigin(), "/apps/" + slug);
+  }, [p, error, slug]);
   if (loading)
     return (
       <div className="page" role="status">
@@ -120,7 +118,9 @@ export function Product() {
               </a>
             </dd>
             <dt>Category</dt>
-            <dd>{p.category}</dd>
+            <dd>
+              <Link to={"/categories/" + p.category_slug}>{p.category}</Link>
+            </dd>
             {p.audience && (
               <>
                 <dt>Audience</dt>

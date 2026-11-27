@@ -8,6 +8,7 @@
     "dev:api": "wrangler dev --port 8787",
     "build": "tsc --noEmit && vite build && node --import tsx scripts/prerender.mjs",
     "typecheck": "tsc --noEmit",
+    "verify:static": "node --import tsx scripts/verify-static.mjs",
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",

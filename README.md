@@ -43,6 +43,7 @@ The API suite uses actual local D1 in workerd. The search regressions exercise M
 
 ## Documentation
 
+- [Search and AI discovery audit, verification and publication](docs/SEO.md)
 - [Engineering report and current deployment status](docs/REPORT.md)
 - [Blueprint visual system and artwork](docs/DESIGN.md)
 - [Lean publisher images and autonomous metadata collection](docs/METADATA-PREVIEWS.md)

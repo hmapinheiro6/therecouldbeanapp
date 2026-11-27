@@ -7,42 +7,13 @@ import { Explore } from "./pages/Explore";
 import { Product } from "./pages/Product";
 import { Submit } from "./pages/Submit";
 import { About, Privacy, Terms, NotFound } from "./pages/Info";
+import { canonicalOrigin, catalogRoute, updatePageMetadata } from "./lib/seo";
 function PageMetadata() {
   const { pathname: rawPathname } = useLocation();
   const pathname = rawPathname.replace(/\/$/, "") || "/";
   useEffect(() => {
-    const titles: Record<string, string> = {
-      "/": "Someone probably built it.",
-      "/search": "The reality check",
-      "/explore": "Explore the catalog",
-      "/submit": "Submit your app",
-      "/about": "About",
-      "/admin": "Catalog review",
-      "/privacy": "Privacy",
-      "/terms": "Terms",
-    };
-    if (!pathname.startsWith("/apps/"))
-      document.title =
-        (titles[pathname] ?? "Page not found") + " — There Could Be An App";
-    let meta = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.name = "robots";
-      document.head.appendChild(meta);
-    }
-    meta.content =
-      pathname === "/search" || pathname.startsWith("/admin")
-        ? "noindex,nofollow"
-        : "index,follow";
-    let canonical = document.querySelector<HTMLLinkElement>(
-      'link[rel="canonical"]',
-    );
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
-    }
-    canonical.href = window.location.origin + pathname;
+    if (!/^\/apps\/[^/]+$/.test(pathname) && !catalogRoute(pathname))
+      updatePageMetadata(canonicalOrigin(), pathname);
     window.scrollTo(0, 0);
     document.querySelector<HTMLElement>("main")?.focus({ preventScroll: true });
   }, [pathname]);
@@ -63,6 +34,12 @@ export function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/search" element={<Search />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/explore/page/:page" element={<Explore />} />
+            <Route path="/categories/:category" element={<Explore />} />
+            <Route
+              path="/categories/:category/page/:page"
+              element={<Explore />}
+            />
             <Route path="/apps/:slug" element={<Product />} />
             <Route path="/submit" element={<Submit />} />
             <Route path="/about" element={<About />} />

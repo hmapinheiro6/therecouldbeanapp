@@ -113,6 +113,40 @@ export function Home() {
           ? `${data.products} PUBLISHED PRODUCTS`
           : "SOURCE-CHECKED SOFTWARE"}
       </div>
+      <section className="page prose" aria-labelledby="software-discovery">
+        <h2 id="software-discovery">Find software before you build it.</h2>
+        <p>
+          There Could Be An App is a free software discovery catalog. Describe a
+          task or app idea in plain language to find existing SaaS products,
+          desktop applications and self-hosted tools. Browse the{" "}
+          <Link to="/explore">software catalog by category</Link> or search for
+          the capabilities you need.
+        </p>
+        <h3>How are software matches chosen?</h3>
+        <p>
+          Search compares your request with product descriptions and documented
+          capabilities. Strong and partial matches reflect feature evidence;
+          related products share relevant wording. These labels support research
+          and do not guarantee that a product fits your needs.
+        </p>
+        <h3>Are all listed features verified?</h3>
+        <p>
+          No. “Official website checked” confirms product identity. “Features
+          documented” means specific features have supporting excerpts from
+          official sources. Each listing shows its sources and last source
+          check. We have not tested every product hands-on.{" "}
+          <Link to="/about">
+            Read our verification method and coverage limits
+          </Link>
+          .
+        </p>
+        <h3>Can I submit an app?</h3>
+        <p>
+          Yes. <Link to="/submit">Submit your app for review</Link> without an
+          account or payment. Publication requires an independent identity
+          check; submitting a product does not guarantee inclusion.
+        </p>
+      </section>
     </>
   );
 }

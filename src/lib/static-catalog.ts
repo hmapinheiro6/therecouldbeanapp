@@ -47,7 +47,7 @@ export function catalogResponse(
   const url = new URL(path, "https://snapshot.invalid"),
     catalog_updated_at = snapshot.exported_at;
   const offset = Number(url.searchParams.get("offset") ?? 0);
-  if (!Number.isInteger(offset) || offset < 0 || offset > 10000)
+  if (!Number.isInteger(offset) || offset < 0 || offset > 15000)
     throw new Error("Invalid catalog page.");
   if (url.pathname === "/stats")
     return {
@@ -69,6 +69,7 @@ export function catalogResponse(
       );
     return {
       products: products.slice(offset, offset + 24),
+      total: products.length,
       offset,
       limit: 24,
       catalog_updated_at,

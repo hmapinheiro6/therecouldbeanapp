@@ -18,6 +18,7 @@
     "src",
     "worker",
     "scripts/*.ts",
+    "scripts/*.tsx",
     "tests/**/*.ts",
     "vite.config.ts",
     "playwright.config.ts",
