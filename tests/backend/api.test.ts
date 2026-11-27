@@ -890,8 +890,9 @@ it("shares an atomic ingestion allowance across jobs and resumes in a new UTC da
 it("publishes a dated identity-only campaign batch once, with provenance and searchable names", async () => {
   vi.useFakeTimers({ toFake: ["Date"] });
   vi.setSystemTime(new Date("2026-11-17T12:30:00Z"));
+  // beforeEach seeds the real current day; this historical test needs its own observation.
   await env.DB.prepare(
-    "UPDATE d1_usage_observations SET observed_at='2026-11-17T12:30:00Z' WHERE day='2026-11-17'",
+    "INSERT OR REPLACE INTO d1_usage_observations(day,rows_read,rows_written,observed_at) VALUES('2026-11-17',0,0,'2026-11-17T12:30:00Z')",
   ).run();
   try {
     const stamp = new Date().toISOString();
