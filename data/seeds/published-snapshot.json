@@ -1,7 +1,7 @@
 {
-  "exported_at": "2026-11-27T15:27:50.035Z",
+  "exported_at": "2026-11-27T15:29:57.042Z",
   "environment": "production",
-  "publication_revision": 564,
+  "publication_revision": 634,
   "products": [
     {
       "slug": "net-codecontracts-6514d1a5",
@@ -23559,6 +23559,32 @@
       "url_aliases": []
     },
     {
+      "slug": "compose-generator-6fc51b19",
+      "name": "Compose Generator",
+      "canonical_url": "https://compose-generator.com",
+      "short_description": "Compose Generator: Compose Generator is an easy to use cli to generate Docker Compose YAML configuration files.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Compose Generator ComposeGenerator",
+      "first_seen_at": "2026-11-27T15:29:02Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:02Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://compose-generator.com",
+      "identity_evidence_text": "Compose Generator - Compose Generator",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/c/ChilliBits/ComposeGenerator/1.9.0/ChilliBits.ComposeGenerator.locale.en-US.yaml",
+          "external_id": "ChilliBits.ComposeGenerator",
+          "discovered_at": "2026-11-17T12:16:39Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "comprobot-2bc723e5",
       "name": "Comprobot",
       "canonical_url": "https://github.com/badluma/Comprobot",
@@ -27310,6 +27336,32 @@
       "url_aliases": []
     },
     {
+      "slug": "dxlog-net-6f277203",
+      "name": "DXLog.net",
+      "canonical_url": "https://dxlog.net",
+      "short_description": "DXLog.net: Amateur Radio Contest Logger.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "DXLog.net",
+      "first_seen_at": "2026-11-27T15:12:43Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:43Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://dxlog.net",
+      "identity_evidence_text": "DXLog.net",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/k/K-Software/DXLog/net/2.6.19/K-Software.DXLog.net.locale.en-US.yaml",
+          "external_id": "K-Software.DXLog.net",
+          "discovered_at": "2026-11-17T12:17:48Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "dagu-e6d9fd1b",
       "name": "Dagu",
       "canonical_url": "https://docs.dagu.cloud",
@@ -29457,6 +29509,32 @@
       "url_aliases": []
     },
     {
+      "slug": "devops-tools-installer-6fa69243",
+      "name": "DevOps Tools Installer",
+      "canonical_url": "https://github.com/NotHarshhaa/DevOpsToolsInstaller",
+      "short_description": "DevOps Tools Installer: Enterprise-grade Windows desktop application to discover, install, and manage DevOps and Cloud CLI tools.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "DevOps Tools Installer DevOpsToolsInstaller",
+      "first_seen_at": "2026-11-27T15:28:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:28:56Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/NotHarshhaa/DevOpsToolsInstaller",
+      "identity_evidence_text": "GitHub - NotHarshhaa/DevOpsToolsInstaller: A native Windows app for DevOps engineers to discover and download official installers for DevOps tools and cloud provider CLIs (AWS, Azure, GCP) with live progress, in one place. No bundled installers, no silent system changes. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/n/NotHarshhaa/DevOpsToolsInstaller/3.1.3/NotHarshhaa.DevOpsToolsInstaller.locale.en-US.yaml",
+          "external_id": "NotHarshhaa.DevOpsToolsInstaller",
+          "discovered_at": "2026-11-17T12:19:08Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "devpod-fd2cda9e",
       "name": "DevPod",
       "canonical_url": "https://devpod.sh",
@@ -30934,6 +31012,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/h/hdrover/DiscordDrover/0.9/hdrover.DiscordDrover.locale.en-US.yaml",
           "external_id": "hdrover.DiscordDrover",
           "discovered_at": "2026-11-17T12:17:31Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "discord-media-loader-6efc4b7a",
+      "name": "Discord Media Loader",
+      "canonical_url": "https://github.com/Serraniel/DiscordMediaLoader",
+      "short_description": "Discord Media Loader: Tool to automatically download media files from Discord Servers.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Discord Media Loader DiscordMediaLoader",
+      "first_seen_at": "2026-11-27T15:12:44Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:44Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/Serraniel/DiscordMediaLoader",
+      "identity_evidence_text": "GitHub - Serraniel/DiscordMediaLoader: Discord Media Loader - Simply download all attachments · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/Serraniel/DiscordMediaLoader/1.5.3.0/Serraniel.DiscordMediaLoader.locale.en-US.yaml",
+          "external_id": "Serraniel.DiscordMediaLoader",
+          "discovered_at": "2026-11-17T12:19:40Z"
         }
       ],
       "url_aliases": []
@@ -36196,6 +36300,32 @@
       "url_aliases": []
     },
     {
+      "slug": "enodia-6f33ac5e",
+      "name": "Enodia",
+      "canonical_url": "https://enodia.sh",
+      "short_description": "Enodia: Asks your deployed services what version they are running, checks it against vendor lifecycle calendars, and reports what is already dead, what is dying, and where your fleet has drifted apart.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Enodia",
+      "first_seen_at": "2026-11-27T15:12:44Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:44Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://enodia.sh",
+      "identity_evidence_text": "enodia",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/e/EpicMorg/Enodia/2.2.1/EpicMorg.Enodia.locale.en-US.yaml",
+          "external_id": "EpicMorg.Enodia",
+          "discovered_at": "2026-11-17T12:17:07Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "ensoai-2f835853",
       "name": "EnsoAI",
       "canonical_url": "https://github.com/J3n5en/EnsoAI",
@@ -39503,6 +39633,32 @@
       "url_aliases": []
     },
     {
+      "slug": "filebot-6f5ab34e",
+      "name": "FileBot",
+      "canonical_url": "https://filebot.net",
+      "short_description": "FileBot: The ultimate TV and Movie Renamer.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "FileBot",
+      "first_seen_at": "2026-11-27T15:12:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:51Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://filebot.net",
+      "identity_evidence_text": "FileBot - The ultimate TV and Movie Renamer",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/p/PointPlanck/FileBot/5.3.0/PointPlanck.FileBot.locale.en-US.yaml",
+          "external_id": "PointPlanck.FileBot",
+          "discovered_at": "2026-11-17T12:19:23Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "filefaker-24e23e77",
       "name": "FileFaker",
       "canonical_url": "https://filefaker.com",
@@ -41449,6 +41605,32 @@
       "url_aliases": []
     },
     {
+      "slug": "fly-photos-6f98205b",
+      "name": "Fly Photos",
+      "canonical_url": "https://github.com/riyasy/FlyPhotos",
+      "short_description": "Fly Photos: A blazing fast ultra-light photo viewer replacement for Windows. Works similar to Picasa Photo Viewer.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Fly Photos FlyPhotos",
+      "first_seen_at": "2026-11-27T15:28:57Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:28:57Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/riyasy/FlyPhotos",
+      "identity_evidence_text": "GitHub - riyasy/FlyPhotos: A blazing fast ultra-light photo viewer replacement for Windows. Works similar to Picasa Photo Viewer. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/r/riyasy/FlyPhotos/2.7.2/riyasy.FlyPhotos.locale.en-US.yaml",
+          "external_id": "riyasy.FlyPhotos",
+          "discovered_at": "2026-11-17T12:19:37Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "flyenv-80a10617",
       "name": "FlyEnv",
       "canonical_url": "https://macphpstudy.com",
@@ -42977,6 +43159,32 @@
           "source_name": "WinGet manifests (MIT)",
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/SoftSea/FreeVideoJoiner/1.0/SoftSea.FreeVideoJoiner.locale.en-US.yaml",
           "external_id": "SoftSea.FreeVideoJoiner",
+          "discovered_at": "2026-11-17T12:19:43Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "freecellok-0c34de63",
+      "name": "FreeCellOK",
+      "canonical_url": "https://softwareok.com/?seite=Freeware%2FFreeCellOK",
+      "short_description": "FreeCellOK: FreeCellOK brings the popular FreeCell classic back to your Windows desktop.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "FreeCellOK",
+      "first_seen_at": "2026-11-27T15:28:59Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:28:59Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://softwareok.com/?seite=Microsoft%2FFreeCellOK",
+      "identity_evidence_text": "FreeCellOK 1.07 FreeCellOK - The strategic FreeCell classic",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/SoftwareOK/FreeCellOK/1.07/SoftwareOK.FreeCellOK.locale.en-US.yaml",
+          "external_id": "SoftwareOK.FreeCellOK",
           "discovered_at": "2026-11-17T12:19:43Z"
         }
       ],
@@ -48213,6 +48421,32 @@
       "url_aliases": []
     },
     {
+      "slug": "google-calendar-6fb2348b",
+      "name": "Google Calendar",
+      "canonical_url": "https://github.com/klinker24/google-calendar-desktop",
+      "short_description": "Google Calendar: A simple Electron app to display Google Calendar.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Google Calendar google-calendar-desktop",
+      "first_seen_at": "2026-11-27T15:29:05Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:05Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/klinker24/google-calendar-desktop",
+      "identity_evidence_text": "GitHub - klinker24/google-calendar-desktop: A simple Electron app to display Google Calendar · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/k/klinker24/google-calendar-desktop/1.7.1/klinker24.google-calendar-desktop.locale.en-US.yaml",
+          "external_id": "klinker24.google-calendar-desktop",
+          "discovered_at": "2026-11-17T12:17:52Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "google-drive-6d5d2299",
       "name": "Google Drive",
       "canonical_url": "https://workspace.google.com/products/drive",
@@ -51182,6 +51416,32 @@
       "url_aliases": []
     },
     {
+      "slug": "heart-it-6f1bb563",
+      "name": "Heart It",
+      "canonical_url": "https://github.com/alvinashcraft/heart-it",
+      "short_description": "Heart It: Quick reactions for Microsoft Teams meetings using global keyboard shortcuts.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Heart It HeartIt",
+      "first_seen_at": "2026-11-27T15:12:52Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:52Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/alvinashcraft/heart-it",
+      "identity_evidence_text": "GitHub - alvinashcraft/heart-it: An always-on-top WPF toolbar window to send Teams meeting reactions with keyboard shortcuts. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/a/AlvinAshcraft/HeartIt/1.1.0/AlvinAshcraft.HeartIt.locale.en-US.yaml",
+          "external_id": "AlvinAshcraft.HeartIt",
+          "discovered_at": "2026-11-17T12:16:11Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "hearthstone-deck-tracker-0cb8b818",
       "name": "Hearthstone Deck Tracker",
       "canonical_url": "https://hsdecktracker.net",
@@ -53255,6 +53515,32 @@
       "url_aliases": []
     },
     {
+      "slug": "huggle-6fb19435",
+      "name": "Huggle",
+      "canonical_url": "https://github.com/huggle/huggle3-qt-lx",
+      "short_description": "Huggle: Huggle 3 is an anti-vandalism tool for use on Wikipedia and other MediaWiki sites.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Huggle",
+      "first_seen_at": "2026-11-27T15:29:03Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:03Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/huggle/huggle3-qt-lx",
+      "identity_evidence_text": "GitHub - huggle/huggle3-qt-lx: Huggle is an anti-vandalism tool for use on MediaWiki based projects · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/w/WikimediaProject/Huggle/3.4.14/WikimediaProject.Huggle.locale.en-US.yaml",
+          "external_id": "WikimediaProject.Huggle",
+          "discovered_at": "2026-11-17T12:20:13Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "hugin-3e7863f2",
       "name": "Hugin",
       "canonical_url": "https://hugin.sourceforge.io",
@@ -53562,6 +53848,32 @@
           "source_url": "https://formulae.brew.sh/cask/hyperframes",
           "external_id": "hyperframes",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "hyperhdr-6f56227e",
+      "name": "HyperHDR",
+      "canonical_url": "https://github.com/awawa-dev/HyperHDR",
+      "short_description": "HyperHDR: Highly optimized open source ambient lighting implementation based on modern digital video and audio stream analysis for Windows, macOS and Linux (x86 and Raspberry Pi / ARM).",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "HyperHDR",
+      "first_seen_at": "2026-11-27T15:12:59Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:59Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/awawa-dev/HyperHDR",
+      "identity_evidence_text": "GitHub - awawa-dev/HyperHDR: Next-gen open source ambient lighting system featuring a high-precision floating-point color pipeline breaking legacy RGB 24-bit limits. Includes advanced smoothing with inertia and adaptive temporal dithering for perfectly fluid, stable output to LEDs from any SDR or HDR video source. Supports Windows, macOS and Linux (x86/ARM). · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/a/awawa-dev/HyperHDR/21.0.0.0/awawa-dev.HyperHDR.locale.en-US.yaml",
+          "external_id": "awawa-dev.HyperHDR",
+          "discovered_at": "2026-11-17T12:16:23Z"
         }
       ],
       "url_aliases": []
@@ -55746,6 +56058,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "4c5762dd6f5e68a9c6b14f257ba87112d6d62eb3b472a2684ba3d92fcd30371f",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "insted-6fc5d886",
+      "name": "InstEd",
+      "canonical_url": "https://instedit.github.io/instedit_site/download.html",
+      "short_description": "InstEd: InstEd is a Free msi editor built for professionals.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "InstEd",
+      "first_seen_at": "2026-11-27T15:29:00Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:00Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://instedit.github.io/instedit_site/download.html",
+      "identity_evidence_text": "InstEd It! - Download InstEd",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/i/InstEd/InstEd/1.5.15.26/InstEd.InstEd.locale.en-US.yaml",
+          "external_id": "InstEd.InstEd",
+          "discovered_at": "2026-11-17T12:17:35Z"
         }
       ],
       "url_aliases": []
@@ -64706,6 +65044,32 @@
       "url_aliases": []
     },
     {
+      "slug": "listen1-6faf53f9",
+      "name": "Listen1",
+      "canonical_url": "https://github.com/listen1/listen1_desktop",
+      "short_description": "Listen1: An electron client for netease cloud music, xiami music, qq music, kugou music, kuwo music and migu music.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Listen1 listen1",
+      "first_seen_at": "2026-11-27T15:29:00Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:00Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/listen1/listen1_desktop",
+      "identity_evidence_text": "GitHub - listen1/listen1_desktop: one for all free music in china (Windows, Mac, Linux desktop) · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/l/listen1/listen1/2.33.0/listen1.listen1.locale.en-US.yaml",
+          "external_id": "listen1.listen1",
+          "discovered_at": "2026-11-17T12:18:01Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "listentome-102a6e2c",
       "name": "ListenToMe",
       "canonical_url": "https://github.com/jank2/ListenToMe",
@@ -68450,6 +68814,32 @@
       "url_aliases": []
     },
     {
+      "slug": "magic-desktop-kiosk-edition-ef6d1850",
+      "name": "Magic Desktop Kiosk Edition",
+      "canonical_url": "https://magicdesktop.com/en/kiosk",
+      "short_description": "Magic Desktop Kiosk Edition: Magic Desktop: a safe educational computer playground for children.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Magic Desktop Kiosk Edition Kiosk",
+      "first_seen_at": "2026-11-27T15:12:52Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:52Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://magicdesktop.com/en/kiosk",
+      "identity_evidence_text": "Magic Desktop Kiosk Edition - For Libraries & Public Spaces",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/e/Easybits/MagicDesktop/Kiosk/11.5.0.52/Easybits.MagicDesktop.Kiosk.locale.en-US.yaml",
+          "external_id": "Easybits.MagicDesktop.Kiosk",
+          "discovered_at": "2026-11-17T12:17:04Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "magicbox-547290d2",
       "name": "MagicBox",
       "canonical_url": "https://github.com/dmqj123/magic_box",
@@ -70923,6 +71313,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/o/OwlLabs/MeetingOwl/4.9.0.195/OwlLabs.MeetingOwl.locale.en-US.yaml",
           "external_id": "OwlLabs.MeetingOwl",
           "discovered_at": "2026-11-17T12:19:18Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "meeting-ringer-6fbf838f",
+      "name": "Meeting Ringer",
+      "canonical_url": "https://meetingringer.com",
+      "short_description": "Meeting Ringer: Rings whenever you have an upcoming meeting in your calendar linked to a GVC app.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Meeting Ringer MeetingRinger",
+      "first_seen_at": "2026-11-27T15:28:59Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:28:59Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://meetingringer.com",
+      "identity_evidence_text": "Meeting Ringer | Persistent Incoming-Call Calendar Alarm",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/m/MeetingRinger/MeetingRinger/0.1.29/MeetingRinger.MeetingRinger.locale.en-US.yaml",
+          "external_id": "MeetingRinger.MeetingRinger",
+          "discovered_at": "2026-11-17T12:18:04Z"
         }
       ],
       "url_aliases": []
@@ -78554,6 +78970,32 @@
       "url_aliases": []
     },
     {
+      "slug": "netpad-6ef445b7",
+      "name": "NetPad",
+      "canonical_url": "https://github.com/tareqimbasher/NetPad",
+      "short_description": "NetPad: A cross-platform C# editor and playground.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "NetPad",
+      "first_seen_at": "2026-11-27T15:12:40Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:40Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/tareqimbasher/NetPad",
+      "identity_evidence_text": "GitHub - tareqimbasher/NetPad: A cross-platform C# editor and playground. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/t/TareqImbasher/NetPad/0.12.0/TareqImbasher.NetPad.locale.en-US.yaml",
+          "external_id": "TareqImbasher.NetPad",
+          "discovered_at": "2026-11-17T12:19:56Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "netpulse-0da096b0",
       "name": "NetPulse",
       "canonical_url": "https://github.com/MudabbirulSaad/NetPulse",
@@ -80322,6 +80764,32 @@
       "url_aliases": []
     },
     {
+      "slug": "nodemailerapp-6f484a23",
+      "name": "NodemailerApp",
+      "canonical_url": "https://github.com/nodemailer/nodemailer-app",
+      "short_description": "NodemailerApp: The ultimate email debugging tool.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "NodemailerApp nodemailer",
+      "first_seen_at": "2026-11-27T15:12:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:56Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/nodemailer/nodemailer-app",
+      "identity_evidence_text": "GitHub - nodemailer/nodemailer-app: Releases for NodemailerApp, the ultimate email debugging tool · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/n/nodemailer/nodemailer/1.0.16/nodemailer.nodemailer.locale.en-US.yaml",
+          "external_id": "nodemailer.nodemailer",
+          "discovered_at": "2026-11-17T12:19:10Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "noderr-micronode-0f647414",
       "name": "Noderr Micronode",
       "canonical_url": "https://micronodes.noderr.xyz",
@@ -82067,6 +82535,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/m/marlocarlo/OmpManager/0.1.2/marlocarlo.OmpManager.locale.en-US.yaml",
           "external_id": "marlocarlo.OmpManager",
           "discovered_at": "2026-11-17T12:19:01Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "omp-switch-6f91420f",
+      "name": "OMP Switch",
+      "canonical_url": "https://github.com/skh2945932142/omp-switch",
+      "short_description": "OMP Switch: Desktop companion for managing Oh My Pi model providers.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "OMP Switch OMPSwitch",
+      "first_seen_at": "2026-11-27T15:28:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:28:58Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/skh2945932142/omp-switch",
+      "identity_evidence_text": "GitHub - skh2945932142/omp-switch: Windows-first desktop companion for managing Oh My Pi model providers. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/skh2945932142/OMPSwitch/0.9.0/skh2945932142.OMPSwitch.locale.en-US.yaml",
+          "external_id": "skh2945932142.OMPSwitch",
+          "discovered_at": "2026-11-17T12:19:51Z"
         }
       ],
       "url_aliases": []
@@ -90186,6 +90680,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/SwingTeam/Pendulums/1.1.0/SwingTeam.Pendulums.locale.en-US.yaml",
           "external_id": "SwingTeam.Pendulums",
           "discovered_at": "2026-11-17T12:19:50Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "penguinharness-6f8c4cd4",
+      "name": "PenguinHarness",
+      "canonical_url": "https://penguin.ooo",
+      "short_description": "PenguinHarness: The desktop app for PenguinHarness, an open-source framework for agent self-evolution.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "PenguinHarness",
+      "first_seen_at": "2026-11-27T15:12:53Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:53Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://penguin.ooo",
+      "identity_evidence_text": "PenguinHarness - Open RSI Framework for Enterprise AI Apps",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/p/PrismShadow/PenguinHarness/0.2.18/PrismShadow.PenguinHarness.locale.en-US.yaml",
+          "external_id": "PrismShadow.PenguinHarness",
+          "discovered_at": "2026-11-17T12:19:25Z"
         }
       ],
       "url_aliases": []
@@ -100006,6 +100526,32 @@
       "url_aliases": []
     },
     {
+      "slug": "redwood-6effb914",
+      "name": "Redwood",
+      "canonical_url": "https://the-sz.com/products/redwood",
+      "short_description": "Redwood: View and extract resources from EXE, DLL, OCX, CPL or any other Windows 32 and 64 Bit PE file.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Redwood",
+      "first_seen_at": "2026-11-27T15:12:39Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:39Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://the-sz.com/products/redwood",
+      "identity_evidence_text": "Redwood - View and Extract Resources - the sz development",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/t/the-sz/Redwood/1.11/the-sz.Redwood.locale.en-US.yaml",
+          "external_id": "the-sz.Redwood",
+          "discovered_at": "2026-11-17T12:20:03Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "refi-app-1b79b570",
       "name": "Refi App",
       "canonical_url": "https://github.com/thanhlmm/refi-app",
@@ -107371,6 +107917,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/SerialStudio/SerialStudio/4.2.1/SerialStudio.SerialStudio.locale.en-US.yaml",
           "external_id": "SerialStudio.SerialStudio",
           "discovered_at": "2026-11-17T12:19:40Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "serial-to-ethernet-connector-6fc91059",
+      "name": "Serial to Ethernet Connector",
+      "canonical_url": "https://electronic.us/products/serial-to-ethernet",
+      "short_description": "Serial to Ethernet Connector: Make devices and applications wireless with Serial to Ethernet Connector.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Serial to Ethernet Connector SerialOverEthernet",
+      "first_seen_at": "2026-11-27T15:29:05Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:05Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://electronic.us/products/serial-to-ethernet",
+      "identity_evidence_text": "Serial to Ethernet ConnectorElectronic Team, Inc.Electronic Team, Inc.",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/e/ElectronicTeam/SerialOverEthernet/9.0.1259/ElectronicTeam.SerialOverEthernet.locale.en-US.yaml",
+          "external_id": "ElectronicTeam.SerialOverEthernet",
+          "discovered_at": "2026-11-17T12:17:05Z"
         }
       ],
       "url_aliases": []
@@ -116673,6 +117245,32 @@
       "url_aliases": []
     },
     {
+      "slug": "supercell-wx-6f399a85",
+      "name": "Supercell Wx",
+      "canonical_url": "https://github.com/dpaulat/supercell-wx",
+      "short_description": "Supercell Wx: Free and open source advanced weather radar viewer.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Supercell Wx supercell-wx",
+      "first_seen_at": "2026-11-27T15:12:53Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:53Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/dpaulat/supercell-wx",
+      "identity_evidence_text": "GitHub - dpaulat/supercell-wx: Supercell Wx is a free, open source advanced weather radar viewer. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/d/dpaulat/supercell-wx/0.6.2/dpaulat.supercell-wx.locale.en-US.yaml",
+          "external_id": "dpaulat.supercell-wx",
+          "discovered_at": "2026-11-17T12:17:02Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "superhuman-docs-16b77d02",
       "name": "Superhuman Docs",
       "canonical_url": "https://superhuman.com/docs",
@@ -119462,6 +120060,32 @@
       "url_aliases": []
     },
     {
+      "slug": "talktotype-6fbee09b",
+      "name": "TalkToType",
+      "canonical_url": "https://talktotype.com",
+      "short_description": "TalkToType: Voice dictation and meeting transcription for Windows. Talk and your words appear at your cursor.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "TalkToType WinTranscribe",
+      "first_seen_at": "2026-11-27T15:28:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:28:58Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://talktotype.com",
+      "identity_evidence_text": "TalkToType — Voice Dictation & Meeting Recorder for Windows",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/l/LaurensVanLeer/WinTranscribe/1.7.1/LaurensVanLeer.WinTranscribe.locale.en-US.yaml",
+          "external_id": "LaurensVanLeer.WinTranscribe",
+          "discovered_at": "2026-11-17T12:17:53Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "talkyard-50858727",
       "name": "Talkyard",
       "canonical_url": "https://talkyard.io",
@@ -119907,6 +120531,32 @@
           "source_url": "https://formulae.brew.sh/cask/tauritavern",
           "external_id": "tauritavern",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "tcplogview-6fc86bbe",
+      "name": "TcpLogView",
+      "canonical_url": "https://nirsoft.net/utils/tcp_log_view.html",
+      "short_description": "TcpLogView: Simple utility that monitors the opened TCP connections on your system.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "TcpLogView",
+      "first_seen_at": "2026-11-27T15:29:02Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:02Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://nirsoft.net/utils/tcp_log_view.html",
+      "identity_evidence_text": "TcpLogView - Creates TCP connections log",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/n/NirSoft/TcpLogView/1.42/NirSoft.TcpLogView.locale.en-US.yaml",
+          "external_id": "NirSoft.TcpLogView",
+          "discovered_at": "2026-11-17T12:19:07Z"
         }
       ],
       "url_aliases": []
@@ -129448,6 +130098,32 @@
       "url_aliases": []
     },
     {
+      "slug": "versocon-6f190c5a",
+      "name": "VersoCon",
+      "canonical_url": "https://github.com/lupanostefano/versocon",
+      "short_description": "VersoCon: Free, 100% offline file converter for HEIC photos, PDFs and video.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "VersoCon",
+      "first_seen_at": "2026-11-27T15:12:50Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:50Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/lupanostefano/versocon",
+      "identity_evidence_text": "GitHub - lupanostefano/versocon: Free, 100% offline file converter for HEIC photos, PDFs (edit, sign, merge, compress, OCR) and video. No cloud, no account, no telemetry. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/h/HikariHasegawa/VersoCon/0.3.4/HikariHasegawa.VersoCon.locale.en-US.yaml",
+          "external_id": "HikariHasegawa.VersoCon",
+          "discovered_at": "2026-11-17T12:17:29Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "verza-next-18d005ef",
       "name": "Verza Next",
       "canonical_url": "https://github.com/SambuddhaRoy/Verza-Next-releases",
@@ -132380,6 +133056,32 @@
           "source_name": "WinGet manifests (MIT)",
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/v/VovSoft/NetworkAlarmer/5.2.0.0/VovSoft.NetworkAlarmer.locale.en-US.yaml",
           "external_id": "VovSoft.NetworkAlarmer",
+          "discovered_at": "2026-11-17T12:20:10Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "vovsoft-network-authenticator-6f4f43f5",
+      "name": "Vovsoft Network Authenticator",
+      "canonical_url": "https://vovsoft.com/software/network-authenticator",
+      "short_description": "Vovsoft Network Authenticator: Remote control client computers on your local network. Let network users login with username and password. Set login credentials on server side.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "Vovsoft Network Authenticator NetworkAuthenticator",
+      "first_seen_at": "2026-11-27T15:12:48Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:48Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://vovsoft.com/software/network-authenticator",
+      "identity_evidence_text": "Network Authenticator for PC | Controls client computers on a local network",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/v/VovSoft/NetworkAuthenticator/1.4.0.0/VovSoft.NetworkAuthenticator.locale.en-US.yaml",
+          "external_id": "VovSoft.NetworkAuthenticator",
           "discovered_at": "2026-11-17T12:20:10Z"
         }
       ],
@@ -140937,6 +141639,32 @@
       "url_aliases": []
     },
     {
+      "slug": "zpl2pdf-6fb144ae",
+      "name": "ZPL2PDF",
+      "canonical_url": "https://github.com/brunoleocam/ZPL2PDF",
+      "short_description": "ZPL2PDF: Convert ZPL files to PDF with Labelary API, TCP server mode, and multi-language support.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "ZPL2PDF",
+      "first_seen_at": "2026-11-27T15:29:02Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:02Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/brunoleocam/ZPL2PDF",
+      "identity_evidence_text": "GitHub - brunoleocam/ZPL2PDF: Convert ZPL (Zebra Programming Language) labels to PDF easily and for free. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/b/brunoleocam/ZPL2PDF/3.1.3/brunoleocam.ZPL2PDF.locale.en-US.yaml",
+          "external_id": "brunoleocam.ZPL2PDF",
+          "discovered_at": "2026-11-17T12:16:36Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "zxpinstaller-85fac0d8",
       "name": "ZXPInstaller",
       "canonical_url": "https://zxpinstaller.com",
@@ -143743,6 +144471,32 @@
       "url_aliases": []
     },
     {
+      "slug": "blazehash-6fa8c88f",
+      "name": "blazehash",
+      "canonical_url": "https://github.com/SecurityRonin/blazehash",
+      "short_description": "blazehash: Forensic file hasher — hashdeep for the modern era, BLAKE3 by default.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "blazehash",
+      "first_seen_at": "2026-11-27T15:29:01Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:01Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/SecurityRonin/blazehash",
+      "identity_evidence_text": "GitHub - SecurityRonin/blazehash: Forensic file hasher — BLAKE3 at 1,640 MB/s, 25 hash algorithms, Ed25519 + post-quantum signing, Bitcoin timestamps, YARA scanning, 50+ remote backends. hashdeep for the modern era. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/SecurityRonin/blazehash/0.2.4/SecurityRonin.blazehash.locale.en-US.yaml",
+          "external_id": "SecurityRonin.blazehash",
+          "discovered_at": "2026-11-17T12:19:40Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "blip-a6005dca",
       "name": "blip",
       "canonical_url": "https://blip.net",
@@ -144388,6 +145142,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/r/randlee/claude-history/0.3.0/randlee.claude-history.locale.en-US.yaml",
           "external_id": "randlee.claude-history",
           "discovered_at": "2026-11-17T12:19:36Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "clawpdf-6f0d7c7a",
+      "name": "clawPDF",
+      "canonical_url": "https://github.com/clawsoftware/clawPDF",
+      "short_description": "clawPDF: clawPDF is an Open Source virtual PDF printer for Windows that can convert any printable file to PDF, PDF/A, PDF/X, PNG, JPEG, TIF or Text.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "clawPDF",
+      "first_seen_at": "2026-11-27T15:12:45Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:45Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/clawsoftware/clawPDF",
+      "identity_evidence_text": "GitHub - clawsoftware/clawPDF: Open Source Virtual (Network) Printer for Windows that allows you to create PDFs, OCR text, and print images, with advanced features usually available only in enterprise solutions. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/c/clawSoft/clawPDF/0.9.3/clawSoft.clawPDF.locale.en-US.yaml",
+          "external_id": "clawSoft.clawPDF",
+          "discovered_at": "2026-11-17T12:16:48Z"
         }
       ],
       "url_aliases": []
@@ -147227,6 +148007,32 @@
       "url_aliases": []
     },
     {
+      "slug": "fad-6f15cc85",
+      "name": "fad",
+      "canonical_url": "https://github.com/Divya-Darshan/fad",
+      "short_description": "fad: Can control yt in CLI.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "fad",
+      "first_seen_at": "2026-11-27T15:12:46Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:46Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/Divya-Darshan/fad",
+      "identity_evidence_text": "GitHub - Divya-Darshan/fad · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/d/DivyaDarshan/fad/0.3.0/DivyaDarshan.fad.locale.en-US.yaml",
+          "external_id": "DivyaDarshan.fad",
+          "discovered_at": "2026-11-17T12:16:57Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "fan-control-209fcd6b",
       "name": "fan-control",
       "canonical_url": "https://github.com/wiiznokes/fan-control",
@@ -148392,6 +149198,32 @@
           "source_url": "https://formulae.brew.sh/cask/gifox",
           "external_id": "gifox",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "gig-6ef478a3",
+      "name": "gig",
+      "canonical_url": "https://github.com/martona/gig",
+      "short_description": "gig: Native Frigate multi-camera viewer for Windows.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "gig",
+      "first_seen_at": "2026-11-27T15:12:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:41Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/martona/gig",
+      "identity_evidence_text": "GitHub - martona/gig: native Frigate NVR client · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/m/martona/gig/0.2.0.6/martona.gig.locale.en-US.yaml",
+          "external_id": "martona.gig",
+          "discovered_at": "2026-11-17T12:19:01Z"
         }
       ],
       "url_aliases": []
@@ -150992,6 +151824,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/u/univrsal/input-overlay/5.0.6/univrsal.input-overlay.locale.en-US.yaml",
           "external_id": "univrsal.input-overlay",
           "discovered_at": "2026-11-17T12:20:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "ipinfo-6f8d476a",
+      "name": "ipinfo",
+      "canonical_url": "https://ipinfo.io",
+      "short_description": "ipinfo: This is the official CLI for the IPinfo.io IP address API.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "ipinfo",
+      "first_seen_at": "2026-11-27T15:12:54Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:54Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://ipinfo.io",
+      "identity_evidence_text": "IP Data Intelligence for Developers & Enterprises | IPinfo",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/i/ipinfo/ipinfo/3.3.2/ipinfo.ipinfo.locale.en-US.yaml",
+          "external_id": "ipinfo.ipinfo",
+          "discovered_at": "2026-11-17T12:17:37Z"
         }
       ],
       "url_aliases": []
@@ -162835,6 +163693,32 @@
       "url_aliases": []
     },
     {
+      "slug": "which-6f4b9e00",
+      "name": "which",
+      "canonical_url": "https://github.com/allankoechke/which-win",
+      "short_description": "which: A Windows 'which' command that locates executables on the PATH.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "which",
+      "first_seen_at": "2026-11-27T15:12:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:12:58Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/allankoechke/which-win",
+      "identity_evidence_text": "GitHub - allankoechke/which-win: A Windows implementation of the Unix which command, in modern C++20. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/a/allankoechke/which/1.0.0/allankoechke.which.locale.en-US.yaml",
+          "external_id": "allankoechke.which",
+          "discovered_at": "2026-11-17T12:16:21Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "whois-6352730d",
       "name": "whois",
       "canonical_url": "https://github.com/KincaidYang/whois",
@@ -163688,6 +164572,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "ca3c57ebacd601c93fe49ca30331a2e2a157f4e0d8efba84fba47994d3f30ae4",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "yoz-6fbf019e",
+      "name": "yoz",
+      "canonical_url": "https://github.com/ahadulla/yoz",
+      "short_description": "yoz: A simple, fast terminal text editor inspired by nano.",
+      "category_slug": "desktop-apps",
+      "audience": "Windows software users",
+      "search_aliases": "yoz",
+      "first_seen_at": "2026-11-27T15:29:06Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T15:29:06Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/ahadulla/yoz",
+      "identity_evidence_text": "GitHub - ahadulla/yoz: Cros platform terminal editor · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "WinGet manifests (MIT)",
+          "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/a/ahadulla/yoz/0.1.0/ahadulla.yoz.locale.en-US.yaml",
+          "external_id": "ahadulla.yoz",
+          "discovered_at": "2026-11-17T12:16:20Z"
         }
       ],
       "url_aliases": []
