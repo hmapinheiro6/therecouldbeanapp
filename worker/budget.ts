@@ -69,7 +69,7 @@ export async function readAccountUsage(
       },
     }),
     signal: AbortSignal.timeout(15000),
-    redirect: "error",
+    redirect: "manual",
   });
   if (!response.ok) throw new Error("Account usage unavailable");
   const data = (await response.json()) as {

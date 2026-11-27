@@ -20,7 +20,7 @@ async function github(
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
     signal: AbortSignal.timeout(15000),
-    redirect: "error",
+    redirect: "manual",
   });
   if (!response.ok)
     throw new Error("GitHub operation failed: " + response.status);

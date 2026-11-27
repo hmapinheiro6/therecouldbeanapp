@@ -6,6 +6,52 @@ import { budgetState, READ_LIMIT, WRITE_LIMIT } from "../../worker/budget";
 import { staleRuns } from "../../worker/operations";
 import { blockedRoutes } from "../../worker/urgent-removal";
 import { observedDatabase } from "../../worker/query-metrics";
+it("uses edge-compatible redirect rejection for usage and signed publication dispatch", async () => {
+  const { readAccountUsage } = await import("../../worker/budget");
+  const { requestStaticPublish } = await import("../../worker/operations");
+  const remote = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    // Workers supports manual/follow, and rejects Node's redirect:error option.
+    expect(init?.redirect).toBe("manual");
+    if (String(input).endsWith("/graphql"))
+      return Response.json({
+        data: {
+          viewer: {
+            accounts: [
+              {
+                d1AnalyticsAdaptiveGroups: [
+                  { sum: { rowsRead: 100, rowsWritten: 10 } },
+                ],
+              },
+            ],
+          },
+        },
+      });
+    return new Response(null, { status: 204 });
+  });
+  vi.stubGlobal("fetch", remote);
+  try {
+    const env = {
+      CLOUDFLARE_API_TOKEN: "test-only",
+      WATCHDOG_GITHUB_TOKEN: "test-only",
+    } as never;
+    expect((await readAccountUsage(env)).rows_read).toBe(100);
+    expect(await requestStaticPublish(env)).toBe("queued");
+    remote.mockImplementation(
+      async () =>
+        new Response(null, {
+          status: 302,
+          headers: { Location: "https://untrusted.invalid" },
+        }),
+    );
+    await expect(readAccountUsage(env)).rejects.toThrow(
+      "Account usage unavailable",
+    );
+    expect(await requestStaticPublish(env)).toBe("dispatch_failed");
+    expect(remote).toHaveBeenCalledTimes(4);
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});
 it("keeps executable maintenance identical to the tracked migration", () => {
   expect(staticOperations).toEqual(
     splitSql(readFileSync("migrations/0013_static_operations.sql", "utf8")),
