@@ -13,7 +13,14 @@ concurrency:
   group: publisher-enrichment
   cancel-in-progress: false
 jobs:
+  allowance:
+    if: github.event.repository.private == false && github.repository == 'hmapinheiro6/therecouldbeanapp' && vars.DISCOVERY_ENABLED == 'true'
+    uses: ./.github/workflows/refresh-usage.yml
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      WATCHDOG_GITHUB_TOKEN: ${{ secrets.WATCHDOG_GITHUB_TOKEN }}
   enrich:
+    needs: allowance
     if: github.event.repository.private == false && github.repository == 'hmapinheiro6/therecouldbeanapp' && vars.DISCOVERY_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15

@@ -24,6 +24,7 @@ HEALTH=ROOT/'data/expansion-health.json'
 def campaign_active(stamp=None):
     config=json.loads(CONFIG.read_text())
     moment=stamp or datetime.now(timezone.utc)
+    if config.get('mode') == 'continuous': return bool(config.get('enabled'))
     return bool(config['enabled'] and moment < datetime.fromisoformat(config['deadline'].replace('Z','+00:00')))
 
 
@@ -130,7 +131,7 @@ def publish(state,limit,client=None,verify=verify_candidate):
     def deliver(batch):
         nonlocal published
         try:
-            result=client.request('/api/internal/ingest',{'expansion':'2026-11-17','products':[r['product'] for r in batch]})
+            result=client.request('/api/internal/ingest',{'expansion':config['id'] if config.get('mode')=='continuous' else '2026-11-17','products':[r['product'] for r in batch]})
         except InternalAPIError as error:
             if error.status not in (400,422): raise
             if len(batch)>1:

@@ -14,7 +14,11 @@ Unpublishing first stores the review state and publication block in D1, then que
 
 ## Daily database allowance
 
+The 10,000-product expansion now runs on GitHub every two hours, with up to 1,000 official-site checks per run. It resumes the encrypted `state/catalog-expansion` backlog, stops new publication at 10,000, and has no one-day expiry. Each UTC day has a separate 50,000-unit bulk reservation ceiling in addition to the account-wide 70% guard. Ready records survive quota pauses and are retried by a later scheduled run. Routine web/SaaS discovery is not suspended by the bulk campaign. Public release workflows export authoritative records after each run; the retired per-campaign recovery export is not used.
+
 Cloudflare Cron refreshes account-wide provider analytics every 15 minutes, from UTC midnight. Bulk publication pauses at 3,500,000 rows read or 70,000 rows written. Missing or older-than-20-minute telemetry fails closed. Confirmed limit crossings stay paused for that UTC day. These analytics can lag; this is a conservative operational guard, not a hard billing cap. Existing ingestion reservations provide an additional bound.
+
+Every hosted collector and enrichment run also refreshes account usage through a reusable preflight. Imports therefore do not depend on a recent Cron tick. A denied credential or unavailable analytics fails the preflight visibly; it does not reopen the allowance. Web/SaaS collection can still seal its encrypted queue if database preparation is unavailable.
 
 The initial confirmed pause is dated 2026-11-17 and expires automatically at UTC midnight. Jobs still need fresh analytics after that reset. Moderation and public static releases retain access to the reserved allowance; public browsing needs none.
 

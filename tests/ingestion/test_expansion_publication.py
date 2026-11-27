@@ -112,3 +112,35 @@ def test_cached_source_cannot_use_download_directories_or_generic_aliases():
     candidate['canonical_url']='https://actual.dev'
     web.fetch.return_value={'status':200,'url':'https://actual.dev','content_type':'text/html','text':'<title>Windows Downloads</title><p>'+('Generic publisher downloads. '*10)+'</p>'}
     with pytest.raises(ValueError,match='title'):ex.verify_candidate(candidate,web)
+
+
+def test_continuous_campaign_survives_utc_resets_without_suspending_regular_discovery(monkeypatch,tmp_path):
+    directory=tmp_path/'data';directory.mkdir()
+    config=directory/'expansion-campaign.json'
+    value={'id':'catalog-10k','enabled':True,'mode':'continuous','target':10000,'deadline':None}
+    config.write_text(json.dumps(value))
+    monkeypatch.setattr(ex,'CONFIG',config);monkeypatch.setattr(campaign,'ROOT',tmp_path)
+    for moment in [datetime(2026,11,27,23,59,tzinfo=timezone.utc),datetime(2026,11,28,tzinfo=timezone.utc)]:
+        assert ex.campaign_active(moment)
+        assert campaign.expansion_priority(moment) is None
+    value['enabled']=False;config.write_text(json.dumps(value))
+    assert not ex.campaign_active()
+
+
+def test_continuous_publication_uses_the_current_campaign_protocol(setup):
+    state,client,_=setup
+    config=json.loads(ex.CONFIG.read_text());config.update(id='catalog-10k',mode='continuous',deadline=None)
+    ex.CONFIG.write_text(json.dumps(config))
+    result=ex.publish(state,20,client,verify=lambda c:c)
+    assert result['published_by_campaign']==20
+    batches=[call.args[1] for call in client.request.call_args_list if call.args[0].endswith('/ingest')]
+    assert batches and all(batch['expansion']=='catalog-10k' for batch in batches)
+
+
+def test_target_reached_does_not_research_or_consume_the_saved_backlog(setup):
+    state,client,request=setup
+    client.request.side_effect=lambda path,body=None: {'published':10000} if path.endswith('/expansion-status') else request(path,body)
+    result=ex.publish(state,20,client,verify=lambda c:pytest.fail('Target already reached'))
+    assert result['status']=='target_reached' and result['published_products']==10000
+    assert len(state['records'])==20
+    assert not any(call.args[0].endswith('/ingest') for call in client.request.call_args_list)

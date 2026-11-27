@@ -189,7 +189,7 @@ export const candidateInput = z.object({
 export const ingestSchema = z
   .object({
     products: z.array(productInput).max(20).default([]),
-    expansion: z.literal("2026-11-17").optional(),
+    expansion: z.enum(["2026-11-17", "catalog-10k"]).optional(),
     candidates: z.array(candidateInput).max(20).default([]),
     run: z
       .object({

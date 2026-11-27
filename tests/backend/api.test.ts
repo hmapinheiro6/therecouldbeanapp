@@ -1009,6 +1009,88 @@ it("campaign reservations stop at their own ceiling and expiry without changing 
   );
 });
 
+it("publishes recurring batches and resumes a full expansion allowance only in a new UTC day", async () => {
+  vi.useFakeTimers({ toFake: ["Date"] });
+  const days = ["2026-11-27", "2026-11-28"];
+  try {
+    await env.DB.prepare(
+      "DELETE FROM expansion_daily_budget WHERE day IN (?,?)",
+    )
+      .bind(...days)
+      .run();
+    const seedDay = async (day: string) => {
+      vi.setSystemTime(new Date(day + "T12:00:00Z"));
+      await env.DB.prepare(
+        "INSERT OR REPLACE INTO d1_usage_observations(day,rows_read,rows_written,observed_at) VALUES(?,0,0,?)",
+      )
+        .bind(day, new Date().toISOString())
+        .run();
+    };
+    await seedDay(days[0]);
+    const product = {
+      slug: "recurring-fixture-one",
+      name: "Recurring Fixture One",
+      canonical_url: "https://recurring-fixture-one.dev",
+      short_description:
+        "Synthetic software for the recurring publication regression test.",
+      category_slug: "desktop-apps",
+      audience: "Test users",
+      search_aliases: "",
+      first_seen_at: new Date().toISOString(),
+      last_verified_at: new Date().toISOString(),
+      verification_scope: "identity",
+      identity_evidence_url: "https://recurring-fixture-one.dev",
+      identity_evidence_text: "Recurring Fixture One official website",
+      capabilities: [],
+      source: {
+        source_type: "feed",
+        source_name: "WinGet manifests (MIT)",
+        source_url:
+          "https://github.com/microsoft/winget-pkgs/blob/master/manifests/r/Fixture/Fixture.yaml",
+        external_id: "Recurring.Fixture",
+        discovered_at: new Date().toISOString(),
+      },
+    };
+    async function signedRequest(value: typeof product) {
+      return signed("/api/internal/ingest", {
+        expansion: "catalog-10k",
+        products: [value],
+      });
+    }
+    const first = await app.fetch(await signedRequest(product), env);
+    expect(first.status, await first.clone().text()).toBe(200);
+    expect(((await first.json()) as { products: number }).products).toBe(1);
+    const duplicate = await app.fetch(await signedRequest(product), env);
+    expect(((await duplicate.json()) as { products: number }).products).toBe(0);
+    await env.DB.prepare(
+      "UPDATE expansion_daily_budget SET reserved_units=50000 WHERE day=?",
+    )
+      .bind(days[0])
+      .run();
+    const next = {
+      ...product,
+      slug: "recurring-fixture-two",
+      name: "Recurring Fixture Two",
+      canonical_url: "https://recurring-fixture-two.dev",
+      identity_evidence_url: "https://recurring-fixture-two.dev",
+    };
+    const paused = await app.fetch(await signedRequest(next), env);
+    expect(paused.status).toBe(429);
+    await seedDay(days[1]);
+    const resumed = await app.fetch(await signedRequest(next), env);
+    expect(resumed.status, await resumed.clone().text()).toBe(200);
+    expect(((await resumed.json()) as { products: number }).products).toBe(1);
+    const today = await env.DB.prepare(
+      "SELECT reserved_units FROM expansion_daily_budget WHERE day=?",
+    )
+      .bind(days[1])
+      .first();
+    expect(today?.reserved_units).toBe(17);
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
 it("exports published recovery records by advancing id with provenance and aliases", async () => {
   const plan = await env.DB.prepare(
     "EXPLAIN QUERY PLAN SELECT p.id FROM products p NOT INDEXED JOIN categories c ON c.id=p.category_id WHERE p.status='published' AND p.id>0 ORDER BY p.id LIMIT 50",

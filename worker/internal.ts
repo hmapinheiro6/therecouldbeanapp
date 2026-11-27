@@ -8,7 +8,6 @@ import {
   expansionBatch,
   reserveExpansion,
   expansionStatements,
-  EXPANSION_DAY,
   EXPANSION_TARGET,
 } from "./expansion";
 import { quotaResponse } from "./availability";
@@ -151,7 +150,7 @@ internal.get("/expansion-status", async (c) => {
     ),
     c.env.DB.prepare(
       "SELECT reserved_units,rows_written,rows_read FROM expansion_daily_budget WHERE day=?",
-    ).bind(EXPANSION_DAY),
+    ).bind(new Date().toISOString().slice(0, 10)),
   ]);
   return c.json({
     published: rows[0].results[0]?.published ?? 0,
@@ -305,13 +304,14 @@ internal.post("/ingest", async (c) => {
     );
   const b = data.data;
   const db = c.env.DB;
+  const ingestionMoment = new Date();
   if (b.expansion && !expansionBatch(b))
     return c.json(
       {
         error: {
           code: "invalid_expansion",
           message:
-            "Only source-attributed, identity-only products are accepted during the dated campaign.",
+            "Only source-attributed, identity-only products are accepted by catalog expansion.",
         },
       },
       400,
@@ -636,7 +636,12 @@ internal.post("/ingest", async (c) => {
   if (
     !c.env.OPERATOR_PUBLICATION &&
     !(b.expansion
-      ? await reserveExpansion(db, acceptedProducts)
+      ? await reserveExpansion(
+          db,
+          acceptedProducts,
+          ingestionMoment,
+          b.expansion,
+        )
       : await reserveIngestion(db, ingestionUnits(b)))
   ) {
     const { error, retry } = quotaResponse();
@@ -663,7 +668,11 @@ internal.post("/ingest", async (c) => {
       .prepare(
         "UPDATE expansion_daily_budget SET rows_written=rows_written+?,rows_read=rows_read+? WHERE day=?",
       )
-      .bind(accounting.rows_written, accounting.rows_read, EXPANSION_DAY)
+      .bind(
+        accounting.rows_written,
+        accounting.rows_read,
+        ingestionMoment.toISOString().slice(0, 10),
+      )
       .run();
   const publication =
     acceptedProducts > 0 ? await requestStaticPublish(c.env) : "unchanged";

@@ -2,20 +2,27 @@ import type { z } from "zod";
 import type { ingestSchema } from "./validation";
 export const EXPANSION_DAY = "2026-11-17";
 export const EXPANSION_DEADLINE = "2026-11-17T23:50:00Z";
+export const EXPANSION_CAMPAIGN = "catalog-10k";
 export const EXPANSION_UNITS = 50_000;
 export const EXPANSION_TARGET = 10_000;
 export const expansionStatements = [
   "CREATE TABLE IF NOT EXISTS expansion_daily_budget(day TEXT PRIMARY KEY,reserved_units INTEGER NOT NULL CHECK(reserved_units>=0),rows_written INTEGER NOT NULL DEFAULT 0,rows_read INTEGER NOT NULL DEFAULT 0)",
   "DROP INDEX IF EXISTS products_domain",
 ];
+function campaignAllowed(campaign: string | undefined, moment: Date) {
+  return (
+    campaign === EXPANSION_CAMPAIGN ||
+    (campaign === EXPANSION_DAY &&
+      moment.toISOString().slice(0, 10) === EXPANSION_DAY &&
+      moment.toISOString() < EXPANSION_DEADLINE)
+  );
+}
 export function expansionBatch(
   b: z.infer<typeof ingestSchema>,
   moment = new Date(),
 ) {
   if (
-    b.expansion !== EXPANSION_DAY ||
-    moment.toISOString() >= EXPANSION_DEADLINE ||
-    moment.toISOString().slice(0, 10) !== EXPANSION_DAY ||
+    !campaignAllowed(b.expansion, moment) ||
     !b.products.length ||
     b.candidates.length ||
     b.run ||
@@ -48,13 +55,13 @@ export async function reserveExpansion(
   db: D1Database,
   count: number,
   moment = new Date(),
+  campaign: string = EXPANSION_DAY,
 ) {
   if (
     !Number.isSafeInteger(count) ||
     count < 1 ||
     count > 20 ||
-    moment.toISOString().slice(0, 10) !== EXPANSION_DAY ||
-    moment.toISOString() >= EXPANSION_DEADLINE
+    !campaignAllowed(campaign, moment)
   )
     return false;
   // Seventeen estimated row writes per new product, including amortized request
@@ -66,7 +73,13 @@ export async function reserveExpansion(
     ON CONFLICT(day) DO UPDATE SET reserved_units=reserved_units+excluded.reserved_units
     WHERE reserved_units+excluded.reserved_units<=? RETURNING reserved_units`,
     )
-    .bind(EXPANSION_DAY, units, units, EXPANSION_UNITS, EXPANSION_UNITS)
+    .bind(
+      moment.toISOString().slice(0, 10),
+      units,
+      units,
+      EXPANSION_UNITS,
+      EXPANSION_UNITS,
+    )
     .first();
   return row !== null;
 }
