@@ -110,6 +110,8 @@ jobs:
         run: npx wrangler deploy
       - name: Verify operations access and initialize fresh account usage
         run: node scripts/verify-operations.mjs
+      - name: Verify usage and watchdog in the deployed edge runtime
+        run: python -m ingestion.operations_check
       - name: Release the publication lock
         if: always() && steps.lease.outcome == 'success'
         run: python -m ingestion.publication release

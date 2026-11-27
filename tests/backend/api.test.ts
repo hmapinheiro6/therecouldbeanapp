@@ -135,6 +135,73 @@ beforeEach(async () => {
   await env.DB.prepare("DELETE FROM submissions").run();
 });
 afterEach(() => vi.unstubAllGlobals());
+it("verifies actual edge operations through the signed private boundary", async () => {
+  const now = new Date().toISOString();
+  vi.stubGlobal(
+    "fetch",
+    async (input: RequestInfo | URL, init?: RequestInit) => {
+      expect(init?.redirect).toBe("manual");
+      const url = String(input);
+      if (url.endsWith("/graphql"))
+        return Response.json({
+          data: {
+            viewer: {
+              accounts: [
+                {
+                  d1AnalyticsAdaptiveGroups: [
+                    { sum: { rowsRead: 100, rowsWritten: 10 } },
+                  ],
+                },
+              ],
+            },
+          },
+        });
+      if (url.includes("/runs?"))
+        return Response.json({
+          workflow_runs: [
+            {
+              status: "completed",
+              conclusion: "success",
+              created_at: now,
+              updated_at: now,
+            },
+          ],
+        });
+      if (url.includes("provenance.json"))
+        return Response.json({
+          content: btoa(JSON.stringify({ saved_at: now })),
+        });
+      if (url.includes("backup-health.json"))
+        return Response.json({
+          content: btoa(JSON.stringify({ last_success_at: now })),
+        });
+      return Response.json([]);
+    },
+  );
+  const configured = {
+    ...env,
+    CLOUDFLARE_API_TOKEN: "test-only",
+    WATCHDOG_GITHUB_TOKEN: "test-only",
+  };
+  expect(
+    (
+      await app.request(
+        "/api/internal/operations-check",
+        { method: "POST" },
+        configured,
+      )
+    ).status,
+  ).toBe(401);
+  const response = await app.fetch(
+    await signed("/api/internal/operations-check", {}),
+    configured,
+  );
+  expect(response.status, await response.clone().text()).toBe(200);
+  expect(await response.json()).toMatchObject({
+    status: "verified",
+    budget: { allowed: true },
+  });
+});
 describe("public API", () => {
   it("has no public database read endpoints", async () => {
     for (const path of [

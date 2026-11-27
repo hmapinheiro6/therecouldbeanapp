@@ -20,6 +20,8 @@ Cloudflare Cron refreshes account-wide provider analytics every 15 minutes, from
 
 Every hosted collector and enrichment run also refreshes account usage through a reusable preflight. Imports therefore do not depend on a recent Cron tick. A denied credential or unavailable analytics fails the preflight visibly; it does not reopen the allowance. Web/SaaS collection can still seal its encrypted queue if database preparation is unavailable.
 
+After each deployment, a signed private smoke check executes usage refresh and watchdog calls inside the deployed Worker. This checks edge runtime behavior as well as token access. Operational requests use manual redirects and reject non-success responses without forwarding credentials.
+
 The initial confirmed pause is dated 2026-11-17 and expires automatically at UTC midnight. Jobs still need fresh analytics after that reset. Moderation and public static releases retain access to the reserved allowance; public browsing needs none.
 
 Each Worker query logs provider `rows_read` and `rows_written`, a job label and ordinal, without SQL values. Signed responses expose aggregate counts for hosted-job ledgers. Jobs fail when their configured read budget is exceeded. CI also measures real local D1 query metadata against a 5,000-product fixture; this caught and fixed a canonical-URL lookup that was scanning every published row. Published counts now use an indexed counter rather than repeated `COUNT(*)` scans. The admin page no longer reloads catalog aggregates for every search keystroke.

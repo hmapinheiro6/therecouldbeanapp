@@ -1,7 +1,7 @@
 import { staticOperations } from "./operations-schema";
-import { currentBudget } from "./budget";
+import { currentBudget, refreshBudget } from "./budget";
 import { acquirePublication, releasePublication } from "./publication-lease";
-import { requestStaticPublish } from "./operations";
+import { requestStaticPublish, watchdog } from "./operations";
 import { Hono } from "hono";
 import { ingestionUnits, reserveIngestion } from "./ingestion-budget";
 import {
@@ -16,6 +16,11 @@ import { ingestSchema, moderationSchema } from "./validation";
 import { hydrate, PRODUCT_SELECT, type ProductRow } from "./catalog";
 const internal = new Hono<AppEnv>();
 internal.get("/budget", async (c) => c.json(await currentBudget(c.env)));
+internal.post("/operations-check", async (c) => {
+  await refreshBudget(c.env);
+  await watchdog(c.env);
+  return c.json({ status: "verified", budget: await currentBudget(c.env) });
+});
 internal.use("/ingest", async (c, next) => {
   const budget = await currentBudget(c.env);
   if (!c.env.OPERATOR_PUBLICATION && !budget.allowed)
