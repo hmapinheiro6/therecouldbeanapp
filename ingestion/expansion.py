@@ -211,11 +211,14 @@ def publish(state,limit,client=None,verify=verify_candidate):
         state['last_checked']=checked;state['checked_total']=state.get('checked_total',0)+checked;persist()
         outcome='deadline_reached' if not campaign_active() else 'target_reached' if published>=target else 'source_exhausted' if not any(r['status']=='pending' for r in state['records']) else 'running'
         return health(state,outcome,published)
-    except InternalAPIError as error:
+    except Exception as error:
+        state['last_checked']=checked;state['checked_total']=state.get('checked_total',0)+checked
         persist()
-        if (error.status,error.code) in ((429,'ingestion_daily_budget'),(503,'database_daily_limit')):
+        if isinstance(error,InternalAPIError) and (error.status,error.code) in ((429,'ingestion_daily_budget'),(503,'database_daily_limit')):
             state['last_failure']=error.code;persist();return health(state,'quota_deferred',published)
         # Preserve ready products for retry; never convert failures to published.
+        # Publish current aggregate progress even when the hosted run fails.
+        health(state,'failed',published)
         raise
 
 

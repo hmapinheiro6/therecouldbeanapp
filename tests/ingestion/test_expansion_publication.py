@@ -62,6 +62,22 @@ def test_unacknowledged_response_preserves_verified_products(setup):
     client.request.side_effect=lambda path,body=None: {'status':'unexpected'} if path.endswith('/ingest') else request(path,body)
     with pytest.raises(ValueError,match='not acknowledged'):ex.publish(state,20,client,verify=lambda c:c)
     assert all(r['status']=='ready' for r in state['records'])
+    health=json.loads(ex.HEALTH.read_text())
+    assert health['status']=='failed' and health['published_products']==2868
+    assert health['checked_total']==20
+
+def test_budget_failure_reports_partial_progress_and_still_fails(setup):
+    state,client,request=setup
+    def failed(path,body=None):
+        if path.endswith('/ingest'):raise RuntimeError('Hosted job exceeded provider rows-read budget')
+        return request(path,body)
+    client.request.side_effect=failed
+    with pytest.raises(RuntimeError,match='rows-read budget'):
+        ex.publish(state,20,client,verify=lambda c:c)
+    health=json.loads(ex.HEALTH.read_text())
+    assert health['status']=='failed' and health['published_by_campaign']==0
+    assert health['checked_total']==20
+    assert all(r['status']=='ready' for r in state['records'])
 
 def test_title_identity_and_same_host_canonical_are_required():
     candidate={'name':'Actual','aliases':['Actual'],'canonical_url':'https://actual.dev/download','licensed_description':'A useful independent application.','source_type':'feed','source_name':'Test','source_url':'https://source.dev','external_id':'actual','discovered_at':'2026-11-17T12:00:00Z'}

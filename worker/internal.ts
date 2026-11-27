@@ -395,7 +395,7 @@ internal.post("/ingest", async (c) => {
         (
           await db
             .prepare(
-              `SELECT canonical_url FROM products WHERE status='published' AND verification_scope='capabilities' AND canonical_url IN (${b.products.map(() => "?").join(",")})`,
+              `SELECT canonical_url FROM products INDEXED BY sqlite_autoindex_products_2 WHERE status='published' AND verification_scope='capabilities' AND canonical_url IN (${b.products.map(() => "?").join(",")})`,
             )
             .bind(...b.products.map((p) => p.canonical_url))
             .all<{ canonical_url: string }>()

@@ -24,7 +24,7 @@ After each deployment, a signed private smoke check executes usage refresh and w
 
 The initial confirmed pause is dated 2026-11-17 and expires automatically at UTC midnight. Jobs still need fresh analytics after that reset. Moderation and public static releases retain access to the reserved allowance; public browsing needs none.
 
-Each Worker query logs provider `rows_read` and `rows_written`, a job label and ordinal, without SQL values. Signed responses expose aggregate counts for hosted-job ledgers. Jobs fail when their configured read budget is exceeded. CI also measures real local D1 query metadata against a 5,000-product fixture; this caught and fixed a canonical-URL lookup that was scanning every published row. Published counts now use an indexed counter rather than repeated `COUNT(*)` scans. The admin page no longer reloads catalog aggregates for every search keystroke.
+Each Worker query logs provider `rows_read` and `rows_written`, a job label and ordinal, without SQL values. Signed responses expose aggregate counts for hosted-job ledgers. Jobs fail when their configured read budget is exceeded. CI measures real local D1 query metadata against a 5,000-product fixture, including the complete twenty-product import path. Both duplicate detection and protection of reviewed products use the canonical URL index; the latter previously scanned the entire published catalog per batch. Failed expansion runs still publish current aggregate progress and preserve their encrypted outbox while retaining a failed job result. Published counts use an indexed counter rather than repeated `COUNT(*)` scans. The admin page no longer reloads catalog aggregates for every search keystroke.
 
 ## Independent monitoring
 

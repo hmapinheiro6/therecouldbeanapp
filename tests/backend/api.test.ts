@@ -1243,6 +1243,46 @@ it("keeps collector status and URL batches within read budgets at 5000 extra pro
     );
     expect(page.status).toBe(200);
     expect(Number(page.headers.get("X-D1-Rows-Read"))).toBeLessThan(1100);
+    // Exercise the complete write path too: its protection lookup must not
+    // scan every published product for each twenty-product batch.
+    await env.DB.prepare("DELETE FROM expansion_daily_budget WHERE day=?")
+      .bind(stamp.slice(0, 10))
+      .run();
+    const products = Array.from({ length: 20 }, (_, i) => ({
+      slug: `cost-fixture-new-${i}`,
+      name: `Cost Fixture New ${i}`,
+      canonical_url: `https://cost-fixture-new-${i}.dev`,
+      short_description:
+        "Synthetic application for the ingestion cost regression.",
+      category_slug: "desktop-apps",
+      audience: "Test users",
+      search_aliases: "",
+      first_seen_at: stamp,
+      last_verified_at: stamp,
+      verification_scope: "identity",
+      identity_evidence_url: `https://cost-fixture-new-${i}.dev`,
+      identity_evidence_text: `Cost Fixture New ${i} official website`,
+      capabilities: [],
+      source: {
+        source_type: "feed",
+        source_name: "WinGet manifests (MIT)",
+        source_url:
+          "https://github.com/microsoft/winget-pkgs/blob/master/manifests/c/Cost/Cost.yaml",
+        external_id: `Cost.Fixture.${i}`,
+        discovered_at: stamp,
+      },
+    }));
+    const imported = await app.request(
+      await signed("/api/internal/ingest", {
+        expansion: "catalog-10k",
+        products,
+      }),
+      {},
+      env,
+    );
+    expect(imported.status, await imported.clone().text()).toBe(200);
+    expect(((await imported.json()) as { products: number }).products).toBe(20);
+    expect(Number(imported.headers.get("X-D1-Rows-Read"))).toBeLessThan(1000);
   } finally {
     await env.DB.prepare(
       "DELETE FROM products WHERE slug LIKE 'cost-fixture-%'",
