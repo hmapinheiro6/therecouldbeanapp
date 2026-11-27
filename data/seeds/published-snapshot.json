@@ -1,7 +1,7 @@
 {
-  "exported_at": "2026-11-27T21:29:28.616Z",
+  "exported_at": "2026-11-27T21:40:07.025Z",
   "environment": "production",
-  "publication_revision": 2026,
+  "publication_revision": 2146,
   "products": [
     {
       "slug": "net-codecontracts-6514d1a5",
@@ -449,6 +449,32 @@
           "source_url": "https://formulae.brew.sh/cask/4k-image-compressor",
           "external_id": "4k-image-compressor",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "4k-stogram-eb4dfb97",
+      "name": "4K Stogram",
+      "canonical_url": "https://4kdownload.com/products/product-stogram",
+      "short_description": "4K Stogram: Download Instagram photos, accounts, hashtags and locations.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "4K Stogram",
+      "first_seen_at": "2026-11-27T21:37:05Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:05Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://4kdownload.com/products/product-stogram",
+      "identity_evidence_text": "4K Stogram | Download Instagram Stories, Photos, Reels, and Hashtags | 4K Download",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/4k-stogram",
+          "external_id": "4k-stogram",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -8287,6 +8313,32 @@
       "url_aliases": []
     },
     {
+      "slug": "argo-books-05268309",
+      "name": "Argo Books",
+      "canonical_url": "https://argorobots.com",
+      "short_description": "Argo Books: Accounting software for small businesses.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Argo Books",
+      "first_seen_at": "2026-11-27T21:36:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:56Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://argorobots.com",
+      "identity_evidence_text": "Argo Books: Free Accounting Software for Small Business",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/argo-books",
+          "external_id": "argo-books",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "argocd-49bb5e90",
       "name": "ArgoCD",
       "canonical_url": "https://github.com/argoproj/argo-cd",
@@ -11883,6 +11935,32 @@
       "url_aliases": []
     },
     {
+      "slug": "batteries-d9429523",
+      "name": "Batteries",
+      "canonical_url": "https://fadel.io/batteries",
+      "short_description": "Batteries: Track all your devices' batteries.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Batteries",
+      "first_seen_at": "2026-11-27T21:36:54Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:54Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://fadel.io/batteries",
+      "identity_evidence_text": "Batteries for Mac | Track all your devices' batteries from your Mac. Get notified when they need recharging.",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/batteries",
+          "external_id": "batteries",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "battery-hub-b8caf7d7",
       "name": "Battery Hub",
       "canonical_url": "https://github.com/battery-hub/battery-hub",
@@ -12268,6 +12346,32 @@
           "source_url": "https://formulae.brew.sh/cask/beamer",
           "external_id": "beamer",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "bean-3b25cbfe",
+      "name": "Bean",
+      "canonical_url": "https://bean-osx.com/Bean.html",
+      "short_description": "Bean: Word processor.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Bean",
+      "first_seen_at": "2026-11-27T21:36:49Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:49Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://bean-osx.com/Bean.html",
+      "identity_evidence_text": "Bean: a macOS word processor",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/bean",
+          "external_id": "bean",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -19358,6 +19462,32 @@
       "url_aliases": []
     },
     {
+      "slug": "captain-s-deck-c84a4a72",
+      "name": "Captain's Deck",
+      "canonical_url": "https://captains-deck.com",
+      "short_description": "Captain's Deck: Dual-pane file manager inspired by Norton Commander.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Captain's Deck",
+      "first_seen_at": "2026-11-27T21:36:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:51Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://captains-deck.com",
+      "identity_evidence_text": "Captain's Deck — Dual-Pane File Manager for Mac | Finder & ForkLift Alternative",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/captains-deck",
+          "external_id": "captains-deck",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "caption-762d19c7",
       "name": "Caption",
       "canonical_url": "https://github.com/gielcobben/caption",
@@ -19483,6 +19613,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/SergeyMoskalev/CarambaSwitcher/2026.10.27.1/SergeyMoskalev.CarambaSwitcher.locale.en-US.yaml",
           "external_id": "SergeyMoskalev.CarambaSwitcher",
           "discovered_at": "2026-11-17T12:19:40Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "carbon-copy-cloner-4509bbf0",
+      "name": "Carbon Copy Cloner",
+      "canonical_url": "https://bombich.com",
+      "short_description": "Carbon Copy Cloner: Hard disk backup and cloning utility.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Carbon Copy Cloner",
+      "first_seen_at": "2026-11-27T21:36:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:56Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://bombich.com",
+      "identity_evidence_text": "Carbon Copy Cloner: macOS Backup Software - Bombich Software",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/carbon-copy-cloner",
+          "external_id": "carbon-copy-cloner",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -21225,6 +21381,32 @@
           "source_url": "https://formulae.brew.sh/cask/chime",
           "external_id": "chime",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "chiri-97aa4bf4",
+      "name": "Chiri",
+      "canonical_url": "https://github.com/chiriapp/chiri",
+      "short_description": "Chiri: CalDAV-compatible task management app.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Chiri",
+      "first_seen_at": "2026-11-27T21:36:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:51Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/chiriapp/chiri",
+      "identity_evidence_text": "GitHub - chiriapp/chiri: 🍃 Cross-platform CalDAV task management app. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/chiri",
+          "external_id": "chiri",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -25530,6 +25712,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/c/ChilliBits/ComposeGenerator/1.9.0/ChilliBits.ComposeGenerator.locale.en-US.yaml",
           "external_id": "ChilliBits.ComposeGenerator",
           "discovered_at": "2026-11-17T12:16:39Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "compositor-e265a3ca",
+      "name": "Compositor",
+      "canonical_url": "https://robbietilton.com/compositor",
+      "short_description": "Compositor: Photoshop alternative.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Compositor",
+      "first_seen_at": "2026-11-27T21:36:52Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:52Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://robbietilton.com/compositor",
+      "identity_evidence_text": "Compositor – The Photoshop alternative for Mac",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/robbietilton-compositor",
+          "external_id": "robbietilton-compositor",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -30378,6 +30586,32 @@
       "url_aliases": []
     },
     {
+      "slug": "datasette-8777318e",
+      "name": "Datasette",
+      "canonical_url": "https://datasette.io/desktop",
+      "short_description": "Datasette: Desktop application that wraps Datasette.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Datasette",
+      "first_seen_at": "2026-11-27T21:37:00Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:00Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://datasette.io/desktop",
+      "identity_evidence_text": "Datasette Desktop for macOS",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/datasette-desktop",
+          "external_id": "datasette-desktop",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "davmail-32fdd1b8",
       "name": "DavMail",
       "canonical_url": "https://sourceforge.net/projects/davmail",
@@ -32182,6 +32416,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/r/Revoltz/Devaron/0.0.1/Revoltz.Devaron.locale.en-US.yaml",
           "external_id": "Revoltz.Devaron",
           "discovered_at": "2026-11-17T12:19:33Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "deviceshelf-8c0fdd2b",
+      "name": "DeviceShelf",
+      "canonical_url": "https://deviceshelf.app",
+      "short_description": "DeviceShelf: Scanner for devices, open ports and security risks on the local network.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "DeviceShelf",
+      "first_seen_at": "2026-11-27T21:36:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:51Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://deviceshelf.app",
+      "identity_evidence_text": "Network Scanner & IP Scanner for Wi-Fi and LAN | DeviceShelf",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/deviceshelf",
+          "external_id": "deviceshelf",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -35471,6 +35731,32 @@
       "url_aliases": []
     },
     {
+      "slug": "doughnut-6958e2ed",
+      "name": "Doughnut",
+      "canonical_url": "https://github.com/dyerc/Doughnut",
+      "short_description": "Doughnut: Podcast client.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Doughnut",
+      "first_seen_at": "2026-11-27T21:37:00Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:00Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/dyerc/Doughnut",
+      "identity_evidence_text": "GitHub - dyerc/Doughnut: Podcast client (podcatcher) for Mac · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/doughnut",
+          "external_id": "doughnut",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "dovecot-18667e45",
       "name": "Dovecot",
       "canonical_url": "https://dovecot.org",
@@ -36373,6 +36659,32 @@
           "source_url": "https://dubsado.com",
           "external_id": "https://dubsado.com",
           "discovered_at": "2026-11-15T20:19:42Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "duckduckgo-c489a87f",
+      "name": "DuckDuckGo",
+      "canonical_url": "https://duckduckgo.com",
+      "short_description": "DuckDuckGo: Web browser focusing on privacy.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "DuckDuckGo",
+      "first_seen_at": "2026-11-27T21:36:26Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:26Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://duckduckgo.com",
+      "identity_evidence_text": "DuckDuckGo - Protection. Privacy. Peace of mind.",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/duckduckgo",
+          "external_id": "duckduckgo",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -40156,6 +40468,32 @@
       "url_aliases": []
     },
     {
+      "slug": "espresso-6fab56ab",
+      "name": "Espresso",
+      "canonical_url": "https://ixian.au/espresso",
+      "short_description": "Espresso: Website editor focusing on flair and efficiency.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Espresso",
+      "first_seen_at": "2026-11-27T21:36:21Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:21Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://ixian.au/espresso",
+      "identity_evidence_text": "Espresso — The Web Editor for Mac",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/espresso",
+          "external_id": "espresso",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "essaywriter-c4702777",
       "name": "EssayWriter",
       "canonical_url": "https://support.biosilico.com/portal/en/kb/articles/download-microbreak",
@@ -42288,6 +42626,32 @@
       "url_aliases": []
     },
     {
+      "slug": "fastscripts-c6e3ee62",
+      "name": "FastScripts",
+      "canonical_url": "https://redsweater.com/fastscripts",
+      "short_description": "FastScripts: Tool for running time-saving scripts.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "FastScripts",
+      "first_seen_at": "2026-11-27T21:36:57Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:57Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://redsweater.com/fastscripts",
+      "identity_evidence_text": "FastScripts 3",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/fastscripts",
+          "external_id": "fastscripts",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "fastsync-1af7e5e3",
       "name": "FastSync",
       "canonical_url": "https://github.com/ShouChenICU/FastSync",
@@ -42551,6 +42915,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "00cc53c94af166d08ac1afef27c6cd924631db8a0325c5af6697ccfe6910927d",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "feather-b7ed0670",
+      "name": "Feather",
+      "canonical_url": "https://featherwallet.org",
+      "short_description": "Feather: Monero desktop wallet.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Feather",
+      "first_seen_at": "2026-11-27T21:36:56Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:56Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://featherwallet.org",
+      "identity_evidence_text": "Feather Wallet Hosting Incident",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/feather",
+          "external_id": "feather",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -48824,6 +49214,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "558288c93a9ddda79c73d84f67792bd1bfcaa5b8e50c14cb5a2bcf8710cb8c22",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "gallery-remote-d1ed1290",
+      "name": "Gallery Remote",
+      "canonical_url": "https://ntwind.com/remote/gallery.html",
+      "short_description": "Gallery Remote: Present photo slideshows on devices over a local network.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Gallery Remote",
+      "first_seen_at": "2026-11-27T21:36:24Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:24Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://ntwind.com/remote/gallery.html",
+      "identity_evidence_text": "Gallery Remote - Present Photo Slideshows on Nearby PCs, Macs, Phones or Tablets - NTWind Software",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/gallery-remote",
+          "external_id": "gallery-remote",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -55327,6 +55743,32 @@
       "url_aliases": []
     },
     {
+      "slug": "handbrake-e4f1ee4d",
+      "name": "HandBrake",
+      "canonical_url": "https://handbrake.fr",
+      "short_description": "HandBrake: Open-source video transcoder.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "HandBrake",
+      "first_seen_at": "2026-11-27T21:36:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:58Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://handbrake.fr",
+      "identity_evidence_text": "HandBrake: Open Source Video Transcoder",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/handbrake-app",
+          "external_id": "handbrake-app",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "handbrake-web-a43c2630",
       "name": "HandBrake Web",
       "canonical_url": "https://github.com/TheNickOfTime/handbrake-web",
@@ -57136,6 +57578,32 @@
       "url_aliases": []
     },
     {
+      "slug": "hidden-bar-b2788676",
+      "name": "Hidden Bar",
+      "canonical_url": "https://github.com/consolelabs/hidden",
+      "short_description": "Hidden Bar: Utility to hide menu bar items.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Hidden Bar",
+      "first_seen_at": "2026-11-27T21:36:19Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:19Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/consolelabs/hidden",
+      "identity_evidence_text": "GitHub - consolelabs/hidden: An ultra-light MacOS utility that helps hide menu bar icons · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/hiddenbar",
+          "external_id": "hiddenbar",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "hidedesktopapps-427229b4",
       "name": "HideDesktopApps",
       "canonical_url": "https://github.com/Londopy/HideDesktopApps",
@@ -57183,6 +57651,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/h/HideMyShare/HideMyShare/1.0.2/HideMyShare.HideMyShare.locale.en-US.yaml",
           "external_id": "HideMyShare.HideMyShare",
           "discovered_at": "2026-11-17T12:17:29Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "hides-8c1dd921",
+      "name": "Hides",
+      "canonical_url": "https://hides.sweetpproductions.com",
+      "short_description": "Hides: App to hide all open apps except the current one.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Hides",
+      "first_seen_at": "2026-11-27T21:36:57Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:57Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://hides.sweetpproductions.com",
+      "identity_evidence_text": "Hides — Focus Mode and App Hider for Mac",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/hides",
+          "external_id": "hides",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -59074,6 +59568,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "6c1e7f8e52b5e12f13287fc5cb6cafbe9dc180face7af12d826b672081be07a6",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "hyprmac-df39e2e3",
+      "name": "HyprMac",
+      "canonical_url": "https://hyprmac.app",
+      "short_description": "HyprMac: Tiling window manager.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "HyprMac",
+      "first_seen_at": "2026-11-27T21:36:19Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:19Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://hyprmac.app",
+      "identity_evidence_text": "HyprMac: keyboard-driven tiling window manager for macOS",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/hyprmac",
+          "external_id": "hyprmac",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -61185,6 +61705,32 @@
       "url_aliases": []
     },
     {
+      "slug": "input-cbcac5fd",
+      "name": "Input",
+      "canonical_url": "https://worklouder.cc/input",
+      "short_description": "Input: Keyboard configurator for Work Louder devices.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Input",
+      "first_seen_at": "2026-11-27T21:37:03Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:03Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://worklouder.cc/input",
+      "identity_evidence_text": "WORK LOUDER®",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/work-louder-input",
+          "external_id": "work-louder-input",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "input-0-e0109ba5",
       "name": "Input 0",
       "canonical_url": "https://input0.com",
@@ -62942,6 +63488,32 @@
       "url_aliases": []
     },
     {
+      "slug": "jellybox-c07382e6",
+      "name": "JellyBox",
+      "canonical_url": "https://jellybox.app",
+      "short_description": "JellyBox: Music player for Jellyfin, Navidrome and Emby servers.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "JellyBox",
+      "first_seen_at": "2026-11-27T21:36:42Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:42Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://jellybox.app",
+      "identity_evidence_text": "Jellyfin, Navidrome & Emby music player - JellyBox",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/jellybox",
+          "external_id": "jellybox",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "jellyamp-b01944f3",
       "name": "Jellyamp",
       "canonical_url": "https://github.com/jellyfin-archive/jellyamp",
@@ -63386,6 +63958,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/j/Jitsi/Jitsi/2.10.5550/Jitsi.Jitsi.locale.en-US.yaml",
           "external_id": "Jitsi.Jitsi",
           "discovered_at": "2026-11-17T12:17:44Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "jitsi-e4232165",
+      "name": "Jitsi",
+      "canonical_url": "https://desktop.jitsi.org",
+      "short_description": "Jitsi: Open-source video calls and chat.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Jitsi",
+      "first_seen_at": "2026-11-27T21:36:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:58Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://desktop.jitsi.org",
+      "identity_evidence_text": "jitsi.org | Jitsi",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/jitsi",
+          "external_id": "jitsi",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -69742,6 +70340,32 @@
       "url_aliases": []
     },
     {
+      "slug": "leigod-5bd51e92",
+      "name": "LeiGod",
+      "canonical_url": "https://leigod.com",
+      "short_description": "LeiGod: Game network accelerator.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "LeiGod 雷神加速器",
+      "first_seen_at": "2026-11-27T21:37:06Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:06Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://leigod.com",
+      "identity_evidence_text": "雷神加速器-专线加速游戏,按分钟计费可暂停【官方网站】",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/leigod",
+          "external_id": "leigod",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "lemmy-a301727e",
       "name": "Lemmy",
       "canonical_url": "https://join-lemmy.org",
@@ -71778,6 +72402,32 @@
       "url_aliases": []
     },
     {
+      "slug": "loading-eab58c32",
+      "name": "Loading",
+      "canonical_url": "https://bonzaiapps.com/loading",
+      "short_description": "Loading: Network activity monitor.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Loading",
+      "first_seen_at": "2026-11-27T21:36:54Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:54Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://bonzaiapps.com/loading",
+      "identity_evidence_text": "Loading - Simple network activity monitor for macOS",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/loading",
+          "external_id": "loading",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "lobehub-cf36b23b",
       "name": "LobeHub",
       "canonical_url": "https://github.com/lobehub/lobe-chat",
@@ -73260,6 +73910,32 @@
       "url_aliases": []
     },
     {
+      "slug": "luna-display-4bdf7a21",
+      "name": "Luna Display",
+      "canonical_url": "https://astropad.com/product/lunadisplay",
+      "short_description": "Luna Display: Use your iPad as a wireless second display.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Luna Display",
+      "first_seen_at": "2026-11-27T21:36:53Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:53Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://astropad.com/product/lunadisplay",
+      "identity_evidence_text": "Luna Display | Turn your Mac or iPad into a second display",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/luna-display",
+          "external_id": "luna-display",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "lunacy-273586a0",
       "name": "Lunacy",
       "canonical_url": "https://icons8.com/lunacy",
@@ -73801,6 +74477,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/t/TERMINATORmdel101/MAUS/0.8.6/TERMINATORmdel101.MAUS.locale.en-US.yaml",
           "external_id": "TERMINATORmdel101.MAUS",
           "discovered_at": "2026-11-17T12:19:54Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "max-messages-7c290485",
+      "name": "MAX Messages",
+      "canonical_url": "https://mothsoftware.com/content/content/maxmessages.php",
+      "short_description": "MAX Messages: Archive and browse conversations from the Messages app.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "MAX Messages",
+      "first_seen_at": "2026-11-27T21:36:22Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:22Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://mothsoftware.com/content/content/maxmessages.php",
+      "identity_evidence_text": "Export and Archive iMessage Conversations on Mac | MAX Messages",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/max-messages",
+          "external_id": "max-messages",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -78052,6 +78754,32 @@
       "url_aliases": []
     },
     {
+      "slug": "medis-1f69432e",
+      "name": "Medis",
+      "canonical_url": "https://getmedis.com",
+      "short_description": "Medis: Modern GUI for Redis.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Medis",
+      "first_seen_at": "2026-11-27T21:36:50Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:50Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://getmedis.com",
+      "identity_evidence_text": "Medis - Modern GUI for Redis",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/medis",
+          "external_id": "medis",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "medusa-b6796428",
       "name": "Medusa",
       "canonical_url": "https://github.com/pymedusa/Medusa",
@@ -80028,6 +80756,32 @@
       "url_aliases": []
     },
     {
+      "slug": "middleclick-c5d6fd65",
+      "name": "MiddleClick",
+      "canonical_url": "https://github.com/artginzburg/MiddleClick",
+      "short_description": "MiddleClick: Utility to extend trackpad functionality.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "MiddleClick",
+      "first_seen_at": "2026-11-27T21:37:04Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:04Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/artginzburg/MiddleClick",
+      "identity_evidence_text": "GitHub - artginzburg/MiddleClick:  \"Wheel click\" with three-finger click/tap for Trackpad and Magic Mouse. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/middleclick",
+          "external_id": "middleclick",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "middleware-b6e002b5",
       "name": "Middleware",
       "canonical_url": "https://middlewarehq.com",
@@ -80387,6 +81141,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/m/Mingo/Mingo/1.14.1/Mingo.Mingo.locale.en-US.yaml",
           "external_id": "Mingo.Mingo",
           "discovered_at": "2026-11-17T12:18:15Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "mini-vmac-dc3c81bc",
+      "name": "Mini vMac",
+      "canonical_url": "https://gryphel.com/c/minivmac",
+      "short_description": "Mini vMac: Allows modern computers to run software made for early Apple computers.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Mini vMac",
+      "first_seen_at": "2026-11-27T21:36:51Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:51Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://gryphel.com/c/minivmac",
+      "identity_evidence_text": "Mini vMac - early Macintosh emulator",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/mini-vmac",
+          "external_id": "mini-vmac",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -81180,6 +81960,32 @@
       "url_aliases": []
     },
     {
+      "slug": "mistral-vibe-41533392",
+      "name": "Mistral Vibe",
+      "canonical_url": "https://mistral.ai/products/vibe",
+      "short_description": "Mistral Vibe: AI chat and coding agent.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Mistral Vibe",
+      "first_seen_at": "2026-11-27T21:36:29Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:29Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://mistral.ai/products/vibe",
+      "identity_evidence_text": "Mistral Vibe (formerly Le Chat) - AI chat and coding agent",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/mistral-vibe-app",
+          "external_id": "mistral-vibe-app",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "mitti-521557cb",
       "name": "Mitti",
       "canonical_url": "https://imimot.com/mitti",
@@ -81201,6 +82007,32 @@
           "source_url": "https://formulae.brew.sh/cask/mitti",
           "external_id": "mitti",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "mixed-in-key-3c9706c3",
+      "name": "Mixed In Key",
+      "canonical_url": "https://mixedinkey.com/get11",
+      "short_description": "Mixed In Key: Harmonic mixing for DJs and music producers.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Mixed In Key",
+      "first_seen_at": "2026-11-27T21:36:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:58Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://mixedinkey.com/get11",
+      "identity_evidence_text": "Mixed In Key 11 Download - Mixed In Key",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/mixed-in-key",
+          "external_id": "mixed-in-key",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -92572,6 +93404,32 @@
       "url_aliases": []
     },
     {
+      "slug": "onlyswitch-ac278c97",
+      "name": "OnlySwitch",
+      "canonical_url": "https://github.com/jacklandrin/OnlySwitch",
+      "short_description": "OnlySwitch: System and utility switches.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "OnlySwitch",
+      "first_seen_at": "2026-11-27T21:36:52Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:52Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/jacklandrin/OnlySwitch",
+      "identity_evidence_text": "GitHub - jacklandrin/OnlySwitch: 👑 The all-in-one macOS menu bar companion: customizable controls, system monitor, AI Agent, Shortcuts, widgets, remote control, and more. · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/only-switch",
+          "external_id": "only-switch",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "ontime-be807e32",
       "name": "Ontime",
       "canonical_url": "https://getontime.no",
@@ -98901,6 +99759,32 @@
       "url_aliases": []
     },
     {
+      "slug": "passenger-6af9b082",
+      "name": "Passenger",
+      "canonical_url": "https://passenger-ide.net",
+      "short_description": "Passenger: IDE for C# and .NET.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Passenger",
+      "first_seen_at": "2026-11-27T21:36:18Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:18Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://passenger-ide.net",
+      "identity_evidence_text": "Passenger: free C# and .NET IDE for Windows, macOS and Linux",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/passenger-ide",
+          "external_id": "passenger-ide",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "passky-3a7835d4",
       "name": "Passky",
       "canonical_url": "https://passky.org",
@@ -101033,6 +101917,32 @@
       "url_aliases": []
     },
     {
+      "slug": "pieces-3f99b9e7",
+      "name": "Pieces",
+      "canonical_url": "https://pieces.app",
+      "short_description": "Pieces: Code snippets, screenshots and workflow context.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Pieces",
+      "first_seen_at": "2026-11-27T21:36:59Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:59Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://pieces.app",
+      "identity_evidence_text": "Pieces — The AI memory layer for modern work",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/pieces",
+          "external_id": "pieces",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "piezo-3d95394f",
       "name": "Piezo",
       "canonical_url": "https://rogueamoeba.com/piezo",
@@ -102203,6 +103113,32 @@
           "source_url": "https://formulae.brew.sh/cask/playonmac",
           "external_id": "playonmac",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "playdate-mirror-9777c5b2",
+      "name": "Playdate Mirror",
+      "canonical_url": "https://play.date/mirror",
+      "short_description": "Playdate Mirror: Application that streams gameplay audio and video from your Playdate.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Playdate Mirror",
+      "first_seen_at": "2026-11-27T21:36:28Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:28Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://play.date/mirror",
+      "identity_evidence_text": "Mirror",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/playdate-mirror",
+          "external_id": "playdate-mirror",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -103516,6 +104452,32 @@
       "url_aliases": []
     },
     {
+      "slug": "postbird-72ece9b3",
+      "name": "Postbird",
+      "canonical_url": "https://github.com/Paxa/postbird",
+      "short_description": "Postbird: PostgreSQL GUI client.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Postbird",
+      "first_seen_at": "2026-11-27T21:36:20Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:20Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/Paxa/postbird",
+      "identity_evidence_text": "GitHub - Paxa/postbird: Open source PostgreSQL GUI client for macOS, Linux and Windows · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/postbird",
+          "external_id": "postbird",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "poster-font-light-84f8d6c7",
       "name": "Poster Font Light",
       "canonical_url": "https://japplis.com/poster-font/light",
@@ -103849,6 +104811,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/p/PowCal/PowCal/2.2.0/PowCal.PowCal.locale.en-US.yaml",
           "external_id": "PowCal.PowCal",
           "discovered_at": "2026-11-17T12:19:24Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "power-manager-2b7431eb",
+      "name": "Power Manager",
+      "canonical_url": "https://dssw.co.uk/powermanager",
+      "short_description": "Power Manager: Utility to automate tasks and improve power management.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Power Manager",
+      "first_seen_at": "2026-11-27T21:36:55Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:55Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://dssw.co.uk/powermanager",
+      "identity_evidence_text": "Power Manager - Automation and Energy Saving Software for macOS",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/power-manager",
+          "external_id": "power-manager",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -113370,6 +114358,32 @@
       "url_aliases": []
     },
     {
+      "slug": "rnote-f0244646",
+      "name": "Rnote",
+      "canonical_url": "https://rnote.flxzt.net",
+      "short_description": "Rnote: Sketch and take handwritten notes.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Rnote",
+      "first_seen_at": "2026-11-27T21:37:00Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:00Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://rnote.flxzt.net",
+      "identity_evidence_text": "Rnote: Sketch and take handwritten notes",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/rnote",
+          "external_id": "rnote",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "rnp-24187447",
       "name": "Rnp",
       "canonical_url": "https://github.com/r12f/rnp",
@@ -113469,6 +114483,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/r/Roblox/Roblox/0.747/Roblox.Roblox.locale.en-US.yaml",
           "external_id": "Roblox.Roblox",
           "discovered_at": "2026-11-17T12:19:34Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "robofont-8dde45da",
+      "name": "RoboFont",
+      "canonical_url": "https://robofont.com",
+      "short_description": "RoboFont: Font editor.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "RoboFont",
+      "first_seen_at": "2026-11-27T21:36:58Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:58Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://robofont.com",
+      "identity_evidence_text": "RoboFont ● RoboFont",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/robofont",
+          "external_id": "robofont",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -113580,6 +114620,32 @@
           "source_url": "https://formulae.brew.sh/cask/rocket-chat",
           "external_id": "rocket-chat",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "rockxy-2d668463",
+      "name": "Rockxy",
+      "canonical_url": "https://rockxy.io",
+      "short_description": "Rockxy: HTTP proxy. Software application.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Rockxy",
+      "first_seen_at": "2026-11-27T21:36:59Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:59Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://rockxy.io",
+      "identity_evidence_text": "Rockxy — Open-Source HTTP/HTTPS Debugger for macOS",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/rockxy",
+          "external_id": "rockxy",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -114833,6 +115899,32 @@
       "url_aliases": []
     },
     {
+      "slug": "sc-menu-68d7168f",
+      "name": "SC Menu",
+      "canonical_url": "https://github.com/boberito/sc_menu",
+      "short_description": "SC Menu: Simple smartcard menu item.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "SC Menu",
+      "first_seen_at": "2026-11-27T21:36:48Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:48Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/boberito/sc_menu",
+      "identity_evidence_text": "GitHub - boberito/sc_menu: Simple smartcard Menu item · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/sc-menu",
+          "external_id": "sc-menu",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "scm-manager-4f6b994a",
       "name": "SCM Manager",
       "canonical_url": "https://scm-manager.org",
@@ -115509,6 +116601,32 @@
       "url_aliases": []
     },
     {
+      "slug": "sqlpro-studio-20384041",
+      "name": "SQLPro Studio",
+      "canonical_url": "https://sqlprostudio.com",
+      "short_description": "SQLPro Studio: Database management tool.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "SQLPro Studio",
+      "first_seen_at": "2026-11-27T21:37:03Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:03Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://sqlprostudio.com",
+      "identity_evidence_text": "SQLPro Studio — Database Manager for macOS, iOS, Android & Windows",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/sqlpro-studio",
+          "external_id": "sqlpro-studio",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "sqlpro-for-mysql-34e317f2",
       "name": "SQLPro for MySQL",
       "canonical_url": "https://mysqlui.com",
@@ -116076,6 +117194,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "0b0edd4f41c234d40efce2ee33bd538a7208ef8bb54dc700723f2286eb6b3c5f",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "saega-d92f8a26",
+      "name": "Saega",
+      "canonical_url": "https://saega.app",
+      "short_description": "Saega: Dictation and meeting transcription for Swedish and Norwegian.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Saega",
+      "first_seen_at": "2026-11-27T21:36:55Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:55Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://saega.app",
+      "identity_evidence_text": "Sæga: Diktering och möten på svenska, gratis på Mac",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/saega",
+          "external_id": "saega",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -117919,6 +119063,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/5/5rahim/Seanime/3.10.4/5rahim.Seanime.locale.en-US.yaml",
           "external_id": "5rahim.Seanime",
           "discovered_at": "2026-11-17T12:16:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "search-8692b393",
+      "name": "Search",
+      "canonical_url": "https://officecommun.com/search",
+      "short_description": "Search: WebKit-based web browser.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Search",
+      "first_seen_at": "2026-11-27T21:36:25Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:25Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://officecommun.com/search",
+      "identity_evidence_text": "Search Browser — a fast, light web browser for the Mac",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/search-browser",
+          "external_id": "search-browser",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -125506,6 +126676,32 @@
       "url_aliases": []
     },
     {
+      "slug": "spaceman-99dc191e",
+      "name": "Spaceman",
+      "canonical_url": "https://anoma.ly/spaceman",
+      "short_description": "Spaceman: Tiling window manager.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Spaceman",
+      "first_seen_at": "2026-11-27T21:37:00Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:00Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://anoma.ly/spaceman",
+      "identity_evidence_text": "Spaceman — a tiling window manager for macOS",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/anomaly-spaceman",
+          "external_id": "anomaly-spaceman",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "spacemesh-7ad05d24",
       "name": "Spacemesh",
       "canonical_url": "https://github.com/spacemeshos/smapp",
@@ -125839,6 +127035,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "0c438cef74739968a6ad0818f4ec3eb85c083cda7df90161a91ccaa5ebe988d5",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "speedcrunch-be4e1611",
+      "name": "SpeedCrunch",
+      "canonical_url": "https://speedcrunch.org",
+      "short_description": "SpeedCrunch: Scientific calculator.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "SpeedCrunch",
+      "first_seen_at": "2026-11-27T21:36:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:41Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://speedcrunch.org",
+      "identity_evidence_text": "SpeedCrunch — Free High-Precision Scientific Calculator",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/speedcrunch",
+          "external_id": "speedcrunch",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -129746,6 +130968,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/r/RobertoB/SussurroIA/2.0.1/RobertoB.SussurroIA.locale.en-US.yaml",
           "external_id": "RobertoB.SussurroIA",
           "discovered_at": "2026-11-17T12:19:34Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "suunto-dm5-49e2bcf4",
+      "name": "Suunto DM5",
+      "canonical_url": "https://suunto.com/Support/software-support/dm5",
+      "short_description": "Suunto DM5: Create dive plans and analyze your dives.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Suunto DM5",
+      "first_seen_at": "2026-11-27T21:37:02Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:02Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://suunto.com/Support/software-support/dm5",
+      "identity_evidence_text": "Suunto DM5 Support",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/suuntodm5",
+          "external_id": "suuntodm5",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -135195,6 +136443,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/g/GeekCorner/threema/2.5.1/GeekCorner.threema.locale.en-US.yaml",
           "external_id": "GeekCorner.threema",
           "discovered_at": "2026-11-17T12:17:18Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "threema-work-a5d79d3a",
+      "name": "Threema Work",
+      "canonical_url": "https://threema.com/products/work",
+      "short_description": "Threema Work: End-to-end encrypted instant messaging application.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Threema Work",
+      "first_seen_at": "2026-11-27T21:36:55Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:55Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://threema.com/products/work",
+      "identity_evidence_text": "Threema Work – Threema",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/threema-work",
+          "external_id": "threema-work",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -142578,6 +143852,32 @@
       "url_aliases": []
     },
     {
+      "slug": "vox-c276de35",
+      "name": "VOX",
+      "canonical_url": "https://vox.rocks/mac-music-player",
+      "short_description": "VOX: Music player for high resolution (Hi-Res) music through the external sources.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "VOX",
+      "first_seen_at": "2026-11-27T21:36:59Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:59Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://vox.rocks/mac-music-player",
+      "identity_evidence_text": "VOX Mac Music Player: Best FLAC Player for Mac. iTunes Alternative.",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/vox",
+          "external_id": "vox",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "vrchat-creator-companion-160bb419",
       "name": "VRChat Creator Companion",
       "canonical_url": "https://vcc.docs.vrchat.com",
@@ -143119,6 +144419,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/v/Vegha/Vegha/1.5.0/Vegha.Vegha.locale.en-US.yaml",
           "external_id": "Vegha.Vegha",
           "discovered_at": "2026-11-17T12:20:08Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "velaterm-023d8932",
+      "name": "VelaTerm",
+      "canonical_url": "https://velaterm.com",
+      "short_description": "VelaTerm: Terminal multiplexer and agentic development environment for AI coding agents.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "VelaTerm",
+      "first_seen_at": "2026-11-27T21:36:18Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:18Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://velaterm.com",
+      "identity_evidence_text": "VelaTerm — Terminal & Agent Manager",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/velaterm",
+          "external_id": "velaterm",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -144263,6 +145589,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/v/VirtualHere/USBServer/4.8.7/VirtualHere.USBServer.locale.en-US.yaml",
           "external_id": "VirtualHere.USBServer",
           "discovered_at": "2026-11-17T12:20:08Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "virtualhereserver-e3a26151",
+      "name": "VirtualHereServer",
+      "canonical_url": "https://virtualhere.com/osx_server_software",
+      "short_description": "VirtualHereServer: Remotely access your connected USB devices over the network.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "VirtualHereServer",
+      "first_seen_at": "2026-11-27T21:36:57Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:57Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://virtualhere.com/osx_server_software",
+      "identity_evidence_text": "MacOS USB Server | VirtualHere",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/virtualhereserver",
+          "external_id": "virtualhereserver",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -149182,6 +150534,32 @@
       "url_aliases": []
     },
     {
+      "slug": "wallpaper-wizard-339184fc",
+      "name": "Wallpaper Wizard",
+      "canonical_url": "https://wallwiz.com",
+      "short_description": "Wallpaper Wizard: Adjustable wallpaper application.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Wallpaper Wizard",
+      "first_seen_at": "2026-11-27T21:37:01Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:01Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://wallwiz.com",
+      "identity_evidence_text": "MacPaw announces sunset of Wallpaper Wizard 2",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/wallpaper-wizard",
+          "external_id": "wallpaper-wizard",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "wallpapermachine-c398491e",
       "name": "WallpaperMachine",
       "canonical_url": "https://wallpapermachine.app",
@@ -150518,6 +151896,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "21b574e7db601c324f7fc6ee3d0845c5c4c60178037873d6451e798b2827dd44",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "weftcut-83948cb9",
+      "name": "WeftCut",
+      "canonical_url": "https://weftcut.com",
+      "short_description": "WeftCut: Video editor controlled from MCP clients.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "WeftCut",
+      "first_seen_at": "2026-11-27T21:36:36Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:36Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://weftcut.com",
+      "identity_evidence_text": "WeftCut — Open Source AI Video Editor for MCP Agents",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/weftcut",
+          "external_id": "weftcut",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -157125,6 +158529,58 @@
       "url_aliases": []
     },
     {
+      "slug": "zentty-ab97110f",
+      "name": "Zentty",
+      "canonical_url": "https://zentty.org",
+      "short_description": "Zentty: Terminal for agent-driven development.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Zentty",
+      "first_seen_at": "2026-11-27T21:36:53Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:53Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://zentty.org",
+      "identity_evidence_text": "Zentty — Native Mac Terminal for AI Coding Agents",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/zentty",
+          "external_id": "zentty",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "zephium-b5b5291f",
+      "name": "Zephium",
+      "canonical_url": "https://zephium.app",
+      "short_description": "Zephium: WebKit-based browser with built-in AI tools.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Zephium",
+      "first_seen_at": "2026-11-27T21:36:20Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:20Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://zephium.app",
+      "identity_evidence_text": "Zephium: a browser and work environment for you and your agents",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/zephium",
+          "external_id": "zephium",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "zero-440805d9",
       "name": "Zero",
       "canonical_url": "https://zerolang.ai",
@@ -158116,6 +159572,32 @@
           "source_url": "https://formulae.brew.sh/cask/atext",
           "external_id": "atext",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "accord-473bdc9e",
+      "name": "accord",
+      "canonical_url": "https://github.com/evelyneee/accord",
+      "short_description": "accord: Discord client written in Swift for modern Macs.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "accord",
+      "first_seen_at": "2026-11-27T21:36:55Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:55Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/evelyneee/accord",
+      "identity_evidence_text": "GitHub - tealbathingsuit/accord: a discord client for modern macs · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/accord",
+          "external_id": "accord",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -159858,6 +161340,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/u/Unifan/Carton/0.6.2/Unifan.Carton.locale.en-US.yaml",
           "external_id": "Unifan.Carton",
           "discovered_at": "2026-11-17T12:20:05Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "castr-fd19ad6b",
+      "name": "castr",
+      "canonical_url": "https://castr.io",
+      "short_description": "castr: Desktop application for controlling Castr streaming platform.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "castr",
+      "first_seen_at": "2026-11-27T21:37:02Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:02Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://castr.io",
+      "identity_evidence_text": "Professional Live Video Streaming Solution & Hosting | Castr",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/castr",
+          "external_id": "castr",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
@@ -171566,6 +173074,32 @@
       "url_aliases": []
     },
     {
+      "slug": "moose-978c5f8e",
+      "name": "moose",
+      "canonical_url": "https://moose.riteshkr.com",
+      "short_description": "moose: Torrent client to download, stream and cast torrents.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "moose",
+      "first_seen_at": "2026-11-27T21:36:18Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:36:18Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://moose.riteshkr.com",
+      "identity_evidence_text": "moose",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/moose",
+          "external_id": "moose",
+          "discovered_at": "2026-11-27T21:35:38Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "mosdns-3a446124",
       "name": "mosdns",
       "canonical_url": "https://github.com/IrineSistiana/mosdns",
@@ -172037,6 +173571,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/i/IgorBayerl/nanovision/0.2.1/IgorBayerl.nanovision.locale.en-US.yaml",
           "external_id": "IgorBayerl.nanovision",
           "discovered_at": "2026-11-17T12:17:34Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "nao-3f811f68",
+      "name": "nao",
+      "canonical_url": "https://getnao.io",
+      "short_description": "nao: AI code editor for data.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "nao",
+      "first_seen_at": "2026-11-27T21:37:00Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T21:37:00Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://getnao.io",
+      "identity_evidence_text": "nao: open-source analytics agent and agentic BI",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/nao",
+          "external_id": "nao",
+          "discovered_at": "2026-11-27T21:35:38Z"
         }
       ],
       "url_aliases": []
