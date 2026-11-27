@@ -1,7 +1,7 @@
 {
-  "exported_at": "2026-11-27T14:10:49.436Z",
+  "exported_at": "2026-11-27T14:12:56.327Z",
   "environment": "production",
-  "publication_revision": 0,
+  "publication_revision": 12,
   "products": [
     {
       "slug": "net-codecontracts-6514d1a5",
@@ -12874,6 +12874,32 @@
           "source_url": "https://formulae.brew.sh/cask/blankie",
           "external_id": "blankie",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "blave-78bb3f24",
+      "name": "Blave",
+      "canonical_url": "https://blave.org",
+      "short_description": "Blave: Algorithmic trading and backtesting app using AI agents.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Blave",
+      "first_seen_at": "2026-11-27T14:12:10Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T14:12:10Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://blave.org",
+      "identity_evidence_text": "AI Quant Trading: Backtest to Live Trading｜Blave",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/blave",
+          "external_id": "blave",
+          "discovered_at": "2026-11-27T14:11:37Z"
         }
       ],
       "url_aliases": []
@@ -29270,6 +29296,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "37d0fcd5624eb628e835adc16401ae92c245b5fdae4e61801ea2d4f7dfb75c93",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "dimble-3ff1edeb",
+      "name": "Dimble",
+      "canonical_url": "https://dimble.fif7y.com",
+      "short_description": "Dimble: Menu bar manager.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Dimble",
+      "first_seen_at": "2026-11-27T14:12:08Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T14:12:08Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://dimble.fif7y.com",
+      "identity_evidence_text": "Dimble: hide and tidy menu bar icons on macOS 27",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/dimble",
+          "external_id": "dimble",
+          "discovered_at": "2026-11-27T14:11:37Z"
         }
       ],
       "url_aliases": []
@@ -45977,6 +46029,32 @@
       "url_aliases": []
     },
     {
+      "slug": "goldenpassport-02fdefdb",
+      "name": "GoldenPassport",
+      "canonical_url": "https://github.com/thatscode/GoldenPassport",
+      "short_description": "GoldenPassport: Menu bar TOTP authenticator.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "GoldenPassport",
+      "first_seen_at": "2026-11-27T14:12:09Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T14:12:09Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://github.com/thatscode/GoldenPassport",
+      "identity_evidence_text": "GitHub - thatscode/GoldenPassport: A native implementation of Google Authenticator for Mac based on Swift · GitHub",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/goldenpassport",
+          "external_id": "goldenpassport",
+          "discovered_at": "2026-11-27T14:11:37Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "goodsync-13269bf1",
       "name": "GoodSync",
       "canonical_url": "https://goodsync.com",
@@ -59654,6 +59732,32 @@
       "url_aliases": []
     },
     {
+      "slug": "lap-8cbe5a19",
+      "name": "Lap",
+      "canonical_url": "https://julyx10.github.io/lap",
+      "short_description": "Lap: Local-first photo manager.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Lap",
+      "first_seen_at": "2026-11-27T14:12:09Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T14:12:09Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://julyx10.github.io/lap",
+      "identity_evidence_text": "Lap",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/lap",
+          "external_id": "lap",
+          "discovered_at": "2026-11-27T14:11:37Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "lapce-dd51c849",
       "name": "Lapce",
       "canonical_url": "https://lapce.dev",
@@ -60117,6 +60221,32 @@
           "source_url": "https://formulae.brew.sh/cask/launchpad-manager",
           "external_id": "launchpad-manager",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "layout-department-9648d1c7",
+      "name": "Layout Department",
+      "canonical_url": "https://layoutdepartment.com",
+      "short_description": "Layout Department: Imposition software for laying out books, zines and booklets from PDFs.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "Layout Department",
+      "first_seen_at": "2026-11-27T14:12:09Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T14:12:09Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://layoutdepartment.com",
+      "identity_evidence_text": "Layout Department",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/layout-department",
+          "external_id": "layout-department",
+          "discovered_at": "2026-11-27T14:11:37Z"
         }
       ],
       "url_aliases": []
@@ -111754,6 +111884,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/s/StefanSundin/Superf4/1.4/StefanSundin.Superf4.locale.en-US.yaml",
           "external_id": "StefanSundin.Superf4",
           "discovered_at": "2026-11-17T12:19:48Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "supertab-b87ec992",
+      "name": "SuperTab",
+      "canonical_url": "https://noteifyapp.com/supertab",
+      "short_description": "SuperTab: Switcher panel for apps, windows, clipboard history and files.",
+      "category_slug": "desktop-apps",
+      "audience": "Desktop software users",
+      "search_aliases": "SuperTab",
+      "first_seen_at": "2026-11-27T14:12:09Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-27T14:12:09Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://noteifyapp.com/supertab",
+      "identity_evidence_text": "SuperTab 7 for Mac — the one you remember, rebuilt",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Homebrew Cask (BSD-2-Clause)",
+          "source_url": "https://formulae.brew.sh/cask/supertab",
+          "external_id": "supertab",
+          "discovered_at": "2026-11-27T14:11:37Z"
         }
       ],
       "url_aliases": []
