@@ -1,7 +1,7 @@
 {
-  "exported_at": "2026-11-28T08:36:55.135Z",
+  "exported_at": "2026-11-28T10:55:10.047Z",
   "environment": "production",
-  "publication_revision": 5008,
+  "publication_revision": 5024,
   "products": [
     {
       "slug": "net-codecontracts-6514d1a5",
@@ -71880,7 +71880,7 @@
       "search_aliases": "INGInious",
       "first_seen_at": "2026-11-16T10:05:13Z",
       "announced_at": null,
-      "last_verified_at": "2026-11-17T11:12:02Z",
+      "last_verified_at": "2026-11-28T10:54:43Z",
       "verification_scope": "identity",
       "identity_evidence_url": "https://inginious.org/?lang=en",
       "identity_evidence_text": "Your online Teaching Assistant | INGInious",
@@ -82737,6 +82737,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/l/Langflow/Langflow/1.13.0/Langflow.Langflow.locale.en-US.yaml",
           "external_id": "Langflow.Langflow",
           "discovered_at": "2026-11-17T12:17:53Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "langfuse-be05c4a4",
+      "name": "Langfuse",
+      "canonical_url": "https://langfuse.com",
+      "short_description": "Langfuse: LLM engineering platform for model tracing, prompt management, and application evaluation. Langfuse helps teams collaboratively debug, analyze, and iterate on their LLM applications such as chatbots or AI agents.",
+      "category_slug": "web-apps",
+      "audience": "Self-hosted software users",
+      "search_aliases": "Langfuse",
+      "first_seen_at": "2026-11-28T10:54:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-28T10:54:41Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://langfuse.com",
+      "identity_evidence_text": "Langfuse: Open Source Agent Evals & ObservabilityPythonTypescriptGitHubDiscordXYouTubeLinkedInGitHubX",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Awesome-Selfhosted (CC-BY-SA-3.0)",
+          "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "external_id": "be05c4a4ab614ba049d0266b32496bbffbc81580cee3c9b286502aadbbf4e9a1",
+          "discovered_at": "2026-11-28T10:54:26Z"
         }
       ],
       "url_aliases": []
@@ -106010,6 +106036,32 @@
       "url_aliases": []
     },
     {
+      "slug": "nogon-c46679b1",
+      "name": "Nogon",
+      "canonical_url": "https://nogon.eu",
+      "short_description": "Nogon: Personal web search engine with automatic indexing of visited websites. Supports offline local result previews, local files, multi-user handling and optional semantic search.",
+      "category_slug": "web-apps",
+      "audience": "Self-hosted software users",
+      "search_aliases": "Nogon",
+      "first_seen_at": "2026-11-28T10:54:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-28T10:54:41Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://nogon.eu",
+      "identity_evidence_text": "Nogon | Your Own Search Engine",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Awesome-Selfhosted (CC-BY-SA-3.0)",
+          "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "external_id": "c46679b1b3bdef983b6dcbe46f4029f65960a706443f07e5a58acd68122dd8f8",
+          "discovered_at": "2026-11-28T10:54:26Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "noi-11446a7a",
       "name": "Noi",
       "canonical_url": "https://noib.app",
@@ -107079,6 +107131,32 @@
           "source_url": "https://formulae.brew.sh/cask/novation-components",
           "external_id": "novation-components",
           "discovered_at": "2026-11-16T10:00:06Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "novu-5ec37b63",
+      "name": "Novu",
+      "canonical_url": "https://novu.co",
+      "short_description": "Novu: Notification infrastructure for developers.",
+      "category_slug": "web-apps",
+      "audience": "Self-hosted software users",
+      "search_aliases": "Novu",
+      "first_seen_at": "2026-11-28T10:54:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-28T10:54:41Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://novu.co",
+      "identity_evidence_text": "Novu - Connect your AI agents and products to customers",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Awesome-Selfhosted (CC-BY-SA-3.0)",
+          "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "external_id": "5ec37b639825806a6d1fd73d5080ced19eed98161416cb569cba574058990a5c",
+          "discovered_at": "2026-11-28T10:54:26Z"
         }
       ],
       "url_aliases": []
@@ -112107,7 +112185,7 @@
       "search_aliases": "OpenOLAT",
       "first_seen_at": "2026-11-16T10:02:00Z",
       "announced_at": null,
-      "last_verified_at": "2026-11-17T11:12:05Z",
+      "last_verified_at": "2026-11-28T10:54:44Z",
       "verification_scope": "identity",
       "identity_evidence_url": "https://openolat.com/?lang=en",
       "identity_evidence_text": "OpenOlat – Infinite learning",
@@ -120455,6 +120533,32 @@
       "url_aliases": []
     },
     {
+      "slug": "picoshare-6744cac3",
+      "name": "PicoShare",
+      "canonical_url": "https://codefloe.com/mtlynch/picoshare",
+      "short_description": "PicoShare: Minimalist, easy-to-host service for sharing images and other files.",
+      "category_slug": "web-apps",
+      "audience": "Self-hosted software users",
+      "search_aliases": "PicoShare",
+      "first_seen_at": "2026-11-28T10:54:40Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-28T10:54:40Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://codefloe.com/mtlynch/picoshare",
+      "identity_evidence_text": "mtlynch/picoshare: A minimalist, easy-to-host service for sharing images and other files - CodeFloe - the Forgejo developer platformLogo",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Awesome-Selfhosted (CC-BY-SA-3.0)",
+          "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "external_id": "6744cac3e67a43c11cb4c29b1deaf4987b76b73c99c358325370cd4ef79a696f",
+          "discovered_at": "2026-11-28T10:54:26Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "picocrypt-41a291a9",
       "name": "Picocrypt",
       "canonical_url": "https://github.com/HACKERALERT/Picocrypt",
@@ -121981,6 +122085,32 @@
           "source_url": "https://github.com/microsoft/winget-pkgs/blob/master/manifests/p/PlanGrid/PlanGrid/1.126.0.463/PlanGrid.PlanGrid.locale.en-US.yaml",
           "external_id": "PlanGrid.PlanGrid",
           "discovered_at": "2026-11-17T12:19:22Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "plane-f1403f35",
+      "name": "Plane",
+      "canonical_url": "https://plane.so",
+      "short_description": "Plane: Track issues, epics, and product roadmaps in the simplest way possible (alternative to JIRA, Linear and Height).",
+      "category_slug": "web-apps",
+      "audience": "Self-hosted software users",
+      "search_aliases": "Plane",
+      "first_seen_at": "2026-11-28T10:54:40Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-28T10:54:40Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://plane.so",
+      "identity_evidence_text": "AI-native project management | Plane",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Awesome-Selfhosted (CC-BY-SA-3.0)",
+          "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "external_id": "f1403f358893ce86bb86259694b745c973af7babc65c532df199f6362beaa2d9",
+          "discovered_at": "2026-11-28T10:54:27Z"
         }
       ],
       "url_aliases": []
@@ -159042,6 +159172,32 @@
       "url_aliases": []
     },
     {
+      "slug": "tasmota-289780ba",
+      "name": "Tasmota",
+      "canonical_url": "https://tasmota.com",
+      "short_description": "Tasmota: Firmware for ESP devices. Total local control with quick setup and updates. Control using MQTT, Web UI, HTTP or serial. Automate using timers, rules or scripts. Integration with home automation solutions.",
+      "category_slug": "web-apps",
+      "audience": "Self-hosted software users",
+      "search_aliases": "Tasmota",
+      "first_seen_at": "2026-11-28T10:54:45Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-28T10:54:45Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://tasmota.com",
+      "identity_evidence_text": "Tasmota Documentation - Tasmota",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Awesome-Selfhosted (CC-BY-SA-3.0)",
+          "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "external_id": "289780ba8f1088355bfa7c8af0f85deba9039114b2b01bddadf7bcf070435b5f",
+          "discovered_at": "2026-11-28T10:54:26Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
       "slug": "tauritavern-e805fcc3",
       "name": "TauriTavern",
       "canonical_url": "https://tauritavern.github.io",
@@ -179337,6 +179493,32 @@
           "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "external_id": "5f1d872b81231fced51173d4bd39a781c9e0814d5c51fab12599b268812b5485",
           "discovered_at": "2026-11-16T10:00:00Z"
+        }
+      ],
+      "url_aliases": []
+    },
+    {
+      "slug": "warracker-c342a9f2",
+      "name": "Warracker",
+      "canonical_url": "https://warracker.com",
+      "short_description": "Warracker: Warranty tracker that lets you monitor expiry dates, upload receipts/files, and get alerts before warranties expire.",
+      "category_slug": "web-apps",
+      "audience": "Self-hosted software users",
+      "search_aliases": "Warracker",
+      "first_seen_at": "2026-11-28T10:54:41Z",
+      "announced_at": null,
+      "last_verified_at": "2026-11-28T10:54:41Z",
+      "verification_scope": "identity",
+      "identity_evidence_url": "https://warracker.com",
+      "identity_evidence_text": "Warracker: Open-source warranty tracker",
+      "capabilities": [],
+      "sources": [
+        {
+          "source_type": "feed",
+          "source_name": "Awesome-Selfhosted (CC-BY-SA-3.0)",
+          "source_url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "external_id": "c342a9f234bd89098cf44aa936631e896cd6ee09b49fb0f4551ede2e273b6977",
+          "discovered_at": "2026-11-28T10:54:26Z"
         }
       ],
       "url_aliases": []
